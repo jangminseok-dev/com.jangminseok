@@ -1,0 +1,38 @@
+name: 장민석
+headline: 검색과 RAG로 답을 찾는 백엔드 개발자
+intro: >-
+  FastAPI 헥사고날 백엔드 위에 검색(BM25·벡터)과 LLM을 얹어,
+  근거가 있는 답을 내는 시스템을 만듭니다.
+requirements:
+  - id: python-backend
+    label: Python 백엔드 (FastAPI)
+    detail: 헥사고날·클린 아키텍처, import-linter로 레이어 의존 강제
+  - id: search-engine
+    label: 검색엔진 구축·활용
+    detail: OpenSearch / Elasticsearch 인덱스 설계와 한국어 분석기
+  - id: rag
+    label: RAG 설계와 적용
+    detail: 청크·임베딩·프롬프트·출처 표기, 골든셋 회귀 평가
+  - id: hybrid-search
+    label: 하이브리드 검색 (Sparse + Dense)
+    detail: BM25와 벡터 검색 결과를 RRF로 융합
+  - id: linux-docker
+    label: Linux · Docker 배포
+    detail: Docker Compose, k3s, 리버스 프록시·터널 운영
+  - id: git
+    label: Git 협업
+    detail: 팀 프로젝트 브랜치 전략, CI, 커밋 컨벤션
+  - id: ai-assistant
+    label: AI 코딩 어시스턴트 활용
+    detail: 규칙 문서·하네스로 에이전트의 경계와 검증을 고정
+education:
+  - org: IBM x RedHat AI Transformation Academy
+    course: AI 트랜스포메이션 과정 (수강 중)
+    period: 2026 ~
+    topics: [Python, FastAPI, React, PyTorch, watsonx, LangChain, RAG, Docker, Kubernetes·OpenShift, AWS]
+  - org: 더조은컴퓨터아카데미 종로
+    course: 빅데이터 플랫폼 구축(Hadoop)과 빅데이터 분석(Spark·Power BI) & Java 웹개발
+    period: 2022.02 ~ 2022.08 (977시간)
+    topics: [Hadoop, Spark, Power BI, Java, Spring, JSP, Oracle DB, Python 머신러닝]
+links:
+  github: https://github.com/jangminseok-dev

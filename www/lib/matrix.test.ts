@@ -1,0 +1,42 @@
+import { describe, expect, it } from "vitest";
+import { validProfileData, validProjectData } from "@/lib/content/fixtures";
+import { ProfileSchema, ProjectSchema } from "@/lib/content/schema";
+import { buildRequirementMatrix } from "@/lib/matrix";
+
+const profile = ProfileSchema.parse(validProfileData());
+
+function project(slug: string, order: number, proves: string[][]) {
+  const base = validProjectData({ slug, order, title: slug.toUpperCase() });
+  const slides = (base.slides as Record<string, unknown>[]).map((s, i) => ({
+    ...s,
+    title: `${slug}-결정${i}`,
+    proves: proves[i] ?? [],
+  }));
+  return ProjectSchema.parse({ ...base, slides });
+}
+
+describe("buildRequirementMatrix", () => {
+  it("요건마다 그것을 증명하는 슬라이드를 모은다 (슬라이드 번호 = index + 2)", () => {
+    const rows = buildRequirementMatrix(profile.requirements, [
+      project("a", 1, [["rag"], ["rag", "git"]]),
+      project("b", 2, [[], ["rag"]]),
+    ]);
+    const rag = rows.find((r) => r.id === "rag");
+    expect(rag?.evidence).toEqual([
+      { slug: "a", projectTitle: "A", slideNumber: 2, slideTitle: "a-결정0" },
+      { slug: "a", projectTitle: "A", slideNumber: 3, slideTitle: "a-결정1" },
+      { slug: "b", projectTitle: "B", slideNumber: 3, slideTitle: "b-결정1" },
+    ]);
+  });
+
+  it("증거가 없는 요건도 행으로 남긴다 (빈 배열)", () => {
+    const rows = buildRequirementMatrix(profile.requirements, []);
+    expect(rows).toHaveLength(profile.requirements.length);
+    expect(rows.every((r) => r.evidence.length === 0)).toBe(true);
+  });
+
+  it("행 순서는 profile.requirements 순서를 따른다", () => {
+    const rows = buildRequirementMatrix(profile.requirements, []);
+    expect(rows.map((r) => r.id)).toEqual(profile.requirements.map((r) => r.id));
+  });
+});
