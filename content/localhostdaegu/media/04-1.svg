@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif"><rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">DB 스키마 19 → 29 테이블</text>
+  <text x="40" y="100" fill="#9aa1ad" font-size="19">서울 서비스를 대구로 이식하면서, 은행 상담에 필요한 영역만 더했다</text>
+  <rect x="40" y="150" width="400" height="330" rx="22" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+  <text x="240" y="200" fill="#fff" font-size="24" font-weight="700" text-anchor="middle">기존 19 테이블</text>
+  <text x="240" y="240" fill="#9aa1ad" font-size="18" text-anchor="middle">상권 · 지역 · 업종 …</text>
+  <rect x="80" y="300" width="320" height="130" rx="14" fill="#181b22"/>
+  <text x="240" y="355" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">기존 컬럼 무변경</text>
+  <text x="240" y="392" fill="#9aa1ad" font-size="17" text-anchor="middle">돌아가던 기능을 깨지 않는다</text>
+  <text x="500" y="325" fill="#3b82f6" font-size="48" text-anchor="middle">+</text>
+  <g font-size="20" font-weight="700" text-anchor="middle">
+    <rect x="560" y="150" width="290" height="150" rx="18" fill="#0f1115" stroke="#3b82f6" stroke-width="2"/><text x="705" y="235" fill="#fff">금융상품</text>
+    <rect x="870" y="150" width="290" height="150" rx="18" fill="#0f1115" stroke="#3b82f6" stroke-width="2"/><text x="1015" y="235" fill="#fff">외부 데이터셋</text>
+    <rect x="560" y="330" width="290" height="150" rx="18" fill="#0f1115" stroke="#3b82f6" stroke-width="2"/><text x="705" y="415" fill="#fff">지표</text>
+    <rect x="870" y="330" width="290" height="150" rx="18" fill="#0f1115" stroke="#3b82f6" stroke-width="2"/><text x="1015" y="415" fill="#fff">상담</text>
+  </g>
+  <text x="600" y="560" fill="#fff" font-size="21" font-weight="700" text-anchor="middle">단일 alembic 리비전 · 마이그레이션 왕복 · alembic check 통과</text>
+  <text x="600" y="600" fill="#9aa1ad" font-size="18" text-anchor="middle">어디에도 연결되지 않은 고립 테이블 2건은 테스트로 감시 · ERD 문서화</text>
+</svg>
