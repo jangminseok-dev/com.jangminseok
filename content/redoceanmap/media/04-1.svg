@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif">
+  <rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">LLM 품질을 회귀 테스트로</text>
+  <g font-size="22" font-weight="700" text-anchor="middle">
+    <rect x="60" y="150" width="300" height="130" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="210" y="205" fill="#fff">러너</text>
+    <text x="210" y="242" fill="#9aa1ad" font-size="18" font-weight="400">실제 LLM으로 골든셋 실행</text>
+    <rect x="450" y="150" width="300" height="130" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="600" y="205" fill="#fff">trace 커밋</text>
+    <text x="600" y="242" fill="#9aa1ad" font-size="18" font-weight="400">답변·출처를 파일로 고정</text>
+    <rect x="840" y="150" width="300" height="130" rx="18" fill="#0f1115" stroke="#ef4444" stroke-width="2"/>
+    <text x="990" y="205" fill="#fff">게이트</text>
+    <text x="990" y="242" fill="#9aa1ad" font-size="18" font-weight="400">규칙으로 채점 (LLM 심판 없음)</text>
+  </g>
+  <g fill="#ef4444" font-size="40" text-anchor="middle"><text x="405" y="230">→</text><text x="795" y="230">→</text></g>
+  <rect x="60" y="340" width="1080" height="110" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+  <text x="100" y="385" fill="#fff" font-size="22" font-weight="700">baseline = 최고 기록이 아니라 "바닥"</text>
+  <text x="100" y="422" fill="#9aa1ad" font-size="19">프롬프트·모델을 바꿀 때마다 같은 시험을 다시 치고, 바닥 아래로 내려가면 반려</text>
+  <text x="60" y="520" fill="#fff" font-size="22" font-weight="700">적용 사례 — 라이선스 때문에 생성 모델 교체</text>
+  <text x="60" y="560" fill="#9aa1ad" font-size="19">후보 5종을 같은 골든셋에 돌려 Gemma 4 e4b 선택 · 게이트 통과 후에만 투입</text>
+  <text x="60" y="600" fill="#9aa1ad" font-size="19">Llama 3.1 8B: 지하철 노선 지어냄 → 탈락 · Kanana: 지시 준수 약함 → 탈락</text>
+</svg>

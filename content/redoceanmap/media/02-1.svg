@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif">
+  <rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="60" fill="#ffffff" font-size="30" font-weight="700">앱 사이: 허브-스포크</text>
+  <g stroke="#ef4444" stroke-width="3">
+    <line x1="330" y1="350" x2="330" y2="170"/><line x1="330" y1="350" x2="500" y2="260"/>
+    <line x1="330" y1="350" x2="500" y2="440"/><line x1="330" y1="350" x2="330" y2="530"/>
+    <line x1="330" y1="350" x2="160" y2="440"/><line x1="330" y1="350" x2="160" y2="260"/>
+  </g>
+  <circle cx="330" cy="350" r="62" fill="#ef4444"/>
+  <text x="330" y="360" fill="#fff" font-size="26" font-weight="700" text-anchor="middle">hub</text>
+  <g fill="#0f1115" stroke="#2a2f3a" stroke-width="2">
+    <rect x="270" y="130" width="120" height="50" rx="12"/><rect x="440" y="235" width="120" height="50" rx="12"/>
+    <rect x="440" y="415" width="120" height="50" rx="12"/><rect x="270" y="515" width="120" height="50" rx="12"/>
+    <rect x="100" y="415" width="120" height="50" rx="12"/><rect x="100" y="235" width="120" height="50" rx="12"/>
+  </g>
+  <g fill="#fff" font-size="20" text-anchor="middle">
+    <text x="330" y="162">chat</text><text x="500" y="267">market</text><text x="500" y="447">stock</text>
+    <text x="330" y="547">auth</text><text x="160" y="447">admin</text><text x="160" y="267">mail</text>
+  </g>
+  <text x="330" y="620" fill="#9aa1ad" font-size="18" text-anchor="middle">스포크끼리 직접 import 금지 — 허브 포트로만 협력</text>
+  <line x1="640" y1="90" x2="640" y2="600" stroke="#2a2f3a" stroke-width="2"/>
+  <text x="690" y="60" fill="#ffffff" font-size="30" font-weight="700">앱 내부: 헥사고날</text>
+  <g font-size="22" font-weight="700" text-anchor="middle">
+    <rect x="720" y="120" width="400" height="80" rx="16" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="920" y="168" fill="#fff">adapter  (FastAPI · SQLAlchemy)</text>
+    <rect x="720" y="250" width="400" height="80" rx="16" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="920" y="298" fill="#fff">app  (유스케이스 · 포트)</text>
+    <rect x="720" y="380" width="400" height="80" rx="16" fill="#0f1115" stroke="#ef4444" stroke-width="2"/>
+    <text x="920" y="428" fill="#fff">domain  (순수 파이썬)</text>
+  </g>
+  <g fill="#ef4444" font-size="30" text-anchor="middle"><text x="920" y="238">↓</text><text x="920" y="368">↓</text></g>
+  <rect x="720" y="505" width="400" height="90" rx="16" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="2"/>
+  <text x="920" y="545" fill="#fff" font-size="22" font-weight="700" text-anchor="middle">import-linter 계약 5종</text>
+  <text x="920" y="577" fill="#ffb4b4" font-size="18" text-anchor="middle">위반하면 검사가 실패 — 사람이 기억할 필요 없음</text>
+</svg>

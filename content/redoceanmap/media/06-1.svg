@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif">
+  <rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">앱은 k3s, 상태는 docker compose</text>
+  <g font-size="22" font-weight="700" text-anchor="middle">
+    <rect x="40" y="260" width="220" height="110" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="150" y="308" fill="#fff">Cloudflare</text>
+    <text x="150" y="340" fill="#9aa1ad" font-size="18" font-weight="400">Tunnel · 포트 미개방</text>
+    <rect x="340" y="130" width="400" height="380" rx="22" fill="#0f1115" stroke="#ef4444" stroke-width="2"/>
+    <text x="540" y="175" fill="#ef4444">k3s (컴퓨트)</text>
+    <rect x="380" y="205" width="320" height="60" rx="12" fill="#181b22"/><text x="540" y="243" fill="#fff" font-size="20">backend (FastAPI)</text>
+    <rect x="380" y="285" width="320" height="60" rx="12" fill="#181b22"/><text x="540" y="323" fill="#fff" font-size="20">auth (개인키 분리)</text>
+    <rect x="380" y="365" width="320" height="60" rx="12" fill="#181b22"/><text x="540" y="403" fill="#fff" font-size="20">CronJob 7종+</text>
+    <text x="540" y="480" fill="#9aa1ad" font-size="17" font-weight="400">자동 재시작 · 롤링 배포</text>
+    <rect x="840" y="200" width="320" height="250" rx="22" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="1000" y="245" fill="#fff">docker compose (상태)</text>
+    <rect x="880" y="275" width="240" height="60" rx="12" fill="#181b22"/><text x="1000" y="313" fill="#fff" font-size="20">PostgreSQL · pgvector</text>
+    <rect x="880" y="355" width="240" height="60" rx="12" fill="#181b22"/><text x="1000" y="393" fill="#fff" font-size="20">Redis</text>
+  </g>
+  <g fill="#ef4444" font-size="40" text-anchor="middle"><text x="300" y="330">→</text><text x="790" y="335">→</text></g>
+  <text x="790" y="300" fill="#9aa1ad" font-size="15" text-anchor="middle">EndpointSlice</text>
+  <text x="600" y="590" fill="#9aa1ad" font-size="20" text-anchor="middle">"컴퓨트 먼저, 상태는 나중" — DB까지 옮기면 이관을 두 번 한다</text>
+  <text x="600" y="625" fill="#9aa1ad" font-size="20" text-anchor="middle">포트는 루프백에만 바인딩 · 외부 공개는 터널 + 자체 rate limit</text>
+</svg>
