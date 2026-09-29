@@ -1,0 +1,116 @@
+slug: balzaguk
+order: 6
+title: 발자국
+tagline: 반려견의 크기 · 견종 · 체질과 문화 공공데이터를 교차해, 우리 강아지가 갈 수 있는 곳과 동선을 대화로 짜 주는 반려견 동반 여행 플래너 — 제4회 문화체육관광 AI · 데이터 활용 공모전
+accent: "#14b8a6"
+period: { start: "2026-06-17", end: "2026-06-26" }
+team: { size: 2, role: 백엔드 · AI 에이전트 · 데이터 적재 · 배포 전담 }
+stack: [Python 3.13, FastAPI, SQLAlchemy 2 · Alembic, PostgreSQL (Neon), Gemini, pandas · pyproj, React 19 · Vite, Docker, Railway · Vercel]
+preview: { poster: media/poster.webp }
+links:
+  repo: https://github.com/jangminseok-dev/cloud.adapdog
+
+slides:
+  - title: 설계 원칙 - AI는 고르기만, 검증과 폴백은 코드가
+    summary: AI가 존재하지 않는 시설을 지어내면 반려견과 보호자가 헛걸음을 합니다. DB에서 먼저 후보를 뽑아 주고, AI의 답은 그 목록 안에 있는지 코드로 다시 확인합니다.
+    stats:
+      problem: LLM이 없는 시설을 지어내거나 형식이 깨진 JSON을 돌려줄 수 있다 — 키가 없거나 장애가 나면 시연이 멈춘다
+      choice: DB에서 후보 시설을 id와 함께 프롬프트에 넣고, 응답의 id를 화이트리스트로 사후 검증. 실패하면 최근접 규칙으로 코스 생성 — 에이전트 3개에 같은 패턴
+      cost: 후보를 40곳으로 잘라야 하고, AI의 창의적인 추천은 제한된다
+      effect: 지어낸 시설이 화면까지 가는 경로를 코드 수준에서 차단. AI 키가 없어도 서비스는 계속 돈다
+    frames:
+      - { image: media/02-1.svg, caption: 후보 → 선택 → 검증 → 폴백 (도식) }
+    alternatives:
+      - { name: Gemini 함수 호출 자동 모드, reason: 왕복이 2회라 느리다 — 후보를 프롬프트에 직접 넣는 쪽을 택함 }
+    concept:
+      title: 화이트리스트 검증이란?
+      body: AI에게 "이 40곳 중에서만 골라 번호로 답해"라고 시키고, 돌아온 번호를 명단과 한 번 더 대조합니다. 명단에 없는 번호는 버리고, AI가 아예 답을 못 하면 가까운 순서로 묶는 단순한 규칙이 대신 일합니다.
+    evidence:
+      - { label: route_planner_repository.py, url: "https://github.com/jangminseok-dev/cloud.adapdog/blob/main/adapdog/apps/map/adapter/outbound/repositories/route_planner_repository.py" }
+      - { label: symptom_check_repository.py — 면책 문구 · 긴급도 제한, url: "https://github.com/jangminseok-dev/cloud.adapdog/blob/main/adapdog/apps/care/adapter/outbound/repositories/symptom_check_repository.py" }
+    proves: [python-backend]
+
+  - title: 대화는 AI가, 코스 생성 시점은 규칙이
+    summary: 가벼운 모델은 예시 속 지역명을 그대로 베끼거나 이미 받은 정보를 다시 물었습니다. 대화는 AI에게 맡기되, 목적지 · 이동 수단 · 숙박이 모두 찼는지는 규칙이 판단합니다.
+    stats:
+      problem: 약한 모델이 few-shot 예시의 지명을 베끼고, 같은 질문을 반복해 대화가 제자리를 돈다
+      choice: 정규식 기준선 → LLM(JSON 모드) → 슬롯 그라운딩(사용자 발화에 없던 목적지는 버림) → 규칙 게이트가 순서대로 확인
+      cost: 대화의 유연성이 줄고, 규칙 코드를 따로 유지해야 한다
+      effect: 시연 결과가 흔들리지 않는다. LLM이 실패해도 규칙 질문으로 대화가 이어진다
+    frames:
+      - { image: media/03-1.svg, caption: 정규식 → LLM → 그라운딩 → 게이트 (도식) }
+    alternatives:
+      - { name: 흐름 전체를 LLM이 주도, reason: 데모 안정성 — 같은 입력에 다른 흐름이 나오면 시연할 수 없다 }
+    concept:
+      title: 슬롯 그라운딩이란?
+      body: 여행 계획에 필요한 빈칸(슬롯)을 AI가 채우되, 그 값이 실제로 사용자가 한 말에 근거하는지 확인하는 것입니다. 사용자가 "제주"를 말한 적이 없으면 AI가 제주라고 적어도 받아들이지 않습니다.
+    evidence:
+      - { label: route_planner_interactor.py, url: "https://github.com/jangminseok-dev/cloud.adapdog/blob/main/adapdog/apps/map/app/use_cases/route_planner_interactor.py" }
+    proves: []
+
+  - title: 공공데이터 CSV를 3NF DB로
+    summary: 기관마다 파일 인코딩도, 지도 좌표 방식도 달랐습니다. 한 기준으로 번역한 뒤 시설 · 반려동물 규정 · 허용 크기를 서로 다른 표로 나눠 담았습니다.
+    stats:
+      problem: CSV마다 인코딩(utf-8 · cp949)과 좌표계(TM · WGS84)가 다르고, 중복 행과 바다에 찍힌 좌표가 섞여 있다
+      choice: pyproj로 TM → WGS84 변환, 이름 · 좌표 중복 제거, 시군구 중앙값에서 50km 넘는 점은 격리, 5,000행 단위 벌크 적재. 지역 · 분류는 공유 차원으로 3NF 설계
+      cost: 재적재 때마다 전체를 지우고 다시 넣는다. 스크립트마다 좌표계 코드가 달라 검증이 필요한 부분이 남았다
+      effect: 반려동물 동반 시설 30,417곳 · 허용 크기 88,678행 · 동물병원 9,299곳 적재. FK 고아 · 좌표 NULL 0건
+    frames:
+      - { image: media/04-1.svg, caption: 정제 단계와 적재 결과 (도식) }
+    alternatives:
+      - { name: 실행 중에 CSV를 직접 읽기, reason: 느리고 정합성을 확인할 수 없다 — DB가 없을 때의 폴백으로만 남김 }
+    concept:
+      title: 3NF로 나누는 이유
+      body: 한 시설에 "반려동물 규정"과 "허용 크기 여러 개"가 붙어 있습니다. 한 표에 몰아 담으면 같은 정보가 여러 번 반복되고 하나만 고쳐도 어긋납니다. 성격이 다른 정보를 다른 표로 나누면 한 곳만 고치면 됩니다.
+    evidence:
+      - { label: _docs/발자국_ERD.md — 적재 실측 · 정합성, url: "https://github.com/jangminseok-dev/cloud.adapdog/blob/main/_docs/%EB%B0%9C%EC%9E%90%EA%B5%AD_ERD.md" }
+      - { label: scripts/ingest_facilities.py, url: "https://github.com/jangminseok-dev/cloud.adapdog/blob/main/adapdog/scripts/ingest_facilities.py" }
+    proves: [python-backend]
+
+  - title: 경유지 선별 - 코리도어 투영
+    summary: 자동차로 이동하는 중에 들를 곳을 추천하면, 경로에서 한참 벗어난 부산 시설이 섞였습니다. 출발지와 도착지를 잇는 직선에 시설을 투영해 가까운 곳만 남겼습니다.
+    stats:
+      problem: 경로 근처 시설을 찾으려면 길찾기 API가 필요한데, 공모전 기간에 외부 API 의존을 늘리고 싶지 않았다
+      choice: 서울-전주 직선에 각 시설을 투영해 진행도 t와 이탈 거리를 계산. 0.12 ≤ t ≤ 0.9, 이탈 18km 이하만 남기고 초 · 중 · 후반마다 하나씩 선택
+      cost: 실제 도로가 아닌 직선 근사이고, 한 구간에만 맞춰져 있다
+      effect: 외부 길찾기 API 없이 실데이터로 경유지를 뽑는다
+    frames:
+      - { image: media/05-1.svg, caption: 직선 코리도어와 구간별 선택 (도식) }
+    alternatives:
+      - { name: 지도사 길찾기 API, reason: 외부 의존과 호출 한도 — 보조 수단으로만 기록 }
+    concept:
+      title: 코리도어 투영이란?
+      body: 출발지와 도착지 사이에 자를 대고, 자에서 18km 안쪽에 있는 장소만 후보로 봅니다. 그중 여정의 앞 · 중간 · 뒤에서 하나씩 골라 고르게 쉬어 가게 합니다.
+    evidence:
+      - { label: route_planner_repository.py — 코리도어, url: "https://github.com/jangminseok-dev/cloud.adapdog/blob/main/adapdog/apps/map/adapter/outbound/repositories/route_planner_repository.py" }
+    proves: []
+
+  - title: 배포 - 화면과 서버를 한 상자에
+    summary: 프론트와 백엔드를 따로 배포하면 CORS와 환경변수가 두 벌이 됩니다. 빌드된 화면 파일을 FastAPI가 같은 주소에서 서빙하는 단일 컨테이너로 묶었습니다.
+    stats:
+      problem: 분리 배포는 CORS · 환경변수 관리가 복잡하고, 첫 시연 요청의 LLM 응답이 느리다
+      choice: Docker 멀티스테이지(node 빌드 → python 실행), 부팅 시 마이그레이션 후 대표 코스를 비차단으로 미리 계산, 같은 키 동시 요청은 asyncio.Lock으로 한 번만
+      cost: 캐시가 프로세스 메모리에만 있어 데이터가 고정된 데모라는 전제가 필요하다
+      effect: 서비스 하나로 배포 완료. Vercel은 /api만 서버로 넘긴다
+    frames:
+      - { image: media/06-1.svg, caption: 멀티스테이지 이미지와 배포 경로 (도식) }
+    alternatives:
+      - { name: nginx 프록시 + 분리 컨테이너, reason: 로컬 개발용으로만 유지 — 운영은 컨테이너 하나 }
+    concept:
+      title: 멀티스테이지 빌드
+      body: 화면을 만드는 도구(node)와 서버를 돌리는 도구(python)를 한 이미지에 다 넣으면 무거워집니다. 첫 단계에서 화면을 빌드하고, 결과물만 둘째 단계로 옮겨 가볍게 만듭니다.
+    evidence:
+      - { label: Dockerfile, url: "https://github.com/jangminseok-dev/cloud.adapdog/blob/main/Dockerfile" }
+    proves: [linux-docker]
+
+retro:
+  metrics:
+    - { label: 개발 기간, value: 10일 }
+    - { label: 반려동물 동반 시설 적재, value: "30,417곳" }
+    - { label: 동물병원 (좌표 변환), value: "9,299 / 10,548곳" }
+    - { label: 정합성, value: FK 고아 · 좌표 NULL 0건 }
+  regrets:
+    - 적재 스크립트마다 좌표계 코드가 달랐다 — 좌표계를 한 곳에 상수로 모았어야 했다
+    - 테스트가 사용자 모듈에만 있다 — 에이전트 검증 · 폴백에 테스트를 붙였어야 했다
+    - 설계 문서의 "함수 호출" 설명이 실제 코드와 어긋난 채 남았다
+    - 배포가 내려가 지금은 시연 주소가 없다

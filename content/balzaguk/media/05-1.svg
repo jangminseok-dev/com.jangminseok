@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif"><rect width="1200" height="675" fill="#181b22"/>  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">길찾기 API 없이 경유지를 고른다 — 코리도어 투영</text>
+  <circle cx="160" cy="330" r="16" fill="#14b8a6"/><text x="160" y="380" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">서울</text>
+  <circle cx="1040" cy="330" r="16" fill="#14b8a6"/><text x="1040" y="380" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">전주</text>
+  <line x1="160" y1="330" x2="1040" y2="330" stroke="#14b8a6" stroke-width="3"/>
+  <rect x="265" y="250" width="687" height="160" fill="#14b8a6" fill-opacity="0.1" stroke="#14b8a6" stroke-dasharray="8 6"/>
+  <text x="608" y="240" fill="#9aa1ad" font-size="17" text-anchor="middle">진행도 0.12 ≤ t ≤ 0.9 · 직선에서 18km 이내</text>
+  <g fill="#fff"><circle cx="360" cy="300" r="9"/><circle cx="610" cy="360" r="9"/><circle cx="850" cy="310" r="9"/></g>
+  <g fill="#6b7280"><circle cx="500" cy="470" r="8"/><circle cx="780" cy="190" r="8"/><circle cx="980" cy="520" r="8"/></g>
+  <text x="980" y="555" fill="#6b7280" font-size="16" text-anchor="middle">경로에서 먼 시설은 제외</text>
+  <g font-size="16" fill="#fff" text-anchor="middle"><text x="360" y="285">초반</text><text x="610" y="395">중반</text><text x="850" y="295">후반</text></g>
+  <text x="40" y="610" fill="#9aa1ad" font-size="19">초 · 중 · 후반 구간마다 이탈이 가장 작은 곳을 하나씩 — 휴게소는 최소 한 곳 보장</text>
+</svg>

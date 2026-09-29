@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif"><rect width="1200" height="675" fill="#181b22"/>  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">대화는 AI가, "이제 코스를 짜도 되나"는 규칙이</text>
+  <g font-size="20" font-weight="700" text-anchor="middle">
+    <rect x="40" y="120" width="250" height="120" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/><text x="165" y="175" fill="#fff">정규식 기준선</text><text x="165" y="208" fill="#9aa1ad" font-size="16" font-weight="400">확실한 값 먼저</text>
+    <rect x="340" y="120" width="250" height="120" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/><text x="465" y="175" fill="#fff">LLM (JSON 모드)</text><text x="465" y="208" fill="#9aa1ad" font-size="16" font-weight="400">자연스러운 대화</text>
+    <rect x="640" y="120" width="250" height="120" rx="18" fill="#0f1115" stroke="#14b8a6" stroke-width="2"/><text x="765" y="175" fill="#fff">슬롯 그라운딩</text><text x="765" y="208" fill="#9aa1ad" font-size="16" font-weight="400">발화에 없던 지명은 버림</text>
+    <rect x="940" y="120" width="220" height="120" rx="18" fill="#0f1115" stroke="#14b8a6" stroke-width="2"/><text x="1050" y="175" fill="#fff">규칙 게이트</text><text x="1050" y="208" fill="#9aa1ad" font-size="16" font-weight="400">next_stage()</text>
+  </g>
+  <g fill="#14b8a6" font-size="36" text-anchor="middle"><text x="315" y="190">→</text><text x="615" y="190">→</text><text x="915" y="190">→</text></g>
+  <text x="40" y="310" fill="#fff" font-size="22" font-weight="700">체크리스트가 다 차야 코스를 만든다</text>
+  <g font-size="21" font-weight="700" text-anchor="middle">
+    <rect x="40" y="340" width="340" height="90" rx="16" fill="#14b8a6" fill-opacity="0.15" stroke="#14b8a6" stroke-width="2"/><text x="210" y="395" fill="#fff">① 목적지</text>
+    <rect x="430" y="340" width="340" height="90" rx="16" fill="#14b8a6" fill-opacity="0.15" stroke="#14b8a6" stroke-width="2"/><text x="600" y="395" fill="#fff">② 이동 수단</text>
+    <rect x="820" y="340" width="340" height="90" rx="16" fill="#14b8a6" fill-opacity="0.15" stroke="#14b8a6" stroke-width="2"/><text x="990" y="395" fill="#fff">③ 숙박</text>
+  </g>
+  <text x="40" y="510" fill="#9aa1ad" font-size="19">약한 모델은 예시 속 지역명을 그대로 베끼거나, 이미 받은 정보를 다시 묻는다</text>
+  <text x="40" y="545" fill="#9aa1ad" font-size="19">→ 사용자가 "제주"라고 말한 적이 없으면 AI가 제주라고 적어도 받아들이지 않는다</text>
+</svg>
