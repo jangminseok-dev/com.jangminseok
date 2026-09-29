@@ -106,3 +106,45 @@ export const ProfileSchema = z.strictObject({
   }),
 });
 export type Profile = z.infer<typeof ProfileSchema>;
+
+// ── 프로젝트 소개 페이지 v2 (content/<slug>/page.yaml) — 한눈에, 기능, 아키텍처, 맡은 일, 어려웠던 점, 회고 ──
+const figure = z.strictObject({ value: text, label: text, note: text.optional() });
+
+export const ProjectPageSchema = z.strictObject({
+  // role: 첫 화면 제목 아래 한 줄 — 채용 담당자가 30초 안에 보는 "무엇을 맡았나"
+  overview: z.strictObject({ what: text, why: text, role: text, highlights: z.array(figure).min(1).max(3) }),
+  features: z
+    .array(z.strictObject({ title: text, body: text, core: z.boolean().default(false), image: mediaPath }))
+    .min(2)
+    .max(8),
+  featureNote: text.optional(),
+  architecture: z.strictObject({
+    image: mediaPath,
+    summary: text,
+    points: z.array(z.strictObject({ title: text, body: text })).min(2).max(5),
+    layers: z.array(z.strictObject({ name: text, items: z.array(text).min(1) })).min(1),
+  }),
+  role: z.strictObject({
+    summary: text,
+    mine: z.array(text).min(1),
+    team: z.array(text).default([]),
+    collab: z.array(text).default([]), // 협업 방식 — 브랜치, 리뷰, 결정 기록, 역할을 나눈 기준
+    ai: z.array(text).default([]), // AI 코딩 도구를 쓴 방식과 그 결과를 검증한 장치
+  }),
+  troubles: z
+    .array(
+      z.strictObject({
+        title: text,
+        problem: text,
+        cause: text.optional(),
+        solution: text,
+        detail: text.optional(),
+        result: text,
+        evidence: z.array(z.strictObject({ label: text, url: z.url() })).default([]), // "코드로 확인" 링크
+      }),
+    )
+    .min(2)
+    .max(5),
+  retro: z.strictObject({ metrics: z.array(figure), learned: z.array(text).default([]), regrets: z.array(text) }),
+});
+export type ProjectPage = z.infer<typeof ProjectPageSchema>;

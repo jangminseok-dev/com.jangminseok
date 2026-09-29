@@ -5,7 +5,7 @@ import type { Project } from "@/lib/content/schema";
 import { projectHref } from "@/lib/site";
 import { byStartDate } from "@/lib/timeline";
 
-function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
+function ProjectCard({ p, isProd, role }: { p: Project; isProd: boolean; role: string }) {
   return (
     <li className="h-full">
       <a
@@ -27,10 +27,11 @@ function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
             <h4 className="text-lg font-bold group-hover:text-brand-soft">{p.title}</h4>
           </div>
           <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/75">{p.tagline}</p>
-          <p className="mt-auto flex gap-3 truncate pt-3 text-xs text-white/55">
-            <span>{p.period.start.slice(0, 7)}</span>
-            <span>{p.team.size}명</span>
-            <span className="truncate">{p.team.role}</span>
+          <p className="mt-auto flex items-center gap-2 pt-3 text-xs text-white/55">
+            <span className="shrink-0">{p.period.start.slice(0, 7)}</span>
+            <span className="truncate rounded-full bg-(--accent)/15 px-2.5 py-1 font-medium text-white/85" style={{ ["--accent" as string]: p.accent }}>
+              {role}
+            </span>
           </p>
         </div>
       </a>
@@ -38,7 +39,15 @@ function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
   );
 }
 
-export default function ProjectGrid({ projects, isProd }: { projects: Project[]; isProd: boolean }) {
+export default function ProjectGrid({
+  projects,
+  isProd,
+  roles,
+}: {
+  projects: Project[];
+  isProd: boolean;
+  roles: Record<string, string>;
+}) {
   const groups = [
     { title: "개인 프로젝트", items: projects.filter((p) => p.team.size === 1).sort(byStartDate) },
     { title: "팀 프로젝트", items: projects.filter((p) => p.team.size > 1).sort(byStartDate) },
@@ -54,7 +63,7 @@ export default function ProjectGrid({ projects, isProd }: { projects: Project[];
           </h3>
           <ul className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {g.items.map((p) => (
-              <ProjectCard key={p.slug} p={p} isProd={isProd} />
+              <ProjectCard key={p.slug} p={p} isProd={isProd} role={roles[p.slug] ?? p.team.role} />
             ))}
           </ul>
         </div>

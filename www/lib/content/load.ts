@@ -3,8 +3,8 @@ import path from "node:path";
 import { parse } from "yaml";
 import type { z } from "zod";
 import { findBannedTerms } from "@/lib/content/banned";
-import { ProfileSchema, ProjectSchema } from "@/lib/content/schema";
-import type { Profile, Project } from "@/lib/content/schema";
+import { ProfileSchema, ProjectPageSchema, ProjectSchema } from "@/lib/content/schema";
+import type { Profile, Project, ProjectPage } from "@/lib/content/schema";
 
 export class ContentError extends Error {}
 
@@ -79,4 +79,15 @@ export function loadProjects(
 
 export function loadProfile(contentDir: string, bannedTerms: readonly string[]): Profile {
   return readChecked(path.join(contentDir, "profile.yaml"), ProfileSchema, bannedTerms);
+}
+
+// 소개 페이지 v2 — page.yaml이 없으면 null (시범 단계: 일부 프로젝트만 있다)
+export function loadProjectPage(contentDir: string, slug: string, bannedTerms: readonly string[]): ProjectPage | null {
+  const file = path.join(contentDir, slug, "page.yaml");
+  if (!fs.existsSync(file)) return null;
+  const page = readChecked(file, ProjectPageSchema, bannedTerms);
+  const media = [page.architecture.image, ...page.features.map((f) => f.image)];
+  const missing = media.filter((m) => !fs.existsSync(path.join(contentDir, slug, m)));
+  if (missing.length) throw new ContentError(`${file}: 미디어 파일 없음 — ${missing.join(", ")}`);
+  return page;
 }
