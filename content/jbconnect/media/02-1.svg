@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif"><rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">3일 안에 5개 컨텍스트 — 섞이지 않게</text>
+  <text x="40" y="100" fill="#9aa1ad" font-size="19">지점 · 상담 · 법인 · 대기열 · 예약을 같은 모양으로 쌓고, 방향은 검사로 강제</text>
+  <g font-size="19" font-weight="700" text-anchor="middle">
+    <rect x="40" y="140" width="210" height="70" rx="14" fill="#0f1115" stroke="#0ea5e9" stroke-width="2"/><text x="145" y="182" fill="#fff">branch</text>
+    <rect x="267" y="140" width="210" height="70" rx="14" fill="#0f1115" stroke="#0ea5e9" stroke-width="2"/><text x="372" y="182" fill="#fff">chat</text>
+    <rect x="494" y="140" width="210" height="70" rx="14" fill="#0f1115" stroke="#0ea5e9" stroke-width="2"/><text x="599" y="182" fill="#fff">corporate</text>
+    <rect x="721" y="140" width="210" height="70" rx="14" fill="#0f1115" stroke="#0ea5e9" stroke-width="2"/><text x="826" y="182" fill="#fff">queue</text>
+    <rect x="948" y="140" width="212" height="70" rx="14" fill="#0f1115" stroke="#0ea5e9" stroke-width="2"/><text x="1054" y="182" fill="#fff">reservation</text>
+  </g>
+  <g font-size="21" font-weight="700" text-anchor="middle">
+    <rect x="300" y="250" width="600" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/><text x="600" y="293" fill="#fff">adapter — FastAPI · Gemini · Groq · 네이버 지도 · Mock</text>
+    <rect x="300" y="340" width="600" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/><text x="600" y="383" fill="#fff">app — 유스케이스 · 포트</text>
+    <rect x="300" y="430" width="600" height="70" rx="14" fill="#0f1115" stroke="#0ea5e9" stroke-width="2"/><text x="600" y="473" fill="#fff">domain — 순수 파이썬</text>
+  </g>
+  <g fill="#0ea5e9" font-size="26" text-anchor="middle"><text x="600" y="336">↓</text><text x="600" y="426">↓</text></g>
+  <text x="600" y="560" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">import-linter: layers 계약 + shared_kernel 의존 금지</text>
+  <text x="600" y="598" fill="#9aa1ad" font-size="18" text-anchor="middle">컨텍스트끼리는 adapter 계층의 포트 하나로만 — 상담 → 대기열 등록이 그 예</text>
+</svg>
