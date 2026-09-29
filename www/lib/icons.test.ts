@@ -51,7 +51,7 @@ describe("stackIconSlug", () => {
     const dir = path.resolve(import.meta.dirname, "..", "..", "content");
     const stacks = fs
       .readdirSync(dir, { withFileTypes: true })
-      .filter((e) => e.isDirectory())
+      .filter((e) => e.isDirectory() && fs.existsSync(path.join(dir, e.name, "project.yaml")))
       .flatMap((e) => (parse(fs.readFileSync(path.join(dir, e.name, "project.yaml"), "utf8")) as { stack: string[] }).stack);
     const broken = stacks.map(stackIconSlug).filter((s): s is string => s !== null && !skillIcon(s));
     expect(broken).toEqual([]);
