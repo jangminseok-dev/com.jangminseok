@@ -1,0 +1,32 @@
+from knowledge.domain.chunker import chunk_catalog
+from knowledge.domain.rrf import rrf_fuse
+
+PROJECTS = [{"slug": "a", "title": "A", "tagline": "소개", "slides": [
+    {"number": 2, "title": "설계", "text": "가" * 1000},
+    {"number": 3, "title": "검색", "text": "짧은 본문"},
+]}]
+
+
+def test_one_chunk_per_slide_split_when_long_and_intro_chunk():
+    chunks = chunk_catalog(PROJECTS, "https://jangminseok.com", max_chars=800)
+    numbers = [c.slide_number for c in chunks]
+    assert numbers.count(2) == 2 and numbers.count(3) == 1 and numbers.count(1) == 1
+    assert all(len(c.text) <= 800 + len("A 설계\n") for c in chunks)
+    assert chunks[-1].url == "https://a.jangminseok.com#03"
+
+
+def test_content_hash_is_stable_and_changes_with_text():
+    a = chunk_catalog(PROJECTS, "https://jangminseok.com")
+    b = chunk_catalog(PROJECTS, "https://jangminseok.com")
+    assert [c.content_hash for c in a] == [c.content_hash for c in b]
+
+
+def test_rrf_prefers_items_ranked_high_in_both():
+    fused = rrf_fuse([[1, 2, 3], [2, 3, 1]])
+    assert fused[0][0] == 2
+    assert [i for i, _ in fused] == [2, 1, 3]
+
+
+def test_rrf_handles_empty_and_single_list():
+    assert rrf_fuse([]) == []
+    assert [i for i, _ in rrf_fuse([[5, 6]])] == [5, 6]
