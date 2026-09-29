@@ -30,6 +30,7 @@ export function validProjectData(overrides: Record<string, unknown> = {}): Recor
 export function validProfileData(): Record<string, unknown> {
   return {
     name: "장민석",
+    role: "AI 백엔드 엔지니어",
     headline: "헤드라인",
     intro: "소개",
     highlights: [{ keyword: "키워드", text: "설명입니다." }],

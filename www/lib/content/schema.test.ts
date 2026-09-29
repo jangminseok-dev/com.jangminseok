@@ -74,6 +74,11 @@ describe("ProjectSchema", () => {
 });
 
 describe("ProfileSchema", () => {
+  it("직함(role)이 없으면 실패한다", () => {
+    const { role: _role, ...rest } = validProfileData();
+    expect(ProfileSchema.safeParse(rest).success).toBe(false);
+  });
+
   it("요건 7개가 모두 있으면 통과한다", () => {
     expect(ProfileSchema.safeParse(validProfileData()).success).toBe(true);
   });

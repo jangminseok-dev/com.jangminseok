@@ -60,6 +60,8 @@ export type DecisionSlide = Project["slides"][number];
 
 export const ProfileSchema = z.strictObject({
   name: text,
+  // 첫 화면 이름 옆 직함
+  role: text,
   headline: text,
   intro: text,
   // 첫 화면 소개 아래 핵심 키워드 줄

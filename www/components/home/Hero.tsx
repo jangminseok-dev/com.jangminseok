@@ -15,7 +15,9 @@ export default function Hero({ profile, projectCount, teamProjectCount, skillsNo
       className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 py-12 md:min-h-[calc(100dvh-4rem)] md:grid-cols-[1fr_1.2fr]"
     >
       <div>
-        <p className="font-semibold text-brand-soft">{profile.name} · 백엔드 개발자</p>
+        <p className="font-semibold text-brand-soft">
+          {profile.name} · {profile.role}
+        </p>
         <h1 className="mt-3 text-4xl font-bold leading-tight tracking-tight md:text-5xl">{profile.headline}</h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85">{profile.intro}</p>
         <ul className="mt-5 max-w-xl space-y-2.5">

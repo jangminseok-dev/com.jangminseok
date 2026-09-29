@@ -37,8 +37,8 @@ function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
 
 export default function ProjectGrid({ projects, isProd }: { projects: Project[]; isProd: boolean }) {
   const groups = [
-    { title: "팀 프로젝트", items: projects.filter((p) => p.team.size > 1) },
     { title: "개인 프로젝트", items: projects.filter((p) => p.team.size === 1) },
+    { title: "팀 프로젝트", items: projects.filter((p) => p.team.size > 1) },
   ];
   return (
     <section id="projects" className="mx-auto max-w-6xl px-5 py-16">
