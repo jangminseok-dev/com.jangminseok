@@ -6,7 +6,7 @@ accent: "#0ea5e9"
 period: { start: "2026-06-11", end: "2026-06-13" }
 team: { size: 4, role: 백엔드 · 프론트 3종 구현 }
 stack: [Python 3.11, FastAPI, Pydantic 2, Gemini, Groq, Next.js 16 × 3, Web Speech API, import-linter]
-preview: { poster: media/poster.webp }
+preview: { poster: media/preview-poster.webp, video: media/preview.mp4, demo: media/demo.mp4 }
 links:
   repo: https://github.com/jangminseok-dev/JBAIConnect
 

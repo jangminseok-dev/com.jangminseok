@@ -50,6 +50,11 @@ describe("loadProjects", () => {
     expect(() => loadProjects(dir, { slugs: ["a"], bannedTerms: [] })).toThrowError(/media\/03-1\.webp/);
   });
 
+  it("전체 시연 영상 파일이 없으면 그 경로를 알려준다", () => {
+    writeProject("a", validProjectData({ slug: "a", preview: { poster: "media/poster.webp", demo: "media/demo.mp4" } }));
+    expect(() => loadProjects(dir, { slugs: ["a"], bannedTerms: [] })).toThrowError(/media\/demo\.mp4/);
+  });
+
   it("PROJECT_SLUGS와 content 디렉터리 목록이 다르면 실패한다", () => {
     writeProject("a", validProjectData({ slug: "a" }));
     expect(() => loadProjects(dir, { slugs: ["a", "b"], bannedTerms: [] })).toThrowError(/디렉터리 없음: \[b\]/);

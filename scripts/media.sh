@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# 사용: scripts/media.sh <slug> <원본파일> <출력이름(확장자 제외)>
+# 사용: scripts/media.sh <slug> <원본파일> <출력이름(확장자 제외)> [영상 시작 초]
 #  이미지 → content/<slug>/media/<이름>.webp (가로 1600px 이하)
 #  도식   → content/<slug>/media/<이름>.svg (그대로 복사)
 #  영상   → content/<slug>/media/<이름>.mp4 (10초·무음·H.264·2MB 이하) + <이름>-poster.webp
 set -euo pipefail
 
-slug="$1"; src="$2"; name="$3"
+slug="$1"; src="$2"; name="$3"; start="${4:-0}"
 out_dir="content/$slug/media"
 mkdir -p "$out_dir"
 ext="$(echo "${src##*.}" | tr '[:upper:]' '[:lower:]')"
@@ -26,7 +26,7 @@ case "$ext" in
     echo "✓ $out_dir/$name.svg"
     ;;
   mov|mp4|webm)
-    ffmpeg -loglevel error -y -i "$src" -t 10 -an \
+    ffmpeg -loglevel error -y -ss "$start" -i "$src" -t 10 -an \
       -vf "scale='min(1280,iw)':-2,fps=30" \
       -c:v libx264 -crf 30 -preset slow -pix_fmt yuv420p -movflags +faststart \
       "$out_dir/$name.mp4"

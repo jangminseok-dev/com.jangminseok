@@ -36,23 +36,35 @@ export default function SlideIntro({ project, mainHref }: { project: Project; ma
             ))}
           </ul>
         </div>
-        <div className="overflow-hidden rounded-3xl border border-slide-line bg-slide-panel">
-          {preview.video ? (
-            <video
-              src={mediaUrl(slug, preview.video)}
-              poster={mediaUrl(slug, preview.poster)}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="aspect-video w-full object-cover motion-reduce:hidden"
+        <div>
+          <div className="overflow-hidden rounded-3xl border border-slide-line bg-slide-panel">
+            {preview.video ? (
+              <video
+                src={mediaUrl(slug, preview.video)}
+                poster={mediaUrl(slug, preview.poster)}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="aspect-video w-full object-cover motion-reduce:hidden"
+              />
+            ) : null}
+            <img
+              src={mediaUrl(slug, preview.poster)}
+              alt={`${project.title} 대표 화면`}
+              className={`aspect-video w-full object-cover object-top ${preview.video ? "hidden motion-reduce:block" : ""}`}
             />
+          </div>
+          {preview.demo ? (
+            <a
+              href={mediaUrl(slug, preview.demo)}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex items-center gap-2 rounded-full bg-(--accent) px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
+            >
+              ▶ 전체 시연 영상 보기 (소리 있음)
+            </a>
           ) : null}
-          <img
-            src={mediaUrl(slug, preview.poster)}
-            alt={`${project.title} 대표 화면`}
-            className={`aspect-video w-full object-cover object-top ${preview.video ? "hidden motion-reduce:block" : ""}`}
-          />
         </div>
       </div>
       <p className="mt-10 text-center text-sm text-white/40">↓ 스크롤 또는 ← → 키로 넘기기</p>

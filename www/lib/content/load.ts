@@ -32,6 +32,7 @@ function mediaPaths(p: Project): string[] {
   return [
     p.preview.poster,
     ...(p.preview.video ? [p.preview.video] : []),
+    ...(p.preview.demo ? [p.preview.demo] : []),
     ...p.slides.flatMap((s) => s.frames.map((f) => f.image)),
   ];
 }

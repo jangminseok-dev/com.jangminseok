@@ -40,6 +40,11 @@ describe("ProjectSchema", () => {
     expect(ProjectSchema.safeParse(validProjectData({ links: { blgo: "https://example.com" } })).success).toBe(false);
   });
 
+  it("전체 시연 영상(preview.demo)을 선택적으로 받는다", () => {
+    const data = validProjectData({ preview: { poster: "media/poster.webp", demo: "media/demo.mp4" } });
+    expect(ProjectSchema.safeParse(data).success).toBe(true);
+  });
+
   it("결정 슬라이드는 2~5장이다", () => {
     const data = validProjectData();
     const one = { ...data, slides: (data.slides as unknown[]).slice(0, 1) };

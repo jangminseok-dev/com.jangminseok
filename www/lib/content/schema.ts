@@ -38,7 +38,7 @@ export const ProjectSchema = z.strictObject({
   period: z.strictObject({ start: z.string().regex(DATE), end: z.string().regex(DATE).nullable() }),
   team: z.strictObject({ size: z.number().int().min(1), role: text }),
   stack: z.array(text).min(1),
-  preview: z.strictObject({ poster: mediaPath, video: mediaPath.optional() }),
+  preview: z.strictObject({ poster: mediaPath, video: mediaPath.optional(), demo: mediaPath.optional() }),
   links: z.strictObject({
     blog: z.url().optional(),
     site: z.url().optional(),
