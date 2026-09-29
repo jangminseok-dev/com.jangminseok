@@ -3,13 +3,10 @@
 @theme {
   --font-sans: var(--font-pretendard), system-ui, -apple-system, sans-serif;
 
-  /* 메인 — 토스풍 라이트 */
-  --color-ink: #191f28;
-  --color-ink-sub: #4e5968;
-  --color-ink-mute: #8b95a1;
-  --color-line: #e5e8eb;
-  --color-surface: #f2f4f6;
+  /* 메인 — 야경 배경 위 다크 글래스 */
+  --color-night: #0b0d18;
   --color-brand: #3182f6;
+  --color-brand-soft: #8ab4ff;
 
   /* 프로젝트 슬라이드 — 다크 */
   --color-slide-bg: #0f1115;
@@ -22,8 +19,8 @@ html {
 }
 
 body {
-  background: #ffffff;
-  color: var(--color-ink);
+  background: var(--color-night);
+  color: #ffffff;
   -webkit-font-smoothing: antialiased;
   /* 한국어는 어절 단위로 줄바꿈 */
   word-break: keep-all;
@@ -33,5 +30,41 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* 글래스 패널 — 뒤 배경을 흐리게 비친다. 미지원 브라우저는 불투명 패널로 대체 */
+@layer components {
+  .glass {
+    background-color: rgb(20 22 40 / 0.45);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass {
+      background-color: rgb(20 22 40 / 0.92);
+    }
+  }
+
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float {
+    animation: none;
   }
 }

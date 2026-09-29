@@ -1,5 +1,6 @@
 import EducationList from "@/components/home/EducationList";
 import Hero from "@/components/home/Hero";
+import NightBackdrop from "@/components/home/NightBackdrop";
 import ProjectGrid from "@/components/home/ProjectGrid";
 import RequirementMatrix from "@/components/home/RequirementMatrix";
 import SiteFooter from "@/components/home/SiteFooter";
@@ -13,6 +14,7 @@ export default function HomePage() {
   const isProd = isProdSite();
   return (
     <>
+      <NightBackdrop />
       <main>
         <Hero profile={profile} />
         <RequirementMatrix rows={buildRequirementMatrix(profile.requirements, projects)} isProd={isProd} />
