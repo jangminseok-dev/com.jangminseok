@@ -66,6 +66,23 @@ export const ProfileSchema = z.strictObject({
   education: z.array(
     z.strictObject({ org: text, course: text, period: text, topics: z.array(text) }),
   ),
+  // 첫 화면 기술 스택 — icon은 simple-icons slug, learned는 교육에서만 다룬 기술
+  skills: z
+    .array(
+      z.strictObject({
+        group: text,
+        items: z
+          .array(
+            z.strictObject({
+              name: text,
+              icon: z.string().regex(/^[a-z0-9]+$/).optional(),
+              learned: z.boolean().default(false),
+            }),
+          )
+          .min(1),
+      }),
+    )
+    .min(1),
   links: z.strictObject({
     github: z.url(),
     blog: z.url().optional(),

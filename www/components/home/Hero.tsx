@@ -1,44 +1,41 @@
+import SkillBoard from "@/components/home/SkillBoard";
 import type { Profile } from "@/lib/content/schema";
 
-export default function Hero({ profile }: { profile: Profile }) {
+type Props = { profile: Profile; projectCount: number; teamProjectCount: number; skillsNote: string };
+
+export default function Hero({ profile, projectCount, teamProjectCount, skillsNote }: Props) {
+  const stats = [
+    { label: "프로젝트", value: projectCount },
+    { label: "팀 프로젝트", value: teamProjectCount },
+    { label: "교육 과정", value: profile.education.length },
+  ];
   return (
-    <section className="mx-auto grid min-h-[88dvh] max-w-6xl grid-cols-1 items-center gap-12 px-5 pb-16 pt-24 md:grid-cols-[1.1fr_1fr] md:pt-28">
+    <section
+      id="about"
+      className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 py-12 md:min-h-[calc(100dvh-4rem)] md:grid-cols-[1fr_1.2fr]"
+    >
       <div>
-        <p className="text-lg font-semibold text-brand-soft">{profile.name}</p>
-        <h1 className="mt-3 text-4xl font-bold leading-tight tracking-tight md:text-6xl">{profile.headline}</h1>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">{profile.intro}</p>
+        <p className="font-semibold text-brand-soft">{profile.name} · 백엔드 개발자</p>
+        <h1 className="mt-3 text-4xl font-bold leading-tight tracking-tight md:text-5xl">{profile.headline}</h1>
+        <p className="mt-5 max-w-md text-lg leading-relaxed text-white/85">{profile.intro}</p>
+        <dl className="mt-8 grid max-w-md grid-cols-3 gap-3">
+          {stats.map((s) => (
+            <div key={s.label} className="glass rounded-2xl px-4 py-3">
+              <dd className="text-2xl font-bold">{s.value}</dd>
+              <dt className="mt-0.5 text-xs text-white/70">{s.label}</dt>
+            </div>
+          ))}
+        </dl>
         <div className="mt-8 flex flex-wrap gap-3">
-          <a href="#projects" className="rounded-2xl bg-brand px-6 py-4 font-semibold text-white hover:opacity-90">
+          <a href="#projects" className="rounded-2xl bg-brand px-6 py-3.5 font-semibold text-white hover:opacity-90">
             프로젝트 보기
           </a>
-          <a
-            href={profile.links.github}
-            target="_blank"
-            rel="noreferrer"
-            className="glass rounded-2xl px-6 py-4 font-semibold text-white hover:bg-white/15"
-          >
-            GitHub
+          <a href="#requirements" className="glass rounded-2xl px-6 py-3.5 font-semibold text-white hover:bg-white/15">
+            해본 일 보기
           </a>
         </div>
       </div>
-      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-        {profile.requirements.map((req, i) => (
-          <li
-            key={req.id}
-            // 7개라 마지막 카드는 한 줄을 다 쓴다 — 홀로 떨어져 보이지 않게
-            className={`float ${i === profile.requirements.length - 1 ? "col-span-2 sm:col-span-3" : ""}`}
-            style={{ animationDelay: `${i * 0.6}s` }}
-          >
-            <a
-              href={`#req-${req.id}`}
-              className="glass block h-full rounded-2xl p-4 transition-colors hover:border-brand-soft/60 hover:bg-white/10"
-            >
-              <p className="text-sm font-semibold leading-snug">{req.label}</p>
-              <p className="mt-2 text-xs text-brand-soft">근거 보기 →</p>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <SkillBoard skills={profile.skills} note={skillsNote} />
     </section>
   );
 }

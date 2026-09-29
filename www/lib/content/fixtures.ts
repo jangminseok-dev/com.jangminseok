@@ -41,6 +41,7 @@ export function validProfileData(): Record<string, unknown> {
       { id: "ai-assistant", label: "AI 코딩 어시스턴트", detail: "d" },
     ],
     education: [],
+    skills: [{ group: "백엔드", items: [{ name: "Python", icon: "python" }, { name: "Java", learned: true }] }],
     links: { github: "https://github.com/jangminseok-dev" },
   };
 }

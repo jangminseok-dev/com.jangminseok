@@ -16,6 +16,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* 상단 고정 메뉴(4rem)에 섹션 제목이 가리지 않게 */
+  scroll-padding-top: 4.5rem;
 }
 
 body {
@@ -36,7 +38,7 @@ body {
 /* 글래스 패널 — 뒤 배경을 흐리게 비친다. 미지원 브라우저는 불투명 패널로 대체 */
 @layer components {
   .glass {
-    background-color: rgb(20 22 40 / 0.45);
+    background-color: rgb(14 16 30 / 0.72);
     border: 1px solid rgb(255 255 255 / 0.12);
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);

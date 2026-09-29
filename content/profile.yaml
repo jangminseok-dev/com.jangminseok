@@ -1,8 +1,8 @@
 name: 장민석
 headline: 검색과 RAG로 답을 찾는 백엔드 개발자
 intro: >-
-  FastAPI 헥사고날 백엔드 위에 검색(BM25·벡터)과 LLM을 얹어,
-  근거가 있는 답을 내는 시스템을 만듭니다.
+  FastAPI로 백엔드를 짜고 그 위에 검색과 LLM을 얹어 근거를 대며 답하는 시스템을 만들어요.
+  좋아졌는지는 늘 숫자로 확인해요.
 requirements:
   - id: python-backend
     label: Python 백엔드 (FastAPI)
@@ -15,7 +15,7 @@ requirements:
     detail: 청크·임베딩·프롬프트·출처 표기, 골든셋 회귀 평가
   - id: hybrid-search
     label: 하이브리드 검색 (Sparse + Dense)
-    detail: 키워드 검색과 벡터 검색을 RRF로 융합하고, 측정 게이트로 채택·기각을 판정
+    detail: 키워드 검색과 벡터 검색을 RRF로 융합하고 측정 게이트로 채택·기각을 판정
   - id: linux-docker
     label: Linux · Docker 배포
     detail: Docker Compose, k3s, 리버스 프록시·터널 운영
@@ -34,5 +34,50 @@ education:
     course: 빅데이터 플랫폼 구축(Hadoop)과 빅데이터 분석(Spark·Power BI) & Java 웹개발
     period: 2022.02 ~ 2022.08 (977시간)
     topics: [Hadoop, Spark, Power BI, Java, Spring, JSP, Oracle DB, Python 머신러닝]
+skills:
+  - group: 백엔드
+    items:
+      - { name: Python, icon: python }
+      - { name: FastAPI, icon: fastapi }
+      - { name: SQLAlchemy, icon: sqlalchemy }
+      - { name: Pydantic, icon: pydantic }
+      - { name: PostgreSQL, icon: postgresql }
+      - { name: Redis, icon: redis }
+      - { name: Java, icon: openjdk, learned: true }
+      - { name: Spring, icon: spring, learned: true }
+      - { name: Oracle DB, learned: true }
+  - group: AI · 검색
+    items:
+      - { name: Elasticsearch, icon: elasticsearch }
+      - { name: pgvector }
+      - { name: Ollama, icon: ollama }
+      - { name: Gemini, icon: googlegemini }
+      - { name: Claude, icon: claude }
+      - { name: Neo4j, icon: neo4j }
+      - { name: PyTorch, icon: pytorch, learned: true }
+      - { name: LangChain, icon: langchain, learned: true }
+  - group: 인프라
+    items:
+      - { name: Docker, icon: docker }
+      - { name: k3s, icon: k3s }
+      - { name: Linux, icon: linux }
+      - { name: Cloudflare, icon: cloudflare }
+      - { name: Vercel, icon: vercel }
+      - { name: GitHub Actions, icon: githubactions }
+      - { name: Git, icon: git }
+      - { name: Kubernetes, icon: kubernetes, learned: true }
+      - { name: AWS, learned: true }
+  - group: 프론트 · 앱
+    items:
+      - { name: Next.js, icon: nextdotjs }
+      - { name: React, icon: react }
+      - { name: TypeScript, icon: typescript }
+      - { name: Tailwind CSS, icon: tailwindcss }
+      - { name: Flutter, icon: flutter }
+  - group: 데이터
+    items:
+      - { name: Hadoop, icon: apachehadoop, learned: true }
+      - { name: Spark, icon: apachespark, learned: true }
+      - { name: Power BI, learned: true }
 links:
   github: https://github.com/jangminseok-dev

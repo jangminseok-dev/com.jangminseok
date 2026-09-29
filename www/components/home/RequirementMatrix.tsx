@@ -4,7 +4,7 @@ import { slideAnchor } from "@/lib/slides";
 
 export default function RequirementMatrix({ rows, isProd }: { rows: MatrixRow[]; isProd: boolean }) {
   return (
-    <section className="mx-auto max-w-6xl px-5 py-16">
+    <section id="requirements" className="mx-auto max-w-6xl px-5 py-16">
       <h2 className="text-2xl font-bold md:text-3xl">이런 일을 해봤어요</h2>
       <p className="mt-2 text-white/70">요건마다 근거가 되는 슬라이드로 바로 이동할 수 있어요.</p>
       <ul className="glass mt-8 divide-y divide-white/10 rounded-3xl">
@@ -16,7 +16,7 @@ export default function RequirementMatrix({ rows, isProd }: { rows: MatrixRow[];
           >
             <div>
               <p className="font-semibold">{row.label}</p>
-              <p className="mt-1 text-sm text-white/60">{row.detail}</p>
+              <p className="mt-1 text-sm text-white/70">{row.detail}</p>
             </div>
             <div className="flex flex-wrap content-start gap-2">
               {row.evidence.length ? (

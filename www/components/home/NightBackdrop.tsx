@@ -6,7 +6,7 @@ export default function NightBackdrop() {
         <source media="(max-width: 767px)" srcSet="/bg/night-mobile.webp" />
         <img src="/bg/night.webp" alt="" fetchPriority="high" className="h-full w-full object-cover" />
       </picture>
-      <div className="absolute inset-0 bg-linear-to-b from-night/50 via-night/70 to-night/90" />
+      <div className="absolute inset-0 bg-linear-to-b from-night/70 via-night/80 to-night/92" />
     </div>
   );
 }

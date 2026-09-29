@@ -71,6 +71,14 @@ describe("ProfileSchema", () => {
     expect(ProfileSchema.safeParse(validProfileData()).success).toBe(true);
   });
 
+  it("기술 목록은 그룹별로 1개 이상, 학습 여부는 기본 false", () => {
+    const parsed = ProfileSchema.parse(validProfileData());
+    expect(parsed.skills[0].items[0].learned).toBe(false);
+    expect(parsed.skills[0].items[1].learned).toBe(true);
+    const empty = { ...validProfileData(), skills: [{ group: "백엔드", items: [] }] };
+    expect(ProfileSchema.safeParse(empty).success).toBe(false);
+  });
+
   it("요건 id가 중복되거나 빠지면 실패한다", () => {
     const data = validProfileData();
     const reqs = data.requirements as { id: string }[];
