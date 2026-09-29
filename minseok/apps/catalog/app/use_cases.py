@@ -52,5 +52,4 @@ class CatalogInteractor(ProjectCatalogPort):
         for p in self._data.projects:
             urls.add(self._data.slide_url(p.slug, INTRO_SLIDE))
             urls.update(self._data.slide_url(p.slug, s.number) for s in p.slides)
-            urls.add(self._data.slide_url(p.slug, len(p.slides) + 2))  # 회고 슬라이드
         return urls

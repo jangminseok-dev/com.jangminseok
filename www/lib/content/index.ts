@@ -2,7 +2,7 @@
 import path from "node:path";
 import { cache } from "react";
 import { readBannedTerms } from "@/lib/content/banned";
-import { loadProfile, loadProjectPage, loadProjects } from "@/lib/content/load";
+import { loadProfile, loadProjects } from "@/lib/content/load";
 import { PROJECT_SLUGS } from "@/lib/slugs";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "..", "content");
@@ -14,5 +14,3 @@ export const getProjects = cache(() =>
 export const getProject = (slug: string) => getProjects().find((p) => p.slug === slug) ?? null;
 
 export const getProfile = cache(() => loadProfile(CONTENT_DIR, readBannedTerms(CONTENT_DIR)));
-
-export const getProjectPage = (slug: string) => loadProjectPage(CONTENT_DIR, slug, readBannedTerms(CONTENT_DIR));

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#9aa1ad"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#181b22"/>
+  <text x="60" y="80" fill="#fff" font-size="32" font-weight="700">다른 AI 앱에서 제 포트폴리오 조회하기</text>
+  <text x="60" y="118" fill="#9aa1ad" font-size="19">Claude 앱 설정의 커넥터에 주소 하나를 등록하면 됩니다</text>
+
+  <rect x="60" y="180" width="1080" height="84" rx="16" fill="#0f1115" stroke="#8ab4ff" stroke-width="2"/>
+  <text x="90" y="232" fill="#9aa1ad" font-size="20">커넥터 주소</text>
+  <text x="250" y="233" fill="#8ab4ff" font-size="26" font-weight="700" font-family="ui-monospace, Menlo, monospace">https://api.jangminseok.com/mcp/</text>
+
+  <g font-size="22" text-anchor="middle">
+    <rect x="60" y="330" width="300" height="120" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="210" y="382" fill="#fff" font-weight="700">Claude 앱</text>
+    <text x="210" y="416" fill="#9aa1ad" font-size="17">"CallGuard 팀 규모는?"</text>
+
+    <rect x="450" y="330" width="300" height="120" rx="18" fill="#8ab4ff"/>
+    <text x="600" y="382" fill="#0b1220" font-weight="700">MCP 서버</text>
+    <text x="600" y="416" fill="#0b1220" font-size="17">api.jangminseok.com</text>
+
+    <rect x="840" y="300" width="300" height="180" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="990" y="346" fill="#fff" font-weight="700">도구 3개</text>
+    <text x="990" y="388" fill="#9aa1ad" font-size="18">search_portfolio</text>
+    <text x="990" y="420" fill="#9aa1ad" font-size="18">get_project</text>
+    <text x="990" y="452" fill="#9aa1ad" font-size="18">find_by_skill</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="3" marker-end="url(#a)">
+    <line x1="360" y1="390" x2="444" y2="390"/>
+    <line x1="750" y1="390" x2="834" y2="390"/>
+  </g>
+  <text x="600" y="570" fill="#9aa1ad" font-size="19" text-anchor="middle">사이트 챗봇과 같은 도구를 씁니다. 도구 코드는 한 곳에만 있습니다.</text>
+</svg>

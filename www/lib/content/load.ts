@@ -4,7 +4,7 @@ import { parse } from "yaml";
 import type { z } from "zod";
 import { findBannedTerms } from "@/lib/content/banned";
 import { ProfileSchema, ProjectPageSchema, ProjectSchema } from "@/lib/content/schema";
-import type { Profile, Project, ProjectPage } from "@/lib/content/schema";
+import type { Profile, Project, ProjectMeta, ProjectPage } from "@/lib/content/schema";
 
 export class ContentError extends Error {}
 
@@ -28,13 +28,20 @@ function readChecked<T extends z.ZodType>(file: string, schema: T, bannedTerms: 
   return result.data;
 }
 
-function mediaPaths(p: Project): string[] {
-  return [
-    p.preview.poster,
-    ...(p.preview.video ? [p.preview.video] : []),
-    ...(p.preview.demo ? [p.preview.demo] : []),
-    ...p.slides.flatMap((s) => s.frames.map((f) => f.image)),
-  ];
+function mediaPaths(p: ProjectMeta): string[] {
+  return [p.preview.poster, ...(p.preview.video ? [p.preview.video] : []), ...(p.preview.demo ? [p.preview.demo] : [])];
+}
+
+// 미디어가 있는지, SVG 도식 안에 금지어(실명, IP)가 섞이지 않았는지
+function checkMedia(file: string, contentDir: string, slug: string, media: string[], bannedTerms: readonly string[]) {
+  for (const m of media) {
+    const mediaFile = path.join(contentDir, slug, m);
+    if (!fs.existsSync(mediaFile)) throw new ContentError(`${file}: 미디어 파일 없음 — ${slug}/${m}`);
+    if (m.endsWith(".svg")) {
+      const banned = findBannedTerms(fs.readFileSync(mediaFile, "utf8"), bannedTerms);
+      if (banned.length) throw new ContentError(`${mediaFile}: 공개 금지 항목 발견 — ${banned.join(", ")}`);
+    }
+  }
 }
 
 export function loadProjects(
@@ -54,24 +61,16 @@ export function loadProjects(
     );
   }
 
-  const projects = opts.slugs.map((slug) => {
+  const projects = opts.slugs.map((slug): Project => {
     const file = path.join(contentDir, slug, "project.yaml");
-    const project = readChecked(file, ProjectSchema, opts.bannedTerms);
-    if (project.slug !== slug) {
-      throw new ContentError(`${file}: slug "${project.slug}"가 디렉터리 이름 "${slug}"와 다릅니다`);
+    const meta = readChecked(file, ProjectSchema, opts.bannedTerms);
+    if (meta.slug !== slug) {
+      throw new ContentError(`${file}: slug "${meta.slug}"가 디렉터리 이름 "${slug}"와 다릅니다`);
     }
-    for (const m of mediaPaths(project)) {
-      const mediaFile = path.join(contentDir, slug, m);
-      if (!fs.existsSync(mediaFile)) {
-        throw new ContentError(`${file}: 미디어 파일 없음 — ${slug}/${m}`);
-      }
-      // SVG 도식은 텍스트라 실명·IP가 섞일 수 있다
-      if (m.endsWith(".svg")) {
-        const banned = findBannedTerms(fs.readFileSync(mediaFile, "utf8"), opts.bannedTerms);
-        if (banned.length) throw new ContentError(`${mediaFile}: 공개 금지 항목 발견 — ${banned.join(", ")}`);
-      }
-    }
-    return project;
+    checkMedia(file, contentDir, slug, mediaPaths(meta), opts.bannedTerms);
+    const page = loadProjectPage(contentDir, slug, opts.bannedTerms);
+    if (!page) throw new ContentError(`${path.join(contentDir, slug, "page.yaml")}: 소개 페이지 원고가 없습니다`);
+    return { ...meta, page };
   });
 
   return projects.sort((a, b) => a.order - b.order);
@@ -87,7 +86,6 @@ export function loadProjectPage(contentDir: string, slug: string, bannedTerms: r
   if (!fs.existsSync(file)) return null;
   const page = readChecked(file, ProjectPageSchema, bannedTerms);
   const media = [page.architecture.image, ...page.features.flatMap((f) => (f.image ? [f.image] : []))];
-  const missing = media.filter((m) => !fs.existsSync(path.join(contentDir, slug, m)));
-  if (missing.length) throw new ContentError(`${file}: 미디어 파일 없음 — ${missing.join(", ")}`);
+  checkMedia(file, contentDir, slug, media, bannedTerms);
   return page;
 }

@@ -1,15 +1,5 @@
 // 테스트 전용 — 스키마를 통과하는 최소 데이터
 export function validProjectData(overrides: Record<string, unknown> = {}): Record<string, unknown> {
-  const decision = (title: string) => ({
-    title,
-    label: `${title} 한 줄 설명`,
-    summary: "요약 문장",
-    stats: { problem: "문제", choice: "선택", cost: "대가", effect: "근거 없음" },
-    frames: [{ image: "media/03-1.webp", caption: "전" }],
-    alternatives: [{ name: "대안", reason: "버린 이유" }],
-    evidence: [{ label: "README" }],
-    proves: ["rag"],
-  });
   return {
     slug: "demo",
     order: 1,
@@ -22,8 +12,21 @@ export function validProjectData(overrides: Record<string, unknown> = {}): Recor
     languages: ["Python"],
     preview: { poster: "media/poster.webp" },
     links: {},
-    slides: [decision("설계 원칙"), decision("핵심 결정")],
+    ...overrides,
+  };
+}
+
+// 소개 페이지(page.yaml) 최소 데이터 — 미디어는 media/arch.svg 하나
+export function validPageData(overrides: Record<string, unknown> = {}): Record<string, unknown> {
+  const two = (t: string) => [1, 2].map((i) => ({ title: `${t}${i}`, body: "설명입니다." }));
+  return {
+    overview: { what: "무엇", why: "왜", role: "역할 한 줄", highlights: [{ value: "1", label: "수치" }] },
+    features: two("기능"),
+    architecture: { image: "media/arch.svg", summary: "요약", points: two("포인트"), layers: [{ name: "서버", items: ["FastAPI"] }] },
+    role: { summary: "요약", mine: ["한 일"] },
+    troubles: [1, 2].map((i) => ({ title: `문제${i}`, problem: "문제", solution: "해결", result: "결과" })),
     retro: { metrics: [], regrets: ["아쉬운 점"] },
+    proves: [{ id: "rag", label: "한 줄 설명", anchor: "05" }],
     ...overrides,
   };
 }

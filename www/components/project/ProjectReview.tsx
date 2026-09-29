@@ -4,16 +4,19 @@ import type { Project, ProjectPage } from "@/lib/content/schema";
 import { stackIconSlug } from "@/lib/icons";
 
 // 프로젝트 소개 페이지 v2 — 한눈에, 주요 기능, 아키텍처, 맡은 일, 어려웠던 점, 회고 (서버 컴포넌트)
+// anchor: 챗봇 근거 링크와 요건 카드가 쓰는 섹션 번호 (lib/content/schema.ts SECTION_ANCHORS)
 const SECTIONS = [
-  { id: "overview", label: "한눈에" },
-  { id: "features", label: "주요 기능" },
-  { id: "architecture", label: "아키텍처" },
-  { id: "role", label: "맡은 일" },
-  { id: "troubles", label: "어려웠던 점" },
-  { id: "retro", label: "회고" },
+  { id: "overview", anchor: "01", label: "한눈에" },
+  { id: "features", anchor: "02", label: "주요 기능" },
+  { id: "architecture", anchor: "03", label: "아키텍처" },
+  { id: "role", anchor: "04", label: "맡은 일" },
+  { id: "troubles", anchor: "05", label: "어려웠던 점" },
+  { id: "retro", anchor: "06", label: "회고" },
 ] as const;
 
-type Props = { project: Project; page: ProjectPage; mainHref: string };
+const anchorOf = (id: string) => SECTIONS.find((s) => s.id === id)?.anchor ?? "";
+
+type Props = { project: Project; mainHref: string };
 type Figure = ProjectPage["retro"]["metrics"][number];
 
 function projectLinks(project: Project): { href: string; label: string }[] {
@@ -49,6 +52,7 @@ function LinkButtons({ project }: { project: Project }) {
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
     <section id={id} className="scroll-mt-32 py-14">
+      <span id={anchorOf(id)} aria-hidden className="block scroll-mt-32" />
       <h2 className="text-2xl font-bold md:text-3xl">{title}</h2>
       <div className="mt-6">{children}</div>
     </section>
@@ -65,10 +69,11 @@ function FigureCard({ f }: { f: Figure }) {
   );
 }
 
-function Overview({ project, page, mainHref }: Props) {
-  const { slug, preview, period, team } = project;
+function Overview({ project, mainHref }: Props) {
+  const { slug, preview, period, team, page } = project;
   return (
     <section id="overview" className="scroll-mt-32 pt-10 pb-14">
+      <span id="01" aria-hidden className="block scroll-mt-32" />
       <a href={mainHref} className="text-sm text-white/70 hover:text-white">
         ← 전체 프로젝트
       </a>
@@ -297,7 +302,8 @@ function Troubles({ page }: { page: ProjectPage }) {
   );
 }
 
-function Retro({ project, page, mainHref }: Props) {
+function Retro({ project, mainHref }: Props) {
+  const { page } = project;
   return (
     <Section id="retro" title="성과와 회고">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -349,10 +355,10 @@ export default function ProjectReview(props: Props) {
       </nav>
       <div className="mx-auto max-w-6xl px-5">
         <Overview {...props} />
-        <Features slug={props.project.slug} page={props.page} />
-        <Architecture slug={props.project.slug} page={props.page} />
-        <Role page={props.page} />
-        <Troubles page={props.page} />
+        <Features slug={props.project.slug} page={props.project.page} />
+        <Architecture slug={props.project.slug} page={props.project.page} />
+        <Role page={props.project.page} />
+        <Troubles page={props.project.page} />
         <Retro {...props} />
       </div>
     </>

@@ -2,11 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import NightBackdrop from "@/components/home/NightBackdrop";
 import SiteNav from "@/components/home/SiteNav";
-import { accentStyle } from "@/components/slides/Slide";
-import SlideDeck from "@/components/slides/SlideDeck";
-import SlideDecision from "@/components/slides/SlideDecision";
-import SlideIntro from "@/components/slides/SlideIntro";
-import SlideRetro from "@/components/slides/SlideRetro";
+import ProjectReview from "@/components/project/ProjectReview";
+import { accentStyle } from "@/lib/accent";
 import { getProfile, getProject, getProjects } from "@/lib/content";
 import { SITE_DOMAIN, isProdSite, mainHref } from "@/lib/site";
 
@@ -24,7 +21,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!project) return {};
   return {
     title: `${project.title} | 장민석`,
-    description: project.tagline,
+    description: project.page.overview.what,
     alternates: { canonical: `https://${slug}.${SITE_DOMAIN}` },
   };
 }
@@ -35,20 +32,12 @@ export default async function ProjectPage({ params }: Params) {
   if (!project) notFound();
 
   const home = mainHref(isProdSite());
-  const count = project.slides.length + 2;
-
   return (
     <>
       <NightBackdrop />
       <SiteNav name={getProfile().name} github={getProfile().links.github} base={home} />
       <main style={accentStyle(project.accent)} className="text-white">
-        <SlideDeck count={count}>
-          <SlideIntro project={project} mainHref={home} />
-          {project.slides.map((slide, i) => (
-            <SlideDecision key={slide.title} n={i + 2} slug={slug} slide={slide} />
-          ))}
-          <SlideRetro n={count} project={project} mainHref={home} />
-        </SlideDeck>
+        <ProjectReview project={project} mainHref={home} />
       </main>
     </>
   );

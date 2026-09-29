@@ -18,19 +18,6 @@ const mediaPath = z
   .string()
   .regex(/^media\/[\w.\-/]+\.(webp|png|jpg|svg|mp4)$/, "media/ 아래 webp·png·jpg·svg·mp4 경로여야 합니다");
 
-const DecisionSlideSchema = z.strictObject({
-  title: text,
-  // 요건 카드 등 맥락 없는 곳에 쓰는 한 줄 설명 — 무엇을 했고 결과가 어땠는지
-  label: text.max(30),
-  summary: text,
-  stats: z.strictObject({ problem: text, choice: text, cost: text, effect: text }),
-  frames: z.array(z.strictObject({ image: mediaPath, caption: text })).min(1).max(3),
-  alternatives: z.array(z.strictObject({ name: text, reason: text })).min(1),
-  concept: z.strictObject({ title: text, body: text }).optional(),
-  evidence: z.array(z.strictObject({ label: text, url: z.url().optional() })).min(1),
-  proves: z.array(z.enum(REQUIREMENT_IDS)).default([]),
-});
-
 // 프로젝트 카드 오른쪽 위 핀 — simple-icons slug와 1:1 (components/home/LanguagePins.tsx)
 export const LANGUAGES = ["Python", "TypeScript", "Dart", "JavaScript", "Java"] as const;
 export type Language = (typeof LANGUAGES)[number];
@@ -51,14 +38,10 @@ export const ProjectSchema = z.strictObject({
     site: z.url().optional(),
     repo: z.url().optional(),
   }),
-  slides: z.array(DecisionSlideSchema).min(2).max(5),
-  retro: z.strictObject({
-    metrics: z.array(z.strictObject({ label: text, value: text })),
-    regrets: z.array(text),
-  }),
 });
-export type Project = z.infer<typeof ProjectSchema>;
-export type DecisionSlide = Project["slides"][number];
+// project.yaml(기본 정보) + page.yaml(소개 페이지) — 로더가 합친다
+export type ProjectMeta = z.infer<typeof ProjectSchema>;
+export type Project = ProjectMeta & { page: ProjectPage };
 
 export const ProfileSchema = z.strictObject({
   name: text,
@@ -107,6 +90,9 @@ export const ProfileSchema = z.strictObject({
 });
 export type Profile = z.infer<typeof ProfileSchema>;
 
+// 소개 페이지 섹션 번호 — 챗봇 근거 링크(slug.jangminseok.com#05)와 요건 카드가 이 번호로 이동한다
+export const SECTION_ANCHORS = ["01", "02", "03", "04", "05", "06"] as const;
+
 // ── 프로젝트 소개 페이지 v2 (content/<slug>/page.yaml) — 한눈에, 기능, 아키텍처, 맡은 일, 어려웠던 점, 회고 ──
 const figure = z.strictObject({ value: text, label: text, note: text.optional() });
 
@@ -146,5 +132,9 @@ export const ProjectPageSchema = z.strictObject({
     .min(2)
     .max(5),
   retro: z.strictObject({ metrics: z.array(figure), learned: z.array(text).default([]), regrets: z.array(text) }),
+  // 메인 요건 카드에 이 프로젝트를 근거로 보여 줄 항목 — anchor는 섹션 번호
+  proves: z
+    .array(z.strictObject({ id: z.enum(REQUIREMENT_IDS), label: text.max(30), anchor: z.enum(SECTION_ANCHORS) }))
+    .default([]),
 });
 export type ProjectPage = z.infer<typeof ProjectPageSchema>;

@@ -106,3 +106,13 @@ retro:
     - 검색 정답표를 외부 AI가 붙였고, 사람이 직접 확인한 표본을 두지 못했습니다.
     - 자동 검사 서버 없이 로컬 수동 검증에 기댔습니다. 이 포트폴리오 저장소에서는 처음부터 CI 검사를 두었습니다.
     - 문서마다 시험 문제 수가 134개와 144개로 다르게 적혀 있습니다. 수치를 한곳에서 관리해야 합니다.
+
+# 메인 "요건 카드"에 이 프로젝트를 근거로 보여 줄 항목 (anchor: 01 한눈에, 02 기능, 03 아키텍처, 04 맡은 일, 05 어려웠던 점, 06 회고)
+proves:
+  - { id: python-backend, label: "자동 검사되는 아키텍처 (import-linter)", anchor: "03" }
+  - { id: rag, label: "LLM 오답 방지 코드 가드", anchor: "05" }
+  - { id: rag, label: "LLM 품질 회귀 테스트 (골든셋)", anchor: "05" }
+  - { id: search-engine, label: "하이브리드 검색 측정 후 미채택", anchor: "05" }
+  - { id: hybrid-search, label: "하이브리드 검색 측정 후 미채택", anchor: "05" }
+  - { id: rag, label: "하이브리드 검색 측정 후 미채택", anchor: "05" }
+  - { id: linux-docker, label: "온프레미스 배포 (k3s + Docker)", anchor: "03" }

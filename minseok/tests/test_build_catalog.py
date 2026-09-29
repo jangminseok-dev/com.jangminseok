@@ -6,6 +6,22 @@ import yaml
 from scripts.build_catalog import build
 
 
+PAGE = {
+    "overview": {"what": "무엇을 하는 서비스입니다.", "why": "왜 만들었습니다.", "role": "혼자 만들었습니다.",
+                 "highlights": [{"value": "0.97", "label": "정확도", "note": "시험 문제 30개"}]},
+    "features": [{"title": "자동 추천", "body": "서류를 띄웁니다."}, {"title": "가림", "body": "개인정보를 가립니다."}],
+    "architecture": {"image": "media/arch.svg", "summary": "요약입니다.",
+                     "points": [{"title": "분리", "body": "나눴습니다."}, {"title": "검사", "body": "막았습니다."}],
+                     "layers": [{"name": "서버", "items": ["FastAPI", "PostgreSQL + pgvector"]}]},
+    "role": {"summary": "혼자 했습니다.", "mine": ["서버"], "team": [], "collab": [], "ai": ["검증했습니다."]},
+    "troubles": [
+        {"title": "첫 문제", "problem": "문제1", "solution": "해결1", "result": "결과1"},
+        {"title": "둘째 문제", "problem": "문제2", "cause": "원인2", "solution": "해결2", "result": "결과2"},
+    ],
+    "retro": {"metrics": [{"value": "0.97", "label": "정확도"}], "learned": ["배운 점"], "regrets": ["아쉬운 점"]},
+}
+
+
 def _project(tmp: Path, slug: str) -> None:
     d = tmp / slug
     d.mkdir(parents=True)
@@ -15,26 +31,23 @@ def _project(tmp: Path, slug: str) -> None:
                 "slug": slug, "order": 1, "title": slug.upper(), "tagline": "한 줄",
                 "period": {"start": "2026-01-01", "end": None},
                 "team": {"size": 1, "role": "1인 개발"}, "stack": ["FastAPI", "PostgreSQL + pgvector"],
-                "languages": ["Python"],
-                "slides": [{"title": "설계 원칙 - 요지", "label": "라벨", "summary": "요약입니다.",
-                            "stats": {"problem": "문제", "choice": "선택", "cost": "대가", "effect": "효과"},
-                            "alternatives": [{"name": "대안", "reason": "이유"}],
-                            "concept": {"title": "개념", "body": "설명"}}],
-                "retro": {"metrics": [{"label": "정확도", "value": "0.97"}], "regrets": []},
+                "languages": ["Python"], "preview": {"poster": "media/poster.webp"}, "links": {},
             },
             allow_unicode=True,
         ),
         encoding="utf-8",
     )
+    (d / "page.yaml").write_text(yaml.safe_dump(PAGE, allow_unicode=True), encoding="utf-8")
 
 
-def test_build_makes_slide_text_and_numbers(tmp_path):
+def test_build_makes_one_entry_per_page_section_and_trouble(tmp_path):
     _project(tmp_path, "demo")
-    data = build(tmp_path)
-    p = data["projects"][0]
-    assert p["slug"] == "demo"
-    assert p["slides"][0]["number"] == 2  # 01은 소개 슬라이드
-    assert "요약입니다." in p["slides"][0]["text"] and "대안" in p["slides"][0]["text"]
+    p = build(tmp_path)["projects"][0]
+    numbers = [s["number"] for s in p["slides"]]
+    assert numbers == [1, 2, 3, 4, 5, 5, 6]  # 한눈에, 기능, 아키텍처, 맡은 일, 어려웠던 점 2개, 회고
+    trouble = p["slides"][5]
+    assert trouble["title"] == "둘째 문제" and "원인2" in trouble["text"] and "결과2" in trouble["text"]
+    assert "FastAPI" in p["slides"][2]["text"]  # 아키텍처 계층의 기술 이름 — 기술별 찾기가 쓴다
     assert p["metrics"] == [{"label": "정확도", "value": "0.97"}]
 
 
@@ -67,9 +80,9 @@ def test_project_without_notes_has_empty_list(tmp_path):
 def test_note_pointing_to_missing_slide_fails(tmp_path):
     import pytest
 
-    _project(tmp_path, "demo")  # 슬라이드 01(소개)과 02뿐
-    (tmp_path / "demo" / "notes.md").write_text("## [09] 없는 슬라이드\n본문\n", encoding="utf-8")
-    with pytest.raises(ValueError, match="09"):
+    _project(tmp_path, "demo")  # 섹션은 01~06
+    (tmp_path / "demo" / "notes.md").write_text("## [07] 없는 섹션\n본문\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="07"):
         build(tmp_path)
 
 

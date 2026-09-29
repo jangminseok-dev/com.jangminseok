@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#9aa1ad"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="56" fill="#fff" font-size="28" font-weight="700">jangminseok.com 전체 구조</text>
+  <text x="40" y="88" fill="#9aa1ad" font-size="17">질문 하나가 근거 링크가 붙은 답이 되기까지</text>
+
+  <!-- 왼쪽: 입구 둘 -->
+  <g font-size="18" text-anchor="middle">
+    <rect x="40" y="170" width="200" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="140" y="205" fill="#fff" font-weight="700">사이트 챗봇</text>
+    <text x="140" y="230" fill="#9aa1ad" font-size="14">Next.js (Vercel)</text>
+    <rect x="40" y="390" width="200" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="140" y="425" fill="#fff" font-weight="700">Claude 같은 AI 앱</text>
+    <text x="140" y="450" fill="#9aa1ad" font-size="14">MCP 커넥터</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <line x1="240" y1="210" x2="306" y2="210"/>
+    <line x1="240" y1="430" x2="306" y2="430"/>
+  </g>
+
+  <!-- 가운데: API 서버 -->
+  <rect x="310" y="130" width="560" height="440" rx="20" fill="none" stroke="#8ab4ff" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="330" y="162" fill="#8ab4ff" font-size="18" font-weight="700">api.jangminseok.com (FastAPI)</text>
+
+  <g font-size="17" text-anchor="middle">
+    <rect x="330" y="180" width="170" height="60" rx="12" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="415" y="216" fill="#fff" font-weight="700">질문 API</text>
+    <rect x="330" y="400" width="170" height="60" rx="12" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="415" y="436" fill="#fff" font-weight="700">MCP 서버</text>
+
+    <rect x="540" y="180" width="310" height="60" rx="12" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="695" y="208" fill="#fff" font-weight="700">AI가 도구 고르기 (최대 3번)</text>
+    <text x="695" y="229" fill="#9aa1ad" font-size="13">Gemini</text>
+
+    <rect x="540" y="290" width="310" height="80" rx="14" fill="#8ab4ff"/>
+    <text x="695" y="322" fill="#0b1220" font-size="19" font-weight="700">도구 3개 (한 곳에만 구현)</text>
+    <text x="695" y="348" fill="#0b1220" font-size="14">문서 검색, 프로젝트 조회, 기술별 찾기</text>
+
+    <rect x="540" y="420" width="310" height="60" rx="12" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="695" y="448" fill="#fff" font-weight="700">답변 검사</text>
+    <text x="695" y="469" fill="#9aa1ad" font-size="13">없는 숫자, 없는 링크, 금지어 제거</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <line x1="500" y1="210" x2="536" y2="210"/>
+    <line x1="695" y1="240" x2="695" y2="286"/>
+    <path d="M500 430 C 520 430, 520 330, 536 330"/>
+    <line x1="695" y1="370" x2="695" y2="416"/>
+  </g>
+  <text x="590" y="545" fill="#9aa1ad" font-size="14" text-anchor="middle">챗봇은 검사한 답을, MCP는 도구 결과를 그대로 돌려줍니다</text>
+
+  <!-- 오른쪽: 데이터 -->
+  <g font-size="17" text-anchor="middle">
+    <rect x="920" y="230" width="240" height="90" rx="14" fill="#0f1115" stroke="#8ab4ff" stroke-width="2"/>
+    <text x="1040" y="264" fill="#fff" font-weight="700">문서 조각 검색</text>
+    <text x="1040" y="290" fill="#9aa1ad" font-size="14">Supabase PostgreSQL</text>
+    <text x="1040" y="310" fill="#9aa1ad" font-size="13">의미 검색 + 키워드 검색</text>
+    <rect x="920" y="360" width="240" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="1040" y="394" fill="#fff" font-weight="700">프로젝트 정보</text>
+    <text x="1040" y="420" fill="#9aa1ad" font-size="14">사이트 원고에서 만든 JSON</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <path d="M850 320 C 885 320, 885 275, 916 275"/>
+    <path d="M850 340 C 885 340, 885 400, 916 400"/>
+  </g>
+
+  <text x="600" y="630" fill="#9aa1ad" font-size="16" text-anchor="middle">배포: Vercel(화면과 서버), Supabase(DB), Gemini 무료 한도, 월 운영비 0원</text>
+</svg>

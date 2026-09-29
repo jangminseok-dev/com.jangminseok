@@ -4,15 +4,21 @@ import path from "node:path";
 import { stringify } from "yaml";
 import { beforeEach, describe, expect, it } from "vitest";
 import { ContentError, loadProfile, loadProjects } from "@/lib/content/load";
-import { validProfileData, validProjectData } from "@/lib/content/fixtures";
+import { validPageData, validProfileData, validProjectData } from "@/lib/content/fixtures";
 
 let dir: string;
 
-function writeProject(slug: string, data: Record<string, unknown>, media: string[] = ["poster.webp", "03-1.webp"]) {
+function writeProject(
+  slug: string,
+  data: Record<string, unknown>,
+  media: string[] = ["poster.webp", "arch.svg"],
+  page: Record<string, unknown> | null = validPageData(),
+) {
   const pdir = path.join(dir, slug);
   fs.mkdirSync(path.join(pdir, "media"), { recursive: true });
   fs.writeFileSync(path.join(pdir, "project.yaml"), stringify(data));
-  for (const m of media) fs.writeFileSync(path.join(pdir, "media", m), "x");
+  if (page) fs.writeFileSync(path.join(pdir, "page.yaml"), stringify(page));
+  for (const m of media) fs.writeFileSync(path.join(pdir, "media", m), "<svg/>");
 }
 
 beforeEach(() => {
@@ -47,7 +53,14 @@ describe("loadProjects", () => {
 
   it("참조한 미디어 파일이 없으면 그 경로를 알려준다", () => {
     writeProject("a", validProjectData({ slug: "a" }), ["poster.webp"]);
-    expect(() => loadProjects(dir, { slugs: ["a"], bannedTerms: [] })).toThrowError(/media\/03-1\.webp/);
+    expect(() => loadProjects(dir, { slugs: ["a"], bannedTerms: [] })).toThrowError(/media\/arch\.svg/);
+  });
+
+  it("소개 페이지(page.yaml)를 합쳐 돌려주고, 없으면 실패한다", () => {
+    writeProject("a", validProjectData({ slug: "a" }));
+    expect(loadProjects(dir, { slugs: ["a"], bannedTerms: [] })[0].page.overview.role).toBe("역할 한 줄");
+    writeProject("b", validProjectData({ slug: "b" }), undefined, null);
+    expect(() => loadProjects(dir, { slugs: ["a", "b"], bannedTerms: [] })).toThrowError(/b\/page\.yaml/);
   });
 
   it("전체 시연 영상 파일이 없으면 그 경로를 알려준다", () => {
@@ -63,12 +76,10 @@ describe("loadProjects", () => {
   });
 
   it("SVG 도식 안의 금지어도 잡는다", () => {
-    const data = validProjectData({ slug: "a" });
-    (data.slides as { frames: unknown[] }[])[0].frames = [{ image: "media/d.svg", caption: "도식" }];
-    writeProject("a", data, ["poster.webp", "03-1.webp"]);
-    fs.writeFileSync(path.join(dir, "a", "media", "d.svg"), "<svg><text>홍길동 담당</text></svg>");
+    writeProject("a", validProjectData({ slug: "a" }));
+    fs.writeFileSync(path.join(dir, "a", "media", "arch.svg"), "<svg><text>홍길동 담당</text></svg>");
     const run = () => loadProjects(dir, { slugs: ["a"], bannedTerms: ["홍길동"] });
-    expect(run).toThrowError(/d\.svg[\s\S]*금지어 #1/);
+    expect(run).toThrowError(/arch\.svg[\s\S]*금지어 #1/);
     expect(run).not.toThrowError(/홍길동/);
   });
 

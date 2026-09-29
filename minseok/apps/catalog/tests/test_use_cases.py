@@ -57,3 +57,11 @@ def test_find_by_skill_ignores_rejected_alternatives():
         site="https://jangminseok.com",
     )
     assert CatalogInteractor(data).find_by_skill("Elasticsearch") == []
+
+
+def test_all_slide_urls_has_only_real_sections():
+    urls = CatalogInteractor(DATA).all_slide_urls()
+    assert urls == {
+        "https://callguard.jangminseok.com#01", "https://callguard.jangminseok.com#02", "https://callguard.jangminseok.com#05",
+        "https://redoceanmap.jangminseok.com#01", "https://redoceanmap.jangminseok.com#02",
+    }  # 없는 섹션 번호(옛 회고 슬라이드 자리)는 만들지 않는다

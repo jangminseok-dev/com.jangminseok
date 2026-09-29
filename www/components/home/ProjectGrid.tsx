@@ -5,7 +5,7 @@ import type { Project } from "@/lib/content/schema";
 import { projectHref } from "@/lib/site";
 import { byStartDate } from "@/lib/timeline";
 
-function ProjectCard({ p, isProd, role }: { p: Project; isProd: boolean; role: string }) {
+function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
   return (
     <li className="h-full">
       <a
@@ -30,7 +30,7 @@ function ProjectCard({ p, isProd, role }: { p: Project; isProd: boolean; role: s
           <p className="mt-auto flex items-center gap-2 pt-3 text-xs text-white/55">
             <span className="shrink-0">{p.period.start.slice(0, 7)}</span>
             <span className="truncate rounded-full bg-(--accent)/15 px-2.5 py-1 font-medium text-white/85" style={{ ["--accent" as string]: p.accent }}>
-              {role}
+              {p.page.overview.role}
             </span>
           </p>
         </div>
@@ -39,15 +39,7 @@ function ProjectCard({ p, isProd, role }: { p: Project; isProd: boolean; role: s
   );
 }
 
-export default function ProjectGrid({
-  projects,
-  isProd,
-  roles,
-}: {
-  projects: Project[];
-  isProd: boolean;
-  roles: Record<string, string>;
-}) {
+export default function ProjectGrid({ projects, isProd }: { projects: Project[]; isProd: boolean }) {
   const groups = [
     { title: "개인 프로젝트", items: projects.filter((p) => p.team.size === 1).sort(byStartDate) },
     { title: "팀 프로젝트", items: projects.filter((p) => p.team.size > 1).sort(byStartDate) },
@@ -63,7 +55,7 @@ export default function ProjectGrid({
           </h3>
           <ul className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {g.items.map((p) => (
-              <ProjectCard key={p.slug} p={p} isProd={isProd} role={roles[p.slug] ?? p.team.role} />
+              <ProjectCard key={p.slug} p={p} isProd={isProd} />
             ))}
           </ul>
         </div>

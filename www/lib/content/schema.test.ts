@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { ProfileSchema, ProjectSchema } from "@/lib/content/schema";
-import { validProfileData, validProjectData } from "@/lib/content/fixtures";
+import { ProfileSchema, ProjectPageSchema, ProjectSchema } from "@/lib/content/schema";
+import { validPageData, validProfileData, validProjectData } from "@/lib/content/fixtures";
 
 describe("ProjectSchema", () => {
   it("최소 유효 데이터를 통과시킨다 (영상 없음 허용)", () => {
@@ -8,27 +8,11 @@ describe("ProjectSchema", () => {
     expect(r.success).toBe(true);
   });
 
-  it("스탯 박스 네 칸 중 하나라도 비면 실패한다", () => {
-    const data = validProjectData();
-    const slides = data.slides as { stats: Record<string, string> }[];
-    slides[0].stats.cost = "";
-    expect(ProjectSchema.safeParse(data).success).toBe(false);
-  });
-
   it("주 사용 언어는 1~3개, 정해진 목록에서만", () => {
     expect(ProjectSchema.safeParse(validProjectData({ languages: [] })).success).toBe(false);
     expect(ProjectSchema.safeParse(validProjectData({ languages: ["Python", "TypeScript", "Dart", "Java"] })).success).toBe(false);
     expect(ProjectSchema.safeParse(validProjectData({ languages: ["Cobol"] })).success).toBe(false);
     expect(ProjectSchema.safeParse(validProjectData({ languages: ["Python", "Dart"] })).success).toBe(true);
-  });
-
-  it("결정 슬라이드는 맥락 없이도 읽히는 한 줄 설명(label, 30자 이하)이 필수", () => {
-    const data = validProjectData();
-    const slides = data.slides as Record<string, unknown>[];
-    delete slides[0].label;
-    expect(ProjectSchema.safeParse(data).success).toBe(false);
-    slides[0].label = "가".repeat(31);
-    expect(ProjectSchema.safeParse(data).success).toBe(false);
   });
 
   it("accent는 #RRGGBB만 허용한다", () => {
@@ -40,19 +24,9 @@ describe("ProjectSchema", () => {
     expect(ProjectSchema.safeParse(bad).success).toBe(false);
   });
 
-  it("캡처가 없는 결정은 SVG 도식을 쓸 수 있다", () => {
-    const data = validProjectData();
-    const slides = data.slides as { frames: unknown[] }[];
-    slides[0].frames = [{ image: "media/02-diagram.svg", caption: "도식" }];
-    expect(ProjectSchema.safeParse(data).success).toBe(true);
-  });
-
   it("정의되지 않은 키(오타)는 조용히 버리지 않고 실패한다", () => {
     expect(ProjectSchema.safeParse(validProjectData({ preview: { poster: "media/poster.webp", vidoe: "media/p.mp4" } })).success).toBe(false);
-    const data = validProjectData();
-    const slides = data.slides as Record<string, unknown>[];
-    slides[0].concpet = { title: "t", body: "b" };
-    expect(ProjectSchema.safeParse(data).success).toBe(false);
+    expect(ProjectSchema.safeParse(validProjectData({ slides: [] })).success).toBe(false); // 옛 슬라이드 원고가 남으면 실패
     expect(ProjectSchema.safeParse(validProjectData({ links: { blgo: "https://example.com" } })).success).toBe(false);
   });
 
@@ -61,24 +35,24 @@ describe("ProjectSchema", () => {
     expect(ProjectSchema.safeParse(data).success).toBe(true);
   });
 
-  it("결정 슬라이드는 2~5장이다", () => {
-    const data = validProjectData();
-    const one = { ...data, slides: (data.slides as unknown[]).slice(0, 1) };
-    expect(ProjectSchema.safeParse(one).success).toBe(false);
+});
+
+describe("ProjectPageSchema", () => {
+  it("최소 유효 데이터를 통과시킨다", () => {
+    expect(ProjectPageSchema.safeParse(validPageData()).success).toBe(true);
   });
 
-  it("캡처는 1~3컷이다", () => {
-    const data = validProjectData();
-    const slides = data.slides as { frames: unknown[] }[];
-    slides[0].frames = [1, 2, 3, 4].map((i) => ({ image: `media/${i}.webp`, caption: "c" }));
-    expect(ProjectSchema.safeParse(data).success).toBe(false);
+  it("요건 근거(proves)는 정의된 요건 id, 30자 이하 한 줄, 섹션 번호 01~06만", () => {
+    const bad = (p: Record<string, unknown>) => ProjectPageSchema.safeParse(validPageData({ proves: [p] })).success;
+    expect(bad({ id: "not-a-requirement", label: "l", anchor: "05" })).toBe(false);
+    expect(bad({ id: "rag", label: "가".repeat(31), anchor: "05" })).toBe(false);
+    expect(bad({ id: "rag", label: "l", anchor: "07" })).toBe(false);
   });
 
-  it("proves에 정의되지 않은 요건 id가 있으면 실패한다", () => {
-    const data = validProjectData();
-    const slides = data.slides as { proves: string[] }[];
-    slides[0].proves = ["not-a-requirement"];
-    expect(ProjectSchema.safeParse(data).success).toBe(false);
+  it("어려웠던 점은 2~5개다", () => {
+    const one = validPageData();
+    one.troubles = (one.troubles as unknown[]).slice(0, 1);
+    expect(ProjectPageSchema.safeParse(one).success).toBe(false);
   });
 });
 

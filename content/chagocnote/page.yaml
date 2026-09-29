@@ -106,3 +106,11 @@ retro:
     - 매장 앱에서 알림장 링크를 보내는 화면이 다음 단계로 남았습니다.
     - 검색 속도, 실기기 영상 압축 시간, 업로드 실패율을 재지 않았습니다. 운영 전에 수치를 남겨야 합니다.
     - 카카오톡 글 해석은 아직 정해 둔 규칙으로만 합니다. 규칙 대신 AI 모델을 끼울 자리는 만들어 두었으니 다음에 붙여 볼 차례입니다.
+
+# 메인 "요건 카드"에 이 프로젝트를 근거로 보여 줄 항목 (anchor: 01 한눈에, 02 기능, 03 아키텍처, 04 맡은 일, 05 어려웠던 점, 06 회고)
+proves:
+  - { id: python-backend, label: "AI 협업 개발과 구조 자동 검사", anchor: "03" }
+  - { id: ai-assistant, label: "AI 협업 개발과 구조 자동 검사", anchor: "03" }
+  - { id: python-backend, label: "매장별 데이터 격리 (멀티테넌시)", anchor: "05" }
+  - { id: python-backend, label: "로그인 없는 보안 링크 (HMAC 서명)", anchor: "05" }
+  - { id: search-engine, label: "초성과 번호 통합 고객 검색", anchor: "02" }

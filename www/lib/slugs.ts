@@ -7,4 +7,5 @@ export const PROJECT_SLUGS: readonly string[] = [
   "chagocnote",
   "balzaguk",
   "jbconnect",
+  "portfolio",
 ];

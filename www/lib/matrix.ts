@@ -1,20 +1,16 @@
 import type { Profile, Project, RequirementId } from "@/lib/content/schema";
 
-export type MatrixEvidence = { slug: string; projectTitle: string; accent: string; slideNumber: number; label: string };
+export type MatrixEvidence = { slug: string; projectTitle: string; accent: string; anchor: string; label: string };
 export type MatrixRow = { id: RequirementId; label: string; detail: string; evidence: MatrixEvidence[] };
 
-// 결정 슬라이드 번호 = index + 2 (01은 소개 슬라이드) — app/p/[slug]/page.tsx와 같은 규칙
-const FIRST_DECISION_NUMBER = 2;
-
+// 요건마다, 그것을 보여 주는 프로젝트 소개 페이지의 섹션(page.yaml의 proves)을 모은다
 export function buildRequirementMatrix(requirements: Profile["requirements"], projects: Project[]): MatrixRow[] {
   return requirements.map((req) => ({
     ...req,
     evidence: projects.flatMap((p) =>
-      p.slides.flatMap((s, i) =>
-        s.proves.includes(req.id)
-          ? [{ slug: p.slug, projectTitle: p.title, accent: p.accent, slideNumber: i + FIRST_DECISION_NUMBER, label: s.label }]
-          : [],
-      ),
+      p.page.proves
+        .filter((v) => v.id === req.id)
+        .map((v) => ({ slug: p.slug, projectTitle: p.title, accent: p.accent, anchor: v.anchor, label: v.label })),
     ),
   }));
 }
@@ -23,7 +19,7 @@ export type EvidenceGroup = {
   slug: string;
   projectTitle: string;
   accent: string;
-  slides: { slideNumber: number; label: string }[];
+  items: { anchor: string; label: string }[];
 };
 
 // 카드에서 프로젝트별로 한 줄씩 보여주기 위해 묶는다
@@ -32,10 +28,10 @@ export function groupEvidenceByProject(evidence: MatrixEvidence[]): EvidenceGrou
   for (const ev of evidence) {
     let g = groups.find((x) => x.slug === ev.slug);
     if (!g) {
-      g = { slug: ev.slug, projectTitle: ev.projectTitle, accent: ev.accent, slides: [] };
+      g = { slug: ev.slug, projectTitle: ev.projectTitle, accent: ev.accent, items: [] };
       groups.push(g);
     }
-    g.slides.push({ slideNumber: ev.slideNumber, label: ev.label });
+    g.items.push({ anchor: ev.anchor, label: ev.label });
   }
   return groups;
 }

@@ -121,3 +121,14 @@ retro:
     - 검색 결과를 한 번 더 정렬하는 모델은 정확도를 올렸지만 CPU에서 9배 느려 운영에서 뺐습니다. GPU를 쓸 수 있다면 다시 볼 부분입니다.
     - 시험 문제 대부분을 팀이 직접 썼습니다. 실제 통화 표본으로 다시 확인해야 합니다.
     - 규칙으로 가리는 방식은 음성 인식 오류가 많아지면 놓치는 것이 생깁니다. AI 모델로 찾는 방식과 같은 평가 도구로 비교해 볼 차례입니다.
+
+# 메인 "요건 카드"에 이 프로젝트를 근거로 보여 줄 항목 (anchor: 01 한눈에, 02 기능, 03 아키텍처, 04 맡은 일, 05 어려웠던 점, 06 회고)
+proves:
+  - { id: python-backend, label: "서버와 AI 분리 아키텍처", anchor: "03" }
+  - { id: git, label: "서버와 AI 분리 아키텍처", anchor: "03" }
+  - { id: python-backend, label: "통화 자막 개인정보 실시간 마스킹", anchor: "05" }
+  - { id: rag, label: "통화 중 실시간 문서 추천 (RAG)", anchor: "05" }
+  - { id: search-engine, label: "검색 방식 비교 측정과 벡터 검색 채택", anchor: "05" }
+  - { id: hybrid-search, label: "검색 방식 비교 측정과 벡터 검색 채택", anchor: "05" }
+  - { id: rag, label: "검색 방식 비교 측정과 벡터 검색 채택", anchor: "05" }
+  - { id: rag, label: "검색과 마스킹 품질 자동 측정 체계", anchor: "05" }
