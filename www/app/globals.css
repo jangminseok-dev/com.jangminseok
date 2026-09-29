@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-pretendard), system-ui, -apple-system, sans-serif;
+
+  /* 메인 — 토스풍 라이트 */
+  --color-ink: #191f28;
+  --color-ink-sub: #4e5968;
+  --color-ink-mute: #8b95a1;
+  --color-line: #e5e8eb;
+  --color-surface: #f2f4f6;
+  --color-brand: #3182f6;
+
+  /* 프로젝트 슬라이드 — 다크 */
+  --color-slide-bg: #0f1115;
+  --color-slide-panel: #181b22;
+  --color-slide-line: #2a2f3a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
