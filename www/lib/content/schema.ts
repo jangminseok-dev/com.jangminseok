@@ -16,7 +16,7 @@ const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const text = z.string().trim().min(1);
 const mediaPath = z
   .string()
-  .regex(/^media\/[\w.\-/]+\.(webp|png|jpg|mp4)$/, "media/ 아래 webp·png·jpg·mp4 경로여야 합니다");
+  .regex(/^media\/[\w.\-/]+\.(webp|png|jpg|svg|mp4)$/, "media/ 아래 webp·png·jpg·svg·mp4 경로여야 합니다");
 
 const DecisionSlideSchema = z.object({
   title: text,

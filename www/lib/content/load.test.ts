@@ -32,6 +32,14 @@ describe("loadProjects", () => {
     expect(() => loadProjects(dir, { slugs: ["a"], bannedTerms: [] })).toThrowError(/a\/project\.yaml[\s\S]*accent/);
   });
 
+  it("YAML 문법 오류도 파일 경로를 담은 ContentError로 알린다", () => {
+    writeProject("a", validProjectData({ slug: "a" }));
+    fs.writeFileSync(path.join(dir, "a", "project.yaml"), 'slug: a\ntagline: "따옴표" 뒤에 글자\n');
+    const run = () => loadProjects(dir, { slugs: ["a"], bannedTerms: [] });
+    expect(run).toThrowError(ContentError);
+    expect(run).toThrowError(/a\/project\.yaml: YAML 문법 오류/);
+  });
+
   it("디렉터리 이름과 slug가 다르면 실패한다", () => {
     writeProject("a", validProjectData({ slug: "zzz" }));
     expect(() => loadProjects(dir, { slugs: ["a"], bannedTerms: [] })).toThrowError(ContentError);

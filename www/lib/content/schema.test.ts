@@ -24,6 +24,13 @@ describe("ProjectSchema", () => {
     expect(ProjectSchema.safeParse(bad).success).toBe(false);
   });
 
+  it("캡처가 없는 결정은 SVG 도식을 쓸 수 있다", () => {
+    const data = validProjectData();
+    const slides = data.slides as { frames: unknown[] }[];
+    slides[0].frames = [{ image: "media/02-diagram.svg", caption: "도식" }];
+    expect(ProjectSchema.safeParse(data).success).toBe(true);
+  });
+
   it("결정 슬라이드는 2~5장이다", () => {
     const data = validProjectData();
     const one = { ...data, slides: (data.slides as unknown[]).slice(0, 1) };

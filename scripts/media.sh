@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # 사용: scripts/media.sh <slug> <원본파일> <출력이름(확장자 제외)>
 #  이미지 → content/<slug>/media/<이름>.webp (가로 1600px 이하)
+#  도식   → content/<slug>/media/<이름>.svg (그대로 복사)
 #  영상   → content/<slug>/media/<이름>.mp4 (10초·무음·H.264·2MB 이하) + <이름>-poster.webp
 set -euo pipefail
 
@@ -19,6 +20,10 @@ case "$ext" in
       cwebp -quiet -q 82 "$src" -o "$out_dir/$name.webp"
     fi
     echo "✓ $out_dir/$name.webp"
+    ;;
+  svg)
+    cp "$src" "$out_dir/$name.svg"
+    echo "✓ $out_dir/$name.svg"
     ;;
   mov|mp4|webm)
     ffmpeg -loglevel error -y -i "$src" -t 10 -an \

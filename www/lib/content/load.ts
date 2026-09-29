@@ -13,7 +13,14 @@ function readChecked<T extends z.ZodType>(file: string, schema: T, bannedTerms: 
   const banned = findBannedTerms(raw, bannedTerms);
   if (banned.length) throw new ContentError(`${file}: 공개 금지 항목 발견 — ${banned.join(", ")}`);
 
-  const result = schema.safeParse(parse(raw));
+  let data: unknown;
+  try {
+    data = parse(raw);
+  } catch (e) {
+    throw new ContentError(`${file}: YAML 문법 오류 — ${e instanceof Error ? e.message : String(e)}`);
+  }
+
+  const result = schema.safeParse(data);
   if (!result.success) {
     const issues = result.error.issues.map((i) => `  - ${i.path.join(".")}: ${i.message}`).join("\n");
     throw new ContentError(`${file}: 스키마 검증 실패\n${issues}`);
