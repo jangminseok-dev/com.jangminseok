@@ -1,0 +1,57 @@
+# agent/eval/scoring.py
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+from agent.app.ask import AskResult
+
+
+@dataclass(frozen=True)
+class CaseScore:
+    tool_ok: bool
+    args_ok: bool
+    hit5: bool
+    numbers_ok: bool
+    refuse_ok: bool
+    must_refuse: bool
+    content_ok: bool | None = None  # must_include가 있는 문항만 — 핵심 사실이 답변에 들어갔는가
+
+
+def score_case(case: dict, result: AskResult) -> CaseScore:
+    called = {t.name for t in result.tool_calls if t.ok}
+    expected = set(case["expected_tools"])
+    # 필요한 도구를 불렀는가(추가 호출은 허용). 거절 문항은 도구를 하나도 부르지 않아야 한다
+    tool_ok = expected <= called if expected else not result.tool_calls
+    args_ok = all(
+        any(t.name == name and all(str(t.args.get(k, "")).lower() == str(v).lower() for k, v in exp.items())
+            for t in result.tool_calls)
+        for name, exp in case["expected_args"].items()
+    )
+    got = [f"{s.slug}#{s.slide_number:02d}" for s in result.sources[:5]]
+    hit5 = not case["expected_sources"] or any(e in got for e in case["expected_sources"])
+    numbers_ok = "확인된 수치가 없습니다" not in result.answer or case.get("must_refuse", False)
+    keys = case.get("must_include") or []
+    content_ok = all(str(k).lower() in result.answer.lower() for k in keys) if keys else None
+    return CaseScore(tool_ok, args_ok, hit5, numbers_ok, result.refused == case["must_refuse"], case["must_refuse"],
+                     content_ok)
+
+
+def summarize(scores: list[CaseScore]) -> dict[str, float]:
+    def ratio(xs: list[bool]) -> float:
+        return round(sum(xs) / len(xs), 3) if xs else 1.0
+
+    answerable = [s for s in scores if not s.must_refuse]
+    return {
+        "tool_selection": ratio([s.tool_ok for s in scores]),
+        "arg_accuracy": ratio([s.args_ok for s in answerable]),
+        "hit_at_5": ratio([s.hit5 for s in answerable]),
+        "number_check": ratio([s.numbers_ok for s in answerable]),
+        "refusal": ratio([s.refuse_ok for s in scores]),
+        "content": ratio([s.content_ok for s in scores if s.content_ok is not None]),
+    }
+
+
+def search_hit(case: dict, chunks: list) -> bool:
+    """LLM 없이 검색만으로 기대 슬라이드가 상위 5개에 있는지 — 키워드 백엔드 비교용"""
+    got = [f"{c.slug}#{c.slide_number:02d}" for c in chunks[:5]]
+    return any(e in got for e in case["expected_sources"])

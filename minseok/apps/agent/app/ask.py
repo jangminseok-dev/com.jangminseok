@@ -7,11 +7,12 @@ from dataclasses import dataclass
 from agent.app.ports import FinalAnswer, Message, ToolLlmPort
 from agent.app.tool_runner import ToolRunner
 from agent.domain.guard import guard_answer
-from agent.domain.tools import TOOLS
+from agent.domain.tools import TOOLS, with_project_slugs
 from hub.app.dtos import SlideRef
 from hub.app.ports.output.catalog_port import ProjectCatalogPort
 
 REFUSAL = "포트폴리오에 없는 내용이라 답할 수 없습니다."
+LIMIT_NOTE = "도구 호출 한도에 도달했습니다. 도구를 더 부르지 말고 지금까지의 도구 결과만으로 답하십시오."
 SYSTEM = (
     "당신은 장민석의 포트폴리오 안내자입니다. 반드시 도구로 확인한 내용만 합쇼체로 답하십시오. "
     "3~5문장으로, 첫 문장에는 질문이 묻는 사실을 바로 답하고, 이어서 왜 그렇게 했는지(버린 대안·대가 포함)와 도구 결과에 있는 수치를 적으십시오. "
@@ -44,16 +45,25 @@ class AskInteractor:
         self._llm, self._runner, self._catalog = llm, runner, catalog
         self._banned, self._max = banned, max_tool_calls
 
+    def _project_titles(self) -> dict[str, str]:
+        return {slug: facts.title for slug in self._catalog.slugs() if (facts := self._catalog.get_project(slug))}
+
     async def ask(self, question: str) -> AskResult:
         history = [Message("user", f"{SYSTEM}\n\n질문: {question}")]
         traces: list[ToolTrace] = []
         sources: list[SlideRef] = []
         evidence: list[str] = []
+        tools = with_project_slugs(TOOLS, self._project_titles())
         while True:
-            turn = await self._llm.next_turn(history, TOOLS)
+            turn = await self._llm.next_turn(history, tools)
             if isinstance(turn, FinalAnswer):
                 break
             if len(traces) >= self._max:
+                # 한도에 닿으면 도구 없이 한 번 더 — 모은 근거가 있으면 그것으로 답하게 한다
+                if evidence:
+                    turn = await self._llm.next_turn([*history, Message("user", LIMIT_NOTE)], ())
+                if isinstance(turn, FinalAnswer):
+                    break
                 return AskResult(REFUSAL, sources, traces, True)
             result = await self._runner.run(turn.name, turn.args)
             traces.append(ToolTrace(turn.name, turn.args, result.ok))

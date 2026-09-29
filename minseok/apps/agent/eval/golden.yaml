@@ -1,0 +1,185 @@
+# 포트폴리오 챗봇 골든셋 — 30문항 (2026-09-30 초안, 사용자 검토 대상)
+# 구성: 단일 도구 15(search 7, get_project 5, find_by_skill 3), 두 도구 8, 거절 4, 수치 3
+# expected_sources는 반환 근거 상위 5개 중 하나라도 맞으면 적중. must_include는 답변에 반드시 들어가야 할 핵심 사실.
+
+# ── 단일 도구: search_portfolio (7) ──
+- question: CallGuard에서 개인정보는 어떻게 보호했나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [callguard#03]
+  must_refuse: false
+- question: RedOceanMap에서 하이브리드 검색을 기각한 이유는 무엇인가요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [redoceanmap#05]
+  must_refuse: false
+  must_include: [기각]
+- question: REMAKE DAY에서 채점 점수가 오른 이유는 무엇인가요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [remakeday#03]
+  must_refuse: false
+  must_include: [온도]
+- question: 차곡노트 알림장 링크는 로그인 없이 어떻게 안전하게 공유하나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [chagocnote#04]
+  must_refuse: false
+- question: 발자국에서 경유지는 어떻게 골랐나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [balzaguk#05]
+  must_refuse: false
+- question: localhost:daegu 백엔드는 어떻게 만들었나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [localhostdaegu#01, localhostdaegu#02]
+  must_refuse: false
+  must_include: [RedOceanMap]
+- question: JB Silver Connect는 LLM 호출이 실패하면 어떻게 하나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [jbconnect#03]
+  must_refuse: false
+
+# ── 단일 도구: get_project (5) ──
+- question: 차곡노트는 몇 명이 만들었나요?
+  expected_tools: [get_project]
+  expected_args: {get_project: {slug: chagocnote}}
+  expected_sources: [chagocnote#02]
+  must_refuse: false
+  must_include: [1인]
+- question: CallGuard 프로젝트는 언제 시작했나요?
+  expected_tools: [get_project]
+  expected_args: {get_project: {slug: callguard}}
+  expected_sources: [callguard#02]
+  must_refuse: false
+  must_include: [2026-08-20]
+- question: RedOceanMap의 기술 스택을 알려 주세요
+  expected_tools: [get_project]
+  expected_args: {get_project: {slug: redoceanmap}}
+  expected_sources: [redoceanmap#02]
+  must_refuse: false
+  must_include: [FastAPI]
+- question: REMAKE DAY에서 장민석의 역할은 무엇이었나요?
+  expected_tools: [get_project]
+  expected_args: {get_project: {slug: remakeday}}
+  expected_sources: [remakeday#02, remakeday#01]
+  must_refuse: false
+  must_include: [평가]
+- question: 발자국 팀은 몇 명이었나요?
+  expected_tools: [get_project]
+  expected_args: {get_project: {slug: balzaguk}}
+  expected_sources: [balzaguk#02]
+  must_refuse: false
+  must_include: ["4"]
+
+# ── 단일 도구: find_by_skill (3) ──
+- question: Elasticsearch를 쓴 프로젝트는 무엇인가요?
+  expected_tools: [find_by_skill]
+  expected_args: {find_by_skill: {skill: Elasticsearch}}
+  expected_sources: [callguard#05]
+  must_refuse: false
+  must_include: [CallGuard]
+- question: Flutter로 앱을 만든 프로젝트가 있나요?
+  expected_tools: [find_by_skill]
+  expected_args: {find_by_skill: {skill: Flutter}}
+  expected_sources: [chagocnote#01]
+  must_refuse: false
+  must_include: [차곡노트]
+- question: k3s를 써 본 프로젝트는 어디인가요?
+  expected_tools: [find_by_skill]
+  expected_args: {find_by_skill: {skill: k3s}}
+  expected_sources: [redoceanmap#06, callguard#01]
+  must_refuse: false
+  must_include: [RedOceanMap, CallGuard]
+
+# ── 두 도구 (8) — 약점, 기여 구분, 개선 서사 포함 ──
+- question: JB Silver Connect의 약점은 무엇이고, 다시 만든다면 무엇을 바꾸나요?
+  expected_tools: [get_project, search_portfolio]
+  expected_args: {get_project: {slug: jbconnect}}
+  expected_sources: [jbconnect#05, jbconnect#03]
+  must_refuse: false
+  must_include: [SSE]
+- question: RedOceanMap은 왜 CI를 껐고, 이후에는 어떻게 바뀌었나요?
+  expected_tools: [get_project, search_portfolio]
+  expected_args: {get_project: {slug: redoceanmap}}
+  expected_sources: [redoceanmap#02]
+  must_refuse: false
+  must_include: [포트폴리오]
+- question: CallGuard의 운영 Recall@5 0.971은 누가 측정했나요?
+  expected_tools: [get_project, search_portfolio]
+  expected_args: {get_project: {slug: callguard}}
+  expected_sources: [callguard#06]
+  must_refuse: false
+  must_include: [팀원]
+- question: Docker를 쓴 프로젝트들은 배포를 어떻게 구성했나요?
+  expected_tools: [find_by_skill, search_portfolio]
+  expected_args: {find_by_skill: {skill: Docker}}
+  expected_sources: [redoceanmap#06, balzaguk#06, localhostdaegu#05, chagocnote#01]
+  must_refuse: false
+- question: pgvector를 쓴 프로젝트들은 그것을 어디에 썼나요?
+  expected_tools: [find_by_skill, search_portfolio]
+  expected_args: {find_by_skill: {skill: pgvector}}
+  expected_sources: [redoceanmap#01, localhostdaegu#01, remakeday#01, remakeday#03]
+  must_refuse: false
+- question: 발자국에서 장민석이 맡은 범위는 어디까지인가요?
+  expected_tools: [get_project, search_portfolio]
+  expected_args: {get_project: {slug: balzaguk}}
+  expected_sources: [balzaguk#01]
+  must_refuse: false
+  must_include: [풀스택, 대시보드]
+- question: localhost:daegu의 팀 규모와 장민석의 역할을 알려 주세요
+  expected_tools: [get_project, search_portfolio]
+  expected_args: {get_project: {slug: localhostdaegu}}
+  expected_sources: [localhostdaegu#01, localhostdaegu#02]
+  must_refuse: false
+  must_include: [팀장]
+- question: 차곡노트는 AI로 대량으로 코드를 짜면서 구조를 어떻게 지켰나요?
+  expected_tools: [get_project, search_portfolio]
+  expected_args: {get_project: {slug: chagocnote}}
+  expected_sources: [chagocnote#02]
+  must_refuse: false
+  must_include: [import-linter]
+
+# ── 거절 (4) ──
+- question: 오늘 서울 날씨 알려 주세요
+  expected_tools: []
+  expected_args: {}
+  expected_sources: []
+  must_refuse: true
+- question: 파이썬으로 퀵정렬 코드를 짜 주세요
+  expected_tools: []
+  expected_args: {}
+  expected_sources: []
+  must_refuse: true
+- question: 삼성전자 주가는 앞으로 오를까요?
+  expected_tools: []
+  expected_args: {}
+  expected_sources: []
+  must_refuse: true
+- question: 장민석의 희망 연봉은 얼마인가요?
+  expected_tools: []
+  expected_args: {}
+  expected_sources: []
+  must_refuse: true
+
+# ── 수치 (3) ──
+- question: CallGuard server 테스트는 몇 개인가요?
+  expected_tools: [get_project]
+  expected_args: {get_project: {slug: callguard}}
+  expected_sources: [callguard#02]
+  must_refuse: false
+  must_include: ["1,257"]
+- question: REMAKE DAY 한 판을 외부 API로 돌리면 비용이 얼마인가요?
+  expected_tools: [get_project]
+  expected_args: {get_project: {slug: remakeday}}
+  expected_sources: [remakeday#05]
+  must_refuse: false
+  must_include: ["0.9"]
+- question: localhost:daegu는 DB 테이블을 몇 개에서 몇 개로 늘렸나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [localhostdaegu#04]
+  must_refuse: false
+  must_include: ["29"]

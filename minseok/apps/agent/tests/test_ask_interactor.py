@@ -14,6 +14,7 @@ class Scripted(ToolLlmPort):
 
     async def next_turn(self, history, tools):
         self.seen.append(list(history))
+        self.tools_seen = getattr(self, "tools_seen", []) + [tools]
         t = self.turns.pop(0)
         if isinstance(t, Exception):
             raise t
@@ -41,9 +42,24 @@ async def test_unknown_tool_and_bad_slug_are_reported_back():
 
 
 async def test_stops_after_three_tool_calls_with_refusal():
-    llm = Scripted([ToolCall("find_by_skill", {"skill": "x"})] * 4)
+    llm = Scripted([ToolCall("find_by_skill", {"skill": "x"})] * 5)  # 도구 없이 답하라고 해도 또 도구를 요청
     r = await make(llm).ask("?")
     assert len(r.tool_calls) == 3 and r.refused and r.answer == REFUSAL  # 4번째 도구 요청에서 멈춘다
+
+
+async def test_at_tool_limit_answers_from_gathered_evidence_without_tools():
+    call = ToolCall("get_project", {"slug": "callguard"})
+    llm = Scripted([call, call, call, ToolCall("search_portfolio", {"query": "x"}), FinalAnswer("팀은 4명입니다.")])
+    r = await make(llm).ask("CallGuard 팀 규모는?")
+    assert r.answer == "팀은 4명입니다." and not r.refused and len(r.tool_calls) == 3
+    assert llm.tools_seen[-1] == ()  # 마지막 턴은 도구 없이 — 모은 근거로만 답한다
+
+
+async def test_llm_sees_project_slug_enum():
+    llm = Scripted([FinalAnswer("x")])
+    await make(llm).ask("?")
+    spec = next(t for t in llm.tools_seen[0] if t.name == "get_project")
+    assert spec.parameters["properties"]["slug"]["enum"] == ["callguard"]
 
 
 async def test_answer_without_any_evidence_is_refused():

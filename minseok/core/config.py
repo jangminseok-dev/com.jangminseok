@@ -19,3 +19,4 @@ RATE_PER_DAY = 30
 BANNED_TERMS = [t.strip() for t in (_s.get("BANNED_TERMS") or "").replace(",", "\n").splitlines() if t.strip()]
 ALLOWED_HOSTS = [h.strip() for h in (_s.get("ALLOWED_HOSTS") or "api.jangminseok.com,localhost,127.0.0.1,testserver").split(",") if h.strip()]
 SITE_URL = "https://jangminseok.com"
+KEYWORD_BACKEND = _s.get("KEYWORD_BACKEND") or "trgm"  # trgm | pgroonga — 골든셋 검색 비교로 채택

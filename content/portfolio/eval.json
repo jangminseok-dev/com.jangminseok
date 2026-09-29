@@ -1,0 +1,37 @@
+{
+ "backends": {
+  "run_at": "2026-09-29T16:56:50+00:00",
+  "trgm": {
+   "hit_at_5": 0.846,
+   "n": 26
+  },
+  "pgroonga": {
+   "hit_at_5": 0.808,
+   "n": 26
+  }
+ },
+ "model": "gemini-3.5-flash-lite",
+ "keyword_backend": "trgm",
+ "n": 30,
+ "runs": [
+  {
+   "run_at": "2026-09-29T17:17:00+00:00",
+   "metrics": {
+    "tool_selection": 0.867,
+    "arg_accuracy": 0.962,
+    "hit_at_5": 0.962,
+    "number_check": 1.0,
+    "refusal": 1.0,
+    "content": 0.85
+   }
+  }
+ ],
+ "metrics": {
+  "tool_selection": 0.867,
+  "arg_accuracy": 0.962,
+  "hit_at_5": 0.962,
+  "number_check": 1.0,
+  "refusal": 1.0,
+  "content": 0.85
+ }
+}

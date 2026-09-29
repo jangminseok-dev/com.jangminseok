@@ -23,18 +23,22 @@ def _contents(history: list[Message]) -> list[types.Content]:
     return out
 
 
+def _config(tools) -> types.GenerateContentConfig:
+    decls = [types.FunctionDeclaration(name=t.name, description=t.description, parameters_json_schema=t.parameters)
+             for t in tools]
+    return types.GenerateContentConfig(
+        tools=[types.Tool(function_declarations=decls)] if decls else None,
+        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+        temperature=0,
+    )
+
+
 class GeminiToolLlm(ToolLlmPort):
     def __init__(self) -> None:
         self._client = genai.Client(api_key=GEMINI_API_KEY)
 
     async def next_turn(self, history, tools):
-        decls = [types.FunctionDeclaration(name=t.name, description=t.description, parameters_json_schema=t.parameters)
-                 for t in tools]
-        cfg = types.GenerateContentConfig(
-            tools=[types.Tool(function_declarations=decls)],
-            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
-            temperature=0,
-        )
+        cfg = _config(tools)
         try:
             res = await self._client.aio.models.generate_content(model=GEMINI_MODEL, contents=_contents(history), config=cfg)
         except errors.APIError as e:

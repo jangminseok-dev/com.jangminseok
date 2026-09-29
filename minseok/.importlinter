@@ -26,6 +26,10 @@ modules =
     catalog
     knowledge
     agent
+# 평가 CLI는 합성 루트 — 실제 게이트웨이를 조립해야 한다
+ignore_imports =
+    agent.eval.run -> catalog.dependencies.catalog_gateway
+    agent.eval.run -> knowledge.dependencies.search_gateway
 
 [importlinter:contract:framework]
 name = app/domain은 프레임워크·SDK를 모른다

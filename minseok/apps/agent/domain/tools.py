@@ -37,3 +37,16 @@ TOOLS: tuple[ToolSpec, ...] = (
 
 def tool_names() -> set[str]:
     return {t.name for t in TOOLS}
+
+
+def with_project_slugs(tools: tuple[ToolSpec, ...], projects: dict[str, str]) -> tuple[ToolSpec, ...]:
+    """get_project의 slug에 실제 프로젝트 목록(enum)과 이름을 넣는다 — 모델이 slug를 짐작하다 틀리지 않게."""
+    hint = ", ".join(f"{slug}({title})" for slug, title in projects.items())
+    out = []
+    for t in tools:
+        if t.name == "get_project":
+            props = {**t.parameters["properties"],
+                     "slug": {"type": "string", "enum": list(projects), "description": f"프로젝트 slug — {hint}"}}
+            t = ToolSpec(t.name, t.description, {**t.parameters, "properties": props})
+        out.append(t)
+    return tuple(out)
