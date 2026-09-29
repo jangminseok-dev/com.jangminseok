@@ -13,6 +13,6 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // 정적 자원(_next, 미디어, 폰트, 파비콘)은 rewrite하지 않는다
-  matcher: ["/((?!_next/|media/|favicon|.*\\.(?:png|webp|jpg|mp4|svg|ico|woff2)$).*)"],
+  // 정적 자원(_next, 미디어, 폰트, 파비콘)과 챗봇 백엔드 경로(api/)는 rewrite하지 않는다
+  matcher: ["/((?!_next/|media/|api/|favicon|.*\\.(?:png|webp|jpg|mp4|svg|ico|woff2)$).*)"],
 };
