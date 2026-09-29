@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif"><rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">AI가 대량으로 짜도 구조가 무너지지 않게</text>
+  <text x="40" y="100" fill="#9aa1ad" font-size="19">1인 개발 · 커밋 399개 중 389개가 AI 코딩 어시스턴트와 공동 작성</text>
+  <g font-size="21" font-weight="700" text-anchor="middle">
+    <rect x="40" y="150" width="250" height="120" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="165" y="205" fill="#fff">설계 문서</text><text x="165" y="238" fill="#9aa1ad" font-size="16" font-weight="400">spec</text>
+    <rect x="340" y="150" width="250" height="120" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="465" y="205" fill="#fff">구현 계획</text><text x="465" y="238" fill="#9aa1ad" font-size="16" font-weight="400">plan</text>
+    <rect x="640" y="150" width="250" height="120" rx="18" fill="#0f1115" stroke="#f59e0b" stroke-width="2"/>
+    <text x="765" y="205" fill="#fff">참조 브랜치 검증</text><text x="765" y="238" fill="#9aa1ad" font-size="16" font-weight="400">ref/* 에서 먼저 돌려 본다</text>
+    <rect x="940" y="150" width="220" height="120" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="1050" y="205" fill="#fff">적용</text><text x="1050" y="238" fill="#9aa1ad" font-size="16" font-weight="400">main</text>
+  </g>
+  <g fill="#f59e0b" font-size="36" text-anchor="middle"><text x="315" y="222">→</text><text x="615" y="222">→</text><text x="915" y="222">→</text></g>
+  <rect x="40" y="320" width="1120" height="150" rx="18" fill="#f59e0b" fill-opacity="0.12" stroke="#f59e0b" stroke-width="2"/>
+  <text x="80" y="368" fill="#fff" font-size="21" font-weight="700">import-linter 계약 6종 — 사람이 아니라 검사가 경계를 지킨다</text>
+  <text x="80" y="405" fill="#fde2b0" font-size="18">adapter → app → domain 방향만 · 스포크끼리 import 금지 · 허브는 포트와 DTO만</text>
+  <text x="80" y="437" fill="#fde2b0" font-size="18">조립은 진입점의 dependency_overrides 한 곳에서</text>
+  <g font-size="44" font-weight="700" fill="#f59e0b" text-anchor="middle"><text x="300" y="560">1,294</text><text x="900" y="560">405</text></g>
+  <g font-size="18" fill="#9aa1ad" text-anchor="middle"><text x="300" y="600">백엔드 단위 테스트</text><text x="900" y="600">통합 테스트</text></g>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif"><rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">로그인 없는 보호자에게 안전하게 — 서명 링크</text>
+  <rect x="40" y="110" width="1120" height="130" rx="18" fill="#0f1115" stroke="#f59e0b" stroke-width="2"/>
+  <text x="600" y="165" fill="#fff" font-size="26" font-weight="700" text-anchor="middle" font-family="Menlo, monospace">base64url( public_id(16) ‖ HMAC-SHA256[:16] )</text>
+  <text x="600" y="208" fill="#9aa1ad" font-size="18" text-anchor="middle">43글자 토큰 = 번호표 + 위조 방지 도장</text>
+  <g font-size="19">
+    <rect x="40" y="280" width="360" height="190" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="70" y="325" fill="#fff" font-weight="700">DB에는 번호표만</text>
+    <text x="70" y="362" fill="#9aa1ad" font-size="17">토큰을 저장하지 않는다</text>
+    <text x="70" y="392" fill="#9aa1ad" font-size="17">DB가 유출돼도 링크를</text>
+    <text x="70" y="420" fill="#9aa1ad" font-size="17">만들 수 없다</text>
+    <rect x="420" y="280" width="360" height="190" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="450" y="325" fill="#fff" font-weight="700">토큰은 헤더로만</text>
+    <text x="450" y="362" fill="#9aa1ad" font-size="17">X-Report-Token</text>
+    <text x="450" y="392" fill="#9aa1ad" font-size="17">경로에 두면 접속 기록에</text>
+    <text x="450" y="420" fill="#9aa1ad" font-size="17">남는다 — 그래서 뺐다</text>
+    <rect x="800" y="280" width="360" height="190" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="830" y="325" fill="#fff" font-weight="700">틀린 서명만 차단</text>
+    <text x="830" y="362" fill="#9aa1ad" font-size="17">모든 요청에 제한을 걸면</text>
+    <text x="830" y="392" fill="#9aa1ad" font-size="17">익명 20번으로 보호자 전체를</text>
+    <text x="830" y="420" fill="#9aa1ad" font-size="17">막을 수 있다</text>
+  </g>
+  <rect x="40" y="510" width="1120" height="110" rx="18" fill="#f59e0b" fill-opacity="0.12" stroke="#f59e0b" stroke-width="2"/>
+  <text x="600" y="558" fill="#fff" font-size="21" font-weight="700" text-anchor="middle">공개 응답은 칸을 하나씩 따로 적는다 — 내부 메모 · 결제 · 연락처가 새지 않게</text>
+  <text x="600" y="592" fill="#fde2b0" font-size="17" text-anchor="middle">누설 검사: 숨길 칸에 표식 문자열을 넣고 응답 본문 전체에서 찾는다</text>
+</svg>
