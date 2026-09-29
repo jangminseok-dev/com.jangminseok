@@ -25,6 +25,9 @@ body {
   background: #ffffff;
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
+  /* 한국어는 어절 단위로 줄바꿈 */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 @media (prefers-reduced-motion: reduce) {
