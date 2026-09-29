@@ -30,3 +30,11 @@ def test_rrf_prefers_items_ranked_high_in_both():
 def test_rrf_handles_empty_and_single_list():
     assert rrf_fuse([]) == []
     assert [i for i, _ in rrf_fuse([[5, 6]])] == [5, 6]
+
+
+def test_notes_become_chunks_linked_to_their_slide():
+    projects = [{**PROJECTS[0], "notes": [{"slide": 3, "title": "검색 이유", "text": "키워드와 벡터를 섞었습니다."}]}]
+    notes = [c for c in chunk_catalog(projects, "https://jangminseok.com") if "설명" in c.title]
+    assert len(notes) == 1
+    assert notes[0].slide_number == 3 and notes[0].url == "https://a.jangminseok.com#03"
+    assert "키워드와 벡터" in notes[0].text and notes[0].title == "검색 이유 (설명)"

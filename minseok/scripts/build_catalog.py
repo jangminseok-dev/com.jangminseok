@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -26,7 +27,34 @@ def _slide_text(s: dict) -> str:
     return "\n".join(parts)
 
 
+_NOTE_HEAD = re.compile(r"^## \[(\d{2})\] (.+)$", re.M)
+
+
+def _banned_terms(content_dir: Path) -> list[str]:
+    f = content_dir / ".banned.local.txt"  # 사이트 빌드와 같은 금지어 파일(gitignore)
+    return [t.strip() for t in f.read_text(encoding="utf-8").splitlines() if t.strip()] if f.exists() else []
+
+
+def _notes(path: Path, max_slide: int, banned: list[str]) -> list[dict]:
+    """notes.md의 `## [NN] 제목` 섹션 → 슬라이드 NN에 딸린 설명. 파일이 없으면 빈 목록."""
+    if not path.exists():
+        return []
+    src = path.read_text(encoding="utf-8")
+    if any(t in src for t in banned):
+        raise ValueError(f"{path}: 공개 금지 항목이 있습니다")
+    heads = list(_NOTE_HEAD.finditer(src))
+    out = []
+    for i, m in enumerate(heads):
+        slide = int(m.group(1))
+        if not 1 <= slide <= max_slide:
+            raise ValueError(f"{path}: [{m.group(1)}] 슬라이드가 없습니다 (01~{max_slide:02d})")
+        end = heads[i + 1].start() if i + 1 < len(heads) else len(src)
+        out.append({"slide": slide, "title": m.group(2).strip(), "text": src[m.end():end].strip()})
+    return out
+
+
 def build(content_dir: Path) -> dict:
+    banned = _banned_terms(content_dir)
     projects = []
     for f in sorted(content_dir.glob("*/project.yaml")):
         p = yaml.safe_load(f.read_text(encoding="utf-8"))
@@ -40,6 +68,7 @@ def build(content_dir: Path) -> dict:
                      "text": _slide_text(s)}
                     for i, s in enumerate(p["slides"])
                 ],
+                "notes": _notes(f.parent / "notes.md", len(p["slides"]) + FIRST_DECISION_NUMBER - 1, banned),
             }
         )
     projects.sort(key=lambda x: x["order"])

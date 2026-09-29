@@ -33,4 +33,11 @@ def chunk_catalog(projects: list[dict], site: str, max_chars: int = 800) -> list
             for start in range(0, max(len(body), 1), max_chars):
                 text = head + body[start : start + max_chars]
                 out.append(ChunkDraft(p["slug"], s["number"], s["title"], text, _url(site, p["slug"], s["number"]), _hash(text)))
+        # notes.md 설명 — 슬라이드보다 깊은 근거. 링크는 딸린 슬라이드로 건다
+        for n in p.get("notes", []):
+            title = f"{n['title']} (설명)"
+            head = f"{p['title']} {n['title']}\n"
+            for start in range(0, max(len(n["text"]), 1), max_chars):
+                text = head + n["text"][start : start + max_chars]
+                out.append(ChunkDraft(p["slug"], n["slide"], title, text, _url(site, p["slug"], n["slide"]), _hash(text)))
     return out
