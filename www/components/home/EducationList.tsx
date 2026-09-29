@@ -1,3 +1,4 @@
+import TechChip from "@/components/home/TechChip";
 import type { Profile } from "@/lib/content/schema";
 
 export default function EducationList({ education }: { education: Profile["education"] }) {
@@ -12,8 +13,8 @@ export default function EducationList({ education }: { education: Profile["educa
             <p className="mt-1 text-white/75">{e.course}</p>
             <ul className="mt-3 flex flex-wrap gap-2">
               {e.topics.map((t) => (
-                <li key={t} className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80">
-                  {t}
+                <li key={t.name}>
+                  <TechChip name={t.name} icon={t.icon} />
                 </li>
               ))}
             </ul>

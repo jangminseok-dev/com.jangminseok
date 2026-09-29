@@ -79,6 +79,15 @@ describe("ProfileSchema", () => {
     expect(ProfileSchema.safeParse(empty).success).toBe(false);
   });
 
+  it("교육 주제는 이름과 선택 로고를 가진다", () => {
+    const data = {
+      ...validProfileData(),
+      education: [{ org: "기관", course: "과정", period: "2026", topics: [{ name: "Python", icon: "python" }, { name: "RAG" }] }],
+    };
+    const parsed = ProfileSchema.parse(data);
+    expect(parsed.education[0].topics[1]).toEqual({ name: "RAG" });
+  });
+
   it("요건 id가 중복되거나 빠지면 실패한다", () => {
     const data = validProfileData();
     const reqs = data.requirements as { id: string }[];

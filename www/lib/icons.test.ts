@@ -25,7 +25,8 @@ describe("skillIcon", () => {
   it("profile.yaml의 모든 icon slug가 실제로 존재한다 (오타 방지)", () => {
     const raw = fs.readFileSync(path.resolve(import.meta.dirname, "..", "..", "content", "profile.yaml"), "utf8");
     const profile = ProfileSchema.parse(parse(raw));
-    const missing = profile.skills.flatMap((g) => g.items).filter((s) => s.icon && !skillIcon(s.icon));
+    const items = [...profile.skills.flatMap((g) => g.items), ...profile.education.flatMap((e) => e.topics)];
+    const missing = items.filter((s) => s.icon && !skillIcon(s.icon));
     expect(missing.map((s) => s.icon)).toEqual([]);
   });
 });

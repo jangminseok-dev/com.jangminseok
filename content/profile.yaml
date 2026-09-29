@@ -29,11 +29,30 @@ education:
   - org: IBM x RedHat AI Transformation Academy (대한상공회의소)
     course: AI 트랜스포메이션 과정 7회차 (수강 중)
     period: 2026.04 ~ 2026.10
-    topics: [Python, FastAPI, React, PyTorch, watsonx, LangChain, RAG, Docker, Kubernetes·OpenShift, AWS]
+    topics:
+      - { name: Python, icon: python }
+      - { name: FastAPI, icon: fastapi }
+      - { name: React, icon: react }
+      - { name: PyTorch, icon: pytorch }
+      - { name: watsonx }
+      - { name: LangChain, icon: langchain }
+      - { name: RAG }
+      - { name: Docker, icon: docker }
+      - { name: Kubernetes, icon: kubernetes }
+      - { name: OpenShift, icon: redhatopenshift }
+      - { name: AWS }
   - org: 더조은컴퓨터아카데미 종로
     course: 빅데이터 플랫폼 구축(Hadoop)과 빅데이터 분석(Spark·Power BI) & Java 웹개발
     period: 2022.02 ~ 2022.08 (977시간)
-    topics: [Hadoop, Spark, Power BI, Java, Spring, JSP, Oracle DB, Python 머신러닝]
+    topics:
+      - { name: Hadoop, icon: apachehadoop }
+      - { name: Spark, icon: apachespark }
+      - { name: Power BI }
+      - { name: Java, icon: openjdk }
+      - { name: Spring, icon: spring }
+      - { name: JSP }
+      - { name: Oracle DB }
+      - { name: Python 머신러닝, icon: python }
 skills:
   - group: 백엔드
     items:

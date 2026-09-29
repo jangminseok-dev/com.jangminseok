@@ -1,5 +1,5 @@
 import type { Profile } from "@/lib/content/schema";
-import { skillIcon } from "@/lib/icons";
+import TechChip from "@/components/home/TechChip";
 
 export default function SkillBoard({ skills, note }: { skills: Profile["skills"]; note: string }) {
   return (
@@ -21,24 +21,9 @@ export default function SkillBoard({ skills, note }: { skills: Profile["skills"]
           <div key={g.group} className="grid grid-cols-1 gap-2 sm:grid-cols-[5.5rem_1fr]">
             <dt className="pt-1.5 text-sm font-semibold text-white/70">{g.group}</dt>
             <dd className="flex flex-wrap gap-2">
-              {g.items.map((s) => {
-                const icon = s.icon ? skillIcon(s.icon) : null;
-                return (
-                  <span
-                    key={s.name}
-                    className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm ${
-                      s.learned ? "border border-dashed border-white/30 text-white/65" : "bg-white/12 font-medium text-white"
-                    }`}
-                  >
-                    {icon ? (
-                      <svg viewBox="0 0 24 24" aria-hidden className="h-4 w-4 shrink-0" fill={icon.color}>
-                        <path d={icon.path} />
-                      </svg>
-                    ) : null}
-                    {s.name}
-                  </span>
-                );
-              })}
+              {g.items.map((s) => (
+                <TechChip key={s.name} name={s.name} icon={s.icon} dashed={s.learned} />
+              ))}
             </dd>
           </div>
         ))}

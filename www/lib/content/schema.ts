@@ -64,7 +64,12 @@ export const ProfileSchema = z.strictObject({
       "requirements는 REQUIREMENT_IDS를 중복 없이 모두 포함해야 합니다",
     ),
   education: z.array(
-    z.strictObject({ org: text, course: text, period: text, topics: z.array(text) }),
+    z.strictObject({
+      org: text,
+      course: text,
+      period: text,
+      topics: z.array(z.strictObject({ name: text, icon: z.string().regex(/^[a-z0-9]+$/).optional() })),
+    }),
   ),
   // 첫 화면 기술 스택 — icon은 simple-icons slug, learned는 교육에서만 다룬 기술
   skills: z
