@@ -12,7 +12,7 @@ export default function SiteNav({ name, github }: { name: string; github: string
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-night/80 backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-5">
-        <a href="#about" className="shrink-0 text-lg font-bold">
+        <a href="#about" className="shrink-0 text-[1.35rem] font-bold">
           {name}
         </a>
         <ul className="flex flex-1 gap-1 overflow-x-auto whitespace-nowrap text-sm">
