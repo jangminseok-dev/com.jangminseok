@@ -54,8 +54,8 @@ skills:
       - { name: Gemini, icon: googlegemini }
       - { name: Claude, icon: claude }
       - { name: Neo4j, icon: neo4j }
-      - { name: PyTorch, icon: pytorch, learned: true }
-      - { name: LangChain, icon: langchain, learned: true }
+      - { name: PyTorch, icon: pytorch }
+      - { name: LangChain, icon: langchain }
   - group: 인프라
     items:
       - { name: Docker, icon: docker }
@@ -65,8 +65,8 @@ skills:
       - { name: Vercel, icon: vercel }
       - { name: GitHub Actions, icon: githubactions }
       - { name: Git, icon: git }
-      - { name: Kubernetes, icon: kubernetes, learned: true }
-      - { name: AWS, learned: true }
+      - { name: Kubernetes, icon: kubernetes }
+      - { name: AWS }
   - group: 프론트 · 앱
     items:
       - { name: Next.js, icon: nextdotjs }
