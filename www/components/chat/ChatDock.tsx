@@ -55,31 +55,34 @@ export default function ChatDock() {
             ))}
           </ul>
         ) : null}
-        <form onSubmit={onSubmit} className="glass flex items-center gap-3 rounded-full py-2 pl-5 pr-2 text-white shadow-2xl">
-          <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-white/70" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="7" />
-            <path d="m20 20-3.5-3.5" strokeLinecap="round" />
-          </svg>
-          <input
-            name="question"
-            maxLength={500}
-            autoComplete="off"
-            onFocus={() => (state.turns.length ? setState((s) => ({ ...s, open: true })) : undefined)}
-            placeholder="제 프로젝트에 대해 무엇이든 물어보십시오"
-            aria-label="포트폴리오에 질문하기"
-            className="min-w-0 flex-1 bg-transparent py-1.5 text-base outline-none placeholder:text-white/50"
-          />
-          <button
-            type="submit"
-            disabled={state.busy}
-            aria-label="보내기"
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-[#0e101e] hover:opacity-90 disabled:opacity-50"
-          >
-            <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2">
-              <path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+        {/* 밤하늘 배경에 묻히지 않도록 그라데이션 테두리와 빛 번짐을 준다 */}
+        <div className="rounded-full bg-linear-to-r from-brand via-brand-soft to-violet-400 p-[1.5px] shadow-[0_0_36px_rgb(49_130_246/0.45)]">
+          <form onSubmit={onSubmit} className="flex items-center gap-3 rounded-full bg-[rgb(14_16_30/0.92)] py-2 pl-5 pr-2 text-white backdrop-blur-xl">
+            <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-brand-soft" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" strokeLinecap="round" />
             </svg>
-          </button>
-        </form>
+            <input
+              name="question"
+              maxLength={500}
+              autoComplete="off"
+              onFocus={() => (state.turns.length ? setState((s) => ({ ...s, open: true })) : undefined)}
+              placeholder="제 프로젝트에 대해 무엇이든 물어보십시오"
+              aria-label="포트폴리오에 질문하기"
+              className="min-w-0 flex-1 bg-transparent py-1.5 text-base outline-none placeholder:text-white/75"
+            />
+            <button
+              type="submit"
+              disabled={state.busy}
+              aria-label="보내기"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand text-white hover:opacity-90 disabled:opacity-50"
+            >
+              <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
