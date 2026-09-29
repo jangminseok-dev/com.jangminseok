@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import ChatLauncher from "@/components/chat/ChatLauncher";
+import ChatDock from "@/components/chat/ChatDock";
 import "./globals.css";
 
 const pretendard = localFont({
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko" className={pretendard.variable}>
       <body className="font-sans">
         {children}
-        <ChatLauncher />
+        <ChatDock />
       </body>
     </html>
   );
