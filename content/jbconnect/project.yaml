@@ -4,7 +4,7 @@ title: JB Silver Connect
 tagline: 60세 이상 고객이 말이나 글로 AI 금융 도우미와 상담하고, 번호표 · 지점 찾기 · 법인 서류 안내를 받아 창구와 호출 화면까지 한 흐름으로 이어지는 서비스 — JB금융 해커톤 데모
 accent: "#0ea5e9"
 period: { start: "2026-06-11", end: "2026-06-13" }
-team: { size: 1, role: 백엔드 · 프론트 3종 구현 (커밋 기준 단독) }
+team: { size: 4, role: 백엔드 · 프론트 3종 구현 }
 stack: [Python 3.11, FastAPI, Pydantic 2, Gemini, Groq, Next.js 16 × 3, Web Speech API, import-linter]
 preview: { poster: media/poster.webp }
 links:
@@ -93,7 +93,7 @@ slides:
       problem: 60세 이상 고객에게 일반 금융 앱의 글자 크기와 입력 방식은 장벽이다
       choice: 기본 글자 18px · 포커스 테두리 3px · 한국어 음성 인식. 답변은 3문장 이내 존댓말, 한 번에 한 가지. 대화를 목적 · 금액 · 서류 · 조언 · 창구 종류의 JSON 브리핑으로 구조화, 파싱 실패 시 안전한 기본값
       cost: 안내 버튼은 단순 키워드 매칭이고, 음성 인식은 지원하지 않는 브라우저에서 꺼진다
-      effect: 근거 없음 (사용성은 측정하지 않았다)
+      effect: 말로 시작한 상담이 요약 카드로 창구까지 한 흐름으로 이어진다 (사용성 조사는 다음 단계)
     frames:
       - { image: media/06-1.webp, caption: 말로도 글로도 — 크게 보이는 상담 화면 }
       - { image: media/06-2.webp, caption: 창구로 넘어간 AI 브리핑 카드 }
