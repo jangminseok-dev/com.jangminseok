@@ -60,3 +60,9 @@ async def test_guard_applies_to_final_answer():
 async def test_llm_unavailable_propagates():
     with pytest.raises(LlmUnavailable):
         await make(Scripted([LlmUnavailable("429")])).ask("?")
+
+
+async def test_tool_call_signature_is_carried_into_history():
+    llm = Scripted([ToolCall("get_project", {"slug": "callguard"}, signature=b"sig"), FinalAnswer("4명입니다.")])
+    await make(llm).ask("?")
+    assert llm.seen[1][-2].signature == b"sig"  # 모델이 준 서명을 다음 턴에 그대로 돌려준다

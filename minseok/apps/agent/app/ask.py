@@ -56,7 +56,7 @@ class AskInteractor:
             if result.ok:
                 sources += [s for s in result.sources if s not in sources]
                 evidence.append(result.evidence_text)
-            history.append(Message("assistant", "", tool_name=turn.name, tool_args=turn.args))
+            history.append(Message("assistant", "", tool_name=turn.name, tool_args=turn.args, signature=turn.signature))
             history.append(Message("tool", json.dumps(result.payload, ensure_ascii=False), tool_name=turn.name))
         if not evidence:
             return AskResult(REFUSAL, [], traces, True)

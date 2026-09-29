@@ -18,12 +18,14 @@ class Message:
     content: str
     tool_name: str | None = None
     tool_args: dict | None = field(default=None)
+    signature: bytes | None = None  # 모델이 도구 호출에 붙인 서명 — 다음 턴에 그대로 돌려준다
 
 
 @dataclass(frozen=True)
 class ToolCall:
     name: str
     args: dict
+    signature: bytes | None = None
 
 
 @dataclass(frozen=True)

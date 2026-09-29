@@ -74,3 +74,5 @@ forbidden_modules =
     agent.adapter.outbound
     knowledge
     catalog
+# 조립(dependencies)을 거친 간접 import는 허용 — 입구가 어댑터·스포크를 직접 import하는 것만 막는다
+allow_indirect_imports = True
