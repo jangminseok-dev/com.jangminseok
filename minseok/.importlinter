@@ -1,0 +1,76 @@
+[importlinter]
+root_packages =
+    hub
+    catalog
+    knowledge
+    agent
+include_external_packages = True
+
+[importlinter:contract:layers]
+name = 앱 내부 adapter > app > domain
+type = layers
+layers =
+    adapter
+    app
+    (domain)
+containers =
+    hub
+    catalog
+    knowledge
+    agent
+
+[importlinter:contract:spokes]
+name = 스포크 상호 독립 (hub 경유)
+type = independence
+modules =
+    catalog
+    knowledge
+    agent
+
+[importlinter:contract:framework]
+name = app/domain은 프레임워크·SDK를 모른다
+type = forbidden
+source_modules =
+    hub.app
+    catalog.app
+    catalog.domain
+    knowledge.app
+    knowledge.domain
+    agent.app
+    agent.domain
+forbidden_modules =
+    fastapi
+    sqlalchemy
+    psycopg
+    google
+    mcp
+
+[importlinter:contract:pure-domain]
+name = domain은 pydantic 금지
+type = forbidden
+source_modules =
+    catalog.domain
+    knowledge.domain
+    agent.domain
+forbidden_modules =
+    pydantic
+
+[importlinter:contract:hub]
+name = hub는 스포크를 모른다
+type = forbidden
+source_modules =
+    hub
+forbidden_modules =
+    catalog
+    knowledge
+    agent
+
+[importlinter:contract:inbound-only-usecases]
+name = 입구(챗봇·MCP)는 agent.app만 — 도메인 로직 중복 금지
+type = forbidden
+source_modules =
+    agent.adapter.inbound
+forbidden_modules =
+    agent.adapter.outbound
+    knowledge
+    catalog

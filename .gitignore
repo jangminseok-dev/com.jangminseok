@@ -27,3 +27,9 @@ _media_src/
 /CLAUDE.md
 /www/CLAUDE.md
 /www/_docs/
+
+# minseok (백엔드)
+minseok/.env
+minseok/.venv/
+__pycache__/
+.pytest_cache/
