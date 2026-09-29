@@ -60,8 +60,14 @@ export function loadProjects(
       throw new ContentError(`${file}: slug "${project.slug}"가 디렉터리 이름 "${slug}"와 다릅니다`);
     }
     for (const m of mediaPaths(project)) {
-      if (!fs.existsSync(path.join(contentDir, slug, m))) {
+      const mediaFile = path.join(contentDir, slug, m);
+      if (!fs.existsSync(mediaFile)) {
         throw new ContentError(`${file}: 미디어 파일 없음 — ${slug}/${m}`);
+      }
+      // SVG 도식은 텍스트라 실명·IP가 섞일 수 있다
+      if (m.endsWith(".svg")) {
+        const banned = findBannedTerms(fs.readFileSync(mediaFile, "utf8"), opts.bannedTerms);
+        if (banned.length) throw new ContentError(`${mediaFile}: 공개 금지 항목 발견 — ${banned.join(", ")}`);
       }
     }
     return project;

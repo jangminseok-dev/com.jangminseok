@@ -57,6 +57,16 @@ describe("loadProjects", () => {
     expect(() => loadProjects(dir, { slugs: ["a"], bannedTerms: [] })).toThrowError(/목록에 없음: \[b\]/);
   });
 
+  it("SVG 도식 안의 금지어도 잡는다", () => {
+    const data = validProjectData({ slug: "a" });
+    (data.slides as { frames: unknown[] }[])[0].frames = [{ image: "media/d.svg", caption: "도식" }];
+    writeProject("a", data, ["poster.webp", "03-1.webp"]);
+    fs.writeFileSync(path.join(dir, "a", "media", "d.svg"), "<svg><text>홍길동 담당</text></svg>");
+    const run = () => loadProjects(dir, { slugs: ["a"], bannedTerms: ["홍길동"] });
+    expect(run).toThrowError(/d\.svg[\s\S]*금지어 #1/);
+    expect(run).not.toThrowError(/홍길동/);
+  });
+
   it("금지어가 있으면 원문 없이 실패한다", () => {
     writeProject("a", validProjectData({ slug: "a", tagline: "홍길동과 함께 만든 서비스" }));
     const run = () => loadProjects(dir, { slugs: ["a"], bannedTerms: ["홍길동"] });
