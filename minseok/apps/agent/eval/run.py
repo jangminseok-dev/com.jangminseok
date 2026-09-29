@@ -22,7 +22,7 @@ from core.config import BANNED_TERMS, GEMINI_MODEL, KEYWORD_BACKEND, MAX_TOOL_CA
 from knowledge.dependencies.search_gateway import build_search
 
 HERE = Path(__file__).resolve().parent
-OUT = HERE.parents[3] / "content" / "portfolio" / "eval.json"
+OUT = HERE.parents[2] / "data" / "eval.json"  # 백엔드 산출물 — 포트폴리오 슬라이드가 이 수치를 인용한다
 KEEP_RUNS = 3  # 최저값을 낼 최근 실행 수 — 무료 RPD 500이라 하루 1회씩 쌓는다
 PAUSE_SEC = 12  # 무료 분당 한도 15회 — 질문 하나가 2~3회 호출
 RETRY_WAIT_SEC, RETRIES = 30, 3  # 429를 만나면 기다렸다 같은 질문을 다시
