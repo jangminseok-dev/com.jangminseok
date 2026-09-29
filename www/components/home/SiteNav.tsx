@@ -1,9 +1,10 @@
 const SECTIONS = [
   { id: "about", label: "소개" },
   { id: "skills", label: "기술" },
-  { id: "requirements", label: "해본 일" },
   { id: "projects", label: "프로젝트" },
+  { id: "requirements", label: "해본 일" },
   { id: "education", label: "교육" },
+  { id: "contact", label: "연락처" },
 ] as const;
 
 // 스크롤해도 따라오는 상단 메뉴 — 누르면 해당 섹션으로 바로 이동

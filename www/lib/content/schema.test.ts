@@ -15,6 +15,13 @@ describe("ProjectSchema", () => {
     expect(ProjectSchema.safeParse(data).success).toBe(false);
   });
 
+  it("주 사용 언어는 1~3개, 정해진 목록에서만", () => {
+    expect(ProjectSchema.safeParse(validProjectData({ languages: [] })).success).toBe(false);
+    expect(ProjectSchema.safeParse(validProjectData({ languages: ["Python", "TypeScript", "Dart", "Java"] })).success).toBe(false);
+    expect(ProjectSchema.safeParse(validProjectData({ languages: ["Cobol"] })).success).toBe(false);
+    expect(ProjectSchema.safeParse(validProjectData({ languages: ["Python", "Dart"] })).success).toBe(true);
+  });
+
   it("accent는 #RRGGBB만 허용한다", () => {
     expect(ProjectSchema.safeParse(validProjectData({ accent: "red" })).success).toBe(false);
   });

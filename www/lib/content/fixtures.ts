@@ -18,6 +18,7 @@ export function validProjectData(overrides: Record<string, unknown> = {}): Recor
     period: { start: "2026-01-01", end: null },
     team: { size: 1, role: "1인 개발" },
     stack: ["FastAPI"],
+    languages: ["Python"],
     preview: { poster: "media/poster.webp" },
     links: {},
     slides: [decision("설계 원칙"), decision("핵심 결정")],

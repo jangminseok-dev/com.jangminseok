@@ -29,6 +29,10 @@ const DecisionSlideSchema = z.strictObject({
   proves: z.array(z.enum(REQUIREMENT_IDS)).default([]),
 });
 
+// 프로젝트 카드 오른쪽 위 핀 — simple-icons slug와 1:1 (components/home/LanguagePins.tsx)
+export const LANGUAGES = ["Python", "TypeScript", "Dart", "JavaScript", "Java"] as const;
+export type Language = (typeof LANGUAGES)[number];
+
 export const ProjectSchema = z.strictObject({
   slug: z.string().regex(/^[a-z0-9]+$/, "slug는 영문 소문자·숫자만"),
   order: z.number().int(),
@@ -38,6 +42,7 @@ export const ProjectSchema = z.strictObject({
   period: z.strictObject({ start: z.string().regex(DATE), end: z.string().regex(DATE).nullable() }),
   team: z.strictObject({ size: z.number().int().min(1), role: text }),
   stack: z.array(text).min(1),
+  languages: z.array(z.enum(LANGUAGES)).min(1).max(3),
   preview: z.strictObject({ poster: mediaPath, video: mediaPath.optional(), demo: mediaPath.optional() }),
   links: z.strictObject({
     blog: z.url().optional(),

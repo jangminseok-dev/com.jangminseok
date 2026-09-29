@@ -6,6 +6,7 @@ accent: "#22c55e"
 period: { start: "2026-08-20", end: null }
 team: { size: 4, role: 백엔드·AI — ai 브랜치(초기) · server 브랜치 담당 (허브-스포크 골격·청킹·개인정보 마스킹·평가 하네스) }
 stack: [Python 3.13, FastAPI, PostgreSQL, Elasticsearch 9 · nori, KoE5 임베딩, Google STT, WebSocket, React, k3s · AWS]
+languages: [Python, TypeScript, Dart]
 preview: { poster: media/poster.webp }
 links:
   site: https://solidbob.cloud

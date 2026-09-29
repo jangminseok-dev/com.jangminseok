@@ -24,8 +24,8 @@ export default function HomePage() {
           teamProjectCount={projects.filter((p) => p.team.size > 1).length}
           skillsNote="프로젝트에서 직접 쓴 기술과 교육에서 다뤄본 기술을 나눠 적었습니다."
         />
-        <RequirementMatrix rows={buildRequirementMatrix(profile.requirements, projects)} isProd={isProd} />
         <ProjectGrid projects={projects} isProd={isProd} />
+        <RequirementMatrix rows={buildRequirementMatrix(profile.requirements, projects)} isProd={isProd} />
         <EducationList education={profile.education} />
       </main>
       <SiteFooter profile={profile} />

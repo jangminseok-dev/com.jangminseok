@@ -6,6 +6,7 @@ accent: "#f59e0b"
 period: { start: "2026-09-20", end: null }
 team: { size: 1, role: 1인 개발 (설계 · 백엔드 · Flutter 앱 · 웹 · 인프라) }
 stack: [Python 3.13, FastAPI, SQLAlchemy 2 · Alembic, PostgreSQL, Flutter, Next.js 16, MinIO · S3, Caddy, Docker Compose]
+languages: [Python, Dart, TypeScript]
 preview: { poster: media/poster.webp }
 links: {}
 

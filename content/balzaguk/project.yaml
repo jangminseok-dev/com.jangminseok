@@ -6,6 +6,7 @@ accent: "#14b8a6"
 period: { start: "2026-06-17", end: "2026-06-26" }
 team: { size: 4, role: 백엔드 · AI 에이전트 · 데이터 적재 · 배포 전담 }
 stack: [Python 3.13, FastAPI, SQLAlchemy 2 · Alembic, PostgreSQL (Neon), Gemini, pandas · pyproj, React 19 · Vite, Docker, Railway · Vercel]
+languages: [Python, TypeScript]
 preview: { poster: media/poster.webp }
 links:
   repo: https://github.com/jangminseok-dev/cloud.adapdog
