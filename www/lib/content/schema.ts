@@ -57,6 +57,8 @@ export const ProfileSchema = z.strictObject({
   name: text,
   headline: text,
   intro: text,
+  // 첫 화면 소개 아래 핵심 키워드 줄
+  highlights: z.array(z.strictObject({ keyword: text, text: text })).min(1).max(5),
   requirements: z
     .array(z.strictObject({ id: z.enum(REQUIREMENT_IDS), label: text, detail: text }))
     .refine(

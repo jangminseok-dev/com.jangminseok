@@ -6,8 +6,8 @@ import { slideAnchor } from "@/lib/slides";
 export default function RequirementMatrix({ rows, isProd }: { rows: MatrixRow[]; isProd: boolean }) {
   return (
     <section id="requirements" className="mx-auto max-w-6xl px-5 py-16">
-      <h2 className="text-2xl font-bold md:text-3xl">이런 일을 해봤어요</h2>
-      <p className="mt-2 text-white/70">요건마다 근거가 되는 슬라이드로 바로 이동할 수 있어요.</p>
+      <h2 className="text-2xl font-bold md:text-3xl">이런 일을 해왔습니다</h2>
+      <p className="mt-2 text-white/70">요건마다 근거가 되는 슬라이드로 바로 이동할 수 있습니다.</p>
       <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         {rows.map((row, i) => (
           <li key={row.id} id={`req-${row.id}`} className="glass flex flex-col rounded-3xl p-5 md:p-6">

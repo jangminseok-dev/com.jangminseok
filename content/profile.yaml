@@ -1,8 +1,16 @@
 name: 장민석
 headline: 검색과 RAG로 답을 찾는 백엔드 개발자
 intro: >-
-  FastAPI로 백엔드를 짜고 그 위에 검색과 LLM을 얹어 근거를 대며 답하는 시스템을 만들어요.
-  좋아졌는지는 늘 숫자로 확인해요.
+  검색과 LLM으로 근거를 대며 답하는 시스템을 만들고 좋아졌는지는 늘 숫자로 확인합니다.
+highlights:
+  - keyword: 헥사고날 · 클린 아키텍처
+    text: import-linter 계약으로 레이어 의존을 강제해 구조가 무너지지 않는 FastAPI 백엔드를 설계합니다.
+  - keyword: 검색엔진 · RAG
+    text: Elasticsearch·pgvector 검색 위에 출처를 제시하는 RAG를 만들고 하이브리드 검색도 골든셋으로 측정해 채택 여부를 판단합니다.
+  - keyword: LLM · ML 평가
+    text: 모델은 같은 골든셋과 결정적 게이트로 비교해 고르고 품질 변화는 회귀 테스트로 관리합니다.
+  - keyword: AI 코딩 어시스턴트 · 하네스
+    text: AI 코딩 어시스턴트와 함께 개발하되, 규칙 문서와 하네스로 경계와 검증을 먼저 고정합니다.
 requirements:
   - id: python-backend
     label: Python 백엔드 (FastAPI)

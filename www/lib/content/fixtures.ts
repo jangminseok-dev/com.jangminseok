@@ -31,6 +31,7 @@ export function validProfileData(): Record<string, unknown> {
     name: "장민석",
     headline: "헤드라인",
     intro: "소개",
+    highlights: [{ keyword: "키워드", text: "설명입니다." }],
     requirements: [
       { id: "python-backend", label: "Python 백엔드", detail: "d" },
       { id: "search-engine", label: "검색엔진", detail: "d" },
