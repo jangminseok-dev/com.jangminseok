@@ -5,9 +5,9 @@ type Props = { profile: Profile; projectCount: number; teamProjectCount: number;
 
 export default function Hero({ profile, projectCount, teamProjectCount, skillsNote }: Props) {
   const stats = [
-    { label: "프로젝트", value: projectCount },
+    { label: "총 프로젝트", value: projectCount },
+    { label: "개인 프로젝트", value: projectCount - teamProjectCount },
     { label: "팀 프로젝트", value: teamProjectCount },
-    { label: "교육 과정", value: profile.education.length },
   ];
   return (
     <section
