@@ -19,3 +19,11 @@ www/.vercel/
 
 # 원본 미디어 작업 폴더
 _media_src/
+
+# 내부 작업 문서 — 로컬에만 둔다 (공개 저장소에 올리지 않음)
+/docs/
+/_docs/
+/.claude/
+/CLAUDE.md
+/www/CLAUDE.md
+/www/_docs/
