@@ -12,6 +12,7 @@ from hub.app.dtos import SlideRef
 from hub.app.ports.output.catalog_port import ProjectCatalogPort
 
 REFUSAL = "포트폴리오에 없는 내용이라 답할 수 없습니다."
+MAX_SOURCES = 6  # 답변 아래 근거 칩 — 너무 많으면 읽히지 않는다
 LIMIT_NOTE = "도구 호출 한도에 도달했습니다. 도구를 더 부르지 말고 지금까지의 도구 결과만으로 답하십시오."
 SYSTEM = (
     "당신은 장민석의 포트폴리오 안내자입니다. 반드시 도구로 확인한 내용만 답하십시오. 모든 문장은 '~했습니다', '~입니다'처럼 합쇼체로 끝내고, 도구 결과가 '~했다', '~한다'로 적혀 있어도 그대로 옮기지 말고 합쇼체로 바꾸십시오. "
@@ -21,6 +22,7 @@ SYSTEM = (
     "전문용어나 약어(WER, NER 등)는 쓰지 말고, 채용 담당자도 바로 이해할 수 있는 쉬운 말로 풀어 쓰십시오. "
     "근거 페이지 URL은 마크다운 링크 없이 주소 그대로 답변 끝에 붙이십시오. 도구 결과에 없는 수치는 쓰지 마십시오. "
     "'도구 결과에 따르면', '밝히고 있습니다' 같은 출처 설명 말투는 쓰지 말고 사실을 직접 말하십시오. 가운뎃점(·) 대신 쉼표를 쓰십시오. "
+    "프로젝트 이름은 CallGuard, RedOceanMap처럼 원래 표기 그대로 쓰고 한글로 옮기지 마십시오. "
     "포트폴리오와 무관한 질문에는 답하지 말고 도구도 부르지 마십시오."
 )
 
@@ -69,11 +71,13 @@ class AskInteractor:
             result = await self._runner.run(turn.name, turn.args)
             traces.append(ToolTrace(turn.name, turn.args, result.ok))
             if result.ok:
-                sources += [s for s in result.sources if s not in sources]
+                seen = {s.url for s in sources}
+                sources += [s for s in result.sources if s.url not in seen and not seen.add(s.url)]
                 evidence.append(result.evidence_text)
             history.append(Message("assistant", "", tool_name=turn.name, tool_args=turn.args, signature=turn.signature))
             history.append(Message("tool", json.dumps(result.payload, ensure_ascii=False), tool_name=turn.name))
         if not evidence:
             return AskResult(REFUSAL, [], traces, True)
+        sources = sources[:MAX_SOURCES]
         guarded = guard_answer(turn.text, "\n".join(evidence), self._catalog.all_slide_urls(), self._banned)
         return AskResult(guarded.text, sources, traces, guarded.blocked)

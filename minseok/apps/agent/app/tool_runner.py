@@ -10,6 +10,10 @@ from hub.app.ports.output.search_port import KnowledgeSearchPort
 DEFAULT_TOP_K, MAX_TOP_K = 5, 8
 
 
+def _with_project(project: str | None, title: str) -> str:
+    return title if not project or title.startswith(project) else f"{project} {title}"
+
+
 @dataclass(frozen=True)
 class ToolResult:
     ok: bool
@@ -29,7 +33,9 @@ class ToolRunner:
             query = str(args.get("query", ""))
             top_k = max(1, min(int(args.get("top_k", DEFAULT_TOP_K)), MAX_TOP_K))
             chunks = await self._search.search(query, top_k)
-            refs = [SlideRef(c.slug, c.slide_number, c.title, c.url) for c in chunks]
+            # 근거 칩에 프로젝트 이름을 붙인다 — "아키텍처"만 있으면 어느 프로젝트인지 알 수 없다
+            names = {slug: f.title for slug in {c.slug for c in chunks} if (f := self._catalog.get_project(slug))}
+            refs = [SlideRef(c.slug, c.slide_number, _with_project(names.get(c.slug), c.title), c.url) for c in chunks]
             payload = {"results": [{"project": c.slug, "slide": c.slide_number, "title": c.title,
                                     "url": c.url, "text": c.text} for c in chunks]}
             return ToolResult(True, payload, "\n".join(c.text for c in chunks), refs)

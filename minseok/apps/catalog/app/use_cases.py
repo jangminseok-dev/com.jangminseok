@@ -27,7 +27,7 @@ class CatalogInteractor(ProjectCatalogPort):
         return ProjectFacts(
             slug=p.slug, title=p.title, tagline=p.tagline, period=p.period, team_size=p.team_size, role=p.role,
             stack=p.stack, languages=p.languages, metrics=p.metrics,
-            slides=tuple(self._ref(p.slug, s.number, s.title) for s in p.slides),
+            slides=tuple(self._ref(p.slug, s.number, f"{p.title} {s.title}") for s in p.slides),
             url=self._data.slide_url(p.slug, INTRO_SLIDE).split("#")[0],
         )
 
@@ -37,7 +37,7 @@ class CatalogInteractor(ProjectCatalogPort):
             return []
         out: list[SkillMatch] = []
         for p in self._data.projects:
-            evidence = tuple(self._ref(p.slug, s.number, s.title) for s in p.slides if q in _used_text(s.text))
+            evidence = tuple(self._ref(p.slug, s.number, f"{p.title} {s.title}") for s in p.slides if q in _used_text(s.text))
             if not evidence and any(q in s.lower() for s in p.stack):
                 evidence = (self._ref(p.slug, INTRO_SLIDE, f"{p.title} 소개"),)
             if evidence:

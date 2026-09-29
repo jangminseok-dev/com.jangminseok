@@ -65,3 +65,8 @@ def test_all_slide_urls_has_only_real_sections():
         "https://callguard.jangminseok.com#01", "https://callguard.jangminseok.com#02", "https://callguard.jangminseok.com#05",
         "https://redoceanmap.jangminseok.com#01", "https://redoceanmap.jangminseok.com#02",
     }  # 없는 섹션 번호(옛 회고 슬라이드 자리)는 만들지 않는다
+
+
+def test_section_refs_carry_project_title_so_chips_are_not_ambiguous():
+    facts = CatalogInteractor(DATA).get_project("callguard")
+    assert facts is not None and facts.slides[0].title == "CallGuard 설계 원칙"

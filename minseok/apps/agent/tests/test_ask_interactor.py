@@ -82,3 +82,23 @@ async def test_tool_call_signature_is_carried_into_history():
     llm = Scripted([ToolCall("get_project", {"slug": "callguard"}, signature=b"sig"), FinalAnswer("4명입니다.")])
     await make(llm).ask("?")
     assert llm.seen[1][-2].signature == b"sig"  # 모델이 준 서명을 다음 턴에 그대로 돌려준다
+
+
+async def test_sources_are_unique_by_url_and_capped():
+    from agent.app.ask import MAX_SOURCES
+    from hub.app.dtos import SlideRef
+
+    class ManyRefs(Cat):
+        def find_by_skill(self, skill):
+            from hub.app.dtos import SkillMatch
+            refs = tuple(SlideRef("callguard", n % 3 + 1, f"t{n}", f"https://callguard.jangminseok.com#{n % 3 + 1:02d}") for n in range(9))
+            return [SkillMatch("callguard", "CallGuard", refs)]
+
+        def all_slide_urls(self):
+            return {f"https://callguard.jangminseok.com#{n:02d}" for n in (1, 2, 3)}
+
+    cat = ManyRefs()
+    llm = Scripted([ToolCall("find_by_skill", {"skill": "x"}), FinalAnswer("답입니다.")])
+    r = await AskInteractor(llm, ToolRunner(cat, Search()), cat, banned=[]).ask("?")
+    urls = [s.url for s in r.sources]
+    assert len(urls) == len(set(urls)) and len(urls) <= MAX_SOURCES
