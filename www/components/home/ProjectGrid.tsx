@@ -3,6 +3,7 @@ import PreviewMedia from "@/components/home/PreviewMedia";
 import { mediaUrl } from "@/lib/content/media";
 import type { Project } from "@/lib/content/schema";
 import { projectHref } from "@/lib/site";
+import { byStartDate } from "@/lib/timeline";
 
 function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
   return (
@@ -39,8 +40,8 @@ function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
 
 export default function ProjectGrid({ projects, isProd }: { projects: Project[]; isProd: boolean }) {
   const groups = [
-    { title: "개인 프로젝트", items: projects.filter((p) => p.team.size === 1) },
-    { title: "팀 프로젝트", items: projects.filter((p) => p.team.size > 1) },
+    { title: "개인 프로젝트", items: projects.filter((p) => p.team.size === 1).sort(byStartDate) },
+    { title: "팀 프로젝트", items: projects.filter((p) => p.team.size > 1).sort(byStartDate) },
   ];
   return (
     <section id="projects" className="mx-auto max-w-6xl px-5 py-16">
