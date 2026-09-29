@@ -26,7 +26,7 @@ async def lifespan(_app):
         yield
 
 
-app = FastAPI(title="jangminseok portfolio agent", docs_url=None, redoc_url=None, lifespan=lifespan)
+app = FastAPI(title="jangminseok portfolio agent", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
 
 
 @app.get("/health")
