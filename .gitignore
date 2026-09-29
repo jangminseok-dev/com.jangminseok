@@ -1,0 +1,21 @@
+# OS / 에디터
+.DS_Store
+.idea/
+.vscode/
+
+# 비밀값
+.env
+.env.*
+!.env.example
+content/.banned.local.txt
+
+# www
+www/node_modules/
+www/.next/
+www/next-env.d.ts
+www/public/media/
+www/*.tsbuildinfo
+www/.vercel/
+
+# 원본 미디어 작업 폴더
+_media_src/
