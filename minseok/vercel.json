@@ -1,0 +1,5 @@
+{
+  "framework": "fastapi",
+  "regions": ["icn1"],
+  "crons": [{ "path": "/health", "schedule": "0 18 * * *" }]
+}
