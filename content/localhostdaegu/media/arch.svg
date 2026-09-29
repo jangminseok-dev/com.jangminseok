@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#9aa1ad"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="56" fill="#fff" font-size="28" font-weight="700">localhost:daegu 전체 구조</text>
+  <text x="40" y="88" fill="#9aa1ad" font-size="17">한 문장 입력이 은행 상담자료가 되기까지</text>
+
+  <!-- 왼쪽: 사용자와 공개 경로 -->
+  <g font-size="18" text-anchor="middle">
+    <rect x="40" y="150" width="190" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="135" y="182" fill="#fff" font-weight="700">예비 창업자</text>
+    <text x="135" y="206" fill="#9aa1ad" font-size="14">브라우저</text>
+    <rect x="40" y="270" width="190" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="135" y="302" fill="#fff" font-weight="700">화면 (Vercel)</text>
+    <text x="135" y="326" fill="#9aa1ad" font-size="14">Next.js, MapLibre 지도</text>
+    <rect x="40" y="390" width="190" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="135" y="422" fill="#fff" font-weight="700">Cloudflare Tunnel</text>
+    <text x="135" y="446" fill="#9aa1ad" font-size="14">로컬 서버를 인터넷에 공개</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)">
+    <line x1="135" y1="220" x2="135" y2="266"/>
+    <line x1="135" y1="340" x2="135" y2="386"/>
+    <line x1="230" y1="425" x2="286" y2="425"/>
+  </g>
+  <text x="258" y="410" fill="#9aa1ad" font-size="12" text-anchor="middle">REST, SSE</text>
+
+  <!-- 가운데: 로컬 GPU 서버 -->
+  <rect x="290" y="130" width="620" height="450" rx="20" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="310" y="162" fill="#3b82f6" font-size="18" font-weight="700">로컬 GPU 서버 (FastAPI)</text>
+  <text x="890" y="162" fill="#9aa1ad" font-size="14" text-anchor="end">요청을 메모리에 두므로 서버 프로그램 1개</text>
+
+  <g font-size="17" text-anchor="middle">
+    <rect x="310" y="180" width="270" height="66" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="445" y="208" fill="#fff" font-weight="700">① 한 문장 해석</text>
+    <text x="445" y="232" fill="#9aa1ad" font-size="14">동네, 업종, 예산 추출</text>
+    <rect x="310" y="270" width="270" height="66" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="445" y="298" fill="#fff" font-weight="700">② 상권 진단</text>
+    <text x="445" y="322" fill="#9aa1ad" font-size="14">폐업률, 점포 수, 142개 동 중 순위</text>
+  </g>
+  <rect x="310" y="360" width="270" height="66" rx="14" fill="#3b82f6"/>
+  <text x="445" y="388" fill="#fff" font-size="18" font-weight="700" text-anchor="middle">③ 자금 계산은 코드가</text>
+  <text x="445" y="412" fill="#fff" font-size="14" text-anchor="middle">준비자금, 부족액, 상담 후보 상품</text>
+
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <line x1="445" y1="246" x2="445" y2="266"/>
+    <line x1="445" y1="336" x2="445" y2="356"/>
+    <path d="M580 393 C 600 393, 600 305, 606 305"/>
+  </g>
+
+  <g font-size="17" text-anchor="middle">
+    <rect x="610" y="255" width="280" height="100" rx="14" fill="#0f1115" stroke="#3b82f6" stroke-width="2"/>
+    <text x="750" y="288" fill="#fff" font-weight="700">④ 상담자료 작성</text>
+    <text x="750" y="313" fill="#9aa1ad" font-size="14">금액과 표는 코드가 먼저 전송</text>
+    <text x="750" y="335" fill="#9aa1ad" font-size="14">AI는 해석 문단만, 문단 단위 실시간 전송</text>
+
+    <rect x="310" y="480" width="270" height="76" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="445" y="512" fill="#fff" font-weight="700">PostgreSQL + pgvector</text>
+    <text x="445" y="536" fill="#9aa1ad" font-size="14">Docker, 지표와 검색 색인, 상담 기록</text>
+
+    <rect x="610" y="480" width="280" height="76" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="750" y="512" fill="#fff" font-weight="700">정기 수집</text>
+    <text x="750" y="536" fill="#9aa1ad" font-size="14">인허가, 정책 공고, 뉴스, 금리</text>
+  </g>
+
+  <!-- 데이터 읽기와 적재 -->
+  <g stroke="#9aa1ad" stroke-width="2" stroke-dasharray="5 5" fill="none" marker-end="url(#a)">
+    <line x1="445" y1="476" x2="445" y2="430"/>
+    <path d="M540 476 C 560 440, 700 420, 700 362"/>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <line x1="610" y1="518" x2="584" y2="518"/>
+  </g>
+
+  <!-- 오른쪽: AI 모델과 외부 데이터 -->
+  <g font-size="18" text-anchor="middle">
+    <rect x="970" y="200" width="200" height="76" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="1070" y="232" fill="#fff" font-weight="700">Gemini</text>
+    <text x="1070" y="256" fill="#9aa1ad" font-size="14">기본 모델, 문단과 검색</text>
+    <rect x="970" y="320" width="200" height="76" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2" stroke-dasharray="6 5"/>
+    <text x="1070" y="352" fill="#fff" font-weight="700">로컬 모델</text>
+    <text x="1070" y="376" fill="#9aa1ad" font-size="14">Ollama gemma4, 수동 전환</text>
+    <rect x="970" y="480" width="200" height="76" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="1070" y="512" fill="#fff" font-weight="700">공공데이터 API</text>
+    <text x="1070" y="536" fill="#9aa1ad" font-size="14">매일, 매시 수집</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <path d="M890 290 C 930 290, 930 238, 966 238"/>
+    <line x1="970" y1="518" x2="894" y2="518"/>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#a)" fill="none">
+    <path d="M890 320 C 930 320, 930 358, 966 358"/>
+  </g>
+
+  <text x="600" y="630" fill="#9aa1ad" font-size="16" text-anchor="middle">배포: 화면은 Vercel, 서버와 DB는 GPU 컴퓨터 한 대. 점선은 데이터 읽기와 대체 경로입니다.</text>
+</svg>

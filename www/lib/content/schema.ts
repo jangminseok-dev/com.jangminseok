@@ -114,7 +114,7 @@ export const ProjectPageSchema = z.strictObject({
   // role: 첫 화면 제목 아래 한 줄 — 채용 담당자가 30초 안에 보는 "무엇을 맡았나"
   overview: z.strictObject({ what: text, why: text, role: text, highlights: z.array(figure).min(1).max(3) }),
   features: z
-    .array(z.strictObject({ title: text, body: text, core: z.boolean().default(false), image: mediaPath }))
+    .array(z.strictObject({ title: text, body: text, core: z.boolean().default(false), image: mediaPath.optional() }))
     .min(2)
     .max(8),
   featureNote: text.optional(),

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#9aa1ad"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="56" fill="#fff" font-size="28" font-weight="700">REMAKE DAY 전체 구조</text>
+  <text x="40" y="88" fill="#9aa1ad" font-size="17">플레이어의 대화와 선택이 AI 역할을 거쳐 기록되고, 같은 프롬프트로 모델을 평가하기까지</text>
+
+  <!-- 왼쪽: 화면 -->
+  <g font-size="18" text-anchor="middle">
+    <rect x="40" y="165" width="190" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="135" y="199" fill="#fff" font-weight="700">게임 화면</text>
+    <text x="135" y="223" fill="#9aa1ad" font-size="14">Next.js, 플레이어</text>
+    <rect x="40" y="285" width="190" height="80" rx="14" fill="#0f1115" stroke="#a855f7" stroke-width="2"/>
+    <text x="135" y="319" fill="#fff" font-weight="700">Inspector 화면</text>
+    <text x="135" y="343" fill="#9aa1ad" font-size="14">연구자, 판 기록과 채점 근거</text>
+    <rect x="40" y="500" width="190" height="80" rx="14" fill="#0f1115" stroke="#a855f7" stroke-width="2"/>
+    <text x="135" y="534" fill="#fff" font-weight="700">연구 사이트</text>
+    <text x="135" y="558" fill="#9aa1ad" font-size="14">Jekyll, 사전등록과 집계</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <line x1="230" y1="205" x2="286" y2="205"/>
+    <path d="M230 325 C 258 325, 258 225, 286 222"/>
+  </g>
+
+  <!-- 가운데: 서버 -->
+  <rect x="270" y="130" width="520" height="335" rx="20" fill="none" stroke="#2a2f3a" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="290" y="158" fill="#9aa1ad" font-size="16" font-weight="700">서버 (FastAPI)</text>
+
+  <g font-size="17" text-anchor="middle">
+    <rect x="290" y="172" width="210" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="395" y="203" fill="#fff" font-weight="700">Game API</text>
+    <text x="395" y="226" fill="#9aa1ad" font-size="14">세션, 회차, 밤, 개입</text>
+    <rect x="290" y="270" width="210" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="395" y="302" fill="#fff" font-weight="700">게임 엔진</text>
+    <text x="395" y="326" fill="#9aa1ad" font-size="14">낮 대화, 밤 채점, 규칙 적용</text>
+    <rect x="290" y="378" width="210" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="395" y="408" fill="#fff" font-weight="700">PostgreSQL</text>
+    <text x="395" y="431" fill="#9aa1ad" font-size="14">판 기록, 선택, 채점 근거</text>
+
+    <rect x="540" y="172" width="230" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="655" y="203" fill="#fff" font-weight="700">하네스</text>
+    <text x="655" y="226" fill="#9aa1ad" font-size="14">형식 검사, 재생성, 대체 응답</text>
+    <rect x="540" y="262" width="230" height="96" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="655" y="290" fill="#fff" font-weight="700">AI 역할</text>
+    <text x="655" y="315" fill="#9aa1ad" font-size="14">Core: 계획, 관리, 답변, 채점</text>
+    <text x="655" y="338" fill="#9aa1ad" font-size="14">NPC: 인물 대화</text>
+    <rect x="540" y="378" width="230" height="70" rx="14" fill="#a855f7"/>
+    <text x="655" y="408" fill="#1a0b26" font-weight="700">모델 연결부</text>
+    <text x="655" y="431" fill="#1a0b26" font-size="14">설정 두 줄로 전환</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <line x1="395" y1="242" x2="395" y2="266"/>
+    <line x1="395" y1="350" x2="395" y2="374"/>
+    <path d="M500 310 C 520 310, 520 207, 536 207"/>
+    <line x1="655" y1="242" x2="655" y2="258"/>
+    <line x1="655" y1="358" x2="655" y2="374"/>
+  </g>
+
+  <!-- 오른쪽: 모델 제공처 -->
+  <g font-size="18" text-anchor="middle">
+    <rect x="830" y="172" width="330" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="995" y="205" fill="#fff" font-weight="700">로컬 GPU 한 장 (16GB)</text>
+    <text x="995" y="230" fill="#9aa1ad" font-size="14">Ollama: Gemma 4, Kanana 1.5</text>
+    <rect x="830" y="280" width="330" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="995" y="313" fill="#fff" font-weight="700">외부 API</text>
+    <text x="995" y="338" fill="#9aa1ad" font-size="14">Claude Sonnet 5, Haiku 4.5</text>
+    <rect x="830" y="388" width="330" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="995" y="418" fill="#fff" font-weight="700">Gemini 임베딩</text>
+    <text x="995" y="441" fill="#9aa1ad" font-size="14">규칙 추천 순위 한 자리에만</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <path d="M770 405 C 800 405, 800 212, 826 212"/>
+    <path d="M770 410 C 805 410, 805 320, 826 320"/>
+    <line x1="770" y1="420" x2="826" y2="420"/>
+  </g>
+
+  <!-- 아래: 평가 -->
+  <rect x="270" y="500" width="520" height="80" rx="16" fill="#0f1115" stroke="#a855f7" stroke-width="2"/>
+  <text x="530" y="533" fill="#fff" font-size="19" font-weight="700" text-anchor="middle">평가 러너</text>
+  <text x="530" y="559" fill="#9aa1ad" font-size="14" text-anchor="middle">게임 서버 없이 같은 프롬프트로 후보 모델을 같은 시험에</text>
+  <rect x="830" y="500" width="330" height="80" rx="16" fill="#0f1115" stroke="#a855f7" stroke-width="2"/>
+  <text x="995" y="533" fill="#fff" font-size="18" font-weight="700" text-anchor="middle">실측 기록</text>
+  <text x="995" y="559" fill="#9aa1ad" font-size="14" text-anchor="middle">metrics.yml, 모델 평가 문서</text>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <line x1="655" y1="500" x2="655" y2="452"/>
+    <line x1="790" y1="540" x2="826" y2="540"/>
+    <path d="M290 430 C 250 430, 250 480, 190 496"/>
+  </g>
+  <text x="40" y="482" fill="#9aa1ad" font-size="13">읽기 전용 집계</text>
+
+  <text x="600" y="630" fill="#9aa1ad" font-size="16" text-anchor="middle">보라색은 장민석 담당 영역입니다. 게임 엔진, 하네스, AI 역할 프롬프트는 팀원 영역입니다.</text>
+</svg>

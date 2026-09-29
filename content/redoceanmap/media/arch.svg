@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#9aa1ad"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="56" fill="#fff" font-size="28" font-weight="700">RedOceanMap 전체 구조</text>
+  <text x="40" y="88" fill="#9aa1ad" font-size="17">질문 하나가 근거를 붙인 답변이 되기까지</text>
+
+  <!-- 왼쪽: 사용자에서 서버까지 -->
+  <g font-size="18" text-anchor="middle">
+    <rect x="40" y="150" width="170" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="125" y="182" fill="#fff" font-weight="700">사용자 질문</text>
+    <text x="125" y="206" fill="#9aa1ad" font-size="14">상권, 종목, 창업 자금</text>
+    <rect x="40" y="260" width="170" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="125" y="292" fill="#fff" font-weight="700">웹 화면</text>
+    <text x="125" y="316" fill="#9aa1ad" font-size="14">Next.js (Vercel)</text>
+    <rect x="40" y="370" width="170" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="125" y="402" fill="#fff" font-weight="700">Cloudflare Tunnel</text>
+    <text x="125" y="426" fill="#9aa1ad" font-size="14">유일한 외부 입구</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <line x1="125" y1="220" x2="125" y2="256"/>
+    <line x1="125" y1="330" x2="125" y2="366"/>
+    <path d="M210 405 C 260 405, 260 295, 306 295"/>
+  </g>
+
+  <!-- 가운데: 서버 -->
+  <rect x="290" y="120" width="620" height="360" rx="20" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="310" y="152" fill="#ef4444" font-size="18" font-weight="700">서버 (FastAPI, k3s)</text>
+  <text x="890" y="152" fill="#9aa1ad" font-size="14" text-anchor="end">앱 8개, 허브를 거쳐서만 연결</text>
+
+  <rect x="310" y="260" width="160" height="70" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+  <text x="390" y="292" fill="#fff" font-size="18" font-weight="700" text-anchor="middle">① 질문 종류 판단</text>
+  <text x="390" y="316" fill="#9aa1ad" font-size="14" text-anchor="middle">4가지로 분류</text>
+
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <path d="M470 295 C 490 295, 490 198, 506 198"/>
+    <path d="M470 295 C 490 295, 490 268, 506 268"/>
+    <path d="M470 295 C 490 295, 490 338, 506 338"/>
+    <path d="M470 295 C 490 295, 490 408, 506 408"/>
+  </g>
+
+  <g font-size="17" text-anchor="middle">
+    <rect x="510" y="170" width="190" height="56" rx="12" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="605" y="194" fill="#fff" font-weight="700">상권 분석</text>
+    <text x="605" y="214" fill="#9aa1ad" font-size="13">매출, 유동인구, 점수, 자금</text>
+    <rect x="510" y="240" width="190" height="56" rx="12" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="605" y="264" fill="#fff" font-weight="700">종목 분석</text>
+    <text x="605" y="284" fill="#9aa1ad" font-size="13">시세, 지표, 뉴스</text>
+    <rect x="510" y="310" width="190" height="56" rx="12" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="605" y="334" fill="#fff" font-weight="700">뉴스 검색</text>
+    <text x="605" y="354" fill="#9aa1ad" font-size="13">뜻이 비슷한 기사 찾기</text>
+    <rect x="510" y="380" width="190" height="56" rx="12" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="605" y="404" fill="#fff" font-weight="700">일반 질문</text>
+    <text x="605" y="424" fill="#9aa1ad" font-size="13">외부 Gemini에 맡김</text>
+  </g>
+
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <path d="M700 198 C 715 198, 715 295, 726 295"/>
+    <path d="M700 268 C 715 268, 715 295, 726 295"/>
+    <path d="M700 338 C 715 338, 715 295, 726 295"/>
+    <path d="M700 408 C 715 408, 715 295, 726 295"/>
+  </g>
+
+  <rect x="730" y="255" width="160" height="80" rx="14" fill="#ef4444"/>
+  <text x="810" y="289" fill="#1a0707" font-size="19" font-weight="700" text-anchor="middle">② 규칙 가드</text>
+  <text x="810" y="313" fill="#1a0707" font-size="14" text-anchor="middle">숫자, 금지 표현 확인</text>
+
+  <!-- 오른쪽: 답변 -->
+  <line x1="890" y1="295" x2="976" y2="295" stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="980" y="235" width="190" height="120" rx="16" fill="#0f1115" stroke="#ef4444" stroke-width="2"/>
+  <text x="1075" y="277" fill="#fff" font-size="19" font-weight="700" text-anchor="middle">답변</text>
+  <text x="1075" y="303" fill="#9aa1ad" font-size="14" text-anchor="middle">숫자마다 근거 번호</text>
+  <text x="1075" y="329" fill="#9aa1ad" font-size="14" text-anchor="middle">주의 등급 먼저 안내</text>
+
+  <!-- 아래: AI 모델, 데이터, 자동 수집 -->
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
+    <line x1="440" y1="480" x2="440" y2="516"/>
+    <line x1="760" y1="480" x2="760" y2="516"/>
+    <line x1="980" y1="555" x2="914" y2="555"/>
+  </g>
+  <g font-size="17" text-anchor="middle">
+    <rect x="290" y="520" width="300" height="72" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="440" y="551" fill="#fff" font-weight="700">로컬 AI 모델 (Ollama)</text>
+    <text x="440" y="575" fill="#9aa1ad" font-size="14">Gemma 4 답변, embeddinggemma 검색</text>
+    <rect x="610" y="520" width="300" height="72" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="760" y="551" fill="#fff" font-weight="700">데이터 (Docker Compose)</text>
+    <text x="760" y="575" fill="#9aa1ad" font-size="14">PostgreSQL + pgvector, Redis</text>
+    <rect x="980" y="520" width="190" height="72" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="1075" y="551" fill="#fff" font-weight="700">정기 작업 8개</text>
+    <text x="1075" y="575" fill="#9aa1ad" font-size="14">공공데이터, 임대료, 금리 수집</text>
+  </g>
+
+  <text x="600" y="640" fill="#9aa1ad" font-size="16" text-anchor="middle">배포: 서버와 정기 작업은 k3s, 데이터는 Docker Compose에 두고 Cloudflare Tunnel로만 외부에 공개</text>
+</svg>

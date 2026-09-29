@@ -21,7 +21,7 @@ describe("loadProjectPage (소개 페이지 v2)", () => {
   });
 
   it("page.yaml이 없는 프로젝트는 null", () => {
-    expect(loadProjectPage(CONTENT, "jbconnect", [])).toBeNull();
+    expect(loadProjectPage(CONTENT, "no-such-project", [])).toBeNull();
   });
 
   it("금지어가 있으면 실패한다", () => {
@@ -30,18 +30,19 @@ describe("loadProjectPage (소개 페이지 v2)", () => {
 });
 
 describe("기능 화면", () => {
-  it("모든 기능에 화면이 있어야 한다 — 이미지 없는 기능은 실패", async () => {
+  it("화면이 없는 기능은 글로만 두어도 되지만, 적은 화면 파일은 반드시 있어야 한다", async () => {
     const fs = await import("node:fs");
     const os = await import("node:os");
     const { stringify, parse } = await import("yaml");
     const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "page-"));
     fs.mkdirSync(path.join(tmp, "callguard", "media"), { recursive: true });
     const page = parse(fs.readFileSync(path.join(CONTENT, "callguard", "page.yaml"), "utf8"));
-    for (const f of [...page.features.map((x: { image?: string }) => x.image), page.architecture.image])
-      if (f) fs.writeFileSync(path.join(tmp, "callguard", f), "");
-    delete page.features[0].image;
+    fs.writeFileSync(path.join(tmp, "callguard", page.architecture.image), "");
+    for (const f of page.features.slice(1)) delete f.image; // 첫 기능만 화면을 남긴다
     fs.writeFileSync(path.join(tmp, "callguard", "page.yaml"), stringify(page));
-    expect(() => loadProjectPage(tmp, "callguard", [])).toThrowError(/features\.0\.image/);
+    expect(() => loadProjectPage(tmp, "callguard", [])).toThrowError(/미디어 파일 없음/);
+    fs.writeFileSync(path.join(tmp, "callguard", page.features[0].image), "");
+    expect(loadProjectPage(tmp, "callguard", [])?.features[1].image).toBeUndefined();
   });
 });
 

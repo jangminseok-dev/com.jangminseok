@@ -4,7 +4,7 @@ title: JB Silver Connect
 tagline: 60세 이상 고객이 말이나 글로 AI 금융 도우미와 상담하고 번호표, 지점 찾기, 법인 서류 안내를 받아 창구와 호출 화면까지 한 흐름으로 이어지는 서비스 — JB금융 해커톤 데모
 accent: "#0ea5e9"
 period: { start: "2026-06-11", end: "2026-06-13" }
-team: { size: 4, role: 백엔드와 프론트 3종 구현 }
+team: { size: 4, role: "아이디어는 팀과 함께, 개발은 혼자 (백엔드와 화면 3개)" }
 stack: [Python 3.11, FastAPI, Pydantic 2, Gemini, Groq, Next.js 16 × 3, Web Speech API, import-linter]
 languages: [Python, TypeScript]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4, demo: media/demo.mp4 }

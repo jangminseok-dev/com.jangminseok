@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0L10 5L0 10z" fill="#9aa1ad"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="56" fill="#fff" font-size="28" font-weight="700">JB Silver Connect 전체 구조</text>
+  <text x="40" y="88" fill="#9aa1ad" font-size="17">고객의 말이 창구 요약 카드와 대기실 호출까지 이어지기까지</text>
+
+  <!-- 왼쪽: 화면 3개 -->
+  <g font-size="18" text-anchor="middle">
+    <rect x="40" y="182" width="200" height="80" rx="14" fill="#0f1115" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="140" y="216" fill="#fff" font-weight="700">고객 앱</text>
+    <text x="140" y="242" fill="#9aa1ad" font-size="14">휴대폰, 말과 글로 상담</text>
+    <rect x="40" y="310" width="200" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="140" y="344" fill="#fff" font-weight="700">창구 앱</text>
+    <text x="140" y="370" fill="#9aa1ad" font-size="14">직원 단말, 5초마다 확인</text>
+    <rect x="40" y="438" width="200" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="140" y="472" fill="#fff" font-weight="700">호출 화면</text>
+    <text x="140" y="498" fill="#9aa1ad" font-size="14">대기실 모니터, 2초마다 확인</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)">
+    <line x1="240" y1="222" x2="306" y2="222"/>
+    <line x1="240" y1="350" x2="286" y2="350"/>
+    <line x1="240" y1="478" x2="286" y2="478"/>
+  </g>
+
+  <!-- 가운데: 서버 -->
+  <rect x="290" y="130" width="560" height="440" rx="20" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="310" y="162" fill="#0ea5e9" font-size="18" font-weight="700">서버 (FastAPI)</text>
+  <text x="830" y="162" fill="#9aa1ad" font-size="14" text-anchor="end">다섯 기능, 모두 같은 세 층 구조</text>
+
+  <rect x="310" y="190" width="240" height="64" rx="14" fill="#0ea5e9"/>
+  <text x="430" y="218" fill="#06202e" font-size="18" font-weight="700" text-anchor="middle">상담</text>
+  <text x="430" y="242" fill="#06202e" font-size="14" text-anchor="middle">AI 대화, 창구용 요약 카드</text>
+
+  <g font-size="18" text-anchor="middle">
+    <rect x="310" y="280" width="240" height="64" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="430" y="308" fill="#fff" font-weight="700">지점 찾기</text>
+    <text x="430" y="332" fill="#9aa1ad" font-size="14">가까운 지점과 대기 인원</text>
+    <rect x="310" y="370" width="240" height="64" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="430" y="398" fill="#fff" font-weight="700">법인 서류 안내</text>
+    <text x="430" y="422" fill="#9aa1ad" font-size="14">필요 서류와 가까운 기관</text>
+    <rect x="590" y="190" width="240" height="64" rx="14" fill="#0f1115" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="710" y="218" fill="#fff" font-weight="700">대기열</text>
+    <text x="710" y="242" fill="#9aa1ad" font-size="14">대기, 현장 도착, 호출</text>
+    <rect x="590" y="280" width="240" height="64" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="710" y="308" fill="#fff" font-weight="700">번호표 예약</text>
+    <text x="710" y="332" fill="#9aa1ad" font-size="14">가기 전에 미리 받는 번호표</text>
+    <rect x="590" y="370" width="240" height="64" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="710" y="398" fill="#fff" font-weight="700">메모리 저장소</text>
+    <text x="710" y="422" fill="#9aa1ad" font-size="14">서버를 다시 켜면 비워짐</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)">
+    <line x1="550" y1="222" x2="586" y2="222"/>
+    <line x1="710" y1="280" x2="710" y2="258"/>
+  </g>
+  <text x="568" y="208" fill="#9aa1ad" font-size="12" text-anchor="middle">번호표</text>
+
+  <text x="570" y="500" fill="#fff" font-size="16" font-weight="700" text-anchor="middle">바깥 연결부, 업무 규칙, 핵심 규칙 세 층</text>
+  <text x="570" y="528" fill="#9aa1ad" font-size="14" text-anchor="middle">층을 거꾸로 부르는 코드는 자동 검사(import-linter)가 막습니다</text>
+
+  <!-- 오른쪽: 바깥 시스템 -->
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)">
+    <line x1="850" y1="225" x2="876" y2="225"/>
+    <line x1="850" y1="385" x2="876" y2="385"/>
+    <line x1="850" y1="515" x2="876" y2="515"/>
+  </g>
+
+  <rect x="880" y="150" width="290" height="150" rx="16" fill="#0f1115" stroke="#0ea5e9" stroke-width="2"/>
+  <text x="1025" y="182" fill="#fff" font-size="18" font-weight="700" text-anchor="middle">AI 답변</text>
+  <text x="1025" y="206" fill="#9aa1ad" font-size="14" text-anchor="middle">앞이 실패하면 다음 차례로</text>
+  <g font-size="15" font-weight="700" text-anchor="middle">
+    <rect x="896" y="226" width="76" height="44" rx="10" fill="#181b22" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="934" y="253" fill="#fff">Gemini</text>
+    <rect x="987" y="226" width="76" height="44" rx="10" fill="#181b22" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="1025" y="253" fill="#fff">Groq</text>
+    <rect x="1078" y="226" width="76" height="44" rx="10" fill="#181b22" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="1116" y="253" fill="#fff">Mock</text>
+  </g>
+  <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)">
+    <line x1="972" y1="248" x2="985" y2="248"/>
+    <line x1="1063" y1="248" x2="1076" y2="248"/>
+  </g>
+
+  <rect x="880" y="330" width="290" height="110" rx="16" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+  <text x="1025" y="360" fill="#fff" font-size="18" font-weight="700" text-anchor="middle">지도 검색</text>
+  <g font-size="15" font-weight="700" text-anchor="middle">
+    <rect x="920" y="378" width="90" height="44" rx="10" fill="#181b22" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="965" y="405" fill="#fff">네이버</text>
+    <rect x="1040" y="378" width="90" height="44" rx="10" fill="#181b22" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="1085" y="405" fill="#fff">Mock</text>
+  </g>
+  <line x1="1010" y1="400" x2="1038" y2="400" stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="880" y="470" width="290" height="90" rx="16" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+  <text x="1025" y="506" fill="#fff" font-size="18" font-weight="700" text-anchor="middle">Mock 은행 시스템</text>
+  <text x="1025" y="532" fill="#9aa1ad" font-size="14" text-anchor="middle">고객 목록, 계좌, 법인 서류 자료</text>
+
+  <text x="600" y="630" fill="#9aa1ad" font-size="16" text-anchor="middle">외부 키가 하나도 없어도 Mock이 대신 답해 상담부터 호출까지 전체 흐름이 끝까지 돕니다</text>
+</svg>

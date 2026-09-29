@@ -127,7 +127,9 @@ function Features({ slug, page }: { slug: string; page: ProjectPage }) {
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {core.map((f) => (
           <article key={f.title} className="glass overflow-hidden rounded-3xl">
-            <img src={mediaUrl(slug, f.image)} alt={f.title} className="aspect-video w-full object-cover object-top" />
+            {f.image ? (
+              <img src={mediaUrl(slug, f.image)} alt={f.title} className="aspect-video w-full object-cover object-top" />
+            ) : null}
             <div className="p-5">
               <p className="text-xs font-semibold text-(--accent)">핵심 기능</p>
               <h3 className="mt-1 text-lg font-bold">{f.title}</h3>
@@ -140,7 +142,9 @@ function Features({ slug, page }: { slug: string; page: ProjectPage }) {
         <ul className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
           {rest.map((f) => (
             <li key={f.title} className="glass overflow-hidden rounded-2xl">
-              <img src={mediaUrl(slug, f.image)} alt={f.title} className="aspect-video w-full object-cover object-top" />
+              {f.image ? (
+                <img src={mediaUrl(slug, f.image)} alt={f.title} className="aspect-video w-full object-cover object-top" />
+              ) : null}
               <div className="p-5">
                 <h3 className="font-bold">{f.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/75">{f.body}</p>

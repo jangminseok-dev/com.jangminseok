@@ -86,7 +86,7 @@ export function loadProjectPage(contentDir: string, slug: string, bannedTerms: r
   const file = path.join(contentDir, slug, "page.yaml");
   if (!fs.existsSync(file)) return null;
   const page = readChecked(file, ProjectPageSchema, bannedTerms);
-  const media = [page.architecture.image, ...page.features.map((f) => f.image)];
+  const media = [page.architecture.image, ...page.features.flatMap((f) => (f.image ? [f.image] : []))];
   const missing = media.filter((m) => !fs.existsSync(path.join(contentDir, slug, m)));
   if (missing.length) throw new ContentError(`${file}: 미디어 파일 없음 — ${missing.join(", ")}`);
   return page;

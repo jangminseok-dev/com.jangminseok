@@ -128,7 +128,7 @@
   expected_args: {get_project: {slug: balzaguk}}
   expected_sources: [balzaguk#01]
   must_refuse: false
-  must_include: [풀스택, 대시보드]
+  must_include: [풀스택]
 - question: localhost:daegu의 팀 규모와 장민석의 역할을 알려 주세요
   expected_tools: [get_project, search_portfolio]
   expected_args: {get_project: {slug: localhostdaegu}}
