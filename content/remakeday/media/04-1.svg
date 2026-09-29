@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif"><rect width="1200" height="675" fill="#181b22"/>
+  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">번호 대신 근거 문장을 베껴 쓰게 했다</text>
+  <text x="40" y="100" fill="#9aa1ad" font-size="19">채점기는 맞는 문장을 인용하면서 번호만 틀리곤 했다 — 인용으로 번호를 검산</text>
+  <g font-size="20">
+    <rect x="40" y="150" width="1120" height="70" rx="12" fill="#0f1115"/>
+    <text x="70" y="193" fill="#9aa1ad">프롬프트</text><text x="760" y="193" fill="#9aa1ad" text-anchor="end">번호 오류</text><text x="1130" y="193" fill="#9aa1ad" text-anchor="end">비율</text>
+    <text x="70" y="270" fill="#fff">옛 방식 — 이유 → 번호 → 판정</text><text x="760" y="270" fill="#fff" text-anchor="end">56 / 162</text><text x="1130" y="270" fill="#fff" text-anchor="end">35%</text>
+    <text x="70" y="330" fill="#fff">새 방식 — 원 번호 (보정 전)</text><text x="760" y="330" fill="#fff" text-anchor="end">13 / 163</text><text x="1130" y="330" fill="#fff" text-anchor="end">8%</text>
+    <rect x="40" y="355" width="1120" height="70" rx="12" fill="#a855f7" fill-opacity="0.18" stroke="#a855f7" stroke-width="2"/>
+    <text x="70" y="398" fill="#fff" font-weight="700">새 방식 + matched_quote 인용 보정</text><text x="760" y="398" fill="#fff" text-anchor="end" font-weight="700">1 / 163</text><text x="1130" y="398" fill="#a855f7" text-anchor="end" font-weight="700">0.6%</text>
+  </g>
+  <text x="40" y="500" fill="#fff" font-size="21" font-weight="700">인용이 정확히 한 후보와 일치하면 그 번호를 쓴다</text>
+  <text x="40" y="540" fill="#9aa1ad" font-size="18">재시도는 버렸다 — temperature 0이라 같은 오답이 그대로 반복된다</text>
+</svg>
