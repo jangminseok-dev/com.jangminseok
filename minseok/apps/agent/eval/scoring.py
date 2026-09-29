@@ -1,9 +1,19 @@
 # agent/eval/scoring.py
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 
 from agent.app.ask import AskResult
+
+_URL = re.compile(r"https?://\S+")
+_SENT_END = re.compile(r"[.!?]\s*")
+
+
+def is_formal(answer: str) -> bool:
+    """"~다"로 끝나는 문장은 모두 "~니다"여야 한다 — 합쇼체가 해라체로 새는지 검사"""
+    body = _URL.sub("", answer)
+    return all(not s.strip().endswith("다") or s.strip().endswith("니다") for s in _SENT_END.split(body))
 
 
 @dataclass(frozen=True)
@@ -15,6 +25,7 @@ class CaseScore:
     refuse_ok: bool
     must_refuse: bool
     content_ok: bool | None = None  # must_include가 있는 문항만 — 핵심 사실이 답변에 들어갔는가
+    formal_ok: bool = True  # 합쇼체 유지
 
 
 def score_case(case: dict, result: AskResult) -> CaseScore:
@@ -33,7 +44,7 @@ def score_case(case: dict, result: AskResult) -> CaseScore:
     keys = case.get("must_include") or []
     content_ok = all(str(k).lower() in result.answer.lower() for k in keys) if keys else None
     return CaseScore(tool_ok, args_ok, hit5, numbers_ok, result.refused == case["must_refuse"], case["must_refuse"],
-                     content_ok)
+                     content_ok, is_formal(result.answer))
 
 
 def summarize(scores: list[CaseScore]) -> dict[str, float]:
@@ -48,6 +59,7 @@ def summarize(scores: list[CaseScore]) -> dict[str, float]:
         "number_check": ratio([s.numbers_ok for s in answerable]),
         "refusal": ratio([s.refuse_ok for s in scores]),
         "content": ratio([s.content_ok for s in scores if s.content_ok is not None]),
+        "register": ratio([s.formal_ok for s in scores]),
     }
 
 

@@ -78,3 +78,11 @@ def test_extra_tool_is_ok_but_missing_required_tool_is_not():
 def test_refusal_case_fails_tool_check_if_any_tool_called():
     case = {"question": "q", "expected_tools": [], "expected_args": {}, "expected_sources": [], "must_refuse": True}
     assert not score_case(case, AskResult("x", [], [ToolTrace("search_portfolio", {}, True)], True)).tool_ok
+
+
+def test_register_check_flags_plain_style_endings():
+    from agent.eval.scoring import is_formal
+
+    assert is_formal("마스킹을 먼저 두었습니다. 누락은 0건입니다. https://callguard.jangminseok.com#03")
+    assert not is_formal("마스킹을 먼저 두었다. 누락은 0건입니다.")
+    assert not is_formal("전화번호는 받는 즉시 해시한다.")
