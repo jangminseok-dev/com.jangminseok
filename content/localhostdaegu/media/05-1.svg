@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif"><rect width="1200" height="675" fill="#181b22"/>
-  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">배포 구조 — 무료 · 스트리밍 유지</text>
+  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">배포 구조 — 무료, 스트리밍 유지</text>
   <g font-size="21" font-weight="700" text-anchor="middle">
     <rect x="40" y="170" width="220" height="130" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
     <text x="150" y="228" fill="#fff">Vercel</text><text x="150" y="262" fill="#9aa1ad" font-size="17" font-weight="400">Next.js 프론트</text>
@@ -12,7 +12,7 @@
   </g>
   <g fill="#3b82f6" font-size="36" text-anchor="middle"><text x="295" y="245">→</text><text x="605" y="245">→</text><text x="955" y="245">→</text></g>
   <rect x="40" y="370" width="1120" height="120" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
-  <text x="80" y="415" fill="#fff" font-size="21" font-weight="700">SSE 버퍼링 · 운영 크론 · 키 관리까지 배포 전에 정하고 두 사람에게 분배</text>
+  <text x="80" y="415" fill="#fff" font-size="21" font-weight="700">SSE 버퍼링, 운영 크론, 키 관리까지 배포 전에 정하고 두 사람에게 분배</text>
   <text x="80" y="452" fill="#9aa1ad" font-size="18">AI 해석 문단이 프록시 뒤에서도 끊기지 않고 순서대로 도착하는지 운영 주소에서 확인</text>
   <g font-size="44" font-weight="700" fill="#3b82f6" text-anchor="middle"><text x="330" y="580">0.2초</text><text x="870" y="580">1.4초</text></g>
   <g font-size="18" fill="#9aa1ad" text-anchor="middle"><text x="330" y="620">첫 이벤트 도착</text><text x="870" y="620">첫 AI 문단 도착</text></g>

@@ -16,7 +16,8 @@ export default function Hero({ profile, projectCount, teamProjectCount, skillsNo
     >
       <div>
         <p className="font-semibold text-brand-soft">
-          <span className="text-[1.2rem]">{profile.name}</span> · {profile.role}
+          <span className="mr-3 text-[1.2rem]">{profile.name}</span>
+          {profile.role}
         </p>
         <h1 className="mt-3 text-4xl font-bold leading-tight tracking-tight md:text-5xl">{profile.headline}</h1>
         <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85">{profile.intro}</p>

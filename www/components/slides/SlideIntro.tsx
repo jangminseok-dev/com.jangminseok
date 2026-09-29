@@ -1,6 +1,8 @@
+import TechChip from "@/components/home/TechChip";
 import Slide from "@/components/slides/Slide";
 import { mediaUrl } from "@/lib/content/media";
 import type { Project } from "@/lib/content/schema";
+import { stackIconSlug } from "@/lib/icons";
 
 export default function SlideIntro({ project, mainHref }: { project: Project; mainHref: string }) {
   const { slug, preview, period, team } = project;
@@ -22,16 +24,16 @@ export default function SlideIntro({ project, mainHref }: { project: Project; ma
               </dd>
             </div>
             <div className="glass rounded-2xl p-4">
-              <dt className="text-white/65">팀 · 역할</dt>
+              <dt className="text-white/65">팀과 역할</dt>
               <dd className="mt-1 font-semibold">
-                {team.size}명 · {team.role}
+                {team.size}명, {team.role}
               </dd>
             </div>
           </dl>
           <ul className="mt-4 flex flex-wrap gap-2">
             {project.stack.map((s) => (
-              <li key={s} className="rounded-full bg-white/10 px-3 py-1 text-sm text-white/85">
-                {s}
+              <li key={s}>
+                <TechChip name={s} icon={stackIconSlug(s) ?? undefined} />
               </li>
             ))}
           </ul>

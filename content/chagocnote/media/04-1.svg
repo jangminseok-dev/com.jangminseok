@@ -21,6 +21,6 @@
     <text x="830" y="420" fill="#9aa1ad" font-size="17">막을 수 있다</text>
   </g>
   <rect x="40" y="510" width="1120" height="110" rx="18" fill="#f59e0b" fill-opacity="0.12" stroke="#f59e0b" stroke-width="2"/>
-  <text x="600" y="558" fill="#fff" font-size="21" font-weight="700" text-anchor="middle">공개 응답은 칸을 하나씩 따로 적는다 — 내부 메모 · 결제 · 연락처가 새지 않게</text>
+  <text x="600" y="558" fill="#fff" font-size="21" font-weight="700" text-anchor="middle">공개 응답은 칸을 하나씩 따로 적는다 — 내부 메모, 결제, 연락처가 새지 않게</text>
   <text x="600" y="592" fill="#fde2b0" font-size="17" text-anchor="middle">누설 검사: 숨길 칸에 표식 문자열을 넣고 응답 본문 전체에서 찾는다</text>
 </svg>

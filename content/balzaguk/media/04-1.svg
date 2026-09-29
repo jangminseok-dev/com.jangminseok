@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif"><rect width="1200" height="675" fill="#181b22"/>  <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">공공데이터 CSV → 3NF PostgreSQL</text>
-  <text x="40" y="100" fill="#9aa1ad" font-size="19">기관마다 인코딩 · 좌표계 · 중복이 제각각 — 적재 전에 한 기준으로 번역</text>
+  <text x="40" y="100" fill="#9aa1ad" font-size="19">기관마다 인코딩, 좌표계, 중복이 제각각 — 적재 전에 한 기준으로 번역</text>
   <g font-size="19" font-weight="700" text-anchor="middle">
     <rect x="40" y="140" width="210" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/><text x="145" y="188" fill="#fff">인코딩 통일</text>
     <rect x="267" y="140" width="210" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/><text x="372" y="188" fill="#fff">TM → WGS84</text>
@@ -8,9 +8,9 @@
     <rect x="948" y="140" width="212" height="80" rx="14" fill="#0f1115" stroke="#14b8a6" stroke-width="2"/><text x="1054" y="188" fill="#fff">5,000행 벌크</text>
   </g>
   <rect x="40" y="260" width="1120" height="150" rx="18" fill="#0f1115" stroke="#14b8a6" stroke-width="2"/>
-  <text x="80" y="305" fill="#fff" font-size="21" font-weight="700">시설 기본정보 · 반려동물 규정 · 허용 크기를 다른 표로</text>
-  <text x="80" y="342" fill="#9aa1ad" font-size="18">지역 · 분류는 공유 차원, 시설 ↔ 규정은 1:1, 시설 ↔ 허용 크기는 1:N</text>
-  <text x="80" y="375" fill="#9aa1ad" font-size="18">적재 후 정합성 확인 — 지역 고아 0건, 시설 FK · 좌표 NULL 0건</text>
+  <text x="80" y="305" fill="#fff" font-size="21" font-weight="700">시설 기본정보, 반려동물 규정, 허용 크기를 다른 표로</text>
+  <text x="80" y="342" fill="#9aa1ad" font-size="18">지역, 분류는 공유 차원, 시설 ↔ 규정은 1:1, 시설 ↔ 허용 크기는 1:N</text>
+  <text x="80" y="375" fill="#9aa1ad" font-size="18">적재 후 정합성 확인 — 지역 고아 0건, 시설 FK, 좌표 NULL 0건</text>
   <g font-size="40" font-weight="700" fill="#14b8a6" text-anchor="middle"><text x="200" y="510">30,417</text><text x="600" y="510">88,678</text><text x="1000" y="510">9,299</text></g>
   <g font-size="18" fill="#9aa1ad" text-anchor="middle"><text x="200" y="550">반려동물 동반 시설</text><text x="600" y="550">허용 크기 행</text><text x="1000" y="550">동물병원 (좌표 변환분)</text></g>
 </svg>

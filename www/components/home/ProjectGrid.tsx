@@ -26,8 +26,10 @@ function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
             <h4 className="text-lg font-bold group-hover:text-brand-soft">{p.title}</h4>
           </div>
           <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/75">{p.tagline}</p>
-          <p className="mt-auto truncate pt-3 text-xs text-white/55">
-            {p.period.start.slice(0, 7)} · {p.team.size}명 · {p.team.role}
+          <p className="mt-auto flex gap-3 truncate pt-3 text-xs text-white/55">
+            <span>{p.period.start.slice(0, 7)}</span>
+            <span>{p.team.size}명</span>
+            <span className="truncate">{p.team.role}</span>
           </p>
         </div>
       </a>

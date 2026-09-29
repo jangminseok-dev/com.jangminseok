@@ -3,7 +3,7 @@
   <text x="40" y="100" fill="#9aa1ad" font-size="19">심사 기간의 동시 접속과 가용성 — 엔진 코드는 한 줄도 바꾸지 않는다</text>
   <g font-size="21" font-weight="700" text-anchor="middle">
     <rect x="40" y="170" width="300" height="140" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
-    <text x="190" y="230" fill="#fff">게임 엔진</text><text x="190" y="265" fill="#9aa1ad" font-size="17" font-weight="400">추리 · 채점 · NPC</text>
+    <text x="190" y="230" fill="#fff">게임 엔진</text><text x="190" y="265" fill="#9aa1ad" font-size="17" font-weight="400">추리, 채점, NPC</text>
     <rect x="440" y="170" width="300" height="140" rx="18" fill="#0f1115" stroke="#a855f7" stroke-width="2"/>
     <text x="590" y="230" fill="#fff">LLM 포트</text><text x="590" y="265" fill="#9aa1ad" font-size="17" font-weight="400">provider 어댑터</text>
     <rect x="840" y="150" width="320" height="80" rx="16" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/><text x="1000" y="198" fill="#fff" font-size="19">로컬 Ollama (GPU 1장)</text>

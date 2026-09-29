@@ -30,7 +30,7 @@ export default function SlideRetro({ n, project, mainHref }: { n: number; projec
       ) : null}
       {project.retro.regrets.length ? (
         <div className="glass mt-6 rounded-2xl p-5">
-          <h3 className="font-semibold">아쉬운 점 · 다음에 할 것</h3>
+          <h3 className="font-semibold">아쉬운 점과 다음에 할 것</h3>
           <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-white/85">
             {project.retro.regrets.map((r) => (
               <li key={r}>{r}</li>

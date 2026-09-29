@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" font-family="Pretendard, 'Apple SD Gothic Neo', sans-serif"><rect width="1200" height="675" fill="#181b22"/>
   <text x="40" y="60" fill="#fff" font-size="30" font-weight="700">계약 먼저, 기능 단위 풀스택</text>
-  <text x="40" y="100" fill="#9aa1ad" font-size="19">3명 · 5일 — 서로 기다리지 않게 나누고, 합치는 순간을 관리</text>
+  <text x="40" y="100" fill="#9aa1ad" font-size="19">3명, 5일 — 서로 기다리지 않게 나누고, 합치는 순간을 관리</text>
   <g font-size="21" font-weight="700" text-anchor="middle">
     <rect x="40" y="150" width="250" height="110" rx="18" fill="#0f1115" stroke="#3b82f6" stroke-width="2"/>
-    <text x="165" y="198" fill="#fff">① API 계약 확정</text><text x="165" y="232" fill="#9aa1ad" font-size="16" font-weight="400">구현 전 · 팀장</text>
+    <text x="165" y="198" fill="#fff">① API 계약 확정</text><text x="165" y="232" fill="#9aa1ad" font-size="16" font-weight="400">구현 전, 팀장</text>
     <rect x="340" y="150" width="250" height="110" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
     <text x="465" y="198" fill="#fff">② 기능별 브랜치</text><text x="465" y="232" fill="#9aa1ad" font-size="16" font-weight="400">한 기능 = BE→FE 한 사람</text>
     <rect x="640" y="150" width="250" height="110" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
@@ -14,7 +14,7 @@
   <g fill="#3b82f6" font-size="36" text-anchor="middle"><text x="315" y="218">→</text><text x="615" y="218">→</text><text x="915" y="218">→</text></g>
   <rect x="40" y="310" width="1120" height="130" rx="18" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
   <text x="80" y="355" fill="#fff" font-size="21" font-weight="700">충돌 규칙</text>
-  <text x="80" y="392" fill="#9aa1ad" font-size="18">공용 파일(types.ts · main.py)은 추가만 허용 · 같은 API를 건드리는 기능은 한 사람에게</text>
+  <text x="80" y="392" fill="#9aa1ad" font-size="18">공용 파일(types.ts, main.py)은 추가만 허용, 같은 API를 건드리는 기능은 한 사람에게</text>
   <text x="80" y="422" fill="#9aa1ad" font-size="18">결정은 DEC/OPEN 번호로 기록해 팀 허브에 공개</text>
   <g font-size="44" font-weight="700" fill="#3b82f6" text-anchor="middle"><text x="280" y="545">26</text><text x="600" y="545">13</text><text x="920" y="545">5일</text></g>
   <g font-size="18" fill="#9aa1ad" text-anchor="middle"><text x="280" y="585">결정 기록 (DEC)</text><text x="600" y="585">열린 쟁점 (OPEN)</text><text x="920" y="585">분배 → 접수</text></g>

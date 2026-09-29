@@ -22,9 +22,9 @@
   <text x="690" y="60" fill="#ffffff" font-size="30" font-weight="700">앱 내부: 헥사고날</text>
   <g font-size="22" font-weight="700" text-anchor="middle">
     <rect x="720" y="120" width="400" height="80" rx="16" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
-    <text x="920" y="168" fill="#fff">adapter  (FastAPI · SQLAlchemy)</text>
+    <text x="920" y="168" fill="#fff">adapter  (FastAPI, SQLAlchemy)</text>
     <rect x="720" y="250" width="400" height="80" rx="16" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
-    <text x="920" y="298" fill="#fff">app  (유스케이스 · 포트)</text>
+    <text x="920" y="298" fill="#fff">app  (유스케이스, 포트)</text>
     <rect x="720" y="380" width="400" height="80" rx="16" fill="#0f1115" stroke="#ef4444" stroke-width="2"/>
     <text x="920" y="428" fill="#fff">domain  (순수 파이썬)</text>
   </g>

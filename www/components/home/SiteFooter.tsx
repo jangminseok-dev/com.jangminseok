@@ -21,7 +21,7 @@ export default function SiteFooter({ profile }: { profile: Profile }) {
     <footer id="contact" className="mx-auto max-w-6xl px-5 pb-12 pt-16">
       <div className="glass rounded-3xl p-6 md:p-8">
         <h2 className="text-2xl font-bold md:text-3xl">연락처</h2>
-        <p className="mt-2 text-white/70">채용·협업 문의는 이메일로 보내 주시면 확인 후 답장드리겠습니다.</p>
+        <p className="mt-2 text-white/70">채용이나 협업 문의는 이메일로 보내 주시면 확인 후 답장드리겠습니다.</p>
         <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {contacts.map((c) => (
             <li key={c.label}>

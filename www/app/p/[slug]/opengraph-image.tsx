@@ -37,7 +37,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         <div style={{ width: 80, height: 10, borderRadius: 5, background: project.accent }} />
         <div style={{ marginTop: 40, fontSize: 84 }}>{project.title}</div>
         <div style={{ marginTop: 24, fontSize: 36, color: "rgba(255,255,255,0.8)" }}>{project.tagline}</div>
-        <div style={{ marginTop: "auto", fontSize: 28, color: "rgba(255,255,255,0.5)" }}>장민석 · jangminseok.com</div>
+        <div style={{ marginTop: "auto", fontSize: 28, color: "rgba(255,255,255,0.5)" }}>장민석 | jangminseok.com</div>
       </div>
     ),
     { ...size, fonts: [{ name: "Pretendard", data: fs.readFileSync(FONT_PATH), weight: 700 }] },

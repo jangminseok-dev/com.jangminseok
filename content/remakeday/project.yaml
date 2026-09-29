@@ -4,8 +4,8 @@ title: REMAKE DAY
 tagline: LLM NPC 추리 게임을, AI 제안을 사람이 어떻게 받아들이는지 기록하는 Human–AI 실험환경으로 설계한 프로젝트 — 원티드 AI Championship 2026
 accent: "#a855f7"
 period: { start: "2026-09-01", end: null }
-team: { size: 5, role: AI Evaluation Engineer (평가 설계·러너·provider 어댑터·배포 지표) }
-stack: [FastAPI, Next.js, PostgreSQL · pgvector, Ollama Gemma 4, Claude API, Gemini 임베딩, Jekyll]
+team: { size: 5, role: "AI Evaluation Engineer (평가 설계, 러너, provider 어댑터, 배포 지표)" }
+stack: [FastAPI, Next.js, PostgreSQL + pgvector, Ollama Gemma 4, Claude API, Gemini 임베딩, Jekyll]
 languages: [Python, TypeScript]
 preview: { poster: media/poster.webp }
 links:
@@ -19,19 +19,19 @@ slides:
     summary: 팀에서 평가 설계를 맡았습니다. GPU 16GB 한 장에 추리용 Core와 대화용 NPC가 함께 올라가야 했기에, "누가 더 똑똑한가"보다 "같이 상주할 수 있는가"부터 결정적 게이트로 판정했습니다. 팀원 모두 SSH로 온프레미스 서버 한 대에 접속해 코드를 고치고 바로 테스트하는 방식으로 개발해, 커밋은 서버 계정 하나로 남아 있습니다.
     stats:
       problem: GPU 한 장에 Core와 NPC 두 모델이 동시에 올라가야 합니다 — 벤치마크 점수가 좋아도 같이 못 올라가면 쓸 수 없습니다
-      choice: 스키마 준수 · 누설 · 지연 p95 · 동시 상주 · 루프 완주를 합격선으로 먼저 정하고 모든 후보를 같은 조건으로 측정했습니다. 실패 비용이 큰 Core를 먼저 확정한 뒤 NPC를 정했습니다
+      choice: 스키마 준수, 누설, 지연 p95, 동시 상주, 루프 완주를 합격선으로 먼저 정하고 모든 후보를 같은 조건으로 측정했습니다. 실패 비용이 큰 Core를 먼저 확정한 뒤 NPC를 정했습니다
       cost: 1차에서는 LLM 심판을 쓰지 않아 대화의 의미 품질은 좁게만 봤습니다
-      effect: Core + NPC 동시 상주 12.34 GiB (GPU 81.7%) 확정했습니다. NPC 41문답 실패 0 · 중간값 2.599초입니다
+      effect: Core + NPC 동시 상주 12.34 GiB (GPU 81.7%) 확정했습니다. NPC 41문답 실패 0, 중간값 2.599초입니다
     frames:
       - { image: media/02-1.svg, caption: GPU 예산과 결정적 게이트 (도식) }
     alternatives:
-      - { name: 한 모델을 Core · NPC에 공유, reason: 메모리는 아끼지만 두 역할의 품질 문제가 얽히고 컨텍스트 길이가 부족했습니다 }
+      - { name: 한 모델을 Core와 NPC에 공유, reason: 메모리는 아끼지만 두 역할의 품질 문제가 얽히고 컨텍스트 길이가 부족했습니다 }
       - { name: 모델 파일 크기로 메모리 예산 추정, reason: 실제 상주량과 크게 어긋났습니다 — 실측으로 바꿨습니다 }
     concept:
       title: 결정적 게이트란?
-      body: 사람의 인상 대신 통과 · 실패가 분명한 기준(형식을 지켰나, 정답을 흘렸나, 몇 초 안에 답했나)으로 모델을 거르는 방식입니다. 기준을 먼저 공개해 두면 결과를 보고 기준을 바꿨다는 의심을 받지 않습니다.
+      body: 사람의 인상 대신 통과와 실패가 분명한 기준(형식을 지켰나, 정답을 흘렸나, 몇 초 안에 답했나)으로 모델을 거르는 방식입니다. 기준을 먼저 공개해 두면 결과를 보고 기준을 바꿨다는 의심을 받지 않습니다.
     evidence:
-      - { label: docs/model_evaluation.md — E7 · E6, url: "https://github.com/remakeday/com.remakeday/blob/main/docs/model_evaluation.md" }
+      - { label: "docs/model_evaluation.md — E7, E6", url: "https://github.com/remakeday/com.remakeday/blob/main/docs/model_evaluation.md" }
     proves: []
 
   - title: AI 채점 정확도 - 검색 단계를 빼고 전부 비교
@@ -43,7 +43,7 @@ slides:
       cost: 준비해 둔 벡터 테이블은 채점에서 쓰이지 않게 됐습니다
       effect: 정답형 점수 65.3 → 100.0, 오답형 25.7 → 19.4입니다. 추천 순위 top-1 어간 비교 0.300 → 임베딩 0.967입니다
     frames:
-      - { image: media/03-1.webp, caption: NPC 대화 — 플레이어가 단서를 모은다 }
+      - { image: media/03-1.webp, caption: NPC 대화 — 플레이어가 단서를 모읍니다 }
       - { image: media/03-2.webp, caption: 밤 채점 결과 }
     alternatives:
       - { name: 임베딩 유사도로 점수 결정, reason: 틀려도 조용히 깎입니다 — 실패가 드러나지 않는 채점은 쓸 수 없습니다 }
@@ -51,7 +51,7 @@ slides:
       title: 언제 RAG를 쓰지 않나?
       body: 검색은 후보가 많을 때 필요한 것만 추리는 도구입니다. 후보가 8개뿐이면 검색이 오히려 정답을 떨어뜨립니다. 검색이 이득인 자리(추천 순위)에만 남기고 채점에서는 뺐습니다.
     evidence:
-      - { label: docs/model_evaluation.md — 채점 · 임베딩 비교, url: "https://github.com/remakeday/com.remakeday/blob/main/docs/model_evaluation.md" }
+      - { label: docs/model_evaluation.md — 채점과 임베딩 비교, url: "https://github.com/remakeday/com.remakeday/blob/main/docs/model_evaluation.md" }
     proves: [rag, search-engine]
 
   - title: 채점기 번호 오류 - 인용으로 검산
@@ -74,11 +74,11 @@ slides:
     proves: []
 
   - title: 모델 전환 - 로컬과 외부 API를 설정 두 줄로
-    label: 로컬 · 외부 AI 모델 즉시 전환
+    label: 로컬과 외부 AI 모델 즉시 전환
     summary: 심사 기간에는 동시 접속과 가용성이 문제였습니다. 엔진 코드는 그대로 두고 LLM 포트 뒤의 provider 어댑터만 설정 두 줄로 바꿔 끼울 수 있게 했습니다.
     stats:
       problem: 홈서버 GPU 한 장으로는 심사 기간의 동시 요청과 가용성을 보장하기 어렵습니다
-      choice: provider를 .env 두 필드로 전환하는 어댑터 구조입니다. 전환해도 엔진 · 채점 코드 변경 0입니다
+      choice: provider를 .env 두 필드로 전환하는 어댑터 구조입니다. 전환해도 엔진과 채점 코드 변경 0입니다
       cost: 외부 모델은 지연 게이트 결과가 반복마다 뒤집혀 폴백 경로를 따로 둬야 했습니다
       effect: 외부 API 한 판당 비용 실측 0.461달러입니다 (92회 호출, 토큰 계수 기준)
     frames:
@@ -92,7 +92,7 @@ slides:
       - { label: docs/model_evaluation.md — 외부 API 전환, url: "https://github.com/remakeday/com.remakeday/blob/main/docs/model_evaluation.md" }
     proves: [python-backend]
 
-  - title: 사용자 실험 - 측정하지 않은 것은 주장하지 않는다
+  - title: 사용자 실험 - 측정하지 않은 것은 주장하지 않습니다
     label: 사전등록 기반 사용자 실험 설계
     summary: 게임을 사람의 AI 수용을 관찰하는 실험환경으로 보고 데이터를 모으기 전에 가설과 한계를 먼저 공개하는 연구 사이트를 따로 운영했습니다.
     stats:
@@ -122,5 +122,5 @@ retro:
     - { label: NPC 대화, value: 41문답 실패 0 }
     - { label: 한 판 비용 (외부 API 실측), value: 0.461달러 }
   regrets:
-    - 1차 게이트에 의미 품질 심판이 없어 NPC 말투 · 논리는 좁게만 봤습니다
+    - 1차 게이트에 의미 품질 심판이 없어 NPC 말투와 논리는 좁게만 봤습니다
     - 사람 관찰 표본이 14판뿐입니다 — 인과를 말하려면 사전등록한 실험을 실제로 돌려야 합니다

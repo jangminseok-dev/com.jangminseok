@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const project = getProject(slug);
   if (!project) return {};
   return {
-    title: `${project.title} · 장민석`,
+    title: `${project.title} | 장민석`,
     description: project.tagline,
     alternates: { canonical: `https://${slug}.${SITE_DOMAIN}` },
   };

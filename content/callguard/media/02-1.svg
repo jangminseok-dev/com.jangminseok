@@ -4,19 +4,19 @@
   <g font-size="22" font-weight="700" text-anchor="middle">
     <rect x="40" y="150" width="520" height="300" rx="22" fill="#0f1115" stroke="#22c55e" stroke-width="2"/>
     <text x="300" y="195" fill="#22c55e">server/  (요청이 흐르는 길)</text>
-    <rect x="80" y="225" width="440" height="56" rx="12" fill="#181b22"/><text x="300" y="261" fill="#fff" font-size="19">hub — 포트·DTO 계약만</text>
+    <rect x="80" y="225" width="440" height="56" rx="12" fill="#181b22"/><text x="300" y="261" fill="#fff" font-size="19">hub — 포트, DTO 계약만</text>
     <rect x="80" y="295" width="210" height="56" rx="12" fill="#181b22"/><text x="185" y="331" fill="#fff" font-size="19">masking</text>
     <rect x="310" y="295" width="210" height="56" rx="12" fill="#181b22"/><text x="415" y="331" fill="#fff" font-size="19">recommend …</text>
     <text x="300" y="400" fill="#9aa1ad" font-size="17" font-weight="400">adapter → app → domain</text>
     <rect x="640" y="150" width="520" height="300" rx="22" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
-    <text x="900" y="195" fill="#fff">ai/  (검색·모델)</text>
-    <rect x="680" y="225" width="440" height="56" rx="12" fill="#181b22"/><text x="900" y="261" fill="#fff" font-size="19">retrieval — BM25 · dense</text>
-    <rect x="680" y="295" width="440" height="56" rx="12" fill="#181b22"/><text x="900" y="331" fill="#fff" font-size="19">torch · 임베딩 모델</text>
+    <text x="900" y="195" fill="#fff">ai/  (검색, 모델)</text>
+    <rect x="680" y="225" width="440" height="56" rx="12" fill="#181b22"/><text x="900" y="261" fill="#fff" font-size="19">retrieval — BM25, dense</text>
+    <rect x="680" y="295" width="440" height="56" rx="12" fill="#181b22"/><text x="900" y="331" fill="#fff" font-size="19">torch, 임베딩 모델</text>
   </g>
   <text x="600" y="315" fill="#ef4444" font-size="40" text-anchor="middle">✕</text>
   <text x="600" y="355" fill="#ef4444" font-size="15" text-anchor="middle">직접 import 금지</text>
   <rect x="40" y="490" width="1120" height="140" rx="18" fill="#22c55e" fill-opacity="0.12" stroke="#22c55e" stroke-width="2"/>
-  <text x="80" y="535" fill="#fff" font-size="21" font-weight="700">import-linter 계약 5종 · CI에서 KEPT 검사</text>
-  <text x="80" y="572" fill="#b7f0cb" font-size="18">server 는 ai · torch · langchain import 금지 · app/domain 은 프레임워크 금지 · domain 은 pydantic 금지</text>
+  <text x="80" y="535" fill="#fff" font-size="21" font-weight="700">import-linter 계약 5종, CI에서 KEPT 검사</text>
+  <text x="80" y="572" fill="#b7f0cb" font-size="18">server 는 ai, torch, langchain import 금지, app/domain 은 프레임워크 금지, domain 은 pydantic 금지</text>
   <text x="80" y="604" fill="#b7f0cb" font-size="18">→ 모델이 없어도 규칙 채점이 CI에서 돈다</text>
 </svg>

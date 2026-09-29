@@ -11,7 +11,7 @@ const pretendard = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jangminseok.com"),
-  title: "장민석 · 포트폴리오",
+  title: "장민석 포트폴리오",
   description: "검색과 RAG로 답을 찾는 백엔드 개발자 장민석의 포트폴리오",
 };
 

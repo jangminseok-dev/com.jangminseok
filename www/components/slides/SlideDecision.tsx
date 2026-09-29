@@ -75,11 +75,10 @@ export default function SlideDecision({ n, slug, slide }: Props) {
         ) : null}
       </div>
 
-      <p className="mt-6 text-xs text-white/65">
-        근거:{" "}
-        {slide.evidence.map((ev, i) => (
+      <p className="mt-6 flex flex-wrap gap-x-3 gap-y-1 text-xs text-white/65">
+        <span>근거:</span>
+        {slide.evidence.map((ev) => (
           <span key={ev.label}>
-            {i > 0 ? " · " : null}
             {ev.url ? (
               <a href={ev.url} target="_blank" rel="noreferrer" className="underline hover:text-white">
                 {ev.label}

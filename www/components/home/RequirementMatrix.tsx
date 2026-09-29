@@ -32,10 +32,9 @@ export default function RequirementMatrix({ rows, isProd }: { rows: MatrixRow[];
                       <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: g.accent }} />
                       {g.projectTitle}
                     </span>
-                    <span className="flex flex-wrap gap-x-1 gap-y-1 text-white/75">
+                    <span className="flex flex-wrap gap-x-3 gap-y-1 text-white/75">
                       {g.slides.map((s, j) => (
                         <span key={s.slideNumber}>
-                          {j > 0 ? <span className="mr-1 text-white/30">·</span> : null}
                           <a
                             href={`${projectHref(g.slug, isProd)}#${slideAnchor(s.slideNumber)}`}
                             className="underline decoration-white/25 underline-offset-4 hover:text-white hover:decoration-brand-soft"

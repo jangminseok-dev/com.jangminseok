@@ -12,12 +12,12 @@
   </g>
   <g fill="#14b8a6" font-size="36" text-anchor="middle"><text x="315" y="200">→</text><text x="615" y="200">→</text><text x="915" y="200">→</text></g>
   <rect x="340" y="310" width="550" height="100" rx="18" fill="#0f1115" stroke="#ef4444" stroke-width="2" stroke-dasharray="8 6"/>
-  <text x="615" y="352" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">키 없음 · 장애 · 깨진 JSON</text>
+  <text x="615" y="352" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">키 없음, 장애, 깨진 JSON</text>
   <text x="615" y="385" fill="#9aa1ad" font-size="17" text-anchor="middle">→ 최근접 규칙으로 코스를 만든다 (서비스는 멈추지 않음)</text>
   <text x="40" y="480" fill="#fff" font-size="22" font-weight="700">같은 패턴을 에이전트 3개에 공통 적용</text>
   <g font-size="18" fill="#9aa1ad">
-    <text x="40" y="520">· 경로 플래너 — 시설 id 화이트리스트</text>
-    <text x="40" y="552">· 증상 분류 — 긴급도 값 제한 + 수의사 면책 문구 강제 삽입</text>
-    <text x="40" y="584">· 정책 카드 파서 — 허용된 값만 통과</text>
+    <text x="40" y="520">• 경로 플래너 — 시설 id 화이트리스트</text>
+    <text x="40" y="552">• 증상 분류 — 긴급도 값 제한 + 수의사 면책 문구 강제 삽입</text>
+    <text x="40" y="584">• 정책 카드 파서 — 허용된 값만 통과</text>
   </g>
 </svg>

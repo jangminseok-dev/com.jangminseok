@@ -4,8 +4,8 @@ title: localhost:daegu
 tagline: 대구 예비 창업자가 계약 전에 상권을 확인하고 필요 자금을 계산해 은행 상담자료를 만드는 창업 금융 네비게이터 — 2026 AI Blockchain Challenge Daegu
 accent: "#3b82f6"
 period: { start: "2026-09-15", end: "2026-09-29" }
-team: { size: 3, role: 팀장 · PM/아키텍트 (API 계약·배포 구조·DB 스키마·리뷰·제출) }
-stack: [FastAPI, SQLAlchemy 2 · Alembic, PostgreSQL · pgvector, Gemini, Ollama Gemma 4, Next.js 16, MapLibre, Docker, Vercel, Cloudflare Tunnel]
+team: { size: 3, role: "팀장과 PM/아키텍트 (API 계약, 배포 구조, DB 스키마, 리뷰, 제출)" }
+stack: [FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL + pgvector, Gemini, Ollama Gemma 4, Next.js 16, MapLibre, Docker, Vercel, Cloudflare Tunnel]
 languages: [Python, TypeScript]
 preview: { poster: media/poster.webp }
 links:
@@ -20,11 +20,11 @@ slides:
       problem: 화면 담당과 서버 담당으로 나누면 서로를 기다리느라 5일이 모자라고, 같은 파일을 동시에 고쳐 충돌이 납니다
       choice: 구현 전에 API 계약 확정 → 기능별 브랜치 → PR → 팀장 승인 → main 순서입니다. 공용 파일은 추가만 허용했고 같은 API를 건드리는 기능은 한 사람에게 맡겼습니다
       cost: 팀장이 코드를 쓰지 않는 대신 문서 동기화를 하루 한 번 직접 해야 했습니다
-      effect: 9/19 18:00 코드 프리즈 → 9/20 접수했습니다. 결정 26건 · 열린 쟁점 13건을 번호로 기록해 공개했습니다
+      effect: 9/19 18:00 코드 프리즈 → 9/20 접수했습니다. 결정 26건과 열린 쟁점 13건을 번호로 기록해 공개했습니다
     frames:
       - { image: media/02-1.svg, caption: 계약 → 브랜치 → PR → 승인 흐름 (도식) }
     alternatives:
-      - { name: 프론트 · 백엔드로 역할 분리, reason: 한 기능이 두 사람을 오가며 대기 시간이 생깁니다 — 5일 일정에서는 치명적입니다 }
+      - { name: 프론트와 백엔드로 역할 분리, reason: 한 기능이 두 사람을 오가며 대기 시간이 생깁니다 — 5일 일정에서는 치명적입니다 }
     concept:
       title: API 계약이란?
       body: 화면과 서버가 주고받을 데이터의 모양(필드 이름, 단위, 기간)을 먼저 합의한 문서입니다. 계약이 먼저 있으면 두 사람이 동시에 만들어도 마지막에 딱 맞물립니다.
@@ -38,11 +38,11 @@ slides:
     summary: 은행 상담자료에 틀린 숫자가 들어가면 신뢰를 잃습니다. RedOceanMap에서 검증한 원칙을 팀 설계로 옮겨, 금액 계산은 코드가 하고 AI는 해석 문단만 쓰게 했습니다.
     stats:
       problem: LLM이 대출 부족액 같은 금액이나 위험 점수를 지어낼 위험이 있습니다
-      choice: 결정론적 재무 엔진이 계산하고, 섹션 제목 · 표도 코드가 먼저 스트리밍합니다. AI는 해석 문단만 쓰고 "숫자 재계산 금지"입니다
+      choice: 결정론적 재무 엔진이 계산하고, 섹션 제목과 표도 코드가 먼저 스트리밍합니다. AI는 해석 문단만 쓰고 "숫자 재계산 금지"입니다
       cost: 문장의 자유도가 낮고 프롬프트에 모든 수치를 미리 실어야 합니다
       effect: 가상 고객 10명 테스트에서 "수치가 없다"는 자기부정 문단 10명 → 0명입니다. AI가 실패해도 계산 결과는 남습니다
     frames:
-      - { image: media/03-1.webp, caption: 자금 입력과 최초안 · 현재안 비교 — 코드가 계산 }
+      - { image: media/03-1.webp, caption: "자금 입력과 최초안, 현재안 비교 — 코드가 계산" }
       - { image: media/03-2.webp, caption: AI 진행 상태와 상담자료 — AI는 해석 문단 }
     alternatives:
       - { name: LLM이 판단과 수치를 함께 생성, reason: 환각 위험 — 은행 상담에서 틀린 금액은 되돌릴 수 없습니다 }
@@ -50,7 +50,7 @@ slides:
       title: 계산기와 해설자를 나누기
       body: 숫자는 공식이 들어간 프로그램이 정확히 계산하고, AI는 그 숫자를 받아 "그래서 무엇을 조심해야 하는지"만 문장으로 풉니다. AI가 멈춰도 계산기는 멈추지 않습니다.
     evidence:
-      - { label: 배포 · 페르소나 테스트 기록, url: "https://github.com/localhostdaegu/053.localhostdaegu.cloud/blob/main/_posts/2026-09-19-deploy-persona-metrics.md" }
+      - { label: 배포와 페르소나 테스트 기록, url: "https://github.com/localhostdaegu/053.localhostdaegu.cloud/blob/main/_posts/2026-09-19-deploy-persona-metrics.md" }
       - { label: decisions.md — DEC-007, url: "https://github.com/localhostdaegu/053.localhostdaegu.cloud/blob/main/decisions.md" }
     proves: [rag]
 
@@ -58,8 +58,8 @@ slides:
     label: DB 확장 (19 → 29 테이블)
     summary: 서울 서비스를 대구로 옮기면서 은행 상담에 필요한 영역만 더했습니다. 기존 컬럼은 한 줄도 바꾸지 않았습니다.
     stats:
-      problem: 금융상품 · 외부 데이터셋 · 지표 · 상담 데이터를 담을 곳이 없었고 이미 돌아가는 기능을 깨면 안 됐습니다
-      choice: 4개 영역 10테이블을 단일 마이그레이션으로 추가했고 기존 컬럼은 무변경입니다. 마이그레이션 왕복 · alembic check를 통과했고 ERD를 문서화했습니다
+      problem: 금융상품, 외부 데이터셋, 지표, 상담 데이터를 담을 곳이 없었고 이미 돌아가는 기능을 깨면 안 됐습니다
+      choice: 4개 영역 10테이블을 단일 마이그레이션으로 추가했고 기존 컬럼은 무변경입니다. 마이그레이션 왕복과 alembic check를 통과했고 ERD를 문서화했습니다
       cost: 어디에도 연결되지 않은 고립 테이블 2건이 남아 테스트로 감시해야 했습니다
       effect: 기존 기능 회귀 없이 확장했습니다 — 이후 백엔드 테스트 603개가 통과했습니다
     frames:
@@ -75,11 +75,11 @@ slides:
     proves: [python-backend]
 
   - title: 배포 구조 - 무료로, 스트리밍을 지키며
-    label: 무료 배포 · 실시간 스트리밍 유지
+    label: 무료 배포와 실시간 스트리밍 유지
     summary: 프론트는 Vercel, 백엔드는 로컬 GPU 머신을 Cloudflare Tunnel로 공개했습니다. AI 문단이 프록시 뒤에서도 끊기지 않고 순서대로 도착하는지까지 운영 주소에서 확인했습니다.
     stats:
       problem: 공모전 예산 0원, GPU는 로컬 한 대입니다. 프록시를 거치면 스트리밍(SSE) 응답이 버퍼에 묶여 한꺼번에 도착할 수 있습니다
-      choice: Vercel + Cloudflare Tunnel + Docker DB입니다. SSE 버퍼링 · uvicorn 워커 1개(분석 요청을 메모리에 보관) · 운영 크론 · 키 관리를 먼저 정하고 두 사람에게 분배했습니다
+      choice: Vercel + Cloudflare Tunnel + Docker DB입니다. SSE 버퍼링, uvicorn 워커 1개(분석 요청을 메모리에 보관), 운영 크론, 키 관리를 먼저 정하고 두 사람에게 분배했습니다
       cost: 워커 1개라 동시 처리량이 낮고 서버가 꺼지면 서비스도 멈춥니다 (대회 종료 후 실제로 중단)
       effect: 운영 주소에서 첫 이벤트 0.2초, 첫 AI 문단 1.4초 도착을 확인했습니다
     frames:
@@ -99,7 +99,7 @@ slides:
     summary: 위험 80점 같은 절대 점수는 폐업 확률처럼 읽힙니다. 대구 142개 동 가운데 몇 번째인지로 바꿔, 실패 확률이 아님을 화면에 명시했습니다.
     stats:
       problem: 절대 점수는 사용자가 "80% 확률로 망한다"로 오해할 수 있습니다 — 은행 상담 자료로는 위험한 표현입니다
-      choice: 상대 위험 높음 · 중간 · 낮음 + 142개 동 중 순위로 표기하고 "실패 확률이 아님"을 명시했습니다. 데이터 표현 수위 원칙을 팀 규칙으로 정했습니다
+      choice: 상대 위험 높음, 중간, 낮음 + 142개 동 중 순위로 표기하고 "실패 확률이 아님"을 명시했습니다. 데이터 표현 수위 원칙을 팀 규칙으로 정했습니다
       cost: 한눈에 들어오는 단일 숫자의 직관성을 포기했습니다
       effect: 점수 옆에 비교 기준(142개 동 중 순위)이 함께 보입니다 (오해 감소 효과는 측정 전)
     frames:
@@ -119,8 +119,8 @@ retro:
     - { label: 가상 고객 테스트 (운영 주소), value: 10명 전원 완주 }
     - { label: 1인 평균 소요, value: 30.6초 }
     - { label: 상담자료 생성 평균, value: 11.2초 }
-    - { label: 테스트, value: 백엔드 603 · 프론트 226 }
-    - { label: 결정 기록, value: DEC 26 · OPEN 13 }
+    - { label: 테스트, value: "백엔드 603, 프론트 226" }
+    - { label: 결정 기록, value: "DEC 26, OPEN 13" }
   regrets:
-    - Neo4j · Redis를 구성만 하고 쓰지 않았습니다 — 범위를 더 일찍 잘랐어야 했습니다
+    - Neo4j와 Redis를 구성만 하고 쓰지 않았습니다 — 범위를 더 일찍 잘랐어야 했습니다
     - 외부 AI 장애 시 로컬 모델로 자동 전환하지 못하고 수동 전환에 머물렀습니다

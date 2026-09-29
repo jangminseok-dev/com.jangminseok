@@ -14,6 +14,6 @@
     <rect x="948" y="340" width="212" height="80" rx="14" fill="#0f1115" stroke="#a855f7" stroke-width="2"/><text x="1054" y="388" fill="#fff">루프 완주</text>
   </g>
   <text x="40" y="500" fill="#fff" font-size="22" font-weight="700">순서: Core(E7) → NPC(E6)</text>
-  <text x="40" y="540" fill="#9aa1ad" font-size="19">추리·채점을 맡는 Core가 실패하면 게임 전체가 무너진다 — 실패 비용이 큰 쪽을 먼저 확정</text>
-  <text x="40" y="590" fill="#9aa1ad" font-size="19">NPC 대화 41문답 실패 0 · 중간값 2.599초</text>
+  <text x="40" y="540" fill="#9aa1ad" font-size="19">추리, 채점을 맡는 Core가 실패하면 게임 전체가 무너진다 — 실패 비용이 큰 쪽을 먼저 확정</text>
+  <text x="40" y="590" fill="#9aa1ad" font-size="19">NPC 대화 41문답 실패 0, 중간값 2.599초</text>
 </svg>

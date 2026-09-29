@@ -18,3 +18,36 @@ export function skillIcon(slug: string): { path: string; color: string } | null 
   const color = luminance(icon.hex) < MIN_LUMINANCE ? "#FFFFFF" : `#${icon.hex}`;
   return { path: icon.path, color };
 }
+
+// 스택 이름의 첫 단어(소문자) → simple-icons slug. 목록에 없으면 로고 없이 이름만 보인다.
+const STACK_ICON: Record<string, string> = {
+  python: "python",
+  fastapi: "fastapi",
+  sqlalchemy: "sqlalchemy",
+  pydantic: "pydantic",
+  postgresql: "postgresql",
+  redis: "redis",
+  elasticsearch: "elasticsearch",
+  ollama: "ollama",
+  gemini: "googlegemini",
+  claude: "claude",
+  google: "google",
+  docker: "docker",
+  k3s: "k3s",
+  cloudflare: "cloudflare",
+  vercel: "vercel",
+  railway: "railway",
+  "next.js": "nextdotjs",
+  react: "react",
+  flutter: "flutter",
+  maplibre: "maplibre",
+  minio: "minio",
+  caddy: "caddy",
+  jekyll: "jekyll",
+  pandas: "pandas",
+};
+
+export function stackIconSlug(name: string): string | null {
+  const first = name.trim().split(/\s+/)[0].toLowerCase();
+  return STACK_ICON[first] ?? null;
+}
