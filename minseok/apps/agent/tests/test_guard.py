@@ -1,0 +1,36 @@
+# test_guard.py
+from agent.domain.guard import BLOCKED_ANSWER, NO_NUMBER_NOTE, guard_answer
+
+EVIDENCE = "Recall@5 0.971, 누락 0건, 144문항"
+URLS = {"https://callguard.jangminseok.com#05"}
+
+
+def test_supported_numbers_pass():
+    r = guard_answer("검색 Recall@5는 0.971입니다.", EVIDENCE, URLS, [])
+    assert r.text == "검색 Recall@5는 0.971입니다." and r.removed_sentences == 0
+
+
+def test_unsupported_number_sentence_removed():
+    r = guard_answer("정확도는 99%입니다. 누락은 0건입니다.", EVIDENCE, URLS, [])
+    assert "99" not in r.text and "누락은 0건입니다." in r.text and r.removed_sentences == 1
+
+
+def test_all_sentences_removed_becomes_note():
+    r = guard_answer("정확도는 99%입니다.", EVIDENCE, URLS, [])
+    assert r.text == NO_NUMBER_NOTE
+
+
+def test_unknown_slide_link_removed():
+    r = guard_answer("근거: https://callguard.jangminseok.com#05 와 https://callguard.jangminseok.com#99",
+                     EVIDENCE, URLS, [])
+    assert "#99" not in r.text and "#05" in r.text and r.removed_links == 1
+
+
+def test_banned_term_blocks_whole_answer():
+    r = guard_answer("팀원 홍길동이 만들었습니다.", EVIDENCE, URLS, ["홍길동"])
+    assert r.blocked and r.text == BLOCKED_ANSWER
+
+
+def test_numbers_with_commas_and_units_match():
+    r = guard_answer("테스트는 1,257개입니다.", "server 1,257 · ai 496", URLS, [])
+    assert r.removed_sentences == 0
