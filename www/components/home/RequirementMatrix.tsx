@@ -40,7 +40,7 @@ export default function RequirementMatrix({ rows, isProd }: { rows: MatrixRow[];
                             href={`${projectHref(g.slug, isProd)}#${slideAnchor(s.slideNumber)}`}
                             className="underline decoration-white/25 underline-offset-4 hover:text-white hover:decoration-brand-soft"
                           >
-                            {s.shortTitle}
+                            {s.label}
                           </a>
                         </span>
                       ))}

@@ -2,6 +2,7 @@
 export function validProjectData(overrides: Record<string, unknown> = {}): Record<string, unknown> {
   const decision = (title: string) => ({
     title,
+    label: `${title} 한 줄 설명`,
     summary: "요약 문장",
     stats: { problem: "문제", choice: "선택", cost: "대가", effect: "근거 없음" },
     frames: [{ image: "media/03-1.webp", caption: "전" }],

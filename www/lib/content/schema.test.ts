@@ -22,6 +22,15 @@ describe("ProjectSchema", () => {
     expect(ProjectSchema.safeParse(validProjectData({ languages: ["Python", "Dart"] })).success).toBe(true);
   });
 
+  it("결정 슬라이드는 맥락 없이도 읽히는 한 줄 설명(label, 30자 이하)이 필수", () => {
+    const data = validProjectData();
+    const slides = data.slides as Record<string, unknown>[];
+    delete slides[0].label;
+    expect(ProjectSchema.safeParse(data).success).toBe(false);
+    slides[0].label = "가".repeat(31);
+    expect(ProjectSchema.safeParse(data).success).toBe(false);
+  });
+
   it("accent는 #RRGGBB만 허용한다", () => {
     expect(ProjectSchema.safeParse(validProjectData({ accent: "red" })).success).toBe(false);
   });

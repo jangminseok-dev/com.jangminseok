@@ -15,6 +15,7 @@ links:
 
 slides:
   - title: 설계 원칙 - server와 ai를 따로 배포할 수 있게
+    label: 서버 · AI 분리 아키텍처
     summary: 두 사람이 server와 ai를 나눠 개발해도 의존이 섞이지 않도록, 허브-스포크 골격과 import-linter 계약 5종을 직접 세웠습니다.
     stats:
       problem: 요청 흐름(server)과 검색·모델(ai)을 서로 다른 팀원이 동시에 개발 — 한쪽이 다른 쪽을 import하는 순간 따로 배포할 수 없게 된다
@@ -34,6 +35,7 @@ slides:
     proves: [python-backend, git]
 
   - title: 개인정보 실시간 마스킹 - 애매하면 가린다
+    label: 통화 자막 개인정보 실시간 마스킹
     summary: 멈춰 있던 마스킹 모듈을 넘겨받아, 통화 자막이 상담원 화면에 뜨기 전에 주민번호·전화·카드·주소를 가리도록 만들었습니다.
     stats:
       problem: 마스킹 포트 구현이 없어 자막 수신 API가 501을 돌려주고 파이프라인 전체가 막혀 있었다
@@ -56,6 +58,7 @@ slides:
     proves: [python-backend]
 
   - title: StreamRAG - 말이 끝난 순간에만 찾는다
+    label: 통화 중 실시간 문서 추천 (RAG)
     summary: 통화 중 자막은 20초에 199건씩 들어옵니다. 매번 검색하지 않고, 고객의 말이 확정된 순간에만 문서를 찾아 카드로 띄우는 흐름을 배선했습니다.
     stats:
       problem: 중간 자막마다 검색하면 검색 서버가 과부하되고, 상담원 화면이 계속 바뀌어 읽을 수 없다
@@ -74,6 +77,7 @@ slides:
     proves: [rag]
 
   - title: 검색 구성 - 측정하고 하이브리드를 뺐다
+    label: 검색 방식 비교 측정 · 벡터 검색 채택
     summary: 기획서는 BM25 + 벡터 + RRF 하이브리드를 최종형으로 가정했습니다. 같은 골든셋으로 나란히 재 보니 하이브리드가 벡터 단독보다 낮아, 팀은 벡터 검색을 택했습니다.
     stats:
       problem: Elasticsearch의 내장 RRF는 무료(basic) 라이선스에서 403 — 기획서의 최종형을 그대로 쓸 수 없었다
@@ -94,6 +98,7 @@ slides:
     proves: [search-engine, hybrid-search, rag]
 
   - title: 평가 하네스 - 측정 불가를 숫자로
+    label: 검색 · 마스킹 품질 자동 측정 체계
     summary: 구현은 끝났는데 하네스는 "측정 불가"만 보고했고, 수치는 터미널에서 사라졌습니다. 하네스를 배선하고 측정값을 DB에 남겨 어떤 수치든 재현할 수 있게 했습니다.
     stats:
       problem: 모듈이 다 있는데도 통합 측정이 한 번도 돌지 않았고, 결과가 남지 않아 비교할 수 없었다

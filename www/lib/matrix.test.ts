@@ -10,6 +10,7 @@ function project(slug: string, order: number, proves: string[][]) {
   const slides = (base.slides as Record<string, unknown>[]).map((s, i) => ({
     ...s,
     title: `${slug}-결정${i}`,
+    label: `${slug}-결정${i} 한 줄 설명`,
     proves: proves[i] ?? [],
   }));
   return ProjectSchema.parse({ ...base, slides });
@@ -23,9 +24,9 @@ describe("buildRequirementMatrix", () => {
     ]);
     const rag = rows.find((r) => r.id === "rag");
     expect(rag?.evidence).toEqual([
-      { slug: "a", projectTitle: "A", accent: "#ef4444", slideNumber: 2, slideTitle: "a-결정0" },
-      { slug: "a", projectTitle: "A", accent: "#ef4444", slideNumber: 3, slideTitle: "a-결정1" },
-      { slug: "b", projectTitle: "B", accent: "#ef4444", slideNumber: 3, slideTitle: "b-결정1" },
+      { slug: "a", projectTitle: "A", accent: "#ef4444", slideNumber: 2, label: "a-결정0 한 줄 설명" },
+      { slug: "a", projectTitle: "A", accent: "#ef4444", slideNumber: 3, label: "a-결정1 한 줄 설명" },
+      { slug: "b", projectTitle: "B", accent: "#ef4444", slideNumber: 3, label: "b-결정1 한 줄 설명" },
     ]);
   });
 
@@ -42,15 +43,15 @@ describe("buildRequirementMatrix", () => {
 });
 
 describe("groupEvidenceByProject", () => {
-  it("같은 프로젝트의 근거를 순서대로 묶고, 슬라이드 제목은 ' - ' 앞 짧은 이름만 쓴다", () => {
+  it("같은 프로젝트의 근거를 순서대로 묶고, 링크 문구는 슬라이드의 한 줄 설명(label)을 쓴다", () => {
     const groups = groupEvidenceByProject([
-      { slug: "a", projectTitle: "A", accent: "#111111", slideNumber: 2, slideTitle: "설계 원칙 - 길게 설명" },
-      { slug: "b", projectTitle: "B", accent: "#222222", slideNumber: 3, slideTitle: "하이브리드 검색" },
-      { slug: "a", projectTitle: "A", accent: "#111111", slideNumber: 4, slideTitle: "마스킹 - 애매하면 가린다" },
+      { slug: "a", projectTitle: "A", accent: "#111111", slideNumber: 2, label: "서버 분리 아키텍처" },
+      { slug: "b", projectTitle: "B", accent: "#222222", slideNumber: 3, label: "검색 방식 비교 측정" },
+      { slug: "a", projectTitle: "A", accent: "#111111", slideNumber: 4, label: "개인정보 마스킹" },
     ]);
     expect(groups).toEqual([
-      { slug: "a", projectTitle: "A", accent: "#111111", slides: [{ slideNumber: 2, shortTitle: "설계 원칙" }, { slideNumber: 4, shortTitle: "마스킹" }] },
-      { slug: "b", projectTitle: "B", accent: "#222222", slides: [{ slideNumber: 3, shortTitle: "하이브리드 검색" }] },
+      { slug: "a", projectTitle: "A", accent: "#111111", slides: [{ slideNumber: 2, label: "서버 분리 아키텍처" }, { slideNumber: 4, label: "개인정보 마스킹" }] },
+      { slug: "b", projectTitle: "B", accent: "#222222", slides: [{ slideNumber: 3, label: "검색 방식 비교 측정" }] },
     ]);
   });
 });

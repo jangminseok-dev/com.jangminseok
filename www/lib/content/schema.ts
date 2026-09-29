@@ -20,6 +20,8 @@ const mediaPath = z
 
 const DecisionSlideSchema = z.strictObject({
   title: text,
+  // 요건 카드 등 맥락 없는 곳에 쓰는 한 줄 설명 — 무엇을 했고 결과가 어땠는지
+  label: text.max(30),
   summary: text,
   stats: z.strictObject({ problem: text, choice: text, cost: text, effect: text }),
   frames: z.array(z.strictObject({ image: mediaPath, caption: text })).min(1).max(3),
