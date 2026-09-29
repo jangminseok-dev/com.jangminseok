@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { validProfileData, validProjectData } from "@/lib/content/fixtures";
 import { ProfileSchema, ProjectSchema } from "@/lib/content/schema";
-import { buildRequirementMatrix } from "@/lib/matrix";
+import { buildRequirementMatrix, groupEvidenceByProject } from "@/lib/matrix";
 
 const profile = ProfileSchema.parse(validProfileData());
 
@@ -23,9 +23,9 @@ describe("buildRequirementMatrix", () => {
     ]);
     const rag = rows.find((r) => r.id === "rag");
     expect(rag?.evidence).toEqual([
-      { slug: "a", projectTitle: "A", slideNumber: 2, slideTitle: "a-결정0" },
-      { slug: "a", projectTitle: "A", slideNumber: 3, slideTitle: "a-결정1" },
-      { slug: "b", projectTitle: "B", slideNumber: 3, slideTitle: "b-결정1" },
+      { slug: "a", projectTitle: "A", accent: "#ef4444", slideNumber: 2, slideTitle: "a-결정0" },
+      { slug: "a", projectTitle: "A", accent: "#ef4444", slideNumber: 3, slideTitle: "a-결정1" },
+      { slug: "b", projectTitle: "B", accent: "#ef4444", slideNumber: 3, slideTitle: "b-결정1" },
     ]);
   });
 
@@ -38,5 +38,19 @@ describe("buildRequirementMatrix", () => {
   it("행 순서는 profile.requirements 순서를 따른다", () => {
     const rows = buildRequirementMatrix(profile.requirements, []);
     expect(rows.map((r) => r.id)).toEqual(profile.requirements.map((r) => r.id));
+  });
+});
+
+describe("groupEvidenceByProject", () => {
+  it("같은 프로젝트의 근거를 순서대로 묶고, 슬라이드 제목은 ' - ' 앞 짧은 이름만 쓴다", () => {
+    const groups = groupEvidenceByProject([
+      { slug: "a", projectTitle: "A", accent: "#111111", slideNumber: 2, slideTitle: "설계 원칙 - 길게 설명" },
+      { slug: "b", projectTitle: "B", accent: "#222222", slideNumber: 3, slideTitle: "하이브리드 검색" },
+      { slug: "a", projectTitle: "A", accent: "#111111", slideNumber: 4, slideTitle: "마스킹 - 애매하면 가린다" },
+    ]);
+    expect(groups).toEqual([
+      { slug: "a", projectTitle: "A", accent: "#111111", slides: [{ slideNumber: 2, shortTitle: "설계 원칙" }, { slideNumber: 4, shortTitle: "마스킹" }] },
+      { slug: "b", projectTitle: "B", accent: "#222222", slides: [{ slideNumber: 3, shortTitle: "하이브리드 검색" }] },
+    ]);
   });
 });
