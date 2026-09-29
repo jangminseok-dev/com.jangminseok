@@ -44,3 +44,13 @@ describe("기능 화면", () => {
     expect(() => loadProjectPage(tmp, "callguard", [])).toThrowError(/features\.0\.image/);
   });
 });
+
+describe("모든 소개 페이지 원고", () => {
+  it("page.yaml이 있는 프로젝트는 모두 스키마, 금지어, 미디어 검사를 통과한다", async () => {
+    const fs = await import("node:fs");
+    const { readBannedTerms } = await import("@/lib/content/banned");
+    const slugs = fs.readdirSync(CONTENT).filter((d) => fs.existsSync(path.join(CONTENT, d, "page.yaml")));
+    expect(slugs.length).toBeGreaterThan(0);
+    for (const slug of slugs) expect(loadProjectPage(CONTENT, slug, readBannedTerms(CONTENT)), slug).not.toBeNull();
+  });
+});
