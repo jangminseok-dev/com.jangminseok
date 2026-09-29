@@ -43,3 +43,4 @@ jobs:
       - run: pip install -r requirements.txt
       - run: pytest -q -m "not network"
       - run: PYTHONPATH=apps lint-imports --config .importlinter
+      - run: python scripts/build_catalog.py --check
