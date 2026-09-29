@@ -7,7 +7,7 @@ _db = _s.get("DATABASE_URL")
 DATABASE_URL = _db.replace("postgresql://", "postgresql+psycopg://", 1) if _db else None
 GEMINI_API_KEY = _s.get("GEMINI_API_KEY")
 
-GEMINI_MODEL = "gemini-3.8-flash"
+GEMINI_MODEL = "gemini-3.5-flash-lite"  # 무료 RPD 500 (3.8 Flash는 20)
 EMBED_MODEL = "gemini-embedding-2"
 EMBED_DIM = 768
 
