@@ -9,13 +9,13 @@ requirements:
     detail: 헥사고날·클린 아키텍처, import-linter로 레이어 의존 강제
   - id: search-engine
     label: 검색엔진 구축·활용
-    detail: OpenSearch / Elasticsearch 인덱스 설계와 한국어 분석기
+    detail: 검색 품질을 골든셋(nDCG·MRR)으로 측정하고 개선 여부를 판정
   - id: rag
     label: RAG 설계와 적용
     detail: 청크·임베딩·프롬프트·출처 표기, 골든셋 회귀 평가
   - id: hybrid-search
     label: 하이브리드 검색 (Sparse + Dense)
-    detail: BM25와 벡터 검색 결과를 RRF로 융합
+    detail: 키워드 검색과 벡터 검색을 RRF로 융합하고, 측정 게이트로 채택·기각을 판정
   - id: linux-docker
     label: Linux · Docker 배포
     detail: Docker Compose, k3s, 리버스 프록시·터널 운영

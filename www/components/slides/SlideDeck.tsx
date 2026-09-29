@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { slideAnchor } from "@/lib/slides";
-
-const NEXT_KEYS = ["ArrowRight", "ArrowDown", "PageDown"];
-const PREV_KEYS = ["ArrowLeft", "ArrowUp", "PageUp"];
+import { slideAnchor, slideKeyDelta } from "@/lib/slides";
 
 export default function SlideDeck({ count, children }: { count: number; children: React.ReactNode }) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -14,6 +11,8 @@ export default function SlideDeck({ count, children }: { count: number; children
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+    // 데스크톱에서는 이 div가 스크롤 컨테이너 — 포커스를 줘야 ↑↓·PageUp/Down이 기본 스크롤로 동작한다
+    root.focus({ preventScroll: true });
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -31,7 +30,17 @@ export default function SlideDeck({ count, children }: { count: number; children
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      const delta = NEXT_KEYS.includes(e.key) ? 1 : PREV_KEYS.includes(e.key) ? -1 : 0;
+      const target = e.target instanceof HTMLElement ? e.target : null;
+      const delta = slideKeyDelta({
+        key: e.key,
+        altKey: e.altKey,
+        metaKey: e.metaKey,
+        ctrlKey: e.ctrlKey,
+        shiftKey: e.shiftKey,
+        defaultPrevented: e.defaultPrevented,
+        targetTag: target?.tagName ?? "",
+        editable: target?.isContentEditable ?? false,
+      });
       if (delta === 0) return;
       e.preventDefault();
       const next = Math.min(count, Math.max(1, current + delta));
@@ -42,7 +51,7 @@ export default function SlideDeck({ count, children }: { count: number; children
   }, [count, current]);
 
   return (
-    <div ref={rootRef} className="md:h-dvh md:snap-y md:snap-mandatory md:overflow-y-auto">
+    <div ref={rootRef} tabIndex={-1} className="outline-none md:h-dvh md:snap-y md:snap-mandatory md:overflow-y-auto">
       {children}
       <ol aria-hidden className="fixed right-4 top-1/2 hidden -translate-y-1/2 flex-col gap-2 md:flex">
         {Array.from({ length: count }, (_, i) => (

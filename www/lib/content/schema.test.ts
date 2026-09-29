@@ -31,6 +31,15 @@ describe("ProjectSchema", () => {
     expect(ProjectSchema.safeParse(data).success).toBe(true);
   });
 
+  it("정의되지 않은 키(오타)는 조용히 버리지 않고 실패한다", () => {
+    expect(ProjectSchema.safeParse(validProjectData({ preview: { poster: "media/poster.webp", vidoe: "media/p.mp4" } })).success).toBe(false);
+    const data = validProjectData();
+    const slides = data.slides as Record<string, unknown>[];
+    slides[0].concpet = { title: "t", body: "b" };
+    expect(ProjectSchema.safeParse(data).success).toBe(false);
+    expect(ProjectSchema.safeParse(validProjectData({ links: { blgo: "https://example.com" } })).success).toBe(false);
+  });
+
   it("결정 슬라이드는 2~5장이다", () => {
     const data = validProjectData();
     const one = { ...data, slides: (data.slides as unknown[]).slice(0, 1) };

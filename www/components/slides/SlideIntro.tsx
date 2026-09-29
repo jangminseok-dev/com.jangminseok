@@ -55,7 +55,7 @@ export default function SlideIntro({ project, mainHref }: { project: Project; ma
           />
         </div>
       </div>
-      <p className="mt-10 text-center text-sm text-white/40">↓ 스크롤 또는 → 키로 넘기기</p>
+      <p className="mt-10 text-center text-sm text-white/40">↓ 스크롤 또는 ← → 키로 넘기기</p>
     </Slide>
   );
 }
