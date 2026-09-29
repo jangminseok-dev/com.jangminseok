@@ -23,6 +23,7 @@ async def test_network_error_becomes_llm_unavailable(monkeypatch):
     from agent.app.ports import LlmUnavailable, Message
     from agent.domain.tools import TOOLS
 
+    monkeypatch.setattr("agent.adapter.outbound.gemini_llm.GEMINI_API_KEY", "test-key")  # CI에는 키가 없다
     llm = GeminiToolLlm()
 
     async def boom(**_):

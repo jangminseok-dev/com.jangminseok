@@ -79,6 +79,7 @@ async def test_embedding_network_error_becomes_embedding_unavailable(monkeypatch
     from knowledge.adapter.outbound.gemini_embedding import GeminiEmbedding
     from knowledge.app.ports import EmbeddingUnavailable
 
+    monkeypatch.setattr("knowledge.adapter.outbound.gemini_embedding.GEMINI_API_KEY", "test-key")  # CI에는 키가 없다
     emb = GeminiEmbedding()
 
     async def boom(**_):
