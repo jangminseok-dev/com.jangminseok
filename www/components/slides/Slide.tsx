@@ -9,7 +9,7 @@ export default function Slide({ n, children }: { n: number; children: React.Reac
     <section
       id={slideAnchor(n)}
       data-slide={n}
-      className="flex min-h-dvh snap-start flex-col justify-center px-5 py-16 md:px-16"
+      className="flex min-h-[calc(100dvh-4rem)] snap-start flex-col justify-center px-5 py-16 md:px-16"
     >
       <div className="mx-auto w-full max-w-6xl">{children}</div>
     </section>

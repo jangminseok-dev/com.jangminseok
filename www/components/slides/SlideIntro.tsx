@@ -6,7 +6,7 @@ export default function SlideIntro({ project, mainHref }: { project: Project; ma
   const { slug, preview, period, team } = project;
   return (
     <Slide n={1}>
-      <a href={mainHref} className="text-sm text-white/60 hover:text-white">
+      <a href={mainHref} className="text-sm text-white/70 hover:text-white">
         ← 전체 프로젝트
       </a>
       <div className="mt-6 grid grid-cols-1 items-center gap-10 md:grid-cols-2">
@@ -15,14 +15,14 @@ export default function SlideIntro({ project, mainHref }: { project: Project; ma
           <h1 className="mt-3 text-4xl font-bold leading-tight md:text-6xl">{project.title}</h1>
           <p className="mt-4 text-lg leading-relaxed text-white/80 md:text-xl">{project.tagline}</p>
           <dl className="mt-8 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
-            <div className="rounded-2xl border border-slide-line bg-slide-panel p-4">
-              <dt className="text-white/50">기간</dt>
+            <div className="glass rounded-2xl p-4">
+              <dt className="text-white/65">기간</dt>
               <dd className="mt-1 font-semibold">
                 {period.start} ~ {period.end ?? "진행 중"}
               </dd>
             </div>
-            <div className="rounded-2xl border border-slide-line bg-slide-panel p-4">
-              <dt className="text-white/50">팀 · 역할</dt>
+            <div className="glass rounded-2xl p-4">
+              <dt className="text-white/65">팀 · 역할</dt>
               <dd className="mt-1 font-semibold">
                 {team.size}명 · {team.role}
               </dd>
@@ -37,7 +37,7 @@ export default function SlideIntro({ project, mainHref }: { project: Project; ma
           </ul>
         </div>
         <div>
-          <div className="overflow-hidden rounded-3xl border border-slide-line bg-slide-panel">
+          <div className="glass overflow-hidden rounded-3xl">
             {preview.video ? (
               <video
                 src={mediaUrl(slug, preview.video)}
@@ -67,7 +67,7 @@ export default function SlideIntro({ project, mainHref }: { project: Project; ma
           ) : null}
         </div>
       </div>
-      <p className="mt-10 text-center text-sm text-white/40">↓ 스크롤 또는 ← → 키로 넘기기</p>
+      <p className="mt-10 text-center text-sm text-white/55">↓ 스크롤 또는 ← → 키로 넘기기</p>
     </Slide>
   );
 }

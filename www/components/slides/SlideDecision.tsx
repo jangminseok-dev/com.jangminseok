@@ -24,7 +24,7 @@ export default function SlideDecision({ n, slug, slide }: Props) {
 
       <dl className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {STAT_KEYS.map((key) => (
-          <div key={key} className="rounded-2xl border border-slide-line bg-slide-panel p-4">
+          <div key={key} className="glass rounded-2xl p-4">
             <dt className="text-sm font-semibold text-(--accent)">{STAT_LABEL[key]}</dt>
             <dd className="mt-1 text-sm leading-relaxed text-white/85">{slide.stats[key]}</dd>
           </div>
@@ -41,7 +41,7 @@ export default function SlideDecision({ n, slug, slide }: Props) {
                 →
               </span>
             ) : null}
-            <figure className="w-full min-w-0 flex-1 overflow-hidden rounded-2xl border border-slide-line bg-slide-panel">
+            <figure className="glass w-full min-w-0 flex-1 overflow-hidden rounded-2xl">
               <img
                 src={mediaUrl(slug, frame.image)}
                 alt={frame.caption}
@@ -55,7 +55,7 @@ export default function SlideDecision({ n, slug, slide }: Props) {
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div className="rounded-2xl border border-slide-line bg-slide-panel p-5">
+        <div className="glass rounded-2xl p-5">
           <h3 className="font-semibold text-(--accent)">왜 이 선택인가 — 버린 대안</h3>
           <ul className="mt-3 space-y-2 text-sm leading-relaxed text-white/85">
             {slide.alternatives.map((alt) => (
@@ -68,14 +68,14 @@ export default function SlideDecision({ n, slug, slide }: Props) {
           </ul>
         </div>
         {slide.concept ? (
-          <div className="rounded-2xl border border-(--accent)/40 bg-slide-panel p-5">
+          <div className="glass rounded-2xl border-(--accent)/50 p-5">
             <h3 className="font-semibold text-(--accent)">{slide.concept.title}</h3>
             <p className="mt-3 text-sm leading-relaxed text-white/85">{slide.concept.body}</p>
           </div>
         ) : null}
       </div>
 
-      <p className="mt-6 text-xs text-white/50">
+      <p className="mt-6 text-xs text-white/65">
         근거:{" "}
         {slide.evidence.map((ev, i) => (
           <span key={ev.label}>

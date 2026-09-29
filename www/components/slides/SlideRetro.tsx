@@ -21,15 +21,15 @@ export default function SlideRetro({ n, project, mainHref }: { n: number; projec
       {project.retro.metrics.length ? (
         <dl className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {project.retro.metrics.map((m) => (
-            <div key={m.label} className="rounded-2xl border border-slide-line bg-slide-panel p-5">
-              <dt className="text-sm text-white/60">{m.label}</dt>
+            <div key={m.label} className="glass rounded-2xl p-5">
+              <dt className="text-sm text-white/70">{m.label}</dt>
               <dd className="mt-2 text-2xl font-bold text-(--accent)">{m.value}</dd>
             </div>
           ))}
         </dl>
       ) : null}
       {project.retro.regrets.length ? (
-        <div className="mt-6 rounded-2xl border border-slide-line bg-slide-panel p-5">
+        <div className="glass mt-6 rounded-2xl p-5">
           <h3 className="font-semibold">아쉬운 점 · 다음에 할 것</h3>
           <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-white/85">
             {project.retro.regrets.map((r) => (

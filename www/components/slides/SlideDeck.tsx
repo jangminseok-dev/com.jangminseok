@@ -51,7 +51,7 @@ export default function SlideDeck({ count, children }: { count: number; children
   }, [count, current]);
 
   return (
-    <div ref={rootRef} tabIndex={-1} className="outline-none md:h-dvh md:snap-y md:snap-mandatory md:overflow-y-auto">
+    <div ref={rootRef} tabIndex={-1} className="outline-none md:h-[calc(100dvh-4rem)] md:snap-y md:snap-mandatory md:overflow-y-auto">
       {children}
       <ol aria-hidden className="fixed right-4 top-1/2 hidden -translate-y-1/2 flex-col gap-2 md:flex">
         {Array.from({ length: count }, (_, i) => (
