@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from hub.app.dtos import Chunk
-from hub.app.ports.output.search_port import KnowledgeSearchPort
-from knowledge.app.ports import ChunkStorePort, EmbeddingPort
+from hub.app.ports.output.search_port import KnowledgeSearchPort, SearchUnavailable
+from knowledge.app.ports import ChunkStorePort, EmbeddingPort, EmbeddingUnavailable
 from knowledge.domain.chunker import chunk_catalog
 from knowledge.domain.rrf import rrf_fuse
 
@@ -19,7 +19,10 @@ class SearchInteractor(KnowledgeSearchPort):
         q = query.strip()
         if not q:
             return []
-        [vec] = await self._embed.embed([q], "query")
+        try:
+            [vec] = await self._embed.embed([q], "query")
+        except EmbeddingUnavailable as e:
+            raise SearchUnavailable(str(e)) from e
         dense = await self._store.vector_search(vec, CANDIDATES)
         sparse = await self._store.keyword_search(q, CANDIDATES)
         fused = rrf_fuse([dense, sparse])[:top_k]

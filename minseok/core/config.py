@@ -15,6 +15,9 @@ MAX_QUESTION_CHARS = 500
 MAX_TOOL_CALLS = 3
 RATE_PER_MINUTE = 5
 RATE_PER_DAY = 30
+# MCP는 호출자 IP를 알 수 없어 전체가 한 버킷 — 생성 LLM 없이 임베딩만 써서 더 넉넉하게 둔다
+MCP_RATE_PER_MINUTE = 20
+MCP_RATE_PER_DAY = 300
 
 BANNED_TERMS = [t.strip() for t in (_s.get("BANNED_TERMS") or "").replace(",", "\n").splitlines() if t.strip()]
 ALLOWED_HOSTS = [h.strip() for h in (_s.get("ALLOWED_HOSTS") or "api.jangminseok.com,localhost,127.0.0.1,testserver").split(",") if h.strip()]

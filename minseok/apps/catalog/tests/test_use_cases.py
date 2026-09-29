@@ -31,10 +31,17 @@ def test_get_project_unknown_slug_is_none():
     assert CatalogInteractor(DATA).get_project("nope") is None
 
 
-def test_find_by_skill_matches_stack_and_slide_text_case_insensitive():
-    matches = CatalogInteractor(DATA).find_by_skill("elasticsearch")
+def test_find_by_skill_matches_stack_case_insensitive_and_points_to_architecture():
+    data = CatalogData.from_dict(
+        {"projects": [{"slug": "callguard", "order": 1, "title": "CallGuard", "tagline": "t",
+                       "period": {"start": "2026-08-20", "end": None}, "team": {"size": 4, "role": "r"},
+                       "stack": ["Elasticsearch 9 + nori"], "languages": ["Python"], "metrics": [],
+                       "slides": [{"number": 3, "title": "아키텍처", "label": "l", "text": "검색과 음성: Elasticsearch 9 + nori"}]}]},
+        site="https://jangminseok.com",
+    )
+    matches = CatalogInteractor(data).find_by_skill("elasticsearch")
     assert [m.slug for m in matches] == ["callguard"]
-    assert [e.slide_number for e in matches[0].evidence] == [5]
+    assert [e.slide_number for e in matches[0].evidence] == [3]
 
 
 def test_find_by_skill_stack_only_match_has_intro_slide():
@@ -47,16 +54,17 @@ def test_all_slide_urls_includes_intro():
     assert "https://redoceanmap.jangminseok.com#01" in urls
 
 
-def test_find_by_skill_ignores_rejected_alternatives():
+def test_find_by_skill_ignores_tech_only_mentioned_in_text():
+    # "Neo4j를 구성만 하고 쓰지 않았습니다"처럼 본문에만 나온 기술은 쓴 기술이 아니다 — 스택으로만 판단
     data = CatalogData.from_dict(
-        {"projects": [{"slug": "chagocnote", "order": 5, "title": "차곡노트", "tagline": "t",
-                       "period": {"start": "2026-09-20", "end": None}, "team": {"size": 1, "role": "1인"},
-                       "stack": ["PostgreSQL"], "languages": ["Python"], "metrics": [],
-                       "slides": [{"number": 6, "title": "고객 검색", "label": "l",
-                                   "text": "pg_trgm 색인\n버린 대안 전용 검색 엔진(Elasticsearch 등): 과하다"}]}]},
+        {"projects": [{"slug": "localhostdaegu", "order": 3, "title": "localhost:daegu", "tagline": "t",
+                       "period": {"start": "2026-09-15", "end": None}, "team": {"size": 3, "role": "r"},
+                       "stack": ["FastAPI"], "languages": ["Python"], "metrics": [],
+                       "slides": [{"number": 6, "title": "회고", "label": "l",
+                                   "text": "아쉬운 점: Neo4j와 Redis를 구성만 하고 쓰지 않았습니다"}]}]},
         site="https://jangminseok.com",
     )
-    assert CatalogInteractor(data).find_by_skill("Elasticsearch") == []
+    assert CatalogInteractor(data).find_by_skill("Neo4j") == []
 
 
 def test_all_slide_urls_has_only_real_sections():

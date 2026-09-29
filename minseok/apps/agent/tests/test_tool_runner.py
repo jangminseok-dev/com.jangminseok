@@ -46,3 +46,14 @@ async def test_unknown_tool_is_error_result():
 async def test_search_top_k_is_clamped():
     r = await ToolRunner(Cat(), Search()).run("search_portfolio", {"query": "검색", "top_k": 99})
     assert r.ok and r.payload["results"][0]["url"] == REF.url
+
+
+async def test_search_outage_is_error_result_not_exception():
+    from hub.app.ports.output.search_port import SearchUnavailable
+
+    class Down(Search):
+        async def search(self, query, top_k):
+            raise SearchUnavailable("429")
+
+    r = await ToolRunner(Cat(), Down()).run("search_portfolio", {"query": "검색"})
+    assert not r.ok and "검색" in r.payload["error"]

@@ -1,6 +1,7 @@
 # agent/adapter/outbound/gemini_llm.py
 from __future__ import annotations
 
+import httpx
 from google import genai
 from google.genai import errors, types
 
@@ -41,7 +42,7 @@ class GeminiToolLlm(ToolLlmPort):
         cfg = _config(tools)
         try:
             res = await self._client.aio.models.generate_content(model=GEMINI_MODEL, contents=_contents(history), config=cfg)
-        except errors.APIError as e:
+        except (errors.APIError, httpx.HTTPError) as e:  # 한도, 서버 오류, 네트워크 시간 초과 — 모두 503으로
             raise LlmUnavailable(str(e)) from e
         if res.function_calls:
             part = next(p for p in res.candidates[0].content.parts if p.function_call)

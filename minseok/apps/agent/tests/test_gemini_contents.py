@@ -13,3 +13,21 @@ def test_config_without_tools_sends_no_tool_declarations():
 
     assert _config(()).tools is None  # 한도 도달 후 마지막 턴 — 도구 없이 답만
     assert len(_config(TOOLS).tools[0].function_declarations) == 3
+
+
+async def test_network_error_becomes_llm_unavailable(monkeypatch):
+    import httpx
+    import pytest
+
+    from agent.adapter.outbound.gemini_llm import GeminiToolLlm
+    from agent.app.ports import LlmUnavailable, Message
+    from agent.domain.tools import TOOLS
+
+    llm = GeminiToolLlm()
+
+    async def boom(**_):
+        raise httpx.ConnectTimeout("timeout")
+
+    monkeypatch.setattr(llm._client.aio.models, "generate_content", boom)
+    with pytest.raises(LlmUnavailable):
+        await llm.next_turn([Message("user", "q")], TOOLS)

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import httpx
 from google import genai
 from google.genai import errors, types
 
@@ -23,6 +24,6 @@ class GeminiEmbedding(EmbeddingPort):
                     config=types.EmbedContentConfig(output_dimensionality=EMBED_DIM, task_type=task_type),
                 )
                 out += [e.values for e in res.embeddings]
-        except errors.APIError as e:
+        except (errors.APIError, httpx.HTTPError) as e:  # 한도, 서버 오류, 네트워크 시간 초과
             raise EmbeddingUnavailable(str(e)) from e
         return out

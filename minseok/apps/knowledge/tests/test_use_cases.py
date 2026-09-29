@@ -56,3 +56,34 @@ async def test_index_skips_unchanged_chunks():
     store.hashes = {c.content_hash for c, _ in store.replaced[0]} | store.replaced[1]
     second = await IndexInteractor(embed, store).run(projects, "https://jangminseok.com")
     assert first.embedded == 2 and second.embedded == 0 and second.skipped == 2
+
+
+async def test_embedding_outage_becomes_search_unavailable():
+    import pytest
+
+    from hub.app.ports.output.search_port import SearchUnavailable
+    from knowledge.app.ports import EmbeddingUnavailable
+
+    class Down(FakeEmbed):
+        async def embed(self, texts, task):
+            raise EmbeddingUnavailable("429")
+
+    with pytest.raises(SearchUnavailable):
+        await SearchInteractor(Down(), FakeStore()).search("검색", 5)
+
+
+async def test_embedding_network_error_becomes_embedding_unavailable(monkeypatch):
+    import httpx
+    import pytest
+
+    from knowledge.adapter.outbound.gemini_embedding import GeminiEmbedding
+    from knowledge.app.ports import EmbeddingUnavailable
+
+    emb = GeminiEmbedding()
+
+    async def boom(**_):
+        raise httpx.ReadTimeout("timeout")
+
+    monkeypatch.setattr(emb._client.aio.models, "embed_content", boom)
+    with pytest.raises(EmbeddingUnavailable):
+        await emb.embed(["q"], "query")

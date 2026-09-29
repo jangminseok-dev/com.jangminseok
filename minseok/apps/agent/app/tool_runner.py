@@ -5,7 +5,7 @@ from dataclasses import asdict, dataclass
 
 from hub.app.dtos import SlideRef
 from hub.app.ports.output.catalog_port import ProjectCatalogPort
-from hub.app.ports.output.search_port import KnowledgeSearchPort
+from hub.app.ports.output.search_port import KnowledgeSearchPort, SearchUnavailable
 
 DEFAULT_TOP_K, MAX_TOP_K = 5, 8
 
@@ -32,7 +32,10 @@ class ToolRunner:
         if name == "search_portfolio":
             query = str(args.get("query", ""))
             top_k = max(1, min(int(args.get("top_k", DEFAULT_TOP_K)), MAX_TOP_K))
-            chunks = await self._search.search(query, top_k)
+            try:
+                chunks = await self._search.search(query, top_k)
+            except SearchUnavailable:
+                return ToolResult(False, {"error": "검색을 잠시 쓸 수 없습니다. 다른 도구로 확인해 주십시오."}, "", [])
             # 근거 칩에 프로젝트 이름을 붙인다 — "아키텍처"만 있으면 어느 프로젝트인지 알 수 없다
             names = {slug: f.title for slug in {c.slug for c in chunks} if (f := self._catalog.get_project(slug))}
             refs = [SlideRef(c.slug, c.slide_number, _with_project(names.get(c.slug), c.title), c.url) for c in chunks]

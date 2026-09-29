@@ -5,12 +5,7 @@ from hub.app.dtos import ProjectFacts, SkillMatch, SlideRef
 from hub.app.ports.output.catalog_port import ProjectCatalogPort
 
 INTRO_SLIDE = 1
-REJECTED_PREFIX = "버린 대안"
-
-
-def _used_text(text: str) -> str:
-    """기술 검색용 본문 — '버린 대안' 줄은 쓰지 않은 기술이라 뺀다."""
-    return "\n".join(line for line in text.lower().splitlines() if not line.startswith(REJECTED_PREFIX))
+ARCHITECTURE_SECTION = 3  # 소개 페이지의 아키텍처 섹션 — 계층별 기술 스택이 여기 있다
 
 
 class CatalogInteractor(ProjectCatalogPort):
@@ -37,11 +32,11 @@ class CatalogInteractor(ProjectCatalogPort):
             return []
         out: list[SkillMatch] = []
         for p in self._data.projects:
-            evidence = tuple(self._ref(p.slug, s.number, f"{p.title} {s.title}") for s in p.slides if q in _used_text(s.text))
-            if not evidence and any(q in s.lower() for s in p.stack):
-                evidence = (self._ref(p.slug, INTRO_SLIDE, f"{p.title} 소개"),)
-            if evidence:
-                out.append(SkillMatch(p.slug, p.title, evidence))
+            # 쓴 기술은 스택으로만 판단한다 — 본문에는 "쓰지 않았습니다", "버린 대안"으로 언급된 기술도 있다
+            if not any(q in s.lower() for s in p.stack):
+                continue
+            arch = tuple(self._ref(p.slug, s.number, f"{p.title} {s.title}") for s in p.slides if s.number == ARCHITECTURE_SECTION)
+            out.append(SkillMatch(p.slug, p.title, arch or (self._ref(p.slug, INTRO_SLIDE, f"{p.title} 소개"),)))
         return out
 
     def slugs(self) -> list[str]:

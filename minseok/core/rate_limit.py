@@ -25,6 +25,12 @@ _UPSERT = text(
 
 
 class RateLimiter:
+    def __init__(self, per_minute: int = RATE_PER_MINUTE, per_day: int = RATE_PER_DAY) -> None:
+        self.per_minute, self.per_day = per_minute, per_day
+
+    def allowed(self, used_minute: int, used_day: int) -> bool:
+        return used_minute <= self.per_minute and used_day <= self.per_day
+
     async def hit(self, ip: str) -> bool:
         h = hash_ip(ip)
         m, d = window_keys(datetime.now(timezone.utc))
@@ -32,4 +38,4 @@ class RateLimiter:
             per_min = (await s.execute(_UPSERT, {"h": h, "w": m})).scalar_one()
             per_day = (await s.execute(_UPSERT, {"h": h, "w": d})).scalar_one()
             await s.commit()
-        return per_min <= RATE_PER_MINUTE and per_day <= RATE_PER_DAY
+        return self.allowed(per_min, per_day)
