@@ -26,9 +26,9 @@ requirements:
     label: AI 코딩 어시스턴트 활용
     detail: 규칙 문서·하네스로 에이전트의 경계와 검증을 고정
 education:
-  - org: IBM x RedHat AI Transformation Academy
-    course: AI 트랜스포메이션 과정 (수강 중)
-    period: 2026 ~
+  - org: IBM x RedHat AI Transformation Academy (대한상공회의소)
+    course: AI 트랜스포메이션 과정 7회차 (수강 중)
+    period: 2026.04 ~ 2026.10
     topics: [Python, FastAPI, React, PyTorch, watsonx, LangChain, RAG, Docker, Kubernetes·OpenShift, AWS]
   - org: 더조은컴퓨터아카데미 종로
     course: 빅데이터 플랫폼 구축(Hadoop)과 빅데이터 분석(Spark·Power BI) & Java 웹개발
