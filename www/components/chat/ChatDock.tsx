@@ -40,20 +40,27 @@ export default function ChatDock() {
       <div aria-hidden className="h-24" />
       <div className="group fixed inset-x-0 bottom-5 z-50 mx-auto w-[min(48rem,calc(100vw-2rem))]">
         {state.turns.length === 0 ? (
-          <ul className="mb-2 hidden flex-wrap justify-center gap-2 group-focus-within:flex">
-            {EXAMPLES.map((q) => (
-              <li key={q}>
-                <button
-                  type="button"
-                  onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => void ask(q)}
-                  className="glass rounded-full px-3 py-1.5 text-xs text-white/85 hover:text-white"
-                >
-                  {q}
-                </button>
-              </li>
-            ))}
-          </ul>
+          // 검색창 추천어처럼 입력창과 같은 불투명 배경의 목록 — 칩은 밤하늘 배경에 묻혀 읽기 어려웠다
+          <div className="mb-2 hidden rounded-3xl border border-white/10 bg-[rgb(14_16_30/0.92)] p-2 backdrop-blur-xl group-focus-within:block">
+            <p className="px-3 pb-1 pt-2 text-xs text-white/60">예시 질문</p>
+            <ul>
+              {EXAMPLES.map((q) => (
+                <li key={q}>
+                  <button
+                    type="button"
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => void ask(q)}
+                    className="flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-left text-sm text-white hover:bg-white/10"
+                  >
+                    <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-brand-soft" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M7 17 17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    {q}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : null}
         {/* 밤하늘 배경에 묻히지 않도록 그라데이션 테두리와 빛 번짐을 준다 */}
         <div className="rounded-full bg-linear-to-r from-brand via-brand-soft to-violet-400 p-[1.5px] shadow-[0_0_36px_rgb(49_130_246/0.45)]">
