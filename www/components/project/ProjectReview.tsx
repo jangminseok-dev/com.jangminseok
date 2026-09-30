@@ -167,7 +167,7 @@ function Architecture({ slug, page }: { slug: string; page: ProjectPage }) {
   const a = page.architecture;
   return (
     <Section id="architecture" title="아키텍처">
-      <p className="max-w-3xl text-lg leading-relaxed text-white/85">{a.summary}</p>
+      <p className="max-w-4xl text-lg leading-relaxed text-white/85">{a.summary}</p>
       <div className="glass mt-6 overflow-hidden rounded-3xl">
         <img src={mediaUrl(slug, a.image)} alt="전체 구조 도식" className="w-full" />
       </div>
@@ -199,7 +199,7 @@ function Role({ page }: { page: ProjectPage }) {
   const r = page.role;
   return (
     <Section id="role" title="맡은 일">
-      <p className="max-w-3xl leading-relaxed text-white/85">{r.summary}</p>
+      <p className="max-w-4xl leading-relaxed text-white/85">{r.summary}</p>
       <div className={`mt-6 grid grid-cols-1 gap-4 ${r.team.length ? "md:grid-cols-2" : ""}`}>
         <div className="glass rounded-2xl p-5">
           <h3 className="font-bold text-(--accent)">제가 한 일</h3>

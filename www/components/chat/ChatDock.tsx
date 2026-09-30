@@ -38,7 +38,7 @@ export default function ChatDock() {
       {state.open ? <ChatDialog turns={state.turns} onClose={close} /> : null}
       {/* 고정 바가 페이지 끝 내용을 가리지 않도록 자리를 비워 둔다 */}
       <div aria-hidden className="h-24" />
-      <div className="group fixed inset-x-0 bottom-5 z-50 mx-auto w-[min(42rem,calc(100vw-2rem))]">
+      <div className="group fixed inset-x-0 bottom-5 z-50 mx-auto w-[min(48rem,calc(100vw-2rem))]">
         {state.turns.length === 0 ? (
           <ul className="mb-2 hidden flex-wrap justify-center gap-2 group-focus-within:flex">
             {EXAMPLES.map((q) => (
