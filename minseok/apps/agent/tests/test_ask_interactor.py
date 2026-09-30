@@ -102,3 +102,26 @@ async def test_sources_are_unique_by_url_and_capped():
     r = await AskInteractor(llm, ToolRunner(cat, Search()), cat, banned=[]).ask("?")
     urls = [s.url for s in r.sources]
     assert len(urls) == len(set(urls)) and len(urls) <= MAX_SOURCES
+
+
+async def test_refusal_at_tool_limit_also_caps_sources():
+    from agent.app.ask import MAX_SOURCES
+    from hub.app.dtos import SkillMatch, SlideRef
+
+    class ManyRefs(Cat):
+        def find_by_skill(self, skill):
+            refs = tuple(SlideRef("callguard", n, f"t{n}", f"https://callguard.jangminseok.com#{n:02d}") for n in range(1, 10))
+            return [SkillMatch("callguard", "CallGuard", refs)]
+
+    cat = ManyRefs()
+    llm = Scripted([ToolCall("find_by_skill", {"skill": "x"})] * 5)
+    r = await AskInteractor(llm, ToolRunner(cat, Search()), cat, banned=[]).ask("?")
+    assert r.refused and len(r.sources) <= MAX_SOURCES
+
+
+async def test_answer_with_every_sentence_removed_is_refused():
+    from agent.domain.guard import NO_NUMBER_NOTE
+
+    llm = Scripted([ToolCall("get_project", {"slug": "callguard"}), FinalAnswer("정확도는 99%입니다.")])
+    r = await make(llm).ask("?")
+    assert r.answer == NO_NUMBER_NOTE and r.refused

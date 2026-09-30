@@ -8,7 +8,8 @@ NO_NUMBER_NOTE = "확인된 수치가 없습니다."
 BLOCKED_ANSWER = "답변에 공개할 수 없는 내용이 있어 표시하지 않습니다."
 
 _NUM = re.compile(r"\d[\d,]*(?:\.\d+)?")
-_URL = re.compile(r"https://[a-z0-9]+\.jangminseok\.com(?:/p/[a-z0-9]+)?#\d{2}")
+# 모든 링크를 검사한다 — 문장 끝 마침표·쉼표는 링크에 넣지 않는다
+_URL = re.compile(r"https?://[^\s<>()\[\]]*[^\s<>()\[\].,!?]")
 _SENT = re.compile(r"(?<=[.!?。])\s+|\n+")
 
 
@@ -29,10 +30,11 @@ def guard_answer(answer: str, evidence_text: str, known_urls: set[str], banned: 
         return GuardResult(BLOCKED_ANSWER, 0, 0, True)
 
     removed_links = 0
+    homes = {u.split("#")[0] for u in known_urls}  # 프로젝트 첫 화면 주소(섹션 번호 없음)
 
     def keep_link(m: re.Match) -> str:
         nonlocal removed_links
-        if m.group(0) in known_urls:
+        if m.group(0) in known_urls or m.group(0) in homes:
             return m.group(0)
         removed_links += 1
         return ""

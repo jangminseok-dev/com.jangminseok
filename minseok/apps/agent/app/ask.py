@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 from agent.app.ports import FinalAnswer, Message, ToolLlmPort
 from agent.app.tool_runner import ToolRunner
-from agent.domain.guard import guard_answer
+from agent.domain.guard import NO_NUMBER_NOTE, guard_answer
 from agent.domain.tools import TOOLS, with_project_slugs
 from hub.app.dtos import SlideRef
 from hub.app.ports.output.catalog_port import ProjectCatalogPort
@@ -67,7 +67,7 @@ class AskInteractor:
                     turn = await self._llm.next_turn([*history, Message("user", LIMIT_NOTE)], ())
                 if isinstance(turn, FinalAnswer):
                     break
-                return AskResult(REFUSAL, sources, traces, True)
+                return AskResult(REFUSAL, sources[:MAX_SOURCES], traces, True)
             result = await self._runner.run(turn.name, turn.args)
             traces.append(ToolTrace(turn.name, turn.args, result.ok))
             if result.ok:
@@ -80,4 +80,5 @@ class AskInteractor:
             return AskResult(REFUSAL, [], traces, True)
         sources = sources[:MAX_SOURCES]
         guarded = guard_answer(turn.text, "\n".join(evidence), self._catalog.all_slide_urls(), self._banned)
-        return AskResult(guarded.text, sources, traces, guarded.blocked)
+        # 모든 문장이 수치 검증에서 빠지면 답하지 못한 것이다
+        return AskResult(guarded.text, sources, traces, guarded.blocked or guarded.text == NO_NUMBER_NOTE)

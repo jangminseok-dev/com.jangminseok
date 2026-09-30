@@ -34,3 +34,13 @@ def test_banned_term_blocks_whole_answer():
 def test_numbers_with_commas_and_units_match():
     r = guard_answer("테스트는 1,257개입니다.", "server 1,257 · ai 496", URLS, [])
     assert r.removed_sentences == 0
+
+
+def test_external_link_without_section_number_removed():
+    r = guard_answer("자세한 내용은 https://evil.example.com/login 에 있습니다.", EVIDENCE, URLS, [])
+    assert "example.com" not in r.text and r.removed_links == 1
+
+
+def test_project_home_link_and_sentence_end_period_kept():
+    r = guard_answer("https://callguard.jangminseok.com 과 https://callguard.jangminseok.com#05.", EVIDENCE, URLS, [])
+    assert r.text == "https://callguard.jangminseok.com 과 https://callguard.jangminseok.com#05." and r.removed_links == 0
