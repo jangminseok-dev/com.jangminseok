@@ -8,7 +8,7 @@ from agent.app.ports import FinalAnswer, Message, ToolLlmPort
 from agent.app.tool_runner import ToolRunner
 from agent.domain.guard import NO_NUMBER_NOTE, guard_answer
 from agent.domain.tools import TOOLS, with_project_slugs
-from hub.app.dtos import SlideRef
+from hub.app.dtos import SectionRef
 from hub.app.ports.output.catalog_port import ProjectCatalogPort
 
 REFUSAL = "포트폴리오에 없는 내용이라 답할 수 없습니다."
@@ -37,7 +37,7 @@ class ToolTrace:
 @dataclass(frozen=True)
 class AskResult:
     answer: str
-    sources: list[SlideRef]
+    sources: list[SectionRef]
     tool_calls: list[ToolTrace]
     refused: bool
 
@@ -54,7 +54,7 @@ class AskInteractor:
     async def ask(self, question: str) -> AskResult:
         history = [Message("user", f"{SYSTEM}\n\n질문: {question}")]
         traces: list[ToolTrace] = []
-        sources: list[SlideRef] = []
+        sources: list[SectionRef] = []
         evidence: list[str] = []
         tools = with_project_slugs(TOOLS, self._project_titles())
         while True:
@@ -79,6 +79,6 @@ class AskInteractor:
         if not evidence:
             return AskResult(REFUSAL, [], traces, True)
         sources = sources[:MAX_SOURCES]
-        guarded = guard_answer(turn.text, "\n".join(evidence), self._catalog.all_slide_urls(), self._banned)
+        guarded = guard_answer(turn.text, "\n".join(evidence), self._catalog.all_section_urls(), self._banned)
         # 모든 문장이 수치 검증에서 빠지면 답하지 못한 것이다
         return AskResult(guarded.text, sources, traces, guarded.blocked or guarded.text == NO_NUMBER_NOTE)

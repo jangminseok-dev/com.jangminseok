@@ -1,8 +1,8 @@
 from agent.app.ask import AskResult, ToolTrace
 from agent.eval.scoring import score_case, summarize
-from hub.app.dtos import SlideRef
+from hub.app.dtos import SectionRef
 
-REF = SlideRef("callguard", 5, "검색 구성", "https://callguard.jangminseok.com#05")
+REF = SectionRef("callguard", 5, "검색 구성", "https://callguard.jangminseok.com#05")
 
 
 def test_perfect_case():

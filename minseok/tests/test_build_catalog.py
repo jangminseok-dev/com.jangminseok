@@ -43,11 +43,11 @@ def _project(tmp: Path, slug: str) -> None:
 def test_build_makes_one_entry_per_page_section_and_trouble(tmp_path):
     _project(tmp_path, "demo")
     p = build(tmp_path)["projects"][0]
-    numbers = [s["number"] for s in p["slides"]]
+    numbers = [s["number"] for s in p["sections"]]
     assert numbers == [1, 2, 3, 4, 5, 5, 6]  # 한눈에, 기능, 아키텍처, 맡은 일, 어려웠던 점 2개, 회고
-    trouble = p["slides"][5]
+    trouble = p["sections"][5]
     assert trouble["title"] == "둘째 문제" and "원인2" in trouble["text"] and "결과2" in trouble["text"]
-    assert "FastAPI" in p["slides"][2]["text"]  # 아키텍처 계층의 기술 이름 — 기술별 찾기가 쓴다
+    assert "FastAPI" in p["sections"][2]["text"]  # 아키텍처 계층의 기술 이름 — 기술별 찾기가 쓴다
     assert p["metrics"] == [{"label": "정확도", "value": "0.97"}]
 
 
@@ -59,7 +59,7 @@ def test_check_mode_detects_stale_file(tmp_path):
     assert is_stale(tmp_path, out) is True
 
 
-def test_notes_sections_are_read_with_slide_number(tmp_path):
+def test_notes_sections_are_read_with_section_number(tmp_path):
     _project(tmp_path, "demo")
     (tmp_path / "demo" / "notes.md").write_text(
         "# 머리말은 무시\n\n## [01] 맡은 범위\n혼자 만들었습니다.\n\n## [02] 설계 이유\n둘째 줄입니다.\n셋째 줄입니다.\n",
@@ -67,8 +67,8 @@ def test_notes_sections_are_read_with_slide_number(tmp_path):
     )
     notes = build(tmp_path)["projects"][0]["notes"]
     assert notes == [
-        {"slide": 1, "title": "맡은 범위", "text": "혼자 만들었습니다."},
-        {"slide": 2, "title": "설계 이유", "text": "둘째 줄입니다.\n셋째 줄입니다."},
+        {"section": 1, "title": "맡은 범위", "text": "혼자 만들었습니다."},
+        {"section": 2, "title": "설계 이유", "text": "둘째 줄입니다.\n셋째 줄입니다."},
     ]
 
 
@@ -77,7 +77,7 @@ def test_project_without_notes_has_empty_list(tmp_path):
     assert build(tmp_path)["projects"][0]["notes"] == []
 
 
-def test_note_pointing_to_missing_slide_fails(tmp_path):
+def test_note_pointing_to_missing_section_fails(tmp_path):
     import pytest
 
     _project(tmp_path, "demo")  # 섹션은 01~06

@@ -5,7 +5,7 @@ import main
 from agent.app.ask import AskResult, ToolTrace
 from agent.app.ports import LlmUnavailable
 from agent.dependencies.agent_provider import get_ask_interactor, get_rate_limiter
-from hub.app.dtos import SlideRef
+from hub.app.dtos import SectionRef
 
 
 class FakeAsk:
@@ -16,7 +16,7 @@ class FakeAsk:
         self.calls += 1
         if self.exc:
             raise self.exc
-        return AskResult("4명입니다.", [SlideRef("callguard", 1, "소개", "https://callguard.jangminseok.com#01")],
+        return AskResult("4명입니다.", [SectionRef("callguard", 1, "소개", "https://callguard.jangminseok.com#01")],
                          [ToolTrace("get_project", {"slug": "callguard"}, True)], False)
 
 

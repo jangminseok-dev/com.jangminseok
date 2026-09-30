@@ -62,8 +62,8 @@ def _banned_terms(content_dir: Path) -> list[str]:
     return [t.strip() for t in [*from_env, *from_file] if t.strip()]
 
 
-def _notes(path: Path, max_slide: int, banned: list[str]) -> list[dict]:
-    """notes.md의 `## [NN] 제목` 섹션 → 슬라이드 NN에 딸린 설명. 파일이 없으면 빈 목록."""
+def _notes(path: Path, max_section: int, banned: list[str]) -> list[dict]:
+    """notes.md의 `## [NN] 제목` 섹션 → 섹션 NN에 딸린 설명. 파일이 없으면 빈 목록."""
     if not path.exists():
         return []
     src = path.read_text(encoding="utf-8")
@@ -72,11 +72,11 @@ def _notes(path: Path, max_slide: int, banned: list[str]) -> list[dict]:
     heads = list(_NOTE_HEAD.finditer(src))
     out = []
     for i, m in enumerate(heads):
-        slide = int(m.group(1))
-        if not 1 <= slide <= max_slide:
-            raise ValueError(f"{path}: [{m.group(1)}] 슬라이드가 없습니다 (01~{max_slide:02d})")
+        section = int(m.group(1))
+        if not 1 <= section <= max_section:
+            raise ValueError(f"{path}: [{m.group(1)}] 섹션이 없습니다 (01~{max_section:02d})")
         end = heads[i + 1].start() if i + 1 < len(heads) else len(src)
-        out.append({"slide": slide, "title": m.group(2).strip(), "text": src[m.end():end].strip()})
+        out.append({"section": section, "title": m.group(2).strip(), "text": src[m.end():end].strip()})
     return out
 
 
@@ -92,7 +92,7 @@ def build(content_dir: Path) -> dict:
                 "period": p["period"], "team": p["team"], "stack": p["stack"],
                 "languages": p.get("languages", []),
                 "metrics": [{"label": m["label"], "value": m["value"]} for m in page["retro"]["metrics"]],
-                "slides": [{**sec, "label": sec["title"]} for sec in _sections(page)],
+                "sections": [{**sec, "label": sec["title"]} for sec in _sections(page)],
                 "notes": _notes(f.parent / "notes.md", RETRO, banned),
             }
         )

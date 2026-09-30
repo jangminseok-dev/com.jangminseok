@@ -11,7 +11,7 @@ class KnowledgeChunkOrm(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     slug: Mapped[str] = mapped_column(String(40), index=True)
-    slide_number: Mapped[int] = mapped_column(Integer)
+    section_number: Mapped[int] = mapped_column(Integer)
     title: Mapped[str] = mapped_column(String(200))
     text: Mapped[str] = mapped_column(Text)
     url: Mapped[str] = mapped_column(String(300))

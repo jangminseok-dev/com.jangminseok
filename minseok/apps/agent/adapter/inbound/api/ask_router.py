@@ -47,7 +47,7 @@ async def ask(body: AskBody, request: Request, interactor: AskInteractor = Depen
     return {
         "answer": r.answer,
         "refused": r.refused,
-        "sources": [{"project": s.slug, "slide": s.slide_number, "title": s.title, "url": s.url} for s in r.sources],
+        "sources": [{"project": s.slug, "section": s.section_number, "title": s.title, "url": s.url} for s in r.sources],
         "tool_calls": [asdict(t) for t in r.tool_calls],
     }
 

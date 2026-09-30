@@ -20,7 +20,7 @@ def test_all_sentences_removed_becomes_note():
     assert r.text == NO_NUMBER_NOTE
 
 
-def test_unknown_slide_link_removed():
+def test_unknown_section_link_removed():
     r = guard_answer("근거: https://callguard.jangminseok.com#05 와 https://callguard.jangminseok.com#99",
                      EVIDENCE, URLS, [])
     assert "#99" not in r.text and "#05" in r.text and r.removed_links == 1

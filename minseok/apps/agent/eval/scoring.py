@@ -38,7 +38,7 @@ def score_case(case: dict, result: AskResult) -> CaseScore:
             for t in result.tool_calls)
         for name, exp in case["expected_args"].items()
     )
-    got = [f"{s.slug}#{s.slide_number:02d}" for s in result.sources[:5]]
+    got = [f"{s.slug}#{s.section_number:02d}" for s in result.sources[:5]]
     hit5 = not case["expected_sources"] or any(e in got for e in case["expected_sources"])
     numbers_ok = "확인된 수치가 없습니다" not in result.answer or case.get("must_refuse", False)
     keys = case.get("must_include") or []
@@ -64,6 +64,6 @@ def summarize(scores: list[CaseScore]) -> dict[str, float]:
 
 
 def search_hit(case: dict, chunks: list) -> bool:
-    """LLM 없이 검색만으로 기대 슬라이드가 상위 5개에 있는지 — 키워드 백엔드 비교용"""
-    got = [f"{c.slug}#{c.slide_number:02d}" for c in chunks[:5]]
+    """LLM 없이 검색만으로 기대 섹션이 상위 5개에 있는지 — 키워드 백엔드 비교용"""
+    got = [f"{c.slug}#{c.section_number:02d}" for c in chunks[:5]]
     return any(e in got for e in case["expected_sources"])

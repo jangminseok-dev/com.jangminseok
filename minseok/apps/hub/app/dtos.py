@@ -5,11 +5,11 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
-class SlideRef:
-    """근거 슬라이드"""
+class SectionRef:
+    """근거 섹션"""
 
     slug: str
-    slide_number: int
+    section_number: int
     title: str
     url: str
 
@@ -25,7 +25,7 @@ class ProjectFacts:
     stack: tuple[str, ...]
     languages: tuple[str, ...]
     metrics: tuple[tuple[str, str], ...]
-    slides: tuple[SlideRef, ...]
+    sections: tuple[SectionRef, ...]
     url: str
 
 
@@ -33,7 +33,7 @@ class ProjectFacts:
 class SkillMatch:
     slug: str
     title: str
-    evidence: tuple[SlideRef, ...]
+    evidence: tuple[SectionRef, ...]
 
 
 @dataclass(frozen=True)
@@ -41,7 +41,7 @@ class Chunk:
     """검색 결과"""
 
     slug: str
-    slide_number: int
+    section_number: int
     title: str
     text: str
     url: str

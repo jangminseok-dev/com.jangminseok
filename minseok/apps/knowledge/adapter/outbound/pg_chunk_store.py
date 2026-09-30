@@ -34,7 +34,7 @@ class PgChunkStore(ChunkStorePort):
             return {}
         async with self._sm() as s:
             rows = (await s.execute(select(KnowledgeChunkOrm).where(KnowledgeChunkOrm.id.in_(ids)))).scalars()
-            return {r.id: StoredChunk(r.id, r.slug, r.slide_number, r.title, r.text, r.url) for r in rows}
+            return {r.id: StoredChunk(r.id, r.slug, r.section_number, r.title, r.text, r.url) for r in rows}
 
     async def existing_hashes(self):
         async with self._sm() as s:
@@ -44,7 +44,7 @@ class PgChunkStore(ChunkStorePort):
         async with self._sm() as s:
             await s.execute(delete(KnowledgeChunkOrm).where(KnowledgeChunkOrm.content_hash.not_in(keep_hashes or {""})))
             s.add_all(
-                KnowledgeChunkOrm(slug=d.slug, slide_number=d.slide_number, title=d.title, text=d.text, url=d.url,
+                KnowledgeChunkOrm(slug=d.slug, section_number=d.section_number, title=d.title, text=d.text, url=d.url,
                                   content_hash=d.content_hash, embedding=v)
                 for d, v in chunks
             )

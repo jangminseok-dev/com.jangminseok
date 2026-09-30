@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
-class Slide:
+class Section:
     number: int
     title: str
     text: str
@@ -21,7 +21,7 @@ class Project:
     stack: tuple[str, ...]
     languages: tuple[str, ...]
     metrics: tuple[tuple[str, str], ...]
-    slides: tuple[Slide, ...]
+    sections: tuple[Section, ...]
 
 
 @dataclass(frozen=True)
@@ -40,11 +40,11 @@ class CatalogData:
                     period=f"{p['period']['start']} ~ {end}", team_size=p["team"]["size"], role=p["team"]["role"],
                     stack=tuple(p["stack"]), languages=tuple(p.get("languages", [])),
                     metrics=tuple((m["label"], m["value"]) for m in p["metrics"]),
-                    slides=tuple(Slide(s["number"], s["title"], s["text"]) for s in p["slides"]),
+                    sections=tuple(Section(s["number"], s["title"], s["text"]) for s in p["sections"]),
                 )
             )
         return CatalogData(tuple(ps), site)
 
-    def slide_url(self, slug: str, number: int) -> str:
+    def section_url(self, slug: str, number: int) -> str:
         host = self.site.replace("https://", "")
         return f"https://{slug}.{host}#{number:02d}"

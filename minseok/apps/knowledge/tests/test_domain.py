@@ -1,15 +1,15 @@
 from knowledge.domain.chunker import chunk_catalog
 from knowledge.domain.rrf import rrf_fuse
 
-PROJECTS = [{"slug": "a", "title": "A", "tagline": "소개", "slides": [
+PROJECTS = [{"slug": "a", "title": "A", "tagline": "소개", "sections": [
     {"number": 2, "title": "설계", "text": "가" * 1000},
     {"number": 3, "title": "검색", "text": "짧은 본문"},
 ]}]
 
 
-def test_one_chunk_per_slide_split_when_long_and_intro_chunk():
+def test_one_chunk_per_section_split_when_long_and_intro_chunk():
     chunks = chunk_catalog(PROJECTS, "https://jangminseok.com", max_chars=800)
-    numbers = [c.slide_number for c in chunks]
+    numbers = [c.section_number for c in chunks]
     assert numbers.count(2) == 2 and numbers.count(3) == 1 and numbers.count(1) == 1
     assert all(len(c.text) <= 800 + len("A 설계\n") for c in chunks)
     assert chunks[-1].url == "https://a.jangminseok.com#03"
@@ -32,9 +32,9 @@ def test_rrf_handles_empty_and_single_list():
     assert [i for i, _ in rrf_fuse([[5, 6]])] == [5, 6]
 
 
-def test_notes_become_chunks_linked_to_their_slide():
-    projects = [{**PROJECTS[0], "notes": [{"slide": 3, "title": "검색 이유", "text": "키워드와 벡터를 섞었습니다."}]}]
+def test_notes_become_chunks_linked_to_their_section():
+    projects = [{**PROJECTS[0], "notes": [{"section": 3, "title": "검색 이유", "text": "키워드와 벡터를 섞었습니다."}]}]
     notes = [c for c in chunk_catalog(projects, "https://jangminseok.com") if "설명" in c.title]
     assert len(notes) == 1
-    assert notes[0].slide_number == 3 and notes[0].url == "https://a.jangminseok.com#03"
+    assert notes[0].section_number == 3 and notes[0].url == "https://a.jangminseok.com#03"
     assert "키워드와 벡터" in notes[0].text and notes[0].title == "검색 이유 (설명)"

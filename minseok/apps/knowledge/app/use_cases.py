@@ -27,7 +27,7 @@ class SearchInteractor(KnowledgeSearchPort):
         sparse = await self._store.keyword_search(q, CANDIDATES)
         fused = rrf_fuse([dense, sparse])[:top_k]
         rows = await self._store.get([i for i, _ in fused])
-        return [Chunk(rows[i].slug, rows[i].slide_number, rows[i].title, rows[i].text, rows[i].url, score)
+        return [Chunk(rows[i].slug, rows[i].section_number, rows[i].title, rows[i].text, rows[i].url, score)
                 for i, score in fused if i in rows]
 
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 
-from hub.app.dtos import SlideRef
+from hub.app.dtos import SectionRef
 from hub.app.ports.output.catalog_port import ProjectCatalogPort
 from hub.app.ports.output.search_port import KnowledgeSearchPort, SearchUnavailable
 
@@ -19,7 +19,7 @@ class ToolResult:
     ok: bool
     payload: dict
     evidence_text: str
-    sources: list[SlideRef]
+    sources: list[SectionRef]
 
 
 class ToolRunner:
@@ -38,8 +38,8 @@ class ToolRunner:
                 return ToolResult(False, {"error": "검색을 잠시 쓸 수 없습니다. 다른 도구로 확인해 주십시오."}, "", [])
             # 근거 칩에 프로젝트 이름을 붙인다 — "아키텍처"만 있으면 어느 프로젝트인지 알 수 없다
             names = {slug: f.title for slug in {c.slug for c in chunks} if (f := self._catalog.get_project(slug))}
-            refs = [SlideRef(c.slug, c.slide_number, _with_project(names.get(c.slug), c.title), c.url) for c in chunks]
-            payload = {"results": [{"project": c.slug, "slide": c.slide_number, "title": c.title,
+            refs = [SectionRef(c.slug, c.section_number, _with_project(names.get(c.slug), c.title), c.url) for c in chunks]
+            payload = {"results": [{"project": c.slug, "section": c.section_number, "title": c.title,
                                     "url": c.url, "text": c.text} for c in chunks]}
             return ToolResult(True, payload, "\n".join(c.text for c in chunks), refs)
         if name == "get_project":
@@ -50,7 +50,7 @@ class ToolRunner:
             payload = asdict(facts)
             evidence = " ".join([facts.period, f"{facts.team_size}명", facts.role, *facts.stack,
                                  *(f"{k} {v}" for k, v in facts.metrics)])
-            return ToolResult(True, payload, evidence, list(facts.slides))
+            return ToolResult(True, payload, evidence, list(facts.sections))
         if name == "find_by_skill":
             matches = self._catalog.find_by_skill(str(args.get("skill", "")))
             payload = {"projects": [asdict(m) for m in matches]}

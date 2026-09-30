@@ -86,15 +86,15 @@ async def test_tool_call_signature_is_carried_into_history():
 
 async def test_sources_are_unique_by_url_and_capped():
     from agent.app.ask import MAX_SOURCES
-    from hub.app.dtos import SlideRef
+    from hub.app.dtos import SectionRef
 
     class ManyRefs(Cat):
         def find_by_skill(self, skill):
             from hub.app.dtos import SkillMatch
-            refs = tuple(SlideRef("callguard", n % 3 + 1, f"t{n}", f"https://callguard.jangminseok.com#{n % 3 + 1:02d}") for n in range(9))
+            refs = tuple(SectionRef("callguard", n % 3 + 1, f"t{n}", f"https://callguard.jangminseok.com#{n % 3 + 1:02d}") for n in range(9))
             return [SkillMatch("callguard", "CallGuard", refs)]
 
-        def all_slide_urls(self):
+        def all_section_urls(self):
             return {f"https://callguard.jangminseok.com#{n:02d}" for n in (1, 2, 3)}
 
     cat = ManyRefs()
@@ -106,11 +106,11 @@ async def test_sources_are_unique_by_url_and_capped():
 
 async def test_refusal_at_tool_limit_also_caps_sources():
     from agent.app.ask import MAX_SOURCES
-    from hub.app.dtos import SkillMatch, SlideRef
+    from hub.app.dtos import SkillMatch, SectionRef
 
     class ManyRefs(Cat):
         def find_by_skill(self, skill):
-            refs = tuple(SlideRef("callguard", n, f"t{n}", f"https://callguard.jangminseok.com#{n:02d}") for n in range(1, 10))
+            refs = tuple(SectionRef("callguard", n, f"t{n}", f"https://callguard.jangminseok.com#{n:02d}") for n in range(1, 10))
             return [SkillMatch("callguard", "CallGuard", refs)]
 
     cat = ManyRefs()

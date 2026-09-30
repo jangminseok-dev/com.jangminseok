@@ -15,7 +15,7 @@ class EmbeddingUnavailable(Exception):
 class StoredChunk:
     id: int
     slug: str
-    slide_number: int
+    section_number: int
     title: str
     text: str
     url: str

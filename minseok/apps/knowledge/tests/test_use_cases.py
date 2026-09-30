@@ -51,7 +51,7 @@ async def test_search_blank_query_returns_empty_without_embedding():
 
 async def test_index_skips_unchanged_chunks():
     store, embed = FakeStore(), FakeEmbed()
-    projects = [{"slug": "a", "title": "A", "tagline": "t", "slides": [{"number": 2, "title": "s", "text": "x"}]}]
+    projects = [{"slug": "a", "title": "A", "tagline": "t", "sections": [{"number": 2, "title": "s", "text": "x"}]}]
     first = await IndexInteractor(embed, store).run(projects, "https://jangminseok.com")
     store.hashes = {c.content_hash for c, _ in store.replaced[0]} | store.replaced[1]
     second = await IndexInteractor(embed, store).run(projects, "https://jangminseok.com")

@@ -3,7 +3,7 @@
 export type AskResponse = {
   answer: string;
   refused: boolean;
-  sources: { project: string; slide: number; title: string; url: string }[];
+  sources: { project: string; section: number; title: string; url: string }[];
   tool_calls: { name: string; args: Record<string, unknown>; ok: boolean }[];
 };
 

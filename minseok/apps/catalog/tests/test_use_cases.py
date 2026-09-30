@@ -8,22 +8,22 @@ DATA = CatalogData.from_dict(
              "period": {"start": "2026-08-20", "end": None}, "team": {"size": 4, "role": "백엔드"},
              "stack": ["Python 3.13", "Elasticsearch 9 + nori"], "languages": ["Python"],
              "metrics": [{"label": "Recall@5", "value": "0.971"}],
-             "slides": [{"number": 2, "title": "설계 원칙", "label": "l", "text": "server와 ai 분리"},
+             "sections": [{"number": 2, "title": "설계 원칙", "label": "l", "text": "server와 ai 분리"},
                         {"number": 5, "title": "검색 구성", "label": "l", "text": "Elasticsearch BM25와 dense 비교"}]},
             {"slug": "redoceanmap", "order": 2, "title": "RedOceanMap", "tagline": "t",
              "period": {"start": "2026-05-22", "end": None}, "team": {"size": 1, "role": "1인"},
              "stack": ["PostgreSQL + pgvector"], "languages": ["Python"], "metrics": [],
-             "slides": [{"number": 2, "title": "설계 원칙", "label": "l", "text": "import-linter"}]},
+             "sections": [{"number": 2, "title": "설계 원칙", "label": "l", "text": "import-linter"}]},
         ]
     },
     site="https://jangminseok.com",
 )
 
 
-def test_get_project_returns_facts_with_slide_urls():
+def test_get_project_returns_facts_with_section_urls():
     facts = CatalogInteractor(DATA).get_project("callguard")
     assert facts is not None and facts.team_size == 4
-    assert facts.slides[1].url == "https://callguard.jangminseok.com#05"
+    assert facts.sections[1].url == "https://callguard.jangminseok.com#05"
     assert ("Recall@5", "0.971") in facts.metrics
 
 
@@ -36,21 +36,21 @@ def test_find_by_skill_matches_stack_case_insensitive_and_points_to_architecture
         {"projects": [{"slug": "callguard", "order": 1, "title": "CallGuard", "tagline": "t",
                        "period": {"start": "2026-08-20", "end": None}, "team": {"size": 4, "role": "r"},
                        "stack": ["Elasticsearch 9 + nori"], "languages": ["Python"], "metrics": [],
-                       "slides": [{"number": 3, "title": "아키텍처", "label": "l", "text": "검색과 음성: Elasticsearch 9 + nori"}]}]},
+                       "sections": [{"number": 3, "title": "아키텍처", "label": "l", "text": "검색과 음성: Elasticsearch 9 + nori"}]}]},
         site="https://jangminseok.com",
     )
     matches = CatalogInteractor(data).find_by_skill("elasticsearch")
     assert [m.slug for m in matches] == ["callguard"]
-    assert [e.slide_number for e in matches[0].evidence] == [3]
+    assert [e.section_number for e in matches[0].evidence] == [3]
 
 
-def test_find_by_skill_stack_only_match_has_intro_slide():
+def test_find_by_skill_stack_only_match_has_intro_section():
     matches = CatalogInteractor(DATA).find_by_skill("pgvector")
-    assert matches[0].slug == "redoceanmap" and matches[0].evidence[0].slide_number == 1
+    assert matches[0].slug == "redoceanmap" and matches[0].evidence[0].section_number == 1
 
 
-def test_all_slide_urls_includes_intro():
-    urls = CatalogInteractor(DATA).all_slide_urls()
+def test_all_section_urls_includes_intro():
+    urls = CatalogInteractor(DATA).all_section_urls()
     assert "https://redoceanmap.jangminseok.com#01" in urls
 
 
@@ -60,15 +60,15 @@ def test_find_by_skill_ignores_tech_only_mentioned_in_text():
         {"projects": [{"slug": "localhostdaegu", "order": 3, "title": "localhost:daegu", "tagline": "t",
                        "period": {"start": "2026-09-15", "end": None}, "team": {"size": 3, "role": "r"},
                        "stack": ["FastAPI"], "languages": ["Python"], "metrics": [],
-                       "slides": [{"number": 6, "title": "회고", "label": "l",
+                       "sections": [{"number": 6, "title": "회고", "label": "l",
                                    "text": "아쉬운 점: Neo4j와 Redis를 구성만 하고 쓰지 않았습니다"}]}]},
         site="https://jangminseok.com",
     )
     assert CatalogInteractor(data).find_by_skill("Neo4j") == []
 
 
-def test_all_slide_urls_has_only_real_sections():
-    urls = CatalogInteractor(DATA).all_slide_urls()
+def test_all_section_urls_has_only_real_sections():
+    urls = CatalogInteractor(DATA).all_section_urls()
     assert urls == {
         "https://callguard.jangminseok.com#01", "https://callguard.jangminseok.com#02", "https://callguard.jangminseok.com#05",
         "https://redoceanmap.jangminseok.com#01", "https://redoceanmap.jangminseok.com#02",
@@ -77,4 +77,4 @@ def test_all_slide_urls_has_only_real_sections():
 
 def test_section_refs_carry_project_title_so_chips_are_not_ambiguous():
     facts = CatalogInteractor(DATA).get_project("callguard")
-    assert facts is not None and facts.slides[0].title == "CallGuard 설계 원칙"
+    assert facts is not None and facts.sections[0].title == "CallGuard 설계 원칙"

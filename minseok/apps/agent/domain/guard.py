@@ -43,7 +43,7 @@ def guard_answer(answer: str, evidence_text: str, known_urls: set[str], banned: 
     allowed = _numbers(evidence_text) | _numbers(" ".join(known_urls))
     kept, removed = [], 0
     for sent in (s for s in _SENT.split(text) if s.strip()):
-        body = _URL.sub("", sent)  # 링크 속 슬라이드 번호는 수치로 보지 않는다
+        body = _URL.sub("", sent)  # 링크 속 섹션 번호는 수치로 보지 않는다
         if _numbers(body) - allowed:
             removed += 1
         else:

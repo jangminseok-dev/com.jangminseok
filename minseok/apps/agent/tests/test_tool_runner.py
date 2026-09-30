@@ -1,9 +1,9 @@
 from agent.app.tool_runner import ToolRunner
-from hub.app.dtos import Chunk, ProjectFacts, SkillMatch, SlideRef
+from hub.app.dtos import Chunk, ProjectFacts, SkillMatch, SectionRef
 from hub.app.ports.output.catalog_port import ProjectCatalogPort
 from hub.app.ports.output.search_port import KnowledgeSearchPort
 
-REF = SlideRef("callguard", 5, "검색 구성", "https://callguard.jangminseok.com#05")
+REF = SectionRef("callguard", 5, "검색 구성", "https://callguard.jangminseok.com#05")
 
 
 class Cat(ProjectCatalogPort):
@@ -19,7 +19,7 @@ class Cat(ProjectCatalogPort):
     def slugs(self):
         return ["callguard"]
 
-    def all_slide_urls(self):
+    def all_section_urls(self):
         return {REF.url}
 
 
