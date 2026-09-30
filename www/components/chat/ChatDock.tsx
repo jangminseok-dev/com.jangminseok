@@ -5,17 +5,40 @@ import ChatDialog from "@/components/chat/ChatDialog";
 import type { Turn } from "@/components/chat/ChatDialog";
 import { AgentError, askAgent } from "@/lib/agentApi";
 
-const EXAMPLES = ["CallGuard에서 개인정보는 어떻게 보호했나요?", "Elasticsearch를 쓴 프로젝트는 무엇인가요?", "RedOceanMap의 평가 방식은?"];
+// 평가 시험 문제(minseok/apps/agent/eval/golden.yaml) 중 도구, 근거, 핵심 사실이 모두 맞은 질문만 — 입력창을 누를 때마다 3개를 새로 고른다
+const EXAMPLE_POOL = [
+  "CallGuard에서 개인정보는 어떻게 보호했나요?",
+  "RedOceanMap에서 하이브리드 검색을 기각한 이유는 무엇인가요?",
+  "차곡노트 알림장 링크는 로그인 없이 어떻게 안전하게 공유하나요?",
+  "발자국에서 경유지는 어떻게 골랐나요?",
+  "JB Silver Connect는 LLM 호출이 실패하면 어떻게 하나요?",
+  "REMAKE DAY에서 장민석의 역할은 무엇이었나요?",
+  "localhost:daegu의 팀 규모와 장민석의 역할을 알려 주세요",
+  "Elasticsearch를 쓴 프로젝트는 무엇인가요?",
+  "k3s를 써 본 프로젝트는 어디인가요?",
+  "Docker를 쓴 프로젝트들은 배포를 어떻게 구성했나요?",
+  "RedOceanMap은 왜 CI를 껐고, 이후에는 어떻게 바뀌었나요?",
+  "차곡노트는 AI로 대량으로 코드를 짜면서 구조를 어떻게 지켰나요?",
+];
+const EXAMPLE_COUNT = 3;
+
+const pickExamples = () => [...EXAMPLE_POOL].sort(() => Math.random() - 0.5).slice(0, EXAMPLE_COUNT);
 
 export default function ChatDock() {
-  const [state, setState] = useState<{ turns: Turn[]; busy: boolean; open: boolean }>({ turns: [], busy: false, open: false });
+  const [state, setState] = useState<{ turns: Turn[]; busy: boolean; open: boolean; examples: string[] }>({
+    turns: [],
+    busy: false,
+    open: false,
+    // 서버와 브라우저의 첫 화면이 같도록 처음에는 고정된 3개, 입력창을 누르면 새로 고른다
+    examples: EXAMPLE_POOL.slice(0, EXAMPLE_COUNT),
+  });
 
   const close = useCallback(() => setState((s) => ({ ...s, open: false })), []);
 
   const ask = async (question: string) => {
     const q = question.trim();
     if (!q || state.busy) return;
-    setState((s) => ({ busy: true, open: true, turns: [...s.turns, { question: q, result: null, error: null }] }));
+    setState((s) => ({ ...s, busy: true, open: true, turns: [...s.turns, { question: q, result: null, error: null }] }));
     const settle = (patch: Partial<Turn>) =>
       setState((s) => ({ ...s, busy: false, turns: s.turns.map((t, i) => (i === s.turns.length - 1 ? { ...t, ...patch } : t)) }));
     try {
@@ -44,7 +67,7 @@ export default function ChatDock() {
           <div className="mb-2 hidden rounded-3xl border border-white/10 bg-[rgb(14_16_30/0.92)] p-2 backdrop-blur-xl group-focus-within:block">
             <p className="px-3 pb-1 pt-2 text-xs text-white/60">예시 질문</p>
             <ul>
-              {EXAMPLES.map((q) => (
+              {state.examples.map((q) => (
                 <li key={q}>
                   <button
                     type="button"
@@ -73,7 +96,11 @@ export default function ChatDock() {
               name="question"
               maxLength={500}
               autoComplete="off"
-              onFocus={() => (state.turns.length ? setState((s) => ({ ...s, open: true })) : undefined)}
+              onFocus={(e) => {
+                // 예시 질문에서 키보드로 돌아온 경우는 보던 목록을 유지한다
+                const fromList = e.relatedTarget instanceof Node && !!e.currentTarget.closest(".group")?.contains(e.relatedTarget);
+                setState((s) => (s.turns.length ? { ...s, open: true } : fromList ? s : { ...s, examples: pickExamples() }));
+              }}
               placeholder="프로젝트에 대해 물어보십시오"
               aria-label="포트폴리오에 질문하기"
               className="min-w-0 flex-1 bg-transparent py-1.5 text-base outline-none placeholder:text-white/75"
