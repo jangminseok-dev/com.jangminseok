@@ -54,7 +54,7 @@
   expected_args: {get_project: {slug: callguard}}
   expected_sources: [callguard#01]
   must_refuse: false
-  must_include: [2026-08-20]
+  must_include: ["8월 20일"]
 - question: RedOceanMap의 기술 스택을 알려 주세요
   expected_tools: [get_project]
   expected_args: {get_project: {slug: redoceanmap}}
@@ -140,7 +140,7 @@
   expected_args: {get_project: {slug: chagocnote}}
   expected_sources: [chagocnote#03, chagocnote#04]
   must_refuse: false
-  must_include: [import-linter]
+  must_include: [자동 검사]
 
 # ── 거절 (4) ──
 - question: 오늘 서울 날씨 알려 주세요

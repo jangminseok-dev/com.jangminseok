@@ -36,6 +36,11 @@ def test_numbers_with_commas_and_units_match():
     assert r.removed_sentences == 0
 
 
+def test_date_with_leading_zero_matches():
+    r = guard_answer("2026년 8월 20일에 시작했습니다.", "2026-08-20 ~ 진행 중", URLS, [])
+    assert r.removed_sentences == 0
+
+
 def test_external_link_without_section_number_removed():
     r = guard_answer("자세한 내용은 https://evil.example.com/login 에 있습니다.", EVIDENCE, URLS, [])
     assert "example.com" not in r.text and r.removed_links == 1

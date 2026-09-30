@@ -22,7 +22,8 @@ class GuardResult:
 
 
 def _numbers(s: str) -> set[str]:
-    return {n.replace(",", "") for n in _NUM.findall(s)}
+    # 앞자리 0은 떼어 비교한다 — 근거의 "2026-08-20"과 답변의 "8월 20일"이 같은 수치
+    return {re.sub(r"^0+(?=\d)", "", n.replace(",", "")) for n in _NUM.findall(s)}
 
 
 def guard_answer(answer: str, evidence_text: str, known_urls: set[str], banned: list[str]) -> GuardResult:
