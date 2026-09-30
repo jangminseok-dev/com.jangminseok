@@ -40,7 +40,7 @@ export default function Hero({ profile, projectCount, teamProjectCount, skillsNo
           ))}
         </dl>
         <div className="mt-8 flex flex-wrap gap-3">
-          <a href="#projects" className="rounded-2xl bg-brand px-6 py-3.5 font-semibold text-white hover:opacity-90">
+          <a href="#projects" className="rounded-2xl bg-brand-deep px-6 py-3.5 font-semibold text-white hover:opacity-90">
             프로젝트 보기
           </a>
           <a href="#requirements" className="glass rounded-2xl px-6 py-3.5 font-semibold text-white hover:bg-white/15">
