@@ -6,6 +6,8 @@ _s = get_secret_manager()
 _db = _s.get("DATABASE_URL")
 DATABASE_URL = _db.replace("postgresql://", "postgresql+psycopg://", 1) if _db else None
 GEMINI_API_KEY = _s.get("GEMINI_API_KEY")
+# 운영(Vercel)에는 반드시 넣는다 — 없으면 로컬·CI용 값으로 해시해 IP를 역추적할 수 있다
+IP_HASH_SECRET = _s.get("IP_HASH_SECRET") or "local-only"
 
 GEMINI_MODEL = "gemini-3.5-flash-lite"  # 무료 RPD 500 (3.8 Flash는 20)
 EMBED_MODEL = "gemini-embedding-2"

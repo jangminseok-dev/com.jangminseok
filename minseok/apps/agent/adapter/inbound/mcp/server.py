@@ -33,7 +33,7 @@ def build_mcp(runner_factory: Callable[[], ToolRunner],
 
     async def _run(name: str, args: dict) -> str:
         # 호출자 IP를 알 수 없으므로 MCP 전체를 한 버킷으로 묶는다
-        if not await limiter_factory().hit("mcp"):
+        if await limiter_factory().hit("mcp"):
             return json.dumps(RATE_LIMITED, ensure_ascii=False)
         result = await runner_factory().run(name, args)
         return json.dumps(result.payload, ensure_ascii=False)

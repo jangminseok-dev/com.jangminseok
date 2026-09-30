@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 
 import main
@@ -20,16 +21,22 @@ class FakeAsk:
 
 
 class Limiter:
-    def __init__(self, allow=True):
-        self.allow = allow
+    def __init__(self, exceeded=None):
+        self.exceeded = exceeded
 
     async def hit(self, ip):
-        return self.allow
+        return self.exceeded
 
 
-def client(ask=None, allow=True):
+@pytest.fixture(autouse=True)
+def _restore_overrides():
+    yield
+    main.app.dependency_overrides.clear()  # 다른 테스트 파일이 가짜 의존성을 물려받지 않게
+
+
+def client(ask=None, exceeded=None):
     main.app.dependency_overrides[get_ask_interactor] = lambda: ask or FakeAsk()
-    main.app.dependency_overrides[get_rate_limiter] = lambda: Limiter(allow)
+    main.app.dependency_overrides[get_rate_limiter] = lambda: Limiter(exceeded)
     return TestClient(main.app)
 
 
@@ -45,13 +52,19 @@ def test_rejects_empty_and_too_long():
     c = client(ask)
     assert c.post("/agent/v1/ask", json={"question": ""}).status_code == 422
     assert c.post("/agent/v1/ask", json={"question": "가" * 501}).status_code == 422
+    assert c.post("/agent/v1/ask", json={"question": "   "}).status_code == 422
     assert ask.calls == 0
 
 
 def test_rate_limited_returns_429():
     ask = FakeAsk()
-    res = client(ask, allow=False).post("/agent/v1/ask", json={"question": "질문"})
-    assert res.status_code == 429 and ask.calls == 0
+    res = client(ask, exceeded="minute").post("/agent/v1/ask", json={"question": "질문"})
+    assert res.status_code == 429 and ask.calls == 0 and "1분 뒤" in res.json()["detail"]
+
+
+def test_day_limit_says_tomorrow_not_one_minute():
+    res = client(exceeded="day").post("/agent/v1/ask", json={"question": "질문"})
+    assert res.status_code == 429 and "내일" in res.json()["detail"] and "1분" not in res.json()["detail"]
 
 
 def test_llm_quota_maps_to_503():

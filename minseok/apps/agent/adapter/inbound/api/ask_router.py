@@ -35,7 +35,10 @@ async def ask(body: AskBody, request: Request, interactor: AskInteractor = Depen
     h = lambda v: hash_ip(v.split(",")[0].strip())[:8] if v else "-"
     log.warning("ask ip=%s xff=%s real=%s vercel=%s", h(ip), h(request.headers.get("x-forwarded-for", "")),
                 h(request.headers.get("x-real-ip", "")), h(request.headers.get("x-vercel-forwarded-for", "")))
-    if not await limiter.hit(ip):
+    exceeded = await limiter.hit(ip)
+    if exceeded == "day":
+        raise HTTPException(429, "오늘 질문 한도를 모두 쓰셨습니다. 내일 다시 시도해 주십시오.")
+    if exceeded:
         raise HTTPException(429, "질문이 많아 잠시 쉬고 있습니다. 1분 뒤 다시 시도해 주십시오.")
     try:
         r = await interactor.ask(body.question.strip())
