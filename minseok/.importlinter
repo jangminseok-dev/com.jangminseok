@@ -70,7 +70,7 @@ forbidden_modules =
     agent
 
 [importlinter:contract:inbound-only-usecases]
-name = 입구(챗봇·MCP)는 agent.app만 — 도메인 로직 중복 금지
+name = 입구(챗봇·MCP)는 outbound 어댑터와 다른 스포크를 직접 import하지 않는다
 type = forbidden
 source_modules =
     agent.adapter.inbound
