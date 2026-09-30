@@ -49,6 +49,53 @@ body {
   .float {
     animation: float 6s ease-in-out infinite;
   }
+
+  /* 모바일에서 옆으로 밀어 보는 메뉴 — 가려진 쪽 끝만 흐려 더 있다는 걸 알린다 */
+  @media (width < 40rem) {
+    .scroll-fade {
+      padding-right: 2.5rem;
+      mask-image: linear-gradient(to right, #000 85%, transparent);
+    }
+
+    /* 스크롤 연동을 지원하면: 처음엔 오른쪽만, 중간엔 양쪽, 끝에선 왼쪽만 흐린다 */
+    @supports (animation-timeline: scroll()) {
+      .scroll-fade {
+        padding-right: 0;
+        mask-image: linear-gradient(to right, transparent, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent);
+        animation: scroll-fade linear both;
+        animation-timeline: scroll(self inline);
+      }
+    }
+  }
+}
+
+@property --fade-l {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --fade-r {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 2.5rem;
+}
+
+@keyframes scroll-fade {
+  from {
+    --fade-l: 0px;
+    --fade-r: 2.5rem;
+  }
+  15% {
+    --fade-l: 2.5rem;
+  }
+  85% {
+    --fade-r: 2.5rem;
+  }
+  to {
+    --fade-l: 2.5rem;
+    --fade-r: 0px;
+  }
 }
 
 @keyframes float {

@@ -343,7 +343,7 @@ export default function ProjectReview(props: Props) {
   return (
     <>
       <nav className="glass sticky top-16 z-30 border-x-0 border-t-0">
-        <ul className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-5 py-2 text-sm max-sm:pr-10 max-sm:[mask-image:linear-gradient(to_right,#000_85%,transparent)]">
+        <ul className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-5 py-2 text-sm scroll-fade">
           {SECTIONS.map((s) => (
             <li key={s.id}>
               <a href={`#${s.id}`} className="block whitespace-nowrap rounded-lg px-2 py-1.5 sm:px-3 text-white/75 hover:bg-white/10 hover:text-white">

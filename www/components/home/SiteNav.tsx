@@ -16,8 +16,7 @@ export default function SiteNav({ name, github, base = "" }: { name: string; git
         <a href={`${base}#about`} className="shrink-0 text-[1.35rem] font-bold">
           {name}
         </a>
-        {/* 모바일에선 옆으로 밀어서 본다 — 오른쪽 끝을 흐려 더 있다는 걸 알리고, 끝까지 밀면 마지막 항목이 흐림 밖으로 나오게 여백을 둔다 */}
-        <ul className="flex flex-1 gap-1 overflow-x-auto whitespace-nowrap text-sm max-sm:pr-10 max-sm:[mask-image:linear-gradient(to_right,#000_85%,transparent)]">
+        <ul className="flex flex-1 gap-1 overflow-x-auto whitespace-nowrap text-sm scroll-fade">
           {SECTIONS.map((s) => (
             <li key={s.id}>
               <a href={`${base}#${s.id}`} className="block rounded-lg px-2 py-2 text-white/80 sm:px-3 hover:bg-white/10 hover:text-white">
