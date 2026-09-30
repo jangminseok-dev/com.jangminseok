@@ -15,25 +15,25 @@
  "n": 30,
  "runs": [
   {
-   "run_at": "2026-09-30T04:30:21+00:00",
+   "run_at": "2026-09-30T18:52:46+00:00",
    "metrics": {
-    "tool_selection": 0.933,
+    "tool_selection": 1.0,
     "arg_accuracy": 1.0,
     "hit_at_5": 1.0,
     "number_check": 1.0,
     "refusal": 1.0,
-    "content": 0.75,
+    "content": 0.65,
     "register": 1.0
    }
   }
  ],
  "metrics": {
-  "tool_selection": 0.933,
+  "tool_selection": 1.0,
   "arg_accuracy": 1.0,
   "hit_at_5": 1.0,
   "number_check": 1.0,
   "refusal": 1.0,
-  "content": 0.75,
+  "content": 0.65,
   "register": 1.0
  }
 }
