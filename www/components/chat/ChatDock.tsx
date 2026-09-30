@@ -67,7 +67,7 @@ export default function ChatDock() {
               maxLength={500}
               autoComplete="off"
               onFocus={() => (state.turns.length ? setState((s) => ({ ...s, open: true })) : undefined)}
-              placeholder="제 프로젝트에 대해 무엇이든 물어보십시오"
+              placeholder="프로젝트에 대해 물어보십시오"
               aria-label="포트폴리오에 질문하기"
               className="min-w-0 flex-1 bg-transparent py-1.5 text-base outline-none placeholder:text-white/75"
             />
