@@ -45,7 +45,7 @@ export default function ProjectGrid({ projects, isProd }: { projects: Project[];
     { title: "팀 프로젝트", items: projects.filter((p) => p.team.size > 1).sort(byStartDate) },
   ];
   return (
-    <section id="projects" className="mx-auto max-w-6xl px-5 py-16">
+    <section id="projects" className="mx-auto max-w-7xl px-5 py-16">
       <h2 className="text-2xl font-bold md:text-3xl">프로젝트</h2>
       {groups.map((g) => (
         <div key={g.title} className="mt-8">

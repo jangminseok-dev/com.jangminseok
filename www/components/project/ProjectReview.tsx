@@ -343,7 +343,7 @@ export default function ProjectReview(props: Props) {
   return (
     <>
       <nav className="glass sticky top-16 z-30 border-x-0 border-t-0">
-        <ul className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-5 py-2 text-sm">
+        <ul className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-5 py-2 text-sm">
           {SECTIONS.map((s) => (
             <li key={s.id}>
               <a href={`#${s.id}`} className="block whitespace-nowrap rounded-lg px-3 py-1.5 text-white/75 hover:bg-white/10 hover:text-white">
@@ -353,7 +353,7 @@ export default function ProjectReview(props: Props) {
           ))}
         </ul>
       </nav>
-      <div className="mx-auto max-w-6xl px-5">
+      <div className="mx-auto max-w-7xl px-5">
         <Overview {...props} />
         <Features slug={props.project.slug} page={props.project.page} />
         <Architecture slug={props.project.slug} page={props.project.page} />

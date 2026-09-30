@@ -12,7 +12,7 @@ export default function Hero({ profile, projectCount, teamProjectCount, skillsNo
   return (
     <section
       id="about"
-      className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 py-12 md:min-h-[calc(100dvh-4rem)] md:grid-cols-[1fr_1.2fr]"
+      className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-5 py-12 md:min-h-[calc(100dvh-4rem)] md:grid-cols-[1fr_1.2fr]"
     >
       <div>
         <p className="font-semibold text-brand-soft">
