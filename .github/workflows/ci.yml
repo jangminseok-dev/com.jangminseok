@@ -44,3 +44,5 @@ jobs:
       - run: pytest -q -m "not network"
       - run: PYTHONPATH=apps lint-imports --config .importlinter
       - run: python scripts/build_catalog.py --check
+        env:
+          BANNED_TERMS: ${{ secrets.BANNED_TERMS }}

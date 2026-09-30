@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -54,8 +55,11 @@ _NOTE_HEAD = re.compile(r"^## \[(\d{2})\] (.+)$", re.M)
 
 
 def _banned_terms(content_dir: Path) -> list[str]:
-    f = content_dir / ".banned.local.txt"  # 사이트 빌드와 같은 금지어 파일(gitignore)
-    return [t.strip() for t in f.read_text(encoding="utf-8").splitlines() if t.strip()] if f.exists() else []
+    """사이트 빌드(www/lib/content/banned.ts)와 같은 출처 — 환경변수 BANNED_TERMS(CI)와 금지어 파일(로컬, gitignore)"""
+    f = content_dir / ".banned.local.txt"
+    from_file = f.read_text(encoding="utf-8").splitlines() if f.exists() else []
+    from_env = re.split(r"[\n,]", os.environ.get("BANNED_TERMS", ""))  # 독립 실행 스크립트라 core 설정을 거치지 않는다
+    return [t.strip() for t in [*from_env, *from_file] if t.strip()]
 
 
 def _notes(path: Path, max_slide: int, banned: list[str]) -> list[dict]:

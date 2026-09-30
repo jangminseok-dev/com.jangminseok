@@ -94,3 +94,13 @@ def test_banned_term_in_notes_fails(tmp_path):
     (tmp_path / "demo" / "notes.md").write_text("## [01] 맡은 범위\n홍길동 팀원과 함께했습니다.\n", encoding="utf-8")
     with pytest.raises(ValueError, match="공개 금지"):
         build(tmp_path)
+
+
+def test_banned_terms_from_env_also_checked_so_ci_catches_notes(tmp_path, monkeypatch):
+    import pytest
+
+    _project(tmp_path, "demo")
+    monkeypatch.setenv("BANNED_TERMS", "김철수,홍길동")  # CI엔 .banned.local.txt가 없고 이 환경변수만 있다
+    (tmp_path / "demo" / "notes.md").write_text("## [01] 맡은 범위\n홍길동 팀원과 함께했습니다.\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="공개 금지"):
+        build(tmp_path)
