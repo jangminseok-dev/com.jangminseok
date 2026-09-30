@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import ChatDock from "@/components/chat/ChatDock";
 import "./globals.css";
 
+// 글꼴은 자주 쓰는 한글 2,350자(KS X 1001)와 영문, 기호만 남긴 부분집합(2MB → 0.5MB)
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",
