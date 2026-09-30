@@ -101,7 +101,7 @@ async def main() -> None:
         runs = (data.get("runs") or []) + [{"run_at": now, "metrics": await full_run(cases)}]
         runs = runs[-KEEP_RUNS:]
         data.update({"model": GEMINI_MODEL, "keyword_backend": KEYWORD_BACKEND, "n": len(cases), "runs": runs,
-                     "metrics": {k: min(r["metrics"][k] for r in runs) for k in runs[-1]["metrics"]}})
+                     "metrics": {k: min(r["metrics"][k] for r in runs if k in r["metrics"]) for k in runs[-1]["metrics"]}})
     _save(data)
     print(json.dumps(data["backends"] if "--search-only" in sys.argv else data["metrics"], ensure_ascii=False))
 
