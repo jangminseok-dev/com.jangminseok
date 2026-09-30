@@ -61,9 +61,3 @@ def summarize(scores: list[CaseScore]) -> dict[str, float]:
         "content": ratio([s.content_ok for s in scores if s.content_ok is not None]),
         "register": ratio([s.formal_ok for s in scores]),
     }
-
-
-def search_hit(case: dict, chunks: list) -> bool:
-    """LLM 없이 검색만으로 기대 섹션이 상위 5개에 있는지 — 키워드 백엔드 비교용"""
-    got = [f"{c.slug}#{c.section_number:02d}" for c in chunks[:5]]
-    return any(e in got for e in case["expected_sources"])

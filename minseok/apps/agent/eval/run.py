@@ -1,7 +1,6 @@
 """골든셋 평가 CLI — 무료 한도 때문에 로컬에서 수동 실행한다.
 
 python -m agent.eval.run                 # 전체 평가 1회(LLM 포함) → eval.json의 runs에 누적, 지표는 최근 3회 최저값
-python -m agent.eval.run --search-only   # LLM 없이 검색만으로 키워드 백엔드(trgm, pgroonga) hit@5 비교
 python -m agent.eval.run --only 6,9      # 진단: 지정 문항만 돌려 호출한 도구와 답변을 출력(eval.json에 쓰지 않음)
 """
 import asyncio
@@ -16,17 +15,16 @@ from agent.adapter.outbound.gemini_llm import GeminiToolLlm
 from agent.app.ask import AskInteractor, AskResult
 from agent.app.ports import LlmUnavailable
 from agent.app.tool_runner import ToolRunner
-from agent.eval.scoring import score_case, search_hit, summarize
+from agent.eval.scoring import score_case, summarize
 from catalog.dependencies.catalog_gateway import get_catalog_gateway
-from core.config import BANNED_TERMS, GEMINI_MODEL, KEYWORD_BACKEND, MAX_TOOL_CALLS
-from knowledge.dependencies.search_gateway import build_search
+from core.config import BANNED_TERMS, GEMINI_MODEL, MAX_TOOL_CALLS
+from knowledge.dependencies.search_gateway import get_search_gateway
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parents[2] / "data" / "eval.json"  # 백엔드 산출물 — 포트폴리오 섹션이 이 수치를 인용한다
 KEEP_RUNS = 3  # 최저값을 낼 최근 실행 수 — 무료 RPD 500이라 하루 1회씩 쌓는다
 PAUSE_SEC = 12  # 무료 분당 한도 15회 — 질문 하나가 2~3회 호출
 RETRY_WAIT_SEC, RETRIES = 30, 3  # 429를 만나면 기다렸다 같은 질문을 다시
-BACKENDS = ("trgm", "pgroonga")
 
 
 def _load() -> dict:
@@ -52,7 +50,7 @@ async def _ask_with_retry(ask: AskInteractor, question: str) -> AskResult:
 
 async def full_run(cases: list[dict]) -> dict[str, float]:
     catalog = get_catalog_gateway()
-    ask = AskInteractor(GeminiToolLlm(), ToolRunner(catalog, build_search(KEYWORD_BACKEND)), catalog, BANNED_TERMS,
+    ask = AskInteractor(GeminiToolLlm(), ToolRunner(catalog, get_search_gateway()), catalog, BANNED_TERMS,
                         MAX_TOOL_CALLS)
     scores = []
     for i, c in enumerate(cases, 1):
@@ -66,7 +64,7 @@ async def full_run(cases: list[dict]) -> dict[str, float]:
 
 async def diagnose(cases: list[dict], numbers: list[int]) -> None:
     catalog = get_catalog_gateway()
-    ask = AskInteractor(GeminiToolLlm(), ToolRunner(catalog, build_search(KEYWORD_BACKEND)), catalog, BANNED_TERMS,
+    ask = AskInteractor(GeminiToolLlm(), ToolRunner(catalog, get_search_gateway()), catalog, BANNED_TERMS,
                         MAX_TOOL_CALLS)
     for n in numbers:
         c = cases[n - 1]
@@ -77,17 +75,6 @@ async def diagnose(cases: list[dict], numbers: list[int]) -> None:
         await asyncio.sleep(PAUSE_SEC)
 
 
-async def search_only(cases: list[dict]) -> dict[str, dict]:
-    answerable = [c for c in cases if not c["must_refuse"] and c["expected_sources"]]
-    out = {}
-    for backend in BACKENDS:
-        search = build_search(backend)
-        hits = [search_hit(c, await search.search(c["question"], 5)) for c in answerable]
-        out[backend] = {"hit_at_5": round(sum(hits) / len(hits), 3), "n": len(hits)}
-        print(backend, out[backend], flush=True)
-    return out
-
-
 async def main() -> None:
     cases = yaml.safe_load((HERE / "golden.yaml").read_text(encoding="utf-8"))
     data = _load()
@@ -95,15 +82,12 @@ async def main() -> None:
     if "--only" in sys.argv:
         await diagnose(cases, [int(x) for x in sys.argv[sys.argv.index("--only") + 1].split(",")])
         return
-    if "--search-only" in sys.argv:
-        data["backends"] = {"run_at": now, **await search_only(cases)}
-    else:
-        runs = (data.get("runs") or []) + [{"run_at": now, "metrics": await full_run(cases)}]
-        runs = runs[-KEEP_RUNS:]
-        data.update({"model": GEMINI_MODEL, "keyword_backend": KEYWORD_BACKEND, "n": len(cases), "runs": runs,
-                     "metrics": {k: min(r["metrics"][k] for r in runs if k in r["metrics"]) for k in runs[-1]["metrics"]}})
+    runs = (data.get("runs") or []) + [{"run_at": now, "metrics": await full_run(cases)}]
+    runs = runs[-KEEP_RUNS:]
+    data.update({"model": GEMINI_MODEL, "n": len(cases), "runs": runs,
+                 "metrics": {k: min(r["metrics"][k] for r in runs if k in r["metrics"]) for k in runs[-1]["metrics"]}})
     _save(data)
-    print(json.dumps(data["backends"] if "--search-only" in sys.argv else data["metrics"], ensure_ascii=False))
+    print(json.dumps(data["metrics"], ensure_ascii=False))
 
 
 if __name__ == "__main__":

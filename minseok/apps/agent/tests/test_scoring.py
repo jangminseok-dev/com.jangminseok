@@ -49,16 +49,6 @@ def test_cases_without_must_include_are_left_out_of_content_metric():
     assert s.content_ok is None and summarize([s])["content"] == 1.0
 
 
-def test_search_hit_uses_top5_chunks_only():
-    from agent.eval.scoring import search_hit
-    from hub.app.dtos import Chunk
-
-    case = {"expected_sources": ["callguard#05"]}
-    near = [Chunk("callguard", 5, "t", "x", "u", 0.1)]
-    far = [Chunk("redoceanmap", 2, "t", "x", "u", 0.1)] * 5 + [Chunk("callguard", 5, "t", "x", "u", 0.1)]
-    assert search_hit(case, near) and not search_hit(case, far)
-
-
 def test_must_include_accepts_yaml_dates_and_numbers():
     import datetime
 

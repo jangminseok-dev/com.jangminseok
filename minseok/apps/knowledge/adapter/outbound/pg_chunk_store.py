@@ -49,16 +49,3 @@ class PgChunkStore(ChunkStorePort):
                 for d, v in chunks
             )
             await s.commit()
-
-
-class PgroongaChunkStore(PgChunkStore):
-    """키워드 검색만 PGroonga 전문 검색(&@~, 질의 문법)으로 바꾼다. 나머지는 동일."""
-
-    async def keyword_search(self, query, limit):
-        async with self._sm() as s:
-            rows = await s.execute(
-                text("SELECT id FROM knowledge_chunk WHERE text &@~ :q "
-                     "ORDER BY extensions.pgroonga_score(tableoid, ctid) DESC LIMIT :n"),
-                {"q": query, "n": limit},
-            )
-            return [r[0] for r in rows]
