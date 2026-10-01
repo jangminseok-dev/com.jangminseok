@@ -48,7 +48,7 @@
   expected_args: {get_project: {slug: chagocnote}}
   expected_sources: [chagocnote#01]
   must_refuse: false
-  must_include: [1인]
+  must_include: [혼자]
 - question: CallGuard 프로젝트는 언제 시작했나요?
   expected_tools: [get_project]
   expected_args: {get_project: {slug: callguard}}

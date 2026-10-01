@@ -91,7 +91,7 @@ def build(content_dir: Path) -> dict:
                 "slug": p["slug"], "order": p["order"], "title": p["title"], "tagline": p["tagline"],
                 "period": p["period"], "team": p["team"], "stack": p["stack"],
                 "languages": p.get("languages", []),
-                "metrics": [{"label": m["label"], "value": m["value"]} for m in page["retro"]["metrics"]],
+                "metrics": [{k: m[k] for k in ("label", "value", "note") if k in m} for m in page["retro"]["metrics"]],
                 "sections": [{**sec, "label": sec["title"]} for sec in _sections(page)],
                 "notes": _notes(f.parent / "notes.md", RETRO, banned),
             }

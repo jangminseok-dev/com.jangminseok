@@ -39,7 +39,9 @@ class CatalogData:
                     slug=p["slug"], title=p["title"], tagline=p["tagline"],
                     period=f"{p['period']['start']} ~ {end}", team_size=p["team"]["size"], role=p["team"]["role"],
                     stack=tuple(p["stack"]), languages=tuple(p.get("languages", [])),
-                    metrics=tuple((m["label"], m["value"]) for m in p["metrics"]),
+                    # 조건·추정 범위(note)를 값에 붙인다 — 빠지면 챗봇이 일부 값을 전체처럼 말한다
+                    metrics=tuple((m["label"], f"{m['value']} ({m['note']})" if m.get("note") else m["value"])
+                                  for m in p["metrics"]),
                     sections=tuple(Section(s["number"], s["title"], s["text"]) for s in p["sections"]),
                 )
             )

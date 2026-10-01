@@ -78,3 +78,13 @@ def test_all_section_urls_has_only_real_sections():
 def test_section_refs_carry_project_title_so_chips_are_not_ambiguous():
     facts = CatalogInteractor(DATA).get_project("callguard")
     assert facts is not None and facts.sections[0].title == "CallGuard 설계 원칙"
+
+
+def test_metric_note_goes_with_value():
+    data = CatalogData.from_dict({"projects": [{
+        "slug": "remakeday", "order": 1, "title": "REMAKE DAY", "tagline": "t",
+        "period": {"start": "2026-08-01", "end": None}, "team": {"size": 4, "role": "r"}, "stack": [],
+        "metrics": [{"label": "한 판 비용", "value": "0.461달러", "note": "전체 환산 약 0.9~1.2달러"}],
+        "sections": []}]}, site="https://jangminseok.com")
+    facts = CatalogInteractor(data).get_project("remakeday")
+    assert facts is not None and ("한 판 비용", "0.461달러 (전체 환산 약 0.9~1.2달러)") in facts.metrics

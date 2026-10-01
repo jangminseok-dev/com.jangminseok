@@ -51,6 +51,16 @@ def test_build_makes_one_entry_per_page_section_and_trouble(tmp_path):
     assert p["metrics"] == [{"label": "정확도", "value": "0.97"}]
 
 
+def test_metric_note_is_kept_so_chatbot_sees_conditions(tmp_path):
+    _project(tmp_path, "demo")
+    page = tmp_path / "demo" / "page.yaml"
+    data = yaml.safe_load(page.read_text(encoding="utf-8"))
+    data["retro"]["metrics"] = [{"value": "0.461달러", "label": "한 판 비용", "note": "전체 환산 약 0.9~1.2달러"}]
+    page.write_text(yaml.safe_dump(data, allow_unicode=True), encoding="utf-8")
+    assert build(tmp_path)["projects"][0]["metrics"] == [
+        {"label": "한 판 비용", "value": "0.461달러", "note": "전체 환산 약 0.9~1.2달러"}]
+
+
 def test_check_mode_detects_stale_file(tmp_path):
     _project(tmp_path, "demo")
     out = tmp_path / "catalog.json"
