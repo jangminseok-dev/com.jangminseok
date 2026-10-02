@@ -140,7 +140,7 @@
   expected_args: {get_project: {slug: chagocnote}}
   expected_sources: [chagocnote#03, chagocnote#04]
   must_refuse: false
-  must_include: [자동 검사]
+  must_include: [import-linter]
 
 # ── 거절 (4) ──
 - question: 오늘 서울 날씨 알려 주세요
