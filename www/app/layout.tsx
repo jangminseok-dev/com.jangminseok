@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Analytics } from "@vercel/analytics/next";
 import ChatDock from "@/components/chat/ChatDock";
+import SiteAnalytics from "@/components/SiteAnalytics";
 import "./globals.css";
 
 // 글꼴은 자주 쓰는 한글 2,350자(KS X 1001)와 영문, 기호(✓ ✗ 포함)만 남긴 부분집합(2MB → 0.5MB)
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans">
         {children}
         <ChatDock />
-        <Analytics />
+        <SiteAnalytics />
       </body>
     </html>
   );
