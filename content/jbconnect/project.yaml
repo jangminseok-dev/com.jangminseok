@@ -1,7 +1,7 @@
 slug: jbconnect
 order: 7
 title: JB Silver Connect
-tagline: 60세 이상 고객이 말이나 글로 AI 금융 도우미와 상담하고 번호표, 지점 찾기, 법인 서류 안내를 받아 창구와 호출 화면까지 한 흐름으로 이어지는 서비스 — JB금융그룹 Fin:AI Challenge 데모
+tagline: 60세 이상 고객이 말이나 글로 AI 금융 도우미와 상담하고 번호표, 지점 찾기, 법인 서류 안내를 받아 창구와 호출 화면까지 한 흐름으로 이어지는 서비스입니다. JB금융그룹 Fin:AI Challenge 데모입니다.
 accent: "#0ea5e9"
 period: { start: "2026-06-11", end: "2026-06-13" }
 team: { size: 4, role: "아이디어는 팀과 함께, 개발은 혼자 (백엔드와 화면 3개)" }

@@ -1,7 +1,7 @@
 slug: remakeday
 order: 4
 title: REMAKE DAY
-tagline: LLM NPC 추리 게임을, AI 제안을 사람이 어떻게 받아들이는지 기록하는 Human–AI 실험환경으로 설계한 프로젝트 — 원티드 AI Championship 2026
+tagline: LLM NPC 추리 게임을, AI 제안을 사람이 어떻게 받아들이는지 기록하는 Human–AI 실험환경으로 설계한 프로젝트입니다. 원티드 AI Championship 2026 출품작입니다.
 accent: "#a855f7"
 period: { start: "2026-09-01", end: null }
 team: { size: 5, role: "AI Evaluation Engineer (평가 설계, 러너, provider 어댑터, 배포 지표)" }
