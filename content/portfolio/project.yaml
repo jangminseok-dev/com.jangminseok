@@ -7,7 +7,7 @@ period: { start: "2026-09-29", end: null }
 team: { size: 1, role: "1인 개발 (설계, 백엔드, 화면, 평가, 배포)" }
 stack: [Python 3.13, FastAPI, SQLAlchemy 2, PostgreSQL + pgvector, Gemini, MCP, Next.js 16, TypeScript, Vercel, Supabase]
 languages: [Python, TypeScript]
-preview: { poster: media/poster.webp }
+preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }
 links:
   site: https://jangminseok.com
   repo: https://github.com/jangminseok-dev/com.jangminseok
