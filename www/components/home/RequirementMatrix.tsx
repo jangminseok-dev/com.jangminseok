@@ -5,7 +5,7 @@ import { projectHref } from "@/lib/site";
 export default function RequirementMatrix({ rows, isProd }: { rows: MatrixRow[]; isProd: boolean }) {
   return (
     <section id="requirements" className="mx-auto max-w-7xl px-5 py-16">
-      <h2 className="text-2xl font-bold md:text-3xl">이런 일을 해왔습니다</h2>
+      <h2 className="text-2xl font-bold md:text-3xl">스킬 인벤토리</h2>
       <p className="mt-2 text-white/70">요건마다 근거가 되는 프로젝트 설명으로 바로 이동할 수 있습니다.</p>
       <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         {rows.map((row, i) => (

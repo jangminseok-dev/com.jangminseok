@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* 라이트 테마 — html[data-theme="light"]일 때만 (layout.tsx의 스크립트가 정한다) */
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
 @theme {
   --font-sans: var(--font-pretendard), system-ui, -apple-system, sans-serif;
 
@@ -8,7 +11,40 @@
   --color-brand: #3182f6;
   --color-brand-soft: #8ab4ff;
   --color-brand-deep: #1b64da; /* 흰 글자 버튼 — 대비 5.4 (brand는 3.7로 기준 4.5 미달) */
+  --color-paper: #ffffff; /* 색 배경 위 글자 — 라이트 테마에서도 흰색 그대로 */
+  --color-panel: rgb(14 16 30 / 0.92); /* 챗봇 입력창 */
+}
 
+/* 라이트 테마: 글자색으로 쓰던 white를 짙은 회색으로 뒤집어 text-white/N, bg-white/N이 그대로 반전되게 한다 */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-white: #191f28;
+  --color-night: #f4f6fa;
+  --color-brand-soft: #1b64da;
+  --color-panel: rgb(255 255 255 / 0.94);
+}
+
+/* 라이트 배경에서 45~55% 투명 글자는 대비 3.2~3.9로 기준 4.5 미달 — 68%로 올린다(다크는 그대로) */
+[data-theme="light"] :is(.text-white\/45, .text-white\/50, .text-white\/55) {
+  color: color-mix(in oklab, var(--color-white) 68%, transparent);
+}
+
+/* 기술 로고 — 테마별 색은 lib/icons.ts logoStyle()이 넣는다 */
+.logo {
+  fill: var(--logo);
+}
+
+[data-theme="light"] .logo {
+  fill: var(--logo-light);
+}
+
+/* 프로젝트 포인트 색 글자 — 라이트 배경에서는 대비를 위해 어둡게 섞는다 */
+@utility text-accent-ink {
+  color: var(--accent);
+
+  [data-theme="light"] & {
+    color: color-mix(in oklab, var(--accent) 62%, black);
+  }
 }
 
 html {
@@ -19,7 +55,7 @@ html {
 
 body {
   background: var(--color-night);
-  color: #ffffff;
+  color: var(--color-white);
   -webkit-font-smoothing: antialiased;
   /* 한국어는 어절 단위로 줄바꿈 */
   word-break: keep-all;
@@ -45,6 +81,12 @@ body {
     .glass {
       background-color: rgb(20 22 40 / 0.92);
     }
+  }
+
+  [data-theme="light"] .glass {
+    background-color: rgb(255 255 255 / 0.85);
+    border-color: rgb(25 31 40 / 0.1);
+    box-shadow: 0 1px 3px rgb(25 31 40 / 0.06);
   }
 
   .float {

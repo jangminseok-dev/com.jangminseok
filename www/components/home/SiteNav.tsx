@@ -1,8 +1,10 @@
+import ThemeToggle from "@/components/home/ThemeToggle";
+
 const SECTIONS = [
   { id: "about", label: "소개" },
   { id: "skills", label: "기술" },
   { id: "projects", label: "프로젝트" },
-  { id: "requirements", label: "해본 일" },
+  { id: "requirements", label: "스킬 인벤토리" },
   { id: "education", label: "교육" },
   { id: "contact", label: "연락처" },
 ] as const;
@@ -33,6 +35,7 @@ export default function SiteNav({ name, github, base = "" }: { name: string; git
         >
           GitHub
         </a>
+        <ThemeToggle />
       </nav>
     </header>
   );

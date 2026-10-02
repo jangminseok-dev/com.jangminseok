@@ -38,7 +38,7 @@ export default function ChatDialog({ turns, onClose }: { turns: Turn[]; onClose:
         <div className="flex-1 space-y-5 overflow-y-auto px-5 py-4 text-sm">
           {turns.map((t, i) => (
             <div key={i} className="space-y-2">
-              <p className="ml-auto w-fit max-w-[85%] rounded-2xl bg-brand/80 px-3 py-2">{t.question}</p>
+              <p className="ml-auto w-fit max-w-[85%] rounded-2xl bg-brand/80 px-3 py-2 text-paper">{t.question}</p>
               {t.error ? <p className="w-fit max-w-[85%] rounded-2xl bg-white/10 px-3 py-2 text-white/80">{t.error}</p> : null}
               {t.result ? (
                 <div className="max-w-[90%] space-y-2 rounded-2xl bg-white/10 px-4 py-3">

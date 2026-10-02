@@ -62,7 +62,7 @@ function Section({ id, title, children }: { id: string; title: string; children:
 function FigureCard({ f }: { f: Figure }) {
   return (
     <div className="glass rounded-2xl p-5">
-      <p className="text-3xl font-bold text-(--accent)">{f.value}</p>
+      <p className="text-3xl font-bold text-accent-ink">{f.value}</p>
       <p className="mt-2 font-semibold">{f.label}</p>
       {f.note ? <p className="mt-1 text-sm text-white/60">{f.note}</p> : null}
     </div>
@@ -83,7 +83,7 @@ function Overview({ project, mainHref }: Props) {
             <span className="h-3 w-3 rounded-full bg-(--accent)" />
             {project.title}
           </h1>
-          <p className="mt-3 font-semibold text-(--accent)">{page.overview.role}</p>
+          <p className="mt-3 font-semibold text-accent-ink">{page.overview.role}</p>
           <p className="mt-5 text-lg leading-relaxed md:text-xl">{page.overview.what}</p>
           <p className="mt-3 leading-relaxed text-white/75">{page.overview.why}</p>
           <p className="mt-5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/65">
@@ -136,7 +136,7 @@ function Features({ slug, page }: { slug: string; page: ProjectPage }) {
               <img src={mediaUrl(slug, f.image)} alt={f.title} className="aspect-video w-full object-cover object-top" />
             ) : null}
             <div className="p-5">
-              <p className="text-xs font-semibold text-(--accent)">핵심 기능</p>
+              <p className="text-xs font-semibold text-accent-ink">핵심 기능</p>
               <h3 className="mt-1 text-lg font-bold">{f.title}</h3>
               <p className="mt-2 leading-relaxed text-white/80">{f.body}</p>
             </div>
@@ -202,11 +202,11 @@ function Role({ page }: { page: ProjectPage }) {
       <p className="max-w-4xl leading-relaxed text-white/85">{r.summary}</p>
       <div className={`mt-6 grid grid-cols-1 gap-4 ${r.team.length ? "md:grid-cols-2" : ""}`}>
         <div className="glass rounded-2xl p-5">
-          <h3 className="font-bold text-(--accent)">제가 한 일</h3>
+          <h3 className="font-bold text-accent-ink">제가 한 일</h3>
           <ul className="mt-3 space-y-2">
             {r.mine.map((m) => (
               <li key={m} className="flex gap-2 leading-relaxed">
-                <span className="text-(--accent)">✓</span>
+                <span className="text-accent-ink">✓</span>
                 {m}
               </li>
             ))}
@@ -263,14 +263,14 @@ function Troubles({ page }: { page: ProjectPage }) {
         {page.troubles.map((t, i) => (
           <li key={t.title} className="glass rounded-3xl p-6">
             <h3 className="text-lg font-bold">
-              <span className="mr-2 text-(--accent)">{i + 1}.</span>
+              <span className="mr-2 text-accent-ink">{i + 1}.</span>
               {t.title}
             </h3>
             <dl className="mt-4 space-y-3">
               {TROUBLE_PARTS.map(([key, label]) =>
                 t[key] ? (
                   <div key={key} className="grid grid-cols-1 gap-1 sm:grid-cols-[4rem_1fr]">
-                    <dt className={`text-sm font-semibold ${key === "result" ? "text-(--accent)" : "text-white/60"}`}>
+                    <dt className={`text-sm font-semibold ${key === "result" ? "text-accent-ink" : "text-white/60"}`}>
                       {label}
                     </dt>
                     <dd className="leading-relaxed text-white/85">{t[key]}</dd>
@@ -313,7 +313,7 @@ function Retro({ project, mainHref }: Props) {
       </div>
       {page.retro.learned.length ? (
         <div className="glass mt-6 rounded-2xl p-5">
-          <h3 className="font-bold text-(--accent)">배운 점</h3>
+          <h3 className="font-bold text-accent-ink">배운 점</h3>
           <ul className="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-white/85">
             {page.retro.learned.map((r) => (
               <li key={r}>{r}</li>

@@ -4,7 +4,7 @@ import { skillIcon } from "@/lib/icons";
 function Logo({ slug }: { slug: string }) {
   const icon = skillIcon(slug);
   return icon ? (
-    <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5 shrink-0" fill="#FFFFFF">
+    <svg viewBox="0 0 24 24" aria-hidden className="h-5 w-5 shrink-0" fill="currentColor">
       <path d={icon.path} />
     </svg>
   ) : null;
