@@ -1,5 +1,5 @@
 name: 장민석
-role: AI 백엔드 엔지니어 (LLM, RAG)
+role: RAG 파이프라인 설계부터 운영까지, Python, FastAPI AI 백엔드 개발자
 headline: LLM이 틀려도 서비스는 틀리지 않게
 intro: >-
   LLM 서비스의 백엔드를 설계하고 화면(Next.js, Flutter)까지 직접 만들어 끝까지 책임집니다.
@@ -37,32 +37,46 @@ requirements:
     label: AI 코딩 어시스턴트 활용
     detail: 규칙 문서와 하네스로 에이전트의 경계와 검증을 고정
 education:
-  - org: IBM x RedHat AI Transformation Academy (대한상공회의소)
-    course: AI 트랜스포메이션 과정 7회차 (수강 중)
-    period: 2026.04 ~ 2026.10
+  - org: IBM x RedHat AI Transformation Academy (대한상공회의소, 하이미디어 강남 AI 캠퍼스)
+    course: AI 트랜스포메이션(AX) 과정 7기 — Python부터 AI 서비스 설계, 배포, 운영까지 (수강 중)
+    period: 2026.04.29 ~ 2026.10.27
     topics:
       - { name: Python, icon: python }
+      - { name: Claude Code, icon: claude }
+      - { name: Agent Harness, icon: agentharness }
+      - { name: Clean Architecture, icon: cleanarchitecture }
       - { name: FastAPI, icon: fastapi }
+      - { name: TypeScript, icon: typescript }
       - { name: React, icon: react }
-      - { name: PyTorch, icon: pytorch }
-      - { name: watsonx }
+      - { name: PostgreSQL, icon: postgresql }
+      - { name: pgvector, icon: postgresql }
+      - { name: RAG, icon: rag }
+      - { name: MCP, icon: modelcontextprotocol }
       - { name: LangChain, icon: langchain }
-      - { name: RAG }
+      - { name: LangGraph, icon: langgraph }
+      - { name: watsonx, icon: ibm }
+      - { name: Ollama, icon: ollama }
+      - { name: Hugging Face, icon: huggingface }
+      - { name: PyTorch, icon: pytorch }
+      - { name: QLoRA, icon: huggingface }
+      - { name: YOLO, icon: yolo }
+      - { name: GitHub Actions, icon: githubactions }
+      - { name: Vercel, icon: vercel }
+      - { name: AWS, icon: aws }
       - { name: Docker, icon: docker }
       - { name: Kubernetes, icon: kubernetes }
       - { name: OpenShift, icon: redhatopenshift }
-      - { name: AWS }
   - org: 더조은컴퓨터아카데미 종로
     course: 빅데이터 플랫폼 구축(Hadoop)과 빅데이터 분석(Spark, Power BI) & Java 웹개발
     period: 2022.02 ~ 2022.08 (977시간)
     topics:
       - { name: Hadoop, icon: apachehadoop }
       - { name: Spark, icon: apachespark }
-      - { name: Power BI }
+      - { name: Power BI, icon: powerbi }
       - { name: Java, icon: openjdk }
       - { name: Spring, icon: spring }
-      - { name: JSP }
-      - { name: Oracle DB }
+      - { name: JSP, icon: openjdk }
+      - { name: Oracle DB, icon: oracle }
       - { name: Python 머신러닝, icon: python }
 skills:
   - group: 백엔드
@@ -75,11 +89,11 @@ skills:
       - { name: Redis, icon: redis }
       - { name: Java, icon: openjdk, learned: true }
       - { name: Spring, icon: spring, learned: true }
-      - { name: Oracle DB, learned: true }
+      - { name: Oracle DB, icon: oracle, learned: true }
   - group: AI와 검색
     items:
       - { name: Elasticsearch, icon: elasticsearch }
-      - { name: pgvector }
+      - { name: pgvector, icon: postgresql }
       - { name: Ollama, icon: ollama }
       - { name: Gemini, icon: googlegemini }
       - { name: Claude, icon: claude }
@@ -96,7 +110,7 @@ skills:
       - { name: GitHub Actions, icon: githubactions }
       - { name: Git, icon: git }
       - { name: Kubernetes, icon: kubernetes }
-      - { name: AWS }
+      - { name: AWS, icon: aws }
   - group: 프론트와 앱
     items:
       - { name: Next.js, icon: nextdotjs }
@@ -108,7 +122,7 @@ skills:
     items:
       - { name: Hadoop, icon: apachehadoop, learned: true }
       - { name: Spark, icon: apachespark, learned: true }
-      - { name: Power BI, learned: true }
+      - { name: Power BI, icon: powerbi, learned: true }
 links:
   github: https://github.com/jangminseok-dev
   email: jang971121@gmail.com
