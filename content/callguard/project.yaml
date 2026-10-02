@@ -4,7 +4,7 @@ title: CallGuard
 tagline: 120 다산콜센터 통화를 실시간으로 들으며 필요한 문서를 상담원 화면에 띄우고 개인정보는 화면에 뜨기 전에 마스킹하는 StreamRAG 시스템
 accent: "#22c55e"
 period: { start: "2026-08-20", end: null }
-team: { size: 4, role: "백엔드와 AI — ai 브랜치(초기)와 server 브랜치 담당 (허브-스포크 골격, 청킹, 개인정보 마스킹, 평가 하네스)" }
+team: { size: 4, role: "백엔드와 AI (ai 브랜치 초기와 server 브랜치 담당, 허브-스포크 골격, 청킹, 개인정보 마스킹, 평가 하네스)" }
 stack: [Python 3.13, FastAPI, PostgreSQL, Elasticsearch 9 + nori, KoE5 임베딩, Google STT, WebSocket, React, k3s + AWS]
 languages: [Python, TypeScript, Dart]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }
