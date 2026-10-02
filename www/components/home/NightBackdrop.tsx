@@ -7,7 +7,7 @@ export default function NightBackdrop() {
         <img src="/bg/night.webp" alt="" fetchPriority="high" className="h-full w-full object-cover" />
       </picture>
       {/* 숨겨진 lazy 이미지는 받지 않으므로 다크 방문자는 낮 사진을 내려받지 않는다 */}
-      <picture className="hidden light:block">
+      <picture className="hidden h-full light:block">
         <source media="(max-width: 767px)" srcSet="/bg/day-mobile.webp" />
         <img src="/bg/day.webp" alt="" loading="lazy" className="h-full w-full object-cover" />
       </picture>
