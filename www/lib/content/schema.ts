@@ -6,6 +6,7 @@ export const REQUIREMENT_IDS = [
   "search-engine",
   "rag",
   "hybrid-search",
+  "agent-tools",
   "linux-docker",
   "git",
   "ai-assistant",

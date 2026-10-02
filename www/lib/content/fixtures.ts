@@ -43,6 +43,7 @@ export function validProfileData(): Record<string, unknown> {
       { id: "search-engine", label: "검색엔진", detail: "d" },
       { id: "rag", label: "RAG", detail: "d" },
       { id: "hybrid-search", label: "하이브리드 검색", detail: "d" },
+      { id: "agent-tools", label: "에이전트와 도구 호출", detail: "d" },
       { id: "linux-docker", label: "Linux·Docker", detail: "d" },
       { id: "git", label: "Git 협업", detail: "d" },
       { id: "ai-assistant", label: "AI 코딩 어시스턴트", detail: "d" },

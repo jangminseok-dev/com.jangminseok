@@ -112,5 +112,8 @@ proves:
   - { id: rag, label: "평가로 찾아 고친 챗봇 결함", anchor: "05" }
   - { id: search-engine, label: "시험 문제 30개로 챗봇 채점", anchor: "05" }
   - { id: hybrid-search, label: "키워드 검색 방식 측정 후 선택", anchor: "05" }
+  - { id: agent-tools, label: "도구 3개를 골라 쓰는 챗봇과 MCP 서버", anchor: "02" }
+  - { id: agent-tools, label: "챗봇과 MCP가 같은 도구를 쓰는 구조", anchor: "03" }
+  - { id: agent-tools, label: "도구 선택 정확도 0.533에서 0.867로", anchor: "05" }
   - { id: ai-assistant, label: "AI 도구로 개발하고 테스트로 검증", anchor: "04" }
   - { id: git, label: "push마다 도는 CI", anchor: "04" }
