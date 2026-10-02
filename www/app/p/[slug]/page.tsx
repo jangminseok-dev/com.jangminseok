@@ -23,7 +23,13 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     title: `${project.title} | 장민석`,
     description: project.page.overview.what,
     alternates: { canonical: `https://${slug}.${SITE_DOMAIN}` },
-    icons: { icon: { url: `/icons/${slug}.svg`, type: "image/svg+xml" } },
+    icons: {
+      icon: [
+        { url: `/icons/${slug}.svg`, type: "image/svg+xml" },
+        { url: `/icons/${slug}.png`, type: "image/png", sizes: "180x180" },
+      ],
+      apple: `/icons/${slug}.png`,
+    },
   };
 }
 
