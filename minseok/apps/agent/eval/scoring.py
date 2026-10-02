@@ -42,7 +42,10 @@ def score_case(case: dict, result: AskResult) -> CaseScore:
     hit5 = not case["expected_sources"] or any(e in got for e in case["expected_sources"])
     numbers_ok = "확인된 수치가 없습니다" not in result.answer or case.get("must_refuse", False)
     keys = case.get("must_include") or []
-    content_ok = all(str(k).lower() in result.answer.lower() for k in keys) if keys else None
+    answer = result.answer.lower()
+    # 안쪽 목록은 같은 사실의 다른 표현 — 그중 하나만 있으면 된다
+    content_ok = all(any(str(a).lower() in answer for a in (k if isinstance(k, list) else [k]))
+                     for k in keys) if keys else None
     return CaseScore(tool_ok, args_ok, hit5, numbers_ok, result.refused == case["must_refuse"], case["must_refuse"],
                      content_ok, is_formal(result.answer))
 

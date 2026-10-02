@@ -57,6 +57,14 @@ def test_must_include_accepts_yaml_dates_and_numbers():
     assert score_case(case, AskResult("2026-08-20에 4명이 시작했습니다.", [], [], False)).content_ok
 
 
+def test_must_include_nested_list_accepts_any_alternative():
+    case = {"question": "q", "expected_tools": [], "expected_args": {}, "expected_sources": [], "must_refuse": False,
+            "must_include": [["포트폴리오", "jangminseok.com"], "CI"]}
+    assert score_case(case, AskResult("이후 jangminseok.com에서는 CI를 두었습니다.", [], [], False)).content_ok
+    assert score_case(case, AskResult("이후 포트폴리오에서는 CI를 두었습니다.", [], [], False)).content_ok
+    assert not score_case(case, AskResult("이후 CI를 두었습니다.", [], [], False)).content_ok
+
+
 def test_extra_tool_is_ok_but_missing_required_tool_is_not():
     case = {"question": "q", "expected_tools": ["find_by_skill"], "expected_args": {}, "expected_sources": [],
             "must_refuse": False}

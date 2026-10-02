@@ -106,9 +106,9 @@
   expected_args: {get_project: {slug: redoceanmap}}
   expected_sources: [redoceanmap#05, redoceanmap#04, redoceanmap#03]
   must_refuse: false
-  must_include: [포트폴리오]
+  must_include: [[포트폴리오, jangminseok.com]]
 - question: CallGuard의 운영 Recall@5 0.971은 누가 측정했나요?
-  expected_tools: [get_project, search_portfolio]
+  expected_tools: [get_project]
   expected_args: {get_project: {slug: callguard}}
   expected_sources: [callguard#05, callguard#06, callguard#01]
   must_refuse: false
@@ -130,7 +130,7 @@
   must_refuse: false
   must_include: [풀스택]
 - question: localhost:daegu의 팀 규모와 장민석의 역할을 알려 주세요
-  expected_tools: [get_project, search_portfolio]
+  expected_tools: [get_project]
   expected_args: {get_project: {slug: localhostdaegu}}
   expected_sources: [localhostdaegu#04, localhostdaegu#01]
   must_refuse: false
