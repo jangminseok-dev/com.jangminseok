@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   description: "검색과 RAG로 답을 찾는 백엔드 개발자 장민석의 포트폴리오",
 };
 
-// 첫 그림 전에 테마를 정해 깜빡임을 막는다 — 저장된 선택이 없으면 OS 설정을 따른다
-const THEME_SCRIPT = `try{document.documentElement.dataset.theme=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")}catch(e){}`;
+// 첫 그림 전에 테마를 정해 깜빡임을 막는다 — 기본은 다크, 버튼으로 라이트를 고른 방문자만 저장된 값을 쓴다
+const THEME_SCRIPT = `try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"dark"}catch(e){}`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-// 라이트·다크 전환 — 고른 값은 localStorage에 남겨 다음 방문에도 쓴다 (첫 값은 layout.tsx 스크립트가 OS 설정으로 정함)
+// 라이트·다크 전환 — 고른 값은 localStorage에 남겨 다음 방문에도 쓴다 (기본은 다크 — layout.tsx 스크립트)
 // 아이콘은 상태 없이 CSS(light: 변형)로 바꿔 서버 렌더와 어긋나지 않게 한다
 export default function ThemeToggle() {
   const toggle = () => {
