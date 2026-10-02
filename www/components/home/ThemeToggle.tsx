@@ -15,7 +15,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label="라이트·다크 테마 전환"
+      aria-label="라이트 또는 다크 테마로 전환"
       className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white/10 hover:bg-white/20"
     >
       {/* 다크일 때 해, 라이트일 때 달 — 누르면 바뀔 테마를 보여 준다 */}
