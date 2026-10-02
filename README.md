@@ -40,7 +40,7 @@ AI 백엔드 개발자 장민석의 포트폴리오 사이트 저장소입니다
 - 골든셋: [`minseok/apps/agent/eval/golden.yaml`](minseok/apps/agent/eval/golden.yaml)
 - 채점 결과: [`minseok/data/eval.json`](minseok/data/eval.json)
 
-무료 AI 한도 때문에 전체 평가는 하루에 한 번만 돌립니다. 최근 3회 중 가장 낮은 값을 사이트에 공개합니다.
+전체 평가는 무료 AI 한도 안에서 수동으로 돌립니다. 최근 3회 중 가장 낮은 값을 사이트에 공개합니다.
 
 ## 저장소 구조
 
