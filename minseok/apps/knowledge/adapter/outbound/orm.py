@@ -1,5 +1,7 @@
+from datetime import datetime
+
 from pgvector.sqlalchemy import Vector
-from sqlalchemy import Index, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, Index, Integer, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from core.config import EMBED_DIM
@@ -27,3 +29,14 @@ class RateLimitHitOrm(Base):
     window: Mapped[str] = mapped_column(String(16))  # "m:202609301230" 또는 "d:20260930"
     count: Mapped[int] = mapped_column(Integer, default=0)
     __table_args__ = (Index("uq_rate_window", "ip_hash", "window", unique=True),)
+
+
+class QuestionLogOrm(Base):
+    __tablename__ = "question_log"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    ip_hash: Mapped[str] = mapped_column(String(64))
+    question: Mapped[str] = mapped_column(Text)
+    answer: Mapped[str] = mapped_column(Text)
+    refused: Mapped[bool] = mapped_column(Boolean)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), index=True)

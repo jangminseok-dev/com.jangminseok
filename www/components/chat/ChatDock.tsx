@@ -83,6 +83,8 @@ export default function ChatDock() {
                 </li>
               ))}
             </ul>
+            {/* 질문 저장은 minseok/core/question_log.py */}
+            <p className="px-3 pb-2 pt-1 text-xs text-white/60">질문과 답변은 챗봇 개선을 위해 보관합니다. 개인정보는 입력하지 마십시오.</p>
           </div>
         ) : null}
         {/* 밤하늘 배경에 묻히지 않도록 그라데이션 테두리와 빛 번짐을 준다 */}

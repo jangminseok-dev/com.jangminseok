@@ -5,6 +5,7 @@ from agent.adapter.outbound.gemini_llm import GeminiToolLlm
 from agent.app.ask import AskInteractor
 from agent.app.tool_runner import ToolRunner
 from core.config import BANNED_TERMS, MAX_TOOL_CALLS
+from core.question_log import QuestionLog
 from core.rate_limit import RateLimiter
 from hub.app.ports.output.catalog_port import ProjectCatalogPort
 from hub.app.ports.output.search_port import KnowledgeSearchPort
@@ -24,3 +25,7 @@ def get_ask_interactor(runner: ToolRunner = Depends(get_tool_runner),
 
 def get_rate_limiter() -> RateLimiter:
     return RateLimiter()
+
+
+def get_question_log() -> QuestionLog:
+    return QuestionLog()

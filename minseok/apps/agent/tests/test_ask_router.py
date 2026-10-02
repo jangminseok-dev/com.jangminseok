@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 import main
 from agent.app.ask import AskResult, ToolTrace
 from agent.app.ports import LlmUnavailable
-from agent.dependencies.agent_provider import get_ask_interactor, get_rate_limiter
+from agent.dependencies.agent_provider import get_ask_interactor, get_question_log, get_rate_limiter
 from hub.app.dtos import SectionRef
 
 
@@ -28,15 +28,24 @@ class Limiter:
         return self.exceeded
 
 
+class Log:
+    def __init__(self):
+        self.saved = []
+
+    async def save(self, ip, question, answer, refused):
+        self.saved.append((question, answer, refused))
+
+
 @pytest.fixture(autouse=True)
 def _restore_overrides():
     yield
     main.app.dependency_overrides.clear()  # 다른 테스트 파일이 가짜 의존성을 물려받지 않게
 
 
-def client(ask=None, exceeded=None):
+def client(ask=None, exceeded=None, log=None):
     main.app.dependency_overrides[get_ask_interactor] = lambda: ask or FakeAsk()
     main.app.dependency_overrides[get_rate_limiter] = lambda: Limiter(exceeded)
+    main.app.dependency_overrides[get_question_log] = lambda: log or Log()
     return TestClient(main.app)
 
 
@@ -70,3 +79,15 @@ def test_day_limit_says_tomorrow_not_one_minute():
 def test_llm_quota_maps_to_503():
     res = client(FakeAsk(LlmUnavailable("429 RESOURCE_EXHAUSTED"))).post("/agent/v1/ask", json={"question": "질문"})
     assert res.status_code == 503 and "잠시 뒤" in res.json()["detail"]
+
+
+def test_answered_question_is_saved_with_answer():
+    log = Log()
+    client(log=log).post("/agent/v1/ask", json={"question": "  CallGuard 팀 규모는?  "})
+    assert log.saved == [("CallGuard 팀 규모는?", "4명입니다.", False)]
+
+
+def test_rate_limited_question_is_not_saved():
+    log = Log()
+    client(exceeded="minute", log=log).post("/agent/v1/ask", json={"question": "질문"})
+    assert log.saved == []

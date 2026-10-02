@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 
 from agent.app.ask import AskInteractor
 from agent.app.ports import LlmUnavailable
-from agent.dependencies.agent_provider import get_ask_interactor, get_rate_limiter
+from agent.dependencies.agent_provider import get_ask_interactor, get_question_log, get_rate_limiter
 from core.config import MAX_QUESTION_CHARS
 from core.rate_limit import hash_ip
 
@@ -27,7 +27,7 @@ def _client_ip(request: Request) -> str:
 
 @ask_router.post("/v1/ask")
 async def ask(body: AskBody, request: Request, interactor: AskInteractor = Depends(get_ask_interactor),
-              limiter=Depends(get_rate_limiter)):
+              limiter=Depends(get_rate_limiter), question_log=Depends(get_question_log)):
     if not body.question.strip():
         raise HTTPException(422, "질문을 입력해 주십시오.")
     ip = _client_ip(request)
@@ -40,10 +40,12 @@ async def ask(body: AskBody, request: Request, interactor: AskInteractor = Depen
         raise HTTPException(429, "오늘 질문 한도를 모두 쓰셨습니다. 내일 다시 시도해 주십시오.")
     if exceeded:
         raise HTTPException(429, "질문이 많아 잠시 쉬고 있습니다. 1분 뒤 다시 시도해 주십시오.")
+    question = body.question.strip()
     try:
-        r = await interactor.ask(body.question.strip())
+        r = await interactor.ask(question)
     except LlmUnavailable:
         raise HTTPException(503, "AI 응답 한도에 도달했습니다. 잠시 뒤 다시 시도해 주십시오.")
+    await question_log.save(ip, question, r.answer, r.refused)
     return {
         "answer": r.answer,
         "refused": r.refused,
