@@ -71,6 +71,8 @@ const STACK_ICON: Record<string, string> = {
   elasticsearch: "elasticsearch",
   ollama: "ollama",
   gemini: "googlegemini",
+  langchain: "langchain",
+  pytorch: "pytorch",
   claude: "claude",
   google: "google",
   docker: "docker",

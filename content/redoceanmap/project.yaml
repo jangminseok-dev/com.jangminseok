@@ -5,7 +5,7 @@ tagline: 서울 상권 공공데이터와 주식 시세를 대화로 분석하�
 accent: "#ef4444"
 period: { start: "2026-05-22", end: null }
 team: { size: 1, role: "1인 개발 (백엔드, 프론트, 인프라, 평가)" }
-stack: [Python 3.13, FastAPI, SQLAlchemy 2, PostgreSQL + pgvector, Redis, Ollama Gemma 4, Gemini, Next.js 16, Docker, k3s, Cloudflare Tunnel]
+stack: [Python 3.13, FastAPI, SQLAlchemy 2, PostgreSQL + pgvector, Redis, Ollama Gemma 4, Gemini, LangChain, PyTorch, Next.js 16, Docker, k3s, Cloudflare Tunnel]
 languages: [Python, TypeScript, Dart]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }
 links:
