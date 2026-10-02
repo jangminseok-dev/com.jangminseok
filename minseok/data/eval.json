@@ -37,6 +37,18 @@
     "content": 0.85,
     "register": 1.0
    }
+  },
+  {
+   "run_at": "2026-10-02T08:15:28+00:00",
+   "metrics": {
+    "tool_selection": 0.9,
+    "arg_accuracy": 0.962,
+    "hit_at_5": 1.0,
+    "number_check": 1.0,
+    "refusal": 1.0,
+    "content": 0.85,
+    "register": 1.0
+   }
   }
  ],
  "metrics": {
