@@ -99,7 +99,6 @@ troubles:
 
 retro:
   metrics:
-    - { value: 10일, label: 개발 기간 }
     - { value: "30,417곳", label: 반려동물 동반 시설 적재 }
     - { value: "967곳", label: 반려견 동반 식당 후보, note: 식당 이름만 맞췄을 때는 2곳 }
     - { value: "0건", label: 정합성 오류, note: 적재 후 점검 기준 }

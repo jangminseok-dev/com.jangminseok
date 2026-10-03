@@ -6,7 +6,7 @@ overview:
   role: 4인 팀에서 서버와 화면 3개를 모두 혼자 개발했습니다.
   why: 고령 고객에게는 작은 글씨와 타이핑이 큰 장벽입니다. 창구 직원은 고객이 무엇 때문에 왔는지 처음부터 다시 물어야 합니다. 말로 시작한 상담을 창구까지 그대로 이어 주는 것이 목표였습니다. JB금융그룹 Fin:AI Challenge에 내려고 3일 동안 만든 시연용 서비스입니다.
   highlights:
-    - { value: "3일", label: 개발 기간, note: 해커톤 시연까지 }
+    - { value: "5개", label: 서버 기능, note: "상담, 지점, 법인 안내, 예약, 대기열" }
     - { value: "3개", label: 따로 만든 화면, note: "고객 휴대폰, 창구 단말, 대기실 모니터" }
     - { value: "26개", label: 서버 자동 테스트 }
 
@@ -103,7 +103,6 @@ troubles:
 
 retro:
   metrics:
-    - { value: "3일", label: 개발 기간 }
     - { value: "5개", label: 서버 기능, note: "상담, 지점, 법인 안내, 예약, 대기열" }
     - { value: "26개", label: 서버 자동 테스트 }
     - { value: "2개", label: import-linter 계약, note: 모두 통과 }
