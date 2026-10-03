@@ -8,6 +8,8 @@ from google.genai import errors, types
 from agent.app.ports import FinalAnswer, LlmUnavailable, Message, ToolCall, ToolLlmPort
 from core.config import GEMINI_API_KEY, GEMINI_MODEL
 
+TIMEOUT_MS = 30_000  # 응답 없는 호출 하나가 끝없이 기다리던 일(10/3 평가 중 35분) — 넘으면 LlmUnavailable
+
 
 def _contents(history: list[Message]) -> list[types.Content]:
     out: list[types.Content] = []
@@ -36,7 +38,7 @@ def _config(tools) -> types.GenerateContentConfig:
 
 class GeminiToolLlm(ToolLlmPort):
     def __init__(self) -> None:
-        self._client = genai.Client(api_key=GEMINI_API_KEY)
+        self._client = genai.Client(api_key=GEMINI_API_KEY, http_options=types.HttpOptions(timeout=TIMEOUT_MS))
 
     async def next_turn(self, history, tools):
         cfg = _config(tools)

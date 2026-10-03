@@ -32,3 +32,10 @@ async def test_network_error_becomes_llm_unavailable(monkeypatch):
     monkeypatch.setattr(llm._client.aio.models, "generate_content", boom)
     with pytest.raises(LlmUnavailable):
         await llm.next_turn([Message("user", "q")], TOOLS)
+
+
+def test_client_has_request_timeout(monkeypatch):
+    from agent.adapter.outbound.gemini_llm import TIMEOUT_MS, GeminiToolLlm
+
+    monkeypatch.setattr("agent.adapter.outbound.gemini_llm.GEMINI_API_KEY", "test-key")
+    assert GeminiToolLlm()._client._api_client._http_options.timeout == TIMEOUT_MS  # 응답 없는 호출이 끝없이 기다리지 않게
