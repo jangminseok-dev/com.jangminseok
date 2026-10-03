@@ -55,6 +55,11 @@ html {
   scroll-padding-bottom: 6rem;
 }
 
+/* 프로젝트 소개 페이지는 상단 메뉴 아래에 섹션 메뉴가 한 줄 더 고정된다 */
+html:has(.subnav) {
+  scroll-padding-top: 7.5rem;
+}
+
 body {
   background: var(--color-night);
   color: var(--color-white);

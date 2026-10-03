@@ -64,7 +64,7 @@ function FigureCard({ f }: { f: Figure }) {
     <div className="glass rounded-2xl p-5">
       <p className="text-3xl font-bold text-accent-ink">{f.value}</p>
       <p className="mt-2 font-semibold">{f.label}</p>
-      {f.note ? <p className="mt-1 text-sm text-white/60">{f.note}</p> : null}
+      {f.note ? <p className="mt-1 text-sm text-white/70">{f.note}</p> : null}
     </div>
   );
 }
@@ -86,7 +86,7 @@ function Overview({ project, mainHref }: Props) {
           <p className="mt-3 font-semibold text-accent-ink">{page.overview.role}</p>
           <p className="mt-5 text-lg leading-relaxed md:text-xl">{page.overview.what}</p>
           <p className="mt-3 leading-relaxed text-white/75">{page.overview.why}</p>
-          <p className="mt-5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/65">
+          <p className="mt-5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/70">
             <span>
               {period.start} ~ {period.end ?? "진행 중"}
             </span>
@@ -136,7 +136,7 @@ function Features({ slug, page }: { slug: string; page: ProjectPage }) {
               <img src={mediaUrl(slug, f.image)} alt={f.title} className="aspect-video w-full object-cover object-top" />
             ) : null}
             <div className="p-5">
-              <p className="text-xs font-semibold text-accent-ink">핵심 기능</p>
+              <p className="text-sm font-semibold text-accent-ink">핵심 기능</p>
               <h3 className="mt-1 text-lg font-bold">{f.title}</h3>
               <p className="mt-2 leading-relaxed text-white/80">{f.body}</p>
             </div>
@@ -158,7 +158,7 @@ function Features({ slug, page }: { slug: string; page: ProjectPage }) {
           ))}
         </ul>
       ) : null}
-      {page.featureNote ? <p className="mt-4 text-sm text-white/55">{page.featureNote}</p> : null}
+      {page.featureNote ? <p className="mt-4 text-sm text-white/70">{page.featureNote}</p> : null}
     </Section>
   );
 }
@@ -182,7 +182,7 @@ function Architecture({ slug, page }: { slug: string; page: ProjectPage }) {
       <dl className="mt-6 space-y-3">
         {a.layers.map((l) => (
           <div key={l.name} className="flex flex-col gap-2 sm:flex-row sm:items-center">
-            <dt className="w-28 shrink-0 text-sm text-white/60">{l.name}</dt>
+            <dt className="w-28 shrink-0 text-sm text-white/70">{l.name}</dt>
             <dd className="flex flex-wrap gap-2">
               {l.items.map((s) => (
                 <TechChip key={s} name={s} icon={stackIconSlug(s) ?? undefined} />
@@ -270,7 +270,7 @@ function Troubles({ page }: { page: ProjectPage }) {
               {TROUBLE_PARTS.map(([key, label]) =>
                 t[key] ? (
                   <div key={key} className="grid grid-cols-1 gap-1 sm:grid-cols-[4rem_1fr]">
-                    <dt className={`text-sm font-semibold ${key === "result" ? "text-accent-ink" : "text-white/60"}`}>
+                    <dt className={`text-sm font-semibold ${key === "result" ? "text-accent-ink" : "text-white/70"}`}>
                       {label}
                     </dt>
                     <dd className="leading-relaxed text-white/85">{t[key]}</dd>
@@ -281,7 +281,7 @@ function Troubles({ page }: { page: ProjectPage }) {
             {t.detail ? <p className="mt-4 rounded-xl bg-white/5 p-3 text-sm leading-relaxed text-white/70">{t.detail}</p> : null}
             {t.evidence.length ? (
               <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
-                <span className="text-white/55">코드로 확인</span>
+                <span className="text-white/70">코드로 확인</span>
                 {t.evidence.map((e) => (
                   <a
                     key={e.url}
@@ -342,7 +342,7 @@ function Retro({ project, mainHref }: Props) {
 export default function ProjectReview(props: Props) {
   return (
     <>
-      <nav className="glass sticky top-16 z-30 border-x-0 border-t-0">
+      <nav className="subnav sticky top-16 z-30 border-b border-white/10 bg-night/90 backdrop-blur-md">
         <ul className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-5 py-2 text-sm scroll-fade">
           {SECTIONS.map((s) => (
             <li key={s.id}>
