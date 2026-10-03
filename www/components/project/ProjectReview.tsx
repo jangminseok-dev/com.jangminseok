@@ -16,7 +16,8 @@ const SECTIONS = [
 
 const anchorOf = (id: string) => SECTIONS.find((s) => s.id === id)?.anchor ?? "";
 
-type Props = { project: Project; mainHref: string };
+type ImageSize = { width: number; height: number } | null;
+type Props = { project: Project; mainHref: string; archSize: ImageSize };
 type Figure = ProjectPage["retro"]["metrics"][number];
 
 function projectLinks(project: Project): { href: string; label: string }[] {
@@ -51,8 +52,8 @@ function LinkButtons({ project }: { project: Project }) {
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
-    <section id={id} className="scroll-mt-32 py-14">
-      <span id={anchorOf(id)} aria-hidden className="block scroll-mt-32" />
+    <section id={id} className="scroll-mt-4 py-14">
+      <span id={anchorOf(id)} aria-hidden className="block scroll-mt-4" />
       <h2 className="text-2xl font-bold md:text-3xl">{title}</h2>
       <div className="mt-6">{children}</div>
     </section>
@@ -69,11 +70,11 @@ function FigureCard({ f }: { f: Figure }) {
   );
 }
 
-function Overview({ project, mainHref }: Props) {
+function Overview({ project, mainHref }: Pick<Props, "project" | "mainHref">) {
   const { slug, preview, period, team, page } = project;
   return (
-    <section id="overview" className="scroll-mt-32 pt-10 pb-14">
-      <span id="01" aria-hidden className="block scroll-mt-32" />
+    <section id="overview" className="scroll-mt-4 pt-10 pb-14">
+      <span id="01" aria-hidden className="block scroll-mt-4" />
       <a href={mainHref} className="text-sm text-white/70 hover:text-white">
         ← 전체 프로젝트
       </a>
@@ -163,13 +164,14 @@ function Features({ slug, page }: { slug: string; page: ProjectPage }) {
   );
 }
 
-function Architecture({ slug, page }: { slug: string; page: ProjectPage }) {
+function Architecture({ slug, page, archSize }: { slug: string; page: ProjectPage; archSize: ImageSize }) {
   const a = page.architecture;
   return (
     <Section id="architecture" title="아키텍처">
       <p className="max-w-4xl text-lg leading-relaxed text-white/85">{a.summary}</p>
       <div className="glass mt-6 overflow-hidden rounded-3xl">
-        <img src={mediaUrl(slug, a.image)} alt="전체 구조 도식" className="w-full" />
+        {/* width와 height로 자리를 미리 잡는다 — 늦게 뜨면 아래 섹션이 밀려 #04 같은 근거 링크가 엉뚱한 곳에 멈춘다 */}
+        <img src={mediaUrl(slug, a.image)} alt="전체 구조 도식" width={archSize?.width} height={archSize?.height} className="h-auto w-full" />
       </div>
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
         {a.points.map((p) => (
@@ -302,7 +304,7 @@ function Troubles({ page }: { page: ProjectPage }) {
   );
 }
 
-function Retro({ project, mainHref }: Props) {
+function Retro({ project, mainHref }: Pick<Props, "project" | "mainHref">) {
   const { page } = project;
   return (
     <Section id="retro" title="성과와 회고">
@@ -354,12 +356,12 @@ export default function ProjectReview(props: Props) {
         </ul>
       </nav>
       <div className="mx-auto max-w-7xl px-5">
-        <Overview {...props} />
+        <Overview project={props.project} mainHref={props.mainHref} />
         <Features slug={props.project.slug} page={props.project.page} />
-        <Architecture slug={props.project.slug} page={props.project.page} />
+        <Architecture slug={props.project.slug} page={props.project.page} archSize={props.archSize} />
         <Role page={props.project.page} />
         <Troubles page={props.project.page} />
-        <Retro {...props} />
+        <Retro project={props.project} mainHref={props.mainHref} />
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import NightBackdrop from "@/components/home/NightBackdrop";
 import SiteNav from "@/components/home/SiteNav";
 import ProjectReview from "@/components/project/ProjectReview";
 import { accentStyle } from "@/lib/accent";
-import { getProfile, getProject, getProjects } from "@/lib/content";
+import { getProfile, getProject, getProjects, getSvgSize } from "@/lib/content";
 import { SITE_DOMAIN, isProdSite, mainHref } from "@/lib/site";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -44,7 +44,7 @@ export default async function ProjectPage({ params }: Params) {
       <NightBackdrop />
       <SiteNav name={getProfile().name} github={getProfile().links.github} base={home} />
       <main style={accentStyle(project.accent)} className="text-white">
-        <ProjectReview project={project} mainHref={home} />
+        <ProjectReview project={project} mainHref={home} archSize={getSvgSize(slug, project.page.architecture.image)} />
       </main>
     </>
   );
