@@ -21,7 +21,7 @@ export default function SiteNav({ name, github, base = "" }: { name: string; git
         <ul className="flex flex-1 gap-1 overflow-x-auto whitespace-nowrap text-sm scroll-fade">
           {SECTIONS.map((s) => (
             <li key={s.id}>
-              <a href={`${base}#${s.id}`} className="block rounded-lg px-2 py-2 text-white/80 sm:px-3 hover:bg-white/10 hover:text-white">
+              <a href={`${base}#${s.id}`} className="block rounded-lg px-2 py-2 text-white/80 focus-visible:-outline-offset-2 sm:px-3 hover:bg-white/10 hover:text-white">
                 {s.label}
               </a>
             </li>

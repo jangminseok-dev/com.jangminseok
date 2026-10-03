@@ -21,7 +21,6 @@ const mediaPath = z
 
 // 주 사용 언어 — 백엔드 카탈로그(minseok/scripts/build_catalog.py)가 읽는다
 export const LANGUAGES = ["Python", "TypeScript", "Dart", "JavaScript", "Java"] as const;
-export type Language = (typeof LANGUAGES)[number];
 
 export const ProjectSchema = z.strictObject({
   slug: z.string().regex(/^[a-z0-9]+$/, "slug는 영문 소문자·숫자만"),
