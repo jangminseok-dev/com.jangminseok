@@ -5,8 +5,8 @@ export default function SkillBoard({ skills, note }: { skills: Profile["skills"]
   return (
     <div id="skills" className="glass rounded-3xl p-5 md:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="text-lg font-bold">기술 스택</h2>
-        <p className="flex gap-3 text-xs text-white/70">
+        <h2 className="text-xl font-bold">기술 스택</h2>
+        <p className="flex gap-3 text-sm text-white/70">
           <span className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-sm bg-white/80" /> 프로젝트에서 사용
           </span>
@@ -15,7 +15,7 @@ export default function SkillBoard({ skills, note }: { skills: Profile["skills"]
           </span>
         </p>
       </div>
-      <p className="mt-1 text-sm text-white/65">{note}</p>
+      <p className="mt-1 text-sm text-white/70">{note}</p>
       <dl className="mt-5 space-y-4">
         {skills.map((g) => (
           <div key={g.group} className="grid grid-cols-1 gap-2 sm:grid-cols-[5.5rem_1fr]">

@@ -33,7 +33,7 @@ export default function SiteFooter({ profile }: { profile: Profile }) {
               >
                 <Logo slug={c.icon} />
                 <span className="min-w-0">
-                  <span className="block text-xs text-white/55">{c.label}</span>
+                  <span className="block text-sm text-white/70">{c.label}</span>
                   <span className="block truncate font-medium">{c.value}</span>
                 </span>
               </a>
@@ -41,7 +41,7 @@ export default function SiteFooter({ profile }: { profile: Profile }) {
           ))}
         </ul>
       </div>
-      <p className="mt-8 text-center text-sm text-white/45">© 2026 {profile.name}</p>
+      <p className="mt-8 text-center text-sm text-white/70">© 2026 {profile.name}</p>
     </footer>
   );
 }

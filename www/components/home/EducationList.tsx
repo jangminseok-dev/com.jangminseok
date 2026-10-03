@@ -8,7 +8,7 @@ export default function EducationList({ education }: { education: Profile["educa
       <ul className="mt-8 space-y-4">
         {education.map((e) => (
           <li key={e.org} className="glass rounded-3xl p-6">
-            <p className="text-sm text-white/50">{e.period}</p>
+            <p className="text-sm text-white/70">{e.period}</p>
             <p className="mt-1 font-bold">{e.org}</p>
             <p className="mt-1 text-white/75">{e.course}</p>
             <ul className="mt-3 flex flex-wrap gap-2">

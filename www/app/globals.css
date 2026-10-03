@@ -62,6 +62,14 @@ body {
   overflow-wrap: anywhere;
 }
 
+/* 키보드로 이동할 때 현재 위치가 보이게 한다. base 레이어에 두어 outline-none 유틸리티(챗봇 입력 칸)가 이긴다 */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-brand-soft);
+    outline-offset: 2px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

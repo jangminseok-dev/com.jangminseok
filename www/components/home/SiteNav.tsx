@@ -15,7 +15,7 @@ export default function SiteNav({ name, github, base = "" }: { name: string; git
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-night/80 backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-5 sm:gap-6">
-        <a href={`${base}#about`} className="shrink-0 text-[1.35rem] font-bold">
+        <a href={`${base}#about`} className="shrink-0 text-xl font-bold">
           {name}
         </a>
         <ul className="flex flex-1 gap-1 overflow-x-auto whitespace-nowrap text-sm scroll-fade">

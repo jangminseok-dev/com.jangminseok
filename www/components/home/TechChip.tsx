@@ -6,7 +6,7 @@ export default function TechChip({ name, icon, dashed = false }: { name: string;
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm ${
-        dashed ? "border border-dashed border-white/30 text-white/65" : "bg-white/12 font-medium text-white"
+        dashed ? "border border-dashed border-white/30 text-white/70" : "bg-white/12 font-medium text-white"
       }`}
     >
       {logo ? (
