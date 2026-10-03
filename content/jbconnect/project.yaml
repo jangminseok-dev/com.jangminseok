@@ -7,6 +7,7 @@ period: { start: "2026-06-11", end: "2026-06-13" }
 team: { size: 4, role: "아이디어는 팀과 함께, 개발은 혼자 (백엔드와 화면 3개)" }
 stack: [Python 3.11, FastAPI, Pydantic 2, Gemini, Groq, Next.js 16 × 3, Web Speech API, import-linter]
 languages: [Python, TypeScript]
+tags: [헥사고날, LLM 폴백, 음성 입력]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4, demo: media/demo.mp4 }
 links:
   repo: https://github.com/jangminseok-dev/JBAIConnect

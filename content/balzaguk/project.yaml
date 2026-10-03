@@ -7,6 +7,7 @@ period: { start: "2026-06-17", end: "2026-06-26" }
 team: { size: 4, role: "풀스택 (백엔드, AI 에이전트, 데이터 적재, 배포, 서버와 연결되는 화면)" }
 stack: [Python 3.13, FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL (Neon), Gemini, pandas + pyproj, React 19 + Vite, Docker, Railway + Vercel]
 languages: [Python, TypeScript]
+tags: [공공데이터, Gemini, Docker]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }
 links:
   repo: https://github.com/jangminseok-dev/cloud.adapdog

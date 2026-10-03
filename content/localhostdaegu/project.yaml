@@ -7,6 +7,7 @@ period: { start: "2026-09-15", end: "2026-09-29" }
 team: { size: 3, role: "팀장과 PM/아키텍트 (API 계약, 배포 구조, DB 스키마, 리뷰, 제출)" }
 stack: [FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL + pgvector, Gemini, Ollama Gemma 4, Next.js 16, MapLibre, Docker, Vercel, Cloudflare Tunnel]
 languages: [Python, TypeScript]
+tags: [pgvector, API 계약, Cloudflare Tunnel]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }
 links:
   site: https://053.localhostdaegu.cloud

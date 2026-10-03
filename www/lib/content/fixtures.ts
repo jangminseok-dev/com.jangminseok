@@ -10,6 +10,7 @@ export function validProjectData(overrides: Record<string, unknown> = {}): Recor
     team: { size: 1, role: "1인 개발" },
     stack: ["FastAPI"],
     languages: ["Python"],
+    tags: ["FastAPI"],
     preview: { poster: "media/poster.webp" },
     links: {},
     ...overrides,

@@ -7,6 +7,7 @@ period: { start: "2026-09-01", end: null }
 team: { size: 5, role: "AI Evaluation Engineer (평가 설계, 러너, provider 어댑터, 배포 지표)" }
 stack: [FastAPI, Next.js, PostgreSQL + pgvector, Ollama Gemma 4, Claude API, Gemini 임베딩, Jekyll]
 languages: [Python, TypeScript]
+tags: [LLM 평가, 모델 선정, LLM 어댑터]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }
 links:
   site: https://remakeday.com

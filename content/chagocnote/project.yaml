@@ -7,5 +7,6 @@ period: { start: "2026-09-20", end: null }
 team: { size: 1, role: "1인 개발 (설계, 백엔드, Flutter 앱, 웹, 인프라)" }
 stack: [Python 3.13, FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL, Flutter, Next.js 16, MinIO + S3, Caddy, Docker Compose]
 languages: [Python, Dart, TypeScript]
+tags: [멀티테넌시, Flutter, FastAPI]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }
 links: {}

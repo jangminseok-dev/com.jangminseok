@@ -35,6 +35,15 @@ describe("ProjectSchema", () => {
     expect(ProjectSchema.safeParse(data).success).toBe(true);
   });
 
+  it("핵심 기술(tags)은 1~3개, 각 20자 이하, 빠지면 실패한다", () => {
+    const ok = (tags: unknown) => ProjectSchema.safeParse(validProjectData({ tags })).success;
+    expect(ok(["Elasticsearch", "RAG", "개인정보 마스킹"])).toBe(true);
+    expect(ok([])).toBe(false);
+    expect(ok(["a", "b", "c", "d"])).toBe(false);
+    expect(ok(["가".repeat(21)])).toBe(false);
+    const { tags: _tags, ...rest } = validProjectData();
+    expect(ProjectSchema.safeParse(rest).success).toBe(false);
+  });
 });
 
 describe("ProjectPageSchema", () => {

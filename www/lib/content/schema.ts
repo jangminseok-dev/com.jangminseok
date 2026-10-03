@@ -19,7 +19,7 @@ const mediaPath = z
   .string()
   .regex(/^media\/[\w.\-/]+\.(webp|png|jpg|svg|mp4)$/, "media/ 아래 webp·png·jpg·svg·mp4 경로여야 합니다");
 
-// 프로젝트 카드 오른쪽 위 핀 — simple-icons slug와 1:1 (components/home/LanguagePins.tsx)
+// 주 사용 언어 — 백엔드 카탈로그(minseok/scripts/build_catalog.py)가 읽는다
 export const LANGUAGES = ["Python", "TypeScript", "Dart", "JavaScript", "Java"] as const;
 export type Language = (typeof LANGUAGES)[number];
 
@@ -33,6 +33,8 @@ export const ProjectSchema = z.strictObject({
   team: z.strictObject({ size: z.number().int().min(1), role: text }),
   stack: z.array(text).min(1),
   languages: z.array(z.enum(LANGUAGES)).min(1).max(3),
+  // 프로젝트 카드 썸네일 위에 보여 주는 핵심 기술
+  tags: z.array(text.max(20)).min(1).max(3),
   preview: z.strictObject({ poster: mediaPath, video: mediaPath.optional(), demo: mediaPath.optional() }),
   links: z.strictObject({
     blog: z.url().optional(),
