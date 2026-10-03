@@ -5,19 +5,13 @@ import ChatDialog from "@/components/chat/ChatDialog";
 import type { Turn } from "@/components/chat/ChatDialog";
 import { AgentError, askAgent } from "@/lib/agentApi";
 
-// 평가 시험 문제(minseok/apps/agent/eval/golden.yaml) 중 도구, 근거, 핵심 사실이 모두 맞은 질문만 — 입력창을 누를 때마다 3개를 새로 고른다
+// 평가 시험 문제(minseok/apps/agent/eval/golden.yaml) 중 도구, 근거, 핵심 사실이 모두 맞은 질문에서 채용 담당자가 물을 만한 것만 — 입력창을 누를 때마다 3개를 새로 고른다
 const EXAMPLE_POOL = [
+  "Elasticsearch를 쓴 프로젝트는 무엇인가요?",
   "CallGuard에서 개인정보는 어떻게 보호했나요?",
   "RedOceanMap에서 하이브리드 검색을 기각한 이유는 무엇인가요?",
-  "차곡노트 알림장 링크는 로그인 없이 어떻게 안전하게 공유하나요?",
-  "발자국에서 경유지는 어떻게 골랐나요?",
-  "JB Silver Connect는 LLM 호출이 실패하면 어떻게 하나요?",
-  "REMAKE DAY에서 장민석의 역할은 무엇이었나요?",
-  "localhost:daegu의 팀 규모와 장민석의 역할을 알려 주세요",
-  "Elasticsearch를 쓴 프로젝트는 무엇인가요?",
   "k3s를 써 본 프로젝트는 어디인가요?",
   "Docker를 쓴 프로젝트들은 배포를 어떻게 구성했나요?",
-  "RedOceanMap은 왜 CI를 껐고, 이후에는 어떻게 바뀌었나요?",
   "차곡노트는 AI로 대량으로 코드를 짜면서 구조를 어떻게 지켰나요?",
 ];
 const EXAMPLE_COUNT = 3;
@@ -65,7 +59,7 @@ export default function ChatDock() {
         {state.turns.length === 0 ? (
           // 검색창 추천어처럼 입력창과 같은 불투명 배경의 목록 — 칩은 밤하늘 배경에 묻혀 읽기 어려웠다
           <div className="mb-2 hidden rounded-3xl border border-white/10 bg-panel p-2 backdrop-blur-xl group-focus-within:block">
-            <p className="px-3 pb-1 pt-2 text-xs text-white/60">예시 질문</p>
+            <p className="px-3 pb-1 pt-2 text-sm text-white/70">예시 질문</p>
             <ul>
               {state.examples.map((q) => (
                 <li key={q}>
@@ -84,15 +78,15 @@ export default function ChatDock() {
               ))}
             </ul>
             {/* 질문 저장은 minseok/core/question_log.py */}
-            <p className="px-3 pb-2 pt-1 text-xs text-white/60">질문과 답변은 챗봇 개선을 위해 보관합니다. 개인정보는 입력하지 마십시오.</p>
+            <p className="px-3 pb-2 pt-1 text-sm text-white/70">질문과 답변은 챗봇 개선을 위해 보관합니다. 개인정보는 입력하지 마십시오.</p>
           </div>
         ) : null}
-        {/* 밤하늘 배경에 묻히지 않도록 그라데이션 테두리와 빛 번짐을 준다 */}
-        <div className="rounded-full bg-linear-to-r from-brand via-brand-soft to-violet-400 p-[1.5px] shadow-[0_0_36px_rgb(49_130_246/0.45)]">
+        {/* 배경에 묻히지 않도록 단색 테두리와 어두운 그림자를 준다. 입력 중에는 테두리가 짙어진다 */}
+        <div className="rounded-full border border-brand-soft/60 shadow-[0_8px_24px_rgb(0_0_0/0.45)] focus-within:border-brand">
           <form onSubmit={onSubmit} className="flex items-center gap-3 rounded-full bg-panel py-2 pl-5 pr-2 text-white backdrop-blur-xl">
+            {/* 검색창이 아니라 챗봇임을 알리는 말풍선 */}
             <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-brand-soft" fill="none" stroke="currentColor" strokeWidth="2">
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3.5-3.5" strokeLinecap="round" />
+              <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <input
               name="question"
@@ -103,7 +97,7 @@ export default function ChatDock() {
                 const fromList = e.relatedTarget instanceof Node && !!e.currentTarget.closest(".group")?.contains(e.relatedTarget);
                 setState((s) => (s.turns.length ? { ...s, open: true } : fromList ? s : { ...s, examples: pickExamples() }));
               }}
-              placeholder="프로젝트에 대해 물어보십시오"
+              placeholder="직접 만든 챗봇에게 물어보십시오"
               aria-label="포트폴리오에 질문하기"
               className="min-w-0 flex-1 bg-transparent py-1.5 text-base outline-none placeholder:text-white/75"
             />
