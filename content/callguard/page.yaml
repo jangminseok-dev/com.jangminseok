@@ -128,7 +128,6 @@ proves:
   - { id: git, label: "서버와 AI 분리 아키텍처", anchor: "03" }
   - { id: python-backend, label: "통화 자막 개인정보 실시간 마스킹", anchor: "05" }
   - { id: rag, label: "통화 중 실시간 문서 추천 (RAG)", anchor: "05" }
-  - { id: search-engine, label: "검색 방식 비교 측정과 벡터 검색 채택", anchor: "05" }
-  - { id: hybrid-search, label: "검색 방식 비교 측정과 벡터 검색 채택", anchor: "05" }
-  - { id: rag, label: "검색 방식 비교 측정과 벡터 검색 채택", anchor: "05" }
+  - { id: search-engine, label: "청킹과 nori Elasticsearch 이미지", anchor: "04" }
+  - { id: rag, label: "청킹과 nori Elasticsearch 이미지", anchor: "04" }
   - { id: rag, label: "검색과 마스킹 품질 자동 측정 체계", anchor: "05" }

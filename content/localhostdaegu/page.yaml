@@ -131,4 +131,4 @@ proves:
   - { id: git, label: "API 계약 우선 팀 개발 방식", anchor: "03" }
   - { id: rag, label: "금액은 코드가 계산, AI는 해석만", anchor: "05" }
   - { id: python-backend, label: "DB 확장 (19개에서 29개 테이블로)", anchor: "05" }
-  - { id: linux-docker, label: "무료 배포와 실시간 스트리밍 유지", anchor: "03" }
+  - { id: linux-docker, label: "배포 구조 설계와 스트리밍 조건 정의", anchor: "05" }

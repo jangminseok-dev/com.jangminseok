@@ -127,6 +127,5 @@ retro:
 
 # 메인 "요건 카드"에 이 프로젝트를 근거로 보여 줄 항목 (anchor: 01 한눈에, 02 기능, 03 아키텍처, 04 맡은 일, 05 어려웠던 점, 06 회고)
 proves:
-  - { id: rag, label: "AI 채점 정확도 개선 (65점에서 100점)", anchor: "05" }
-  - { id: search-engine, label: "AI 채점 정확도 개선 (65점에서 100점)", anchor: "05" }
+  - { id: rag, label: "채점 문제 원인을 좁힌 평가 러너", anchor: "05" }
   - { id: python-backend, label: "로컬과 외부 AI 모델 즉시 전환", anchor: "05" }
