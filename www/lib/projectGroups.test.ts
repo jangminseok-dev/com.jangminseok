@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { groupProjects, isWideCard } from "@/lib/projectGroups";
+import { groupProjects } from "@/lib/projectGroups";
 
 const p = (slug: string, order: number, size: number) => ({ slug, order, team: { size } });
 
@@ -20,18 +20,5 @@ describe("groupProjects", () => {
     const input = [p("b", 2, 1), p("a", 1, 1)];
     groupProjects(input);
     expect(input.map((x) => x.slug)).toEqual(["b", "a"]);
-  });
-});
-
-describe("isWideCard", () => {
-  it("그룹의 카드 수가 홀수면 첫 카드만 넓힌다", () => {
-    expect(isWideCard(0, 5)).toBe(true);
-    expect(isWideCard(1, 5)).toBe(false);
-    expect(isWideCard(0, 1)).toBe(true);
-  });
-
-  it("짝수면 넓히지 않는다 (마지막 줄에 빈칸이 생기지 않게)", () => {
-    expect(isWideCard(0, 4)).toBe(false);
-    expect(isWideCard(0, 2)).toBe(false);
   });
 });

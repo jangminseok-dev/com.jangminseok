@@ -8,6 +8,3 @@ export function groupProjects<T extends Groupable>(projects: T[]): { title: stri
     { title: "개인 프로젝트", items: projects.filter((p) => p.team.size === 1).sort(byOrder) },
   ].filter((g) => g.items.length > 0);
 }
-
-// 두 칸 그리드에서 카드 수가 홀수면 첫 카드를 두 칸으로 넓혀 빈칸을 없앤다
-export const isWideCard = (index: number, count: number): boolean => index === 0 && count % 2 === 1;
