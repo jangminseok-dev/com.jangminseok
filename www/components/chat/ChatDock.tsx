@@ -81,8 +81,8 @@ export default function ChatDock() {
             <p className="px-3 pb-2 pt-1 text-sm text-white/70">질문과 답변은 챗봇 개선을 위해 보관합니다. 개인정보는 입력하지 마십시오.</p>
           </div>
         ) : null}
-        {/* 배경에 묻히지 않도록 단색 테두리와 어두운 그림자를 준다. 입력 중에는 테두리가 짙어진다 */}
-        <div className="rounded-full border border-brand-soft/60 shadow-[0_8px_24px_rgb(0_0_0/0.45)] focus-within:border-brand">
+        {/* 밤하늘 배경에 묻히지 않도록 그라데이션 테두리와 빛 번짐을 준다. 입력 중에는 빛 번짐이 짙어진다 */}
+        <div className="rounded-full bg-linear-to-r from-brand via-brand-soft to-violet-400 p-[1.5px] shadow-[0_0_36px_rgb(49_130_246/0.45)] focus-within:shadow-[0_0_44px_rgb(49_130_246/0.75)]">
           <form onSubmit={onSubmit} className="flex items-center gap-3 rounded-full bg-panel py-2 pl-5 pr-2 text-white backdrop-blur-xl">
             {/* 검색창이 아니라 챗봇임을 알리는 말풍선 */}
             <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-brand-soft" fill="none" stroke="currentColor" strokeWidth="2">
