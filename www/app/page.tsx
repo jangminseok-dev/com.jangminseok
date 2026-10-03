@@ -18,12 +18,7 @@ export default function HomePage() {
       <NightBackdrop />
       <SiteNav name={profile.name} github={profile.links.github} />
       <main>
-        <Hero
-          profile={profile}
-          projectCount={projects.length}
-          teamProjectCount={projects.filter((p) => p.team.size > 1).length}
-          skillsNote="프로젝트에서 직접 쓴 기술과 교육에서 다뤄본 기술을 나눠 적었습니다."
-        />
+        <Hero profile={profile} skillsNote="프로젝트에서 직접 쓴 기술과 교육에서 다뤄본 기술을 나눠 적었습니다." />
         <ProjectGrid projects={projects} isProd={isProd} />
         <RequirementMatrix rows={buildRequirementMatrix(profile.requirements, projects)} isProd={isProd} />
         <EducationList education={profile.education} />
