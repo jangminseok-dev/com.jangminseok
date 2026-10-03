@@ -50,9 +50,25 @@ function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
 }
 
 export default function ProjectGrid({ projects, isProd }: { projects: Project[]; isProd: boolean }) {
+  const teamCount = projects.filter((p) => p.team.size > 1).length;
+  const counts = [
+    { label: "총 프로젝트", value: projects.length },
+    { label: "개인 프로젝트", value: projects.length - teamCount },
+    { label: "팀 프로젝트", value: teamCount },
+  ];
   return (
     <section id="projects" className="mx-auto max-w-7xl px-5 py-16">
-      <h2 className="text-2xl font-bold md:text-3xl">프로젝트</h2>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h2 className="text-2xl font-bold md:text-3xl">프로젝트</h2>
+        <dl className="grid w-full max-w-md grid-cols-3 gap-3">
+          {counts.map((c) => (
+            <div key={c.label} className="glass rounded-2xl px-4 py-3">
+              <dd className="text-2xl font-bold tabular-nums">{c.value}</dd>
+              <dt className="mt-0.5 text-sm text-white/70">{c.label}</dt>
+            </div>
+          ))}
+        </dl>
+      </div>
       {groupProjects(projects).map((g) => (
         <div key={g.title} className="mt-8">
           <h3 className="flex items-baseline gap-2 text-xl font-semibold text-white/90">
