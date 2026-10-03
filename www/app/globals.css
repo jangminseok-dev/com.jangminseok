@@ -51,6 +51,8 @@ html {
   scroll-behavior: smooth;
   /* 상단 고정 메뉴(4rem)에 섹션 제목이 가리지 않게 */
   scroll-padding-top: 4.5rem;
+  /* 아래 고정 챗봇 입력창(높이와 여백 합쳐 약 5rem)에 키보드로 옮긴 포커스가 가리지 않게 */
+  scroll-padding-bottom: 6rem;
 }
 
 body {
