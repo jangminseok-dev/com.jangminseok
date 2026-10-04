@@ -7,7 +7,7 @@ overview:
   why: 가게를 계약한 뒤에는 조건을 바꾸는 데 돈이 듭니다. 계약 전에 월세와 투자비를 넣어 보고, 모자란 돈을 은행과 어떻게 상의할지 미리 정리하도록 돕는 것이 목표입니다. 2026 AI Blockchain Challenge Daegu 출품작입니다.
   highlights:
     - { value: "19개 → 29개", label: DB 테이블, note: "기존 19개 테이블은 그대로 두고 10개를 추가" }
-    - { value: "1.4초", label: 첫 AI 문단 도착, note: "첫 배포 뒤 운영 주소에서 Cloudflare Tunnel을 거쳐 잰 값" }
+    - { value: "1.4초", label: 첫 AI 문단 도착, note: "첫 배포 뒤 운영 주소에서 Cloudflare Tunnel을 거쳐 측정한 값" }
     - { value: "10명 중 10명", label: 가상 고객 완주, note: "운영 주소에서 첫 입력부터 상담자료까지 간 인원 (테스트 실행은 팀원)" }
 
 features:
@@ -105,7 +105,7 @@ troubles:
     cause: 이 점수는 폐업률, 점포 수, 점포 증감률이 다른 동에 비해 얼마나 높은지를 4 대 4 대 2로 섞은 값입니다. 점포가 늘어도 점수가 오르기 때문에 실패 확률로 읽을 수 있는 값이 아니었습니다.
     solution: 점수를 대구 142개 동 가운데 몇 번째인지로 보여 주고, 실패 확률이 아니라는 문장을 화면에 붙였습니다. 데이터를 얼마나 단정적으로 표현할지에 대한 원칙은 제가 정했고, 화면 구현은 팀원이 맡았습니다.
     detail: 데이터를 직접 조회해 보니 한 동네의 2025년 카페 폐업 182건 가운데 137건이 개업 30일 안에 끝난 기록이었습니다. 실제 폐업인지 신고 정정인지 구분할 수 없어, 이런 기록은 폐업률과 위험도 집계에서 뺐습니다. 이 규칙으로 폐업률이 100%를 넘던 동 2곳이 사라졌습니다.
-    result: 점수 옆에 비교 기준이 함께 보입니다. 사용자의 오해가 실제로 줄었는지는 아직 재지 않았습니다.
+    result: 점수 옆에 비교 기준이 함께 보입니다. 사용자의 오해가 실제로 줄었는지는 아직 측정 전입니다.
     evidence:
       - { label: 상대 순위 위험 카드 (risk-card.tsx), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/frontend/src/features/map-explorer/components/risk-card.tsx" }
       - { label: 30일 이내 종료 기준 (short_lived.py), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/backend/apps/metric/domain/short_lived.py" }
