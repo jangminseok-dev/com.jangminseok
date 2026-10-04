@@ -24,8 +24,10 @@ features:
     image: media/preview-poster.webp
   - title: 가까운 지점 찾기
     body: 네이버 지역 검색으로 전북은행 지점을 찾아, 지금 위치에서 가까운 순서로 거리와 함께 보여 줍니다. 검색이 실패하면 미리 준비해 둔 데모 지점 목록으로 대신 보여 줍니다.
+    image: media/f-branch.webp
   - title: 법인 서류 안내
     body: 사업자등록이나 법인 통장 개설처럼 법인 업무를 물으면 필요한 서류와 예상 비용을 알려 줍니다. 서류를 떼는 기관도 가까운 곳부터 세 곳을 추천합니다.
+    image: media/f-corporate.webp
   - title: 대기실 호출 화면
     body: 창구 직원이 호출 버튼을 누르면 대기실 모니터에 번호와 창구가 크게 뜹니다. 도착하지 않은 번호표는 30분 뒤, 호출한 번호는 1분 뒤 목록에서 저절로 사라집니다.
     image: media/05-3.webp
