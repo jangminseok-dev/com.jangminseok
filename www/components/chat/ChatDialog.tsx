@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { answerParts, citedSources } from "@/lib/agentApi";
 import type { AskResponse } from "@/lib/agentApi";
 
 export type Turn = { question: string; result: AskResponse | null; error: string | null };
@@ -42,10 +43,20 @@ export default function ChatDialog({ turns, onClose }: { turns: Turn[]; onClose:
               {t.error ? <p className="w-fit max-w-[85%] rounded-2xl bg-white/10 px-3 py-2 text-white/80">{t.error}</p> : null}
               {t.result ? (
                 <div className="max-w-[90%] space-y-2 rounded-2xl bg-white/10 px-4 py-3">
-                  <p className="whitespace-pre-line leading-relaxed">{t.result.answer}</p>
+                  <p className="whitespace-pre-line leading-relaxed">
+                    {answerParts(t.result.answer, t.result.sources).map((part, j) =>
+                      part.href ? (
+                        <a key={j} href={part.href} className="underline underline-offset-2 hover:text-white/80">
+                          {part.text}
+                        </a>
+                      ) : (
+                        part.text
+                      ),
+                    )}
+                  </p>
                   {t.result.sources.length ? (
                     <ul className="flex flex-wrap gap-2">
-                      {t.result.sources.map((s) => (
+                      {citedSources(t.result.answer, t.result.sources).map((s) => (
                         <li key={s.url}>
                           <a href={s.url} className="inline-block rounded-full bg-white/10 px-2 py-1 text-xs hover:bg-white/20">
                             {s.title}
