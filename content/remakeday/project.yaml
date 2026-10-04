@@ -5,7 +5,7 @@ tagline: AI가 인물을 연기하는 추리 게임을, AI 제안을 사람이 �
 accent: "#a855f7"
 period: { start: "2026-09-01", end: null }
 team: { size: 5, role: "AI Evaluation Engineer (평가 설계, 평가 러너, LLM 어댑터, 응답 지연과 GPU 메모리 측정)" }
-stack: [FastAPI, Next.js, PostgreSQL + pgvector, Ollama Gemma 4, Claude API, Gemini 임베딩, Jekyll]
+stack: [FastAPI, Next.js, PostgreSQL + pgvector, Ollama Gemma 4, Claude API, Gemini 임베딩, Jekyll, Python, React, TypeScript, Kanana 1.5]
 languages: [Python, TypeScript]
 tags: [LLM 평가, 모델 선정, LLM 어댑터]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }

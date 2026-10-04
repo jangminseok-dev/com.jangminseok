@@ -73,6 +73,7 @@ const STACK_ICON: Record<string, string> = {
   gemini: "googlegemini",
   langchain: "langchain",
   pytorch: "pytorch",
+  yolo: "yolo",
   claude: "claude",
   google: "google",
   docker: "docker",

@@ -5,7 +5,7 @@ tagline: 반려견의 크기, 견종, 체질과 문화 공공데이터를 교차
 accent: "#14b8a6"
 period: { start: "2026-06-17", end: "2026-06-26" }
 team: { size: 4, role: "풀스택 (백엔드, AI 에이전트, 데이터 적재, 배포, 서버와 연결되는 화면)" }
-stack: [Python 3.13, FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL (Neon), Gemini, pandas + pyproj, React 19 + Vite, Docker, Railway + Vercel]
+stack: [Python 3.13, FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL (Neon), Gemini, pandas + pyproj, React 19 + Vite, Docker, Railway + Vercel, 네이버 지도]
 languages: [Python, TypeScript]
 tags: [공공데이터, Gemini, Docker]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }

@@ -5,7 +5,7 @@ tagline: 지금 보고 계신 포트폴리오 사이트입니다. 프로젝트�
 accent: "#8ab4ff"
 period: { start: "2026-09-29", end: null }
 team: { size: 1, role: "1인 개발 (설계, 백엔드, 화면, 평가, 배포)" }
-stack: [Python 3.13, FastAPI, SQLAlchemy 2, PostgreSQL + pgvector, Gemini, MCP, Next.js 16, TypeScript, Vercel, Supabase]
+stack: [Python 3.13, FastAPI, SQLAlchemy 2, PostgreSQL + pgvector, Gemini, MCP, Next.js 16, TypeScript, Vercel, Supabase, React 19, Tailwind CSS, import-linter, pg_trgm, GitHub Actions]
 languages: [Python, TypeScript]
 tags: [하이브리드 검색, MCP, 골든셋 평가]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }

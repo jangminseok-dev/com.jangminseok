@@ -49,7 +49,7 @@ architecture:
     - { name: 화면, items: [Next.js 16, React 19, TypeScript, Tailwind 4] }
     - { name: 서버, items: [Python 3.13, FastAPI, SQLAlchemy 2, import-linter] }
     - { name: 데이터, items: [PostgreSQL + pgvector, Redis, 서울 열린데이터광장] }
-    - { name: AI, items: [Ollama, Gemma 4, embeddinggemma, Gemini, LangChain, PyTorch] }
+    - { name: AI, items: [Ollama, Gemma 4, embeddinggemma, Gemini, LangChain, PyTorch, YOLO] }
     - { name: 배포, items: [k3s, Docker Compose, Cloudflare Tunnel, Vercel, "AWS (EC2 시험 배포, S3)"] }
 
 role:

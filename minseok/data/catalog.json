@@ -23,7 +23,12 @@
     "Next.js 16",
     "TypeScript",
     "Vercel",
-    "Supabase"
+    "Supabase",
+    "React 19",
+    "Tailwind CSS",
+    "import-linter",
+    "pg_trgm",
+    "GitHub Actions"
    ],
    "languages": [
     "Python",
@@ -131,7 +136,8 @@
     "Google STT",
     "WebSocket",
     "React",
-    "k3s + AWS"
+    "k3s + AWS",
+    "import-linter"
    ],
    "languages": [
     "Python",
@@ -307,7 +313,14 @@
     "Docker",
     "k3s",
     "Cloudflare Tunnel",
-    "AWS (EC2 시험 배포, S3)"
+    "AWS (EC2 시험 배포, S3)",
+    "React 19",
+    "TypeScript",
+    "Tailwind 4",
+    "import-linter",
+    "embeddinggemma",
+    "Docker Compose",
+    "Vercel"
    ],
    "languages": [
     "Python",
@@ -351,7 +364,7 @@
     {
      "number": 3,
      "title": "아키텍처",
-     "text": "질문은 화면에서 서버로 들어옵니다. 서버는 질문 종류에 맞는 데이터를 모아 AI에게 문장을 쓰게 합니다. 답을 내보내기 전에 코드로 만든 규칙 가드가 숫자와 금지 표현을 한 번 더 확인합니다.\n규칙은 AI가 아니라 코드가 지킵니다: 작은 AI 모델은 프롬프트에 적어 둔 규칙도 어겼습니다. 그래서 없는 데이터를 \"없다\"고 먼저 밝히는 일, 조건에 맞는 상권을 정렬하는 일, 주의 등급 상권에 추천 표현을 쓰지 않는 일은 코드가 맡습니다. AI는 그 결과를 문장으로 풀어 씁니다.\n앱끼리는 허브 모듈을 거쳐서만 통신합니다: 서버는 상권, 주식, 대화, 인증 등 8개 앱으로 나뉩니다. 앱끼리는 서로를 직접 부르지 못하고, 허브 모듈을 거쳐야 합니다. 혼자 만드는 큰 서버가 엉키지 않도록, 이 규칙을 import-linter라는 검사 도구의 계약 5개로 확인합니다.\n서버는 k3s에, 데이터는 제자리에: k3s는 여러 서비스를 한곳에서 띄우고 관리해 주는 가벼운 쿠버네티스입니다. 규모를 키우려는 것이 아니라, 배포와 정기 작업, 재시작을 한곳에서 보고 관리하려고 도입했습니다. 데이터베이스는 나중에 클라우드로 옮길 예정이라 기존 Docker Compose에 그대로 두었습니다. 데이터를 두 번 옮기지 않기 위해서입니다. 서버를 이미지로 만들어 AWS EC2에서 돌아가는 것도 확인했습니다. 다만 계속 올려 두면 비용이 나가서 교육 과정 동안은 자체 서버로 운영하고, 과정이 끝나면 AWS를 다시 검토합니다. 이미지 저장에는 AWS S3를 연결했습니다.\nAI 모델은 직접 돌리고, 외부 AI는 보조로만: 상권과 주식 답변은 8GB GPU에서 도는 로컬 모델이 씁니다. 서비스 주제를 벗어난 일반 질문과 예비용으로만 외부 AI인 Gemini를 부릅니다.\n화면: Next.js 16, React 19, TypeScript, Tailwind 4\n서버: Python 3.13, FastAPI, SQLAlchemy 2, import-linter\n데이터: PostgreSQL + pgvector, Redis, 서울 열린데이터광장\nAI: Ollama, Gemma 4, embeddinggemma, Gemini, LangChain, PyTorch\n배포: k3s, Docker Compose, Cloudflare Tunnel, Vercel, AWS (EC2 시험 배포, S3)",
+     "text": "질문은 화면에서 서버로 들어옵니다. 서버는 질문 종류에 맞는 데이터를 모아 AI에게 문장을 쓰게 합니다. 답을 내보내기 전에 코드로 만든 규칙 가드가 숫자와 금지 표현을 한 번 더 확인합니다.\n규칙은 AI가 아니라 코드가 지킵니다: 작은 AI 모델은 프롬프트에 적어 둔 규칙도 어겼습니다. 그래서 없는 데이터를 \"없다\"고 먼저 밝히는 일, 조건에 맞는 상권을 정렬하는 일, 주의 등급 상권에 추천 표현을 쓰지 않는 일은 코드가 맡습니다. AI는 그 결과를 문장으로 풀어 씁니다.\n앱끼리는 허브 모듈을 거쳐서만 통신합니다: 서버는 상권, 주식, 대화, 인증 등 8개 앱으로 나뉩니다. 앱끼리는 서로를 직접 부르지 못하고, 허브 모듈을 거쳐야 합니다. 혼자 만드는 큰 서버가 엉키지 않도록, 이 규칙을 import-linter라는 검사 도구의 계약 5개로 확인합니다.\n서버는 k3s에, 데이터는 제자리에: k3s는 여러 서비스를 한곳에서 띄우고 관리해 주는 가벼운 쿠버네티스입니다. 규모를 키우려는 것이 아니라, 배포와 정기 작업, 재시작을 한곳에서 보고 관리하려고 도입했습니다. 데이터베이스는 나중에 클라우드로 옮길 예정이라 기존 Docker Compose에 그대로 두었습니다. 데이터를 두 번 옮기지 않기 위해서입니다. 서버를 이미지로 만들어 AWS EC2에서 돌아가는 것도 확인했습니다. 다만 계속 올려 두면 비용이 나가서 교육 과정 동안은 자체 서버로 운영하고, 과정이 끝나면 AWS를 다시 검토합니다. 이미지 저장에는 AWS S3를 연결했습니다.\nAI 모델은 직접 돌리고, 외부 AI는 보조로만: 상권과 주식 답변은 8GB GPU에서 도는 로컬 모델이 씁니다. 서비스 주제를 벗어난 일반 질문과 예비용으로만 외부 AI인 Gemini를 부릅니다.\n화면: Next.js 16, React 19, TypeScript, Tailwind 4\n서버: Python 3.13, FastAPI, SQLAlchemy 2, import-linter\n데이터: PostgreSQL + pgvector, Redis, 서울 열린데이터광장\nAI: Ollama, Gemma 4, embeddinggemma, Gemini, LangChain, PyTorch, YOLO\n배포: k3s, Docker Compose, Cloudflare Tunnel, Vercel, AWS (EC2 시험 배포, S3)",
      "label": "아키텍처"
     },
     {
@@ -493,7 +506,10 @@
     "MapLibre",
     "Docker",
     "Vercel",
-    "Cloudflare Tunnel"
+    "Cloudflare Tunnel",
+    "Python",
+    "React 19",
+    "qwen3-embedding"
    ],
    "languages": [
     "Python",
@@ -644,7 +660,11 @@
     "Ollama Gemma 4",
     "Claude API",
     "Gemini 임베딩",
-    "Jekyll"
+    "Jekyll",
+    "Python",
+    "React",
+    "TypeScript",
+    "Kanana 1.5"
    ],
    "languages": [
     "Python",
@@ -808,7 +828,10 @@
     "Next.js 16",
     "MinIO (S3 호환)",
     "Caddy",
-    "Docker Compose"
+    "Docker Compose",
+    "TypeScript",
+    "import-linter",
+    "Redis"
    ],
    "languages": [
     "Python",
@@ -981,7 +1004,8 @@
     "pandas + pyproj",
     "React 19 + Vite",
     "Docker",
-    "Railway + Vercel"
+    "Railway + Vercel",
+    "네이버 지도"
    ],
    "languages": [
     "Python",

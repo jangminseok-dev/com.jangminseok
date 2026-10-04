@@ -5,7 +5,7 @@ tagline: 120 다산콜센터 통화를 실시간으로 들으며 필요한 문�
 accent: "#22c55e"
 period: { start: "2026-08-20", end: null }
 team: { size: 4, role: "백엔드와 AI (ai 브랜치 초기와 server 브랜치 담당, 허브-스포크 골격, 청킹, 개인정보 마스킹, 평가 하네스)" }
-stack: [Python 3.13, FastAPI, PostgreSQL, Elasticsearch 9 + nori, KoE5 임베딩, Google STT, WebSocket, React, k3s + AWS]
+stack: [Python 3.13, FastAPI, PostgreSQL, Elasticsearch 9 + nori, KoE5 임베딩, Google STT, WebSocket, React, k3s + AWS, import-linter]
 languages: [Python, TypeScript, Dart]
 tags: [Elasticsearch, RAG, 개인정보 마스킹]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }
