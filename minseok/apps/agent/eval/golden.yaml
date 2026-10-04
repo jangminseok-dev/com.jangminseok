@@ -35,7 +35,7 @@
   expected_args: {}
   expected_sources: [localhostdaegu#03, localhostdaegu#04, localhostdaegu#01]
   must_refuse: false
-  must_include: [RedOceanMap]
+  must_include: [[Metabole, 서울 상권 서비스]]
 - question: JB Silver Connect는 LLM 호출이 실패하면 어떻게 하나요?
   expected_tools: [search_portfolio]
   expected_args: {}
@@ -170,7 +170,7 @@
   expected_args: {get_project: {slug: callguard}}
   expected_sources: [callguard#01, callguard#06]
   must_refuse: false
-  must_include: ["1,257"]
+  must_include: ["1,451"]
 - question: REMAKE DAY 한 판을 외부 API로 돌리면 비용이 얼마인가요?
   expected_tools: [get_project]
   expected_args: {get_project: {slug: remakeday}}
