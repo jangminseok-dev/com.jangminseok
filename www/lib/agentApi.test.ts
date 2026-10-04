@@ -42,6 +42,19 @@ describe("answerParts", () => {
     ]);
   });
 
+  it("근거 칩과 겹치는 '자세한 내용은 ~에서 확인' 안내 문장을 뺀다", () => {
+    expect(answerParts("마스킹했습니다. 자세한 내용은 https://callguard.jangminseok.com#04에서 확인할 수 있습니다.", SOURCES)).toEqual([
+      { text: "마스킹했습니다." },
+    ]);
+    expect(
+      answerParts("마스킹했습니다. 더 자세한 내용은 https://callguard.jangminseok.com#04, https://callguard.jangminseok.com#05에서 보실 수 있습니다. 끝입니다.", SOURCES),
+    ).toEqual([{ text: "마스킹했습니다. 끝입니다." }]);
+    // 앞 문장이 '자세한'으로 시작해도 주소가 없는 문장은 남긴다
+    expect(answerParts("자세한 설계는 팀원이 했습니다. 과정은 https://callguard.jangminseok.com#04에서 볼 수 있습니다.", SOURCES)[0]).toEqual({
+      text: "자세한 설계는 팀원이 했습니다. 과정은 ",
+    });
+  });
+
   it("사이트 밖 주소는 끝에 있어도 남기고 링크로 만든다", () => {
     expect(answerParts("GitHub는 https://github.com/jangminseok-dev", [])).toEqual([
       { text: "GitHub는 " },

@@ -15,10 +15,15 @@ type Source = AskResponse["sources"][number];
 const URL_RE = /https?:\/\/[^\s<>()[\]가-힣]*[^\s<>()[\]가-힣.,!?]/g;
 // 답변 끝에 붙어 오는 근거 주소(사이트 안 주소) — 답변 아래 근거 칩과 겹치므로 화면에서는 뺀다
 const TRAILING_SITE_URLS = new RegExp(`(?:[\\s,]*https?://[\\w.-]*${SITE_DOMAIN.replace(".", "\\.")}(?:#\\w+)?)+[\\s.]*$`);
+// "자세한 내용은 (사이트 주소)에서 확인할 수 있습니다" 안내 문장 — 근거 칩과 겹치므로 화면에서는 뺀다. 문장 끝(다.)을 넘어 잡지 않는다
+const SEE_MORE_SENTENCE = new RegExp(
+  `\\s*(?:더\\s*)?자세한(?:(?!다\\.)[^\\n])*?https?://[\\w.-]*${SITE_DOMAIN.replace(".", "\\.")}(?:(?!다\\.)[^\\n])*다\\.`,
+  "g",
+);
 
 // 답변 본문 조각 — 문장 가운데 남은 주소는 링크로, 근거에 있는 주소면 그 제목을 단다
 export function answerParts(answer: string, sources: Source[]): { text: string; href?: string }[] {
-  const body = answer.replace(TRAILING_SITE_URLS, "");
+  const body = answer.replace(SEE_MORE_SENTENCE, "").replace(TRAILING_SITE_URLS, "");
   const parts: { text: string; href?: string }[] = [];
   let last = 0;
   for (const m of body.matchAll(URL_RE)) {
