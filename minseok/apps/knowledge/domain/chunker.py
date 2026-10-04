@@ -22,8 +22,16 @@ def _hash(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def chunk_catalog(projects: list[dict], site: str, max_chars: int = 800) -> list[ChunkDraft]:
+PROFILE_SLUG = "profile"  # 프로젝트가 아닌 장민석 본인 정보 — 링크는 메인 페이지의 해당 구역으로 건다
+
+
+def chunk_catalog(projects: list[dict], site: str, max_chars: int = 800, profile: dict | None = None) -> list[ChunkDraft]:
     out: list[ChunkDraft] = []
+    for s in (profile or {}).get("sections", []):
+        head = f"{s['title']}\n"
+        for start in range(0, max(len(s["text"]), 1), max_chars):
+            text = head + s["text"][start : start + max_chars]
+            out.append(ChunkDraft(PROFILE_SLUG, s["number"], s["title"], text, f"{site}#{s['anchor']}", _hash(text)))
     for p in projects:
         intro = f"{p['title']} 소개\n{p['tagline']}"
         out.append(ChunkDraft(p["slug"], 1, f"{p['title']} 소개", intro, _url(site, p["slug"], 1), _hash(intro)))

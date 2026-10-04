@@ -49,3 +49,9 @@ def test_external_link_without_section_number_removed():
 def test_project_home_link_and_sentence_end_period_kept():
     r = guard_answer("https://callguard.jangminseok.com 과 https://callguard.jangminseok.com#05.", EVIDENCE, URLS, [])
     assert r.text == "https://callguard.jangminseok.com 과 https://callguard.jangminseok.com#05." and r.removed_links == 0
+
+
+def test_link_followed_by_korean_particle_is_kept():
+    # "…#05에서"를 통째로 주소로 보면 모르는 주소가 되어 지워지고 문장에 구멍이 난다
+    r = guard_answer("자세한 내용은 https://callguard.jangminseok.com#05에서 확인할 수 있습니다.", EVIDENCE, URLS, [])
+    assert r.text == "자세한 내용은 https://callguard.jangminseok.com#05에서 확인할 수 있습니다." and r.removed_links == 0

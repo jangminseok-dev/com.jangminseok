@@ -38,3 +38,11 @@ def test_notes_become_chunks_linked_to_their_section():
     assert len(notes) == 1
     assert notes[0].section_number == 3 and notes[0].url == "https://a.jangminseok.com#03"
     assert "키워드와 벡터" in notes[0].text and notes[0].title == "검색 이유 (설명)"
+
+
+def test_profile_sections_become_chunks_linked_to_main_page():
+    profile = {"sections": [{"number": 5, "anchor": "contact", "title": "장민석 연락처", "text": "이메일: a@b.c"}]}
+    chunks = [c for c in chunk_catalog(PROJECTS, "https://jangminseok.com", profile=profile) if c.slug == "profile"]
+    assert len(chunks) == 1
+    assert chunks[0].url == "https://jangminseok.com#contact" and chunks[0].section_number == 5
+    assert chunks[0].text == "장민석 연락처\n이메일: a@b.c"

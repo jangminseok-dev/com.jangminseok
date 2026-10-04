@@ -43,7 +43,7 @@ class CatalogInteractor(ProjectCatalogPort):
         return [p.slug for p in self._data.projects]
 
     def all_section_urls(self) -> set[str]:
-        urls = set()
+        urls = set(self._data.profile_urls)
         for p in self._data.projects:
             urls.add(self._data.section_url(p.slug, INTRO_SECTION))
             urls.update(self._data.section_url(p.slug, s.number) for s in p.sections)

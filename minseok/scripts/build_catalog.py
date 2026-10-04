@@ -1,4 +1,4 @@
-"""content/*/project.yaml(기본 정보) + page.yaml(소개 페이지) → data/catalog.json. 백엔드 런타임은 이 JSON만 읽는다(Vercel 번들에 content가 없어서).
+"""content/*/project.yaml(기본 정보) + page.yaml(소개 페이지) + profile.yaml(본인 소개) → data/catalog.json. 백엔드 런타임은 이 JSON만 읽는다(Vercel 번들에 content가 없어서).
 
 사용: python scripts/build_catalog.py          # 생성
       python scripts/build_catalog.py --check  # CI: 커밋된 JSON이 최신인지 확인
@@ -51,6 +51,29 @@ def _sections(page: dict) -> list[dict]:
     return out
 
 
+def _profile(p: dict) -> dict:
+    """profile.yaml → 본인 소개 섹션. anchor는 메인 페이지 구역 id(www/components/home)와 같다."""
+    def skills(g: dict) -> str:
+        used = ", ".join(i["name"] for i in g["items"] if not i.get("learned"))
+        learned = ", ".join(i["name"] for i in g["items"] if i.get("learned"))
+        return f"{g['group']}: " + " ".join(x for x in (used, learned and f"(교육에서 학습: {learned})") if x)
+
+    name, links = p["name"], p["links"]
+    sections = [
+        ("about", "소개", _lines(f"{name}, {p['role']}", p["headline"], p["intro"],
+                               *(f"{h['keyword']}: {h['text']}" for h in p["highlights"]))),
+        ("skills", "기술 스택", _lines("프로젝트에서 직접 쓴 기술입니다. 괄호 안은 교육 과정에서만 배우고 프로젝트에는 쓰지 않은 기술입니다.",
+                                   *map(skills, p["skills"]))),
+        ("requirements", "스킬 인벤토리", _lines(*(f"{r['label']}: {r['detail']}" for r in p["requirements"]))),
+        ("education", "교육", _lines(*(f"{e['org']}, {e['course']} ({e['period']}). 배운 내용: "
+                                       + ", ".join(t["name"] for t in e["topics"]) for e in p["education"]))),
+        ("contact", "연락처", _lines(f"이메일: {links['email']}", f"GitHub: {links['github']}")),
+    ]
+    return {"sections": [{"number": n, "anchor": a, "title": f"{name} {t}", "text": text}
+                         for n, (a, t, text) in enumerate(sections, 1)],
+            "links": [links["github"]]}
+
+
 _NOTE_HEAD = re.compile(r"^## \[(\d{2})\] (.+)$", re.M)
 
 
@@ -97,7 +120,10 @@ def build(content_dir: Path) -> dict:
             }
         )
     projects.sort(key=lambda x: x["order"])
-    return {"projects": projects}
+    profile = content_dir / "profile.yaml"
+    if not profile.exists():
+        return {"projects": projects}
+    return {"projects": projects, "profile": _profile(yaml.safe_load(profile.read_text(encoding="utf-8")))}
 
 
 def _dump(data: dict) -> str:

@@ -13,8 +13,9 @@ CATALOG = Path(__file__).resolve().parents[5] / "data" / "catalog.json"
 
 
 async def main() -> None:
-    projects = json.loads(CATALOG.read_text(encoding="utf-8"))["projects"]
-    report = await IndexInteractor(GeminiEmbedding(), PgChunkStore(get_sessionmaker())).run(projects, SITE_URL)
+    catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
+    report = await IndexInteractor(GeminiEmbedding(), PgChunkStore(get_sessionmaker())).run(
+        catalog["projects"], SITE_URL, catalog.get("profile"))
     print(f"청크 {report.total}개 — 새로 임베딩 {report.embedded}, 건너뜀 {report.skipped}")
 
 

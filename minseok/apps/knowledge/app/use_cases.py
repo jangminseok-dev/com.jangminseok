@@ -42,8 +42,8 @@ class IndexInteractor:
     def __init__(self, embed: EmbeddingPort, store: ChunkStorePort) -> None:
         self._embed, self._store = embed, store
 
-    async def run(self, projects: list[dict], site: str) -> IndexReport:
-        drafts = chunk_catalog(projects, site)
+    async def run(self, projects: list[dict], site: str, profile: dict | None = None) -> IndexReport:
+        drafts = chunk_catalog(projects, site, profile=profile)
         existing = await self._store.existing_hashes()
         todo = [d for d in drafts if d.content_hash not in existing]
         vecs = await self._embed.embed([d.text for d in todo], "document") if todo else []

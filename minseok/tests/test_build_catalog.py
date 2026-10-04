@@ -114,3 +114,35 @@ def test_banned_terms_from_env_also_checked_so_ci_catches_notes(tmp_path, monkey
     (tmp_path / "demo" / "notes.md").write_text("## [01] 맡은 범위\n홍길동 팀원과 함께했습니다.\n", encoding="utf-8")
     with pytest.raises(ValueError, match="공개 금지"):
         build(tmp_path)
+
+
+PROFILE = {
+    "name": "장민석", "role": "AI 백엔드", "headline": "한 줄 소개", "intro": "소개 글입니다.",
+    "highlights": [{"keyword": "평가", "text": "골든셋부터 만듭니다."}],
+    "requirements": [{"id": "rag", "label": "RAG 설계", "detail": "청크와 임베딩"}],
+    "education": [{"org": "아카데미", "course": "AI 과정", "period": "2026.04 ~ 2026.10", "topics": [{"name": "Python"}]}],
+    "skills": [{"group": "백엔드", "items": [{"name": "Python"}, {"name": "Java", "learned": True}]},
+               {"group": "빅데이터", "items": [{"name": "Hadoop", "learned": True}]}],
+    "links": {"github": "https://github.com/demo", "email": "demo@example.com"},
+}
+
+
+def test_profile_becomes_sections_with_main_page_anchors(tmp_path):
+    _project(tmp_path, "demo")
+    (tmp_path / "profile.yaml").write_text(yaml.safe_dump(PROFILE, allow_unicode=True), encoding="utf-8")
+    profile = build(tmp_path)["profile"]
+    by_anchor = {s["anchor"]: s for s in profile["sections"]}
+    assert list(by_anchor) == ["about", "skills", "requirements", "education", "contact"]
+    assert [s["number"] for s in profile["sections"]] == [1, 2, 3, 4, 5]
+    assert "골든셋부터" in by_anchor["about"]["text"]
+    # 직접 쓴 기술과 교육에서만 배운 기술을 구분해 적는다 — 챗봇이 배운 기술을 써 본 기술로 말하지 않게
+    assert "백엔드: Python (교육에서 학습: Java)" in by_anchor["skills"]["text"]
+    assert "빅데이터: (교육에서 학습: Hadoop)" in by_anchor["skills"]["text"]
+    assert by_anchor["skills"]["text"].startswith("프로젝트에서 직접 쓴 기술입니다.")
+    assert "demo@example.com" in by_anchor["contact"]["text"] and "https://github.com/demo" in by_anchor["contact"]["text"]
+    assert profile["links"] == ["https://github.com/demo"]
+
+
+def test_build_without_profile_has_no_profile_key(tmp_path):
+    _project(tmp_path, "demo")
+    assert "profile" not in build(tmp_path)

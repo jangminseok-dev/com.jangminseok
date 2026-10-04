@@ -28,6 +28,7 @@ class Project:
 class CatalogData:
     projects: tuple[Project, ...]
     site: str
+    profile_urls: tuple[str, ...] = ()  # 메인 페이지 구역 주소와 프로필의 외부 링크(GitHub)
 
     @staticmethod
     def from_dict(d: dict, site: str) -> CatalogData:
@@ -45,7 +46,9 @@ class CatalogData:
                     sections=tuple(Section(s["number"], s["title"], s["text"]) for s in p["sections"]),
                 )
             )
-        return CatalogData(tuple(ps), site)
+        profile = d.get("profile") or {}
+        urls = [f"{site}#{s['anchor']}" for s in profile.get("sections", [])] + profile.get("links", [])
+        return CatalogData(tuple(ps), site, tuple(urls))
 
     def section_url(self, slug: str, number: int) -> str:
         host = self.site.replace("https://", "")

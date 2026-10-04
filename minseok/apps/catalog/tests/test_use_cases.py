@@ -88,3 +88,12 @@ def test_metric_note_goes_with_value():
         "sections": []}]}, site="https://jangminseok.com")
     facts = CatalogInteractor(data).get_project("remakeday")
     assert facts is not None and ("한 판 비용", "0.461달러 (전체 환산 약 0.9~1.2달러)") in facts.metrics
+
+
+def test_profile_links_are_known_urls_so_guard_keeps_them():
+    data = CatalogData.from_dict(
+        {"projects": [], "profile": {"sections": [{"number": 5, "anchor": "contact", "title": "t", "text": "x"}],
+                                     "links": ["https://github.com/jangminseok-dev"]}},
+        site="https://jangminseok.com",
+    )
+    assert CatalogInteractor(data).all_section_urls() == {"https://jangminseok.com#contact", "https://github.com/jangminseok-dev"}
