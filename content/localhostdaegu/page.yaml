@@ -32,7 +32,7 @@ featureNote: 서비스는 대회가 끝난 뒤 중단했습니다. 개발 기록
 
 architecture:
   image: media/arch.svg
-  summary: 화면은 Vercel에 올리고, 서버와 데이터베이스는 GPU 컴퓨터 한 대에서 돌렸습니다. 둘 사이는 Cloudflare Tunnel로 이어서, 서버를 따로 빌리지 않고 인터넷에 공개했습니다.
+  summary: 서버는 새로 쓰지 않고, 팀원이 이전에 만든 서울 상권 서비스 Metabole의 코드를 옮겨 와 대구 기준으로 바꿔 만들었습니다. 화면은 Vercel에 올리고, 서버와 데이터베이스는 GPU 컴퓨터 한 대에서 돌렸습니다. 둘 사이는 Cloudflare Tunnel로 이어서, 서버를 따로 빌리지 않고 인터넷에 공개했습니다.
   points:
     - title: 금액은 코드가, 설명은 AI가
       body: 상담자료의 금액, 표, 점수는 코드가 계산해서 먼저 보냅니다. AI는 그 숫자를 설명하는 문단만 씁니다. 그래서 AI 호출이 실패해도 계산 결과는 그대로 남습니다.
