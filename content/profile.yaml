@@ -13,7 +13,7 @@ highlights:
   - keyword: 설계와 하네스
     text: 헥사고날과 Clean Architecture, DDD, SOLID 원칙을 지키고 레이어 의존은 import-linter로 강제합니다. Claude Code로 바이브 코딩할 때는 규칙 문서와 Agent Harness로 경계를 먼저 고정합니다.
   - keyword: 배포와 운영
-    text: GitHub Actions로 push할 때마다 테스트와 의존 규칙 검사를 자동으로 실행하고, Docker와 Kubernetes, Vercel로 직접 배포해 운영합니다.
+    text: GitHub Actions로 push할 때마다 테스트와 의존 규칙 검사를 자동으로 실행하고, Docker와 Kubernetes, Vercel로 직접 배포해 운영합니다. 여러 사용자가 함께 쓰는 서버는 권한 확인을 요청 입구에 두고, 확인이 빠진 주소를 테스트로 찾아냅니다.
 requirements:
   - id: python-backend
     label: Python 백엔드 (FastAPI)
