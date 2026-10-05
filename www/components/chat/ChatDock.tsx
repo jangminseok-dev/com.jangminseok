@@ -6,13 +6,19 @@ import type { Turn } from "@/components/chat/ChatDialog";
 import { AgentError, askAgent } from "@/lib/agentApi";
 
 // 평가 시험 문제(minseok/apps/agent/eval/golden.yaml) 중 도구, 근거, 핵심 사실이 모두 맞은 질문에서 채용 담당자가 물을 만한 것만 — 입력창을 누를 때마다 3개를 새로 고른다
+// 차곡노트 구조 질문은 답이 dependency_overrides 설명으로 이어져 예시에서만 뺐다(골든셋에는 그대로 둔다)
 const EXAMPLE_POOL = [
   "Elasticsearch를 쓴 프로젝트는 무엇인가요?",
   "CallGuard에서 개인정보는 어떻게 보호했나요?",
   "RedOceanMap에서 하이브리드 검색을 기각한 이유는 무엇인가요?",
   "k3s를 써 본 프로젝트는 어디인가요?",
   "Docker를 쓴 프로젝트들은 배포를 어떻게 구성했나요?",
-  "차곡노트는 AI로 대량으로 코드를 짜면서 구조를 어떻게 지켰나요?",
+  "차곡노트 알림장 링크는 로그인 없이 어떻게 안전하게 공유하나요?",
+  "pgvector를 쓴 프로젝트들은 그것을 어디에 썼나요?",
+  "JB Silver Connect는 LLM 호출이 실패하면 어떻게 하나요?",
+  "RedOceanMap의 기술 스택을 알려 주세요",
+  "REMAKE DAY에서 장민석의 역할은 무엇이었나요?",
+  "localhost:daegu의 팀 규모와 장민석의 역할을 알려 주세요",
 ];
 const EXAMPLE_COUNT = 3;
 
