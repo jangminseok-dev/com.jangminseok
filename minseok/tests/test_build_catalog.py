@@ -44,8 +44,12 @@ def test_build_makes_one_entry_per_page_section_and_trouble(tmp_path):
     _project(tmp_path, "demo")
     p = build(tmp_path)["projects"][0]
     numbers = [s["number"] for s in p["sections"]]
-    assert numbers == [1, 2, 3, 4, 5, 5, 6]  # 한눈에, 기능, 아키텍처, 맡은 일, 어려웠던 점 2개, 회고
-    trouble = p["sections"][5]
+    assert numbers == [1, 2, 3, 4, 4, 5, 5, 6]  # 한눈에, 기능, 아키텍처, 맡은 일, AI 도구를 쓴 방식, 어려웠던 점 2개, 회고
+    # 협업과 AI 도구 방식은 맡은 일과 따로 둔다 — 한 조각에 묶이면 CI 같은 작은 주제가 검색에서 묻힌다
+    ai = p["sections"][4]
+    assert ai["title"] == "AI 도구를 쓴 방식" and "검증했습니다." in ai["text"]
+    assert "검증했습니다." not in p["sections"][3]["text"]
+    trouble = p["sections"][6]
     assert trouble["title"] == "둘째 문제" and "원인2" in trouble["text"] and "결과2" in trouble["text"]
     assert "FastAPI" in p["sections"][2]["text"]  # 아키텍처 계층의 기술 이름 — 기술별 찾기가 쓴다
     assert p["metrics"] == [{"label": "정확도", "value": "0.97"}]

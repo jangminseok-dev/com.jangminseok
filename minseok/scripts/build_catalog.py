@@ -37,9 +37,11 @@ def _sections(page: dict) -> list[dict]:
                         *(f"{l['name']}: {', '.join(l['items'])}" for l in a["layers"]))},
         {"number": ROLE, "title": "맡은 일",
          "text": _lines(r["summary"], *(f"장민석이 한 일: {m}" for m in r["mine"]),
-                        *(f"팀원이 한 일: {m}" for m in r.get("team", [])), *(f"협업 방식: {m}" for m in r.get("collab", [])),
-                        *(f"AI 도구를 쓴 방식: {m}" for m in r.get("ai", [])))},
+                        *(f"팀원이 한 일: {m}" for m in r.get("team", [])))},
     ]
+    # 협업과 AI 도구 방식은 맡은 일과 따로 둔다 — 한 조각에 묶이면 CI 같은 작은 주제가 검색에서 묻힌다
+    out += [{"number": ROLE, "title": title, "text": _lines(*r[key])}
+            for key, title in (("collab", "협업 방식"), ("ai", "AI 도구를 쓴 방식")) if r.get(key)]
     for t in page["troubles"]:
         out.append({"number": TROUBLES, "title": t["title"],
                     "text": _lines(f"문제: {t['problem']}", t.get("cause") and f"원인: {t['cause']}",

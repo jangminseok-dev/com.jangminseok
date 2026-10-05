@@ -47,10 +47,10 @@ architecture:
       body: 상권과 주식 답변은 8GB GPU에서 도는 로컬 모델이 씁니다. 서비스 주제를 벗어난 일반 질문과 예비용으로만 외부 AI인 Gemini를 부릅니다.
   layers:
     - { name: 화면, items: [Next.js 16, React 19, TypeScript, Tailwind 4] }
-    - { name: 서버, items: [Python 3.13, FastAPI, SQLAlchemy 2, import-linter] }
+    - { name: 서버, items: [Python 3.11, FastAPI, SQLAlchemy 2, import-linter] }
     - { name: 데이터, items: [PostgreSQL + pgvector, Redis, 서울 열린데이터광장] }
     - { name: AI, items: [Ollama, Gemma 4, embeddinggemma, Gemini, LangChain, PyTorch, YOLO] }
-    - { name: 배포, items: [k3s, Docker Compose, Cloudflare Tunnel, Vercel, "AWS (EC2 시험 배포, S3)"] }
+    - { name: 배포, items: [k3s, Docker Compose, Cloudflare Tunnel, GitHub Actions, Vercel, "AWS (EC2 시험 배포, S3)"] }
 
 role:
   summary: 1인 프로젝트로, 기획부터 서버, 화면, AI 품질 평가, 배포와 운영까지 모두 직접 했습니다. 저장소에 남은 커밋은 451개입니다.
@@ -69,7 +69,7 @@ role:
   ai:
     - Claude Code와 함께 개발했습니다. 저장소에 AI가 따를 규칙 문서를 두어 폴더 경계, 검증 절차, 작업 범위를 정했습니다.
     - AI가 쓴 코드는 세 가지로 검증했습니다. 앱 사이 규칙은 import-linter가, 기능은 백엔드 테스트가, 답변 품질은 골든셋 평가가 확인합니다.
-    - CI는 Claude Code와 논의한 끝에 1인 개발 단계에서는 로컬 수동 검증으로 충분하다고 보고 껐습니다. 수동 실행을 빠뜨리면 놓칠 수 있어서, 이후 이 포트폴리오 저장소에서는 CI 검사를 통과해야 합치도록 했습니다.
+    - CI는 처음에 Claude Code와 논의한 끝에 1인 개발 단계에서는 로컬 수동 검증으로 충분하다고 보고 껐습니다. 수동 실행을 빠뜨리면 놓칠 수 있어서 이후 이 포트폴리오 저장소에서 CI를 먼저 두었고, 2026년 10월에는 RedOceanMap에도 다시 켰습니다. 지금은 main에 올릴 때마다 CI가 import-linter 계약 5개와 백엔드 테스트, 데이터베이스 마이그레이션 검사를 자동으로 돌립니다.
 
 troubles:
   - title: 작은 AI 모델이 프롬프트의 규칙을 어겼습니다

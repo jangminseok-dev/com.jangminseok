@@ -106,7 +106,7 @@
   expected_args: {get_project: {slug: redoceanmap}}
   expected_sources: [redoceanmap#05, redoceanmap#04, redoceanmap#03]
   must_refuse: false
-  must_include: [[포트폴리오, jangminseok.com]]
+  must_include: [수동, 다시]  # 껐던 이유(로컬 수동 검증)와 10월에 다시 켠 사실 — '포트폴리오에 적혀 있지 않다'는 오답이 통과하지 못하게
 - question: CallGuard의 운영 Recall@5 0.971은 누가 측정했나요?
   expected_tools: [get_project]
   expected_args: {get_project: {slug: callguard}}
