@@ -92,7 +92,7 @@ describe("ProfileSchema", () => {
     expect(parsed.education[0].topics[1]).toEqual({ name: "RAG" });
   });
 
-  it("첫 화면 강조 문구(highlights)는 키워드와 설명 쌍, 1~5개", () => {
+  it("첫 화면 강조 문구(highlights)는 키워드와 설명 쌍, 1~6개", () => {
     const one = { ...validProfileData(), highlights: [{ keyword: "RAG", text: "근거를 제시합니다." }] };
     expect(ProfileSchema.safeParse(one).success).toBe(true);
     expect(ProfileSchema.safeParse({ ...validProfileData(), highlights: [] }).success).toBe(false);
