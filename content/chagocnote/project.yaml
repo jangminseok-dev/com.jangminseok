@@ -5,7 +5,7 @@ tagline: 반려동물 미용 매장이 예약, 고객, 미용 기록을 관리�
 accent: "#f59e0b"
 period: { start: "2026-09-20", end: null }
 team: { size: 1, role: "1인 개발 (설계, 백엔드, Flutter 앱, 웹, 인프라)" }
-stack: [Python 3.13, FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL, Flutter, Next.js 16, MinIO (S3 호환), Caddy, Docker Compose, TypeScript, import-linter, Redis]
+stack: [Python 3.13, FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL, Flutter, Next.js 16, MinIO (S3 호환), Caddy, Docker Compose, TypeScript, import-linter, Redis, JWT, HMAC 서명]
 languages: [Python, Dart, TypeScript]
 tags: [멀티테넌시, Flutter, FastAPI]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }
