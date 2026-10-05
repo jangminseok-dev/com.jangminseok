@@ -89,7 +89,7 @@
     <text x="760" y="551" fill="#fff" font-weight="700">데이터 (Docker Compose)</text>
     <text x="760" y="575" fill="#9aa1ad" font-size="14">PostgreSQL + pgvector, Redis</text>
     <rect x="980" y="520" width="190" height="72" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
-    <text x="1075" y="551" fill="#fff" font-weight="700">정기 작업 8개</text>
+    <text x="1075" y="551" fill="#fff" font-weight="700">정기 작업 11개</text>
     <text x="1075" y="575" fill="#9aa1ad" font-size="14">공공데이터, 임대료, 금리 수집</text>
   </g>
 
