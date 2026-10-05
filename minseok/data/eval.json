@@ -15,7 +15,7 @@
  "n": 30,
  "runs": [
   {
-   "run_at": "2026-10-05T08:59:30+00:00",
+   "run_at": "2026-10-05T15:35:41+00:00",
    "metrics": {
     "tool_selection": 1.0,
     "arg_accuracy": 1.0,
@@ -25,6 +25,18 @@
     "content": 1.0,
     "register": 1.0
    }
+  },
+  {
+   "run_at": "2026-10-05T15:43:19+00:00",
+   "metrics": {
+    "tool_selection": 1.0,
+    "arg_accuracy": 1.0,
+    "hit_at_5": 1.0,
+    "number_check": 1.0,
+    "refusal": 0.967,
+    "content": 0.85,
+    "register": 1.0
+   }
   }
  ],
  "metrics": {
@@ -32,8 +44,8 @@
   "arg_accuracy": 1.0,
   "hit_at_5": 1.0,
   "number_check": 1.0,
-  "refusal": 1.0,
-  "content": 1.0,
+  "refusal": 0.967,
+  "content": 0.85,
   "register": 1.0
  }
 }
