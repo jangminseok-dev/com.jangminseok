@@ -102,8 +102,8 @@
   must_refuse: false
   must_include: [SSE]
 - question: RedOceanMap은 왜 CI를 껐고, 이후에는 어떻게 바뀌었나요?
-  expected_tools: [get_project, search_portfolio]
-  expected_args: {get_project: {slug: redoceanmap}}
+  expected_tools: [search_portfolio]  # CI를 끄고 다시 켠 경위는 섹션 본문에만 있다 — get_project의 기본 정보로는 답할 수 없다
+  expected_args: {}
   expected_sources: [redoceanmap#05, redoceanmap#04, redoceanmap#03]
   must_refuse: false
   must_include: [수동, 다시]  # 껐던 이유(로컬 수동 검증)와 10월에 다시 켠 사실 — '포트폴리오에 적혀 있지 않다'는 오답이 통과하지 못하게

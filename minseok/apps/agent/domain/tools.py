@@ -17,7 +17,7 @@ TOOLS: tuple[ToolSpec, ...] = (
         "장민석 포트폴리오의 프로젝트 소개 페이지와 본인 소개(기술 스택, 교육, 연락처)를 하이브리드 검색합니다. "
         "설계 이유, 방법, 기술 선택처럼 서술형 질문과 장민석 본인을 묻는 질문에 씁니다.",
         {"type": "object", "properties": {
-            "query": {"type": "string", "description": "검색할 질문이나 핵심어"},
+            "query": {"type": "string", "description": "검색할 질문. 사용자의 질문 문장을 거의 그대로 넣습니다. 프로젝트 이름과 핵심어만 남기면 같은 프로젝트의 다른 섹션이 먼저 나옵니다"},
             "top_k": {"type": "integer", "minimum": 1, "maximum": 8, "description": "가져올 근거 수(기본 5)"}},
          "required": ["query"]},
     ),
