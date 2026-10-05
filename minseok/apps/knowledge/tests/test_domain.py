@@ -15,6 +15,27 @@ def test_one_chunk_per_section_split_when_long_and_intro_chunk():
     assert chunks[-1].url == "https://a.jangminseok.com#03"
 
 
+def test_long_section_is_split_at_sentence_boundaries_not_mid_word():
+    # 글자 수로만 자르면 "import-linter"가 "im"과 "port-linter"로 나뉘어 두 조각 모두 검색에 걸리지 않는다
+    sentence = "규칙은 import-linter가 확인합니다. "
+    projects = [{"slug": "a", "title": "A", "tagline": "소개", "sections": [
+        {"number": 4, "title": "맡은 일", "text": (sentence * 40).strip()}]}]
+    pieces = [c.text.split("\n", 1)[1] for c in chunk_catalog(projects, "https://jangminseok.com", max_chars=200)
+              if c.section_number == 4]
+    assert len(pieces) > 1
+    assert all(len(p) <= 200 for p in pieces)
+    assert all(p.endswith("확인합니다.") for p in pieces)  # 모든 조각이 문장 끝에서 끝난다
+    assert " ".join(pieces) == (sentence * 40).strip()  # 잘라도 글자는 빠지지 않는다
+
+
+def test_sentence_longer_than_limit_is_still_split():
+    projects = [{"slug": "a", "title": "A", "tagline": "소개", "sections": [
+        {"number": 2, "title": "설계", "text": "가" * 450}]}]
+    pieces = [c.text.split("\n", 1)[1] for c in chunk_catalog(projects, "https://jangminseok.com", max_chars=200)
+              if c.section_number == 2]
+    assert [len(p) for p in pieces] == [200, 200, 50]
+
+
 def test_content_hash_is_stable_and_changes_with_text():
     a = chunk_catalog(PROJECTS, "https://jangminseok.com")
     b = chunk_catalog(PROJECTS, "https://jangminseok.com")
