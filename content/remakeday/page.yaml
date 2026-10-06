@@ -129,3 +129,4 @@ retro:
 proves:
   - { id: rag, label: "채점 문제 원인을 좁힌 평가 러너", anchor: "05" }
   - { id: python-backend, label: "로컬과 외부 AI 모델 즉시 전환", anchor: "05" }
+  - { id: ai-assistant, label: "중요도별 3단계 AI 작업 검토", anchor: "04" }

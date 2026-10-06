@@ -117,3 +117,4 @@ proves:
   - { id: python-backend, label: "AI 추천 결과 검증과 실패 시 규칙 대체", anchor: "03" }
   - { id: python-backend, label: "공공데이터 3만 건 정제와 DB 설계", anchor: "05" }
   - { id: linux-docker, label: "Docker 이미지와 Railway, Vercel 배포", anchor: "03" }
+  - { id: ai-assistant, label: "AI에 맡기기 전에 쓴 작업 지시서", anchor: "04" }

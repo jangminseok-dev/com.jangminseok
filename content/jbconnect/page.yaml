@@ -122,3 +122,4 @@ retro:
 proves:
   - { id: python-backend, label: "5개 기능 헥사고날 설계", anchor: "03" }
   - { id: python-backend, label: "LLM 장애 시 자동 전환 (폴백)", anchor: "05" }
+  - { id: ai-assistant, label: "AI 작업 원칙 문서와 계약 검사", anchor: "04" }

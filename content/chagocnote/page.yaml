@@ -114,8 +114,9 @@ retro:
 # 메인 "요건 카드"에 이 프로젝트를 근거로 보여 줄 항목 (anchor: 01 한눈에, 02 기능, 03 아키텍처, 04 맡은 일, 05 어려웠던 점, 06 회고)
 proves:
   - { id: python-backend, label: "AI 협업 개발과 구조 자동 검사", anchor: "03" }
-  - { id: ai-assistant, label: "AI 협업 개발과 구조 자동 검사", anchor: "03" }
+  - { id: ai-assistant, label: "참조 구현에서 먼저 검증한 AI 코드", anchor: "04" }
   - { id: python-backend, label: "매장별 데이터 격리 (멀티테넌시)", anchor: "05" }
   - { id: python-backend, label: "로그인 없는 보안 링크 (HMAC 서명)", anchor: "05" }
   - { id: search-engine, label: "초성과 번호 통합 고객 검색", anchor: "02" }
   - { id: git, label: "바뀐 쪽만 검사하는 CI", anchor: "04" }
+  - { id: linux-docker, label: "Docker Compose 개발 환경과 CI", anchor: "04" }

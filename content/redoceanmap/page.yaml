@@ -125,3 +125,4 @@ proves:
   - { id: linux-docker, label: "온프레미스 배포 (k3s + Docker)", anchor: "03" }
   - { id: agent-tools, label: "질문 129건 분류로 LangGraph 도입 보류", anchor: "05" }
   - { id: git, label: "껐다가 다시 켠 CI", anchor: "04" }
+  - { id: ai-assistant, label: "규칙 문서로 정한 AI 작업 범위", anchor: "04" }
