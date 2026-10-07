@@ -13,7 +13,7 @@ const FONT_PATH = path.join(process.cwd(), "assets", "fonts", "Pretendard-Bold.o
 // globals.css의 --color-brand, --color-brand-soft와 같은 값
 const BRAND = "#3182f6";
 const BRAND_SOFT = "#8ab4ff";
-// 제목이 "운영까지," 뒤에서 줄바꿈되는 너비 — 넓으면 "AI"와 "백엔드 개발자"가 두 줄로 갈린다
+// 제목이 "서비스를" 뒤에서 두 줄로 나뉘는 너비(10/8 제목 기준, OCR로 확인)
 const HEADLINE_MAX_WIDTH = 700;
 
 export default function Image() {

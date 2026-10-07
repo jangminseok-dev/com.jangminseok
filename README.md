@@ -1,6 +1,6 @@
 # jangminseok.com
 
-AI 백엔드 개발자 장민석의 포트폴리오 사이트 저장소입니다.
+AI 서비스 개발자 장민석의 포트폴리오 사이트 저장소입니다.
 
 사이트: https://jangminseok.com
 
