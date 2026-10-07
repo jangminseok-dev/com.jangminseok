@@ -36,7 +36,14 @@ export default async function Image({ params }: { params: Promise<{ slug: string
       >
         <div style={{ width: 80, height: 10, borderRadius: 5, background: project.accent }} />
         <div style={{ marginTop: 40, fontSize: 84 }}>{project.title}</div>
-        <div style={{ marginTop: 24, fontSize: 36, color: "rgba(255,255,255,0.8)" }}>{project.tagline}</div>
+        {/* 한글 낱말이 줄 끝에서 쪼개지지 않게 띄어쓰기 단위로 줄을 바꾼다 — keep-all은 마침표만 다음 줄로 넘기거나 'JB금융그룹'을 가른다 */}
+        <div style={{ marginTop: 24, display: "flex", flexWrap: "wrap", fontSize: 36, color: "rgba(255,255,255,0.8)" }}>
+          {project.tagline.split(" ").map((word, i) => (
+            <span key={i} style={{ marginRight: 10 }}>
+              {word}
+            </span>
+          ))}
+        </div>
         <div style={{ marginTop: "auto", fontSize: 28, color: "rgba(255,255,255,0.5)" }}>장민석 | jangminseok.com</div>
       </div>
     ),
