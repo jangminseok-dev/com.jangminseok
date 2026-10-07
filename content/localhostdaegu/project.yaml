@@ -1,7 +1,7 @@
 slug: localhostdaegu
 order: 5
 title: localhost:daegu
-tagline: 대구 예비 창업자가 계약 전에 상권을 확인하고 필요 자금을 계산해 은행 상담자료를 만드는 창업 금융 네비게이터입니다. 2026 AI Blockchain Challenge Daegu 출품작입니다.
+tagline: 대구 예비 창업자가 계약 전에 상권을 확인하고 필요한 자금을 계산해 은행 상담 자료를 만드는 서비스입니다. 2026 AI Blockchain Challenge Daegu 출품작입니다.
 accent: "#3b82f6"
 period: { start: "2026-09-15", end: "2026-09-29" }
 team: { size: 3, role: "팀장과 PM/아키텍트 (API 계약, 배포 구조, DB 스키마, 리뷰, 제출)" }

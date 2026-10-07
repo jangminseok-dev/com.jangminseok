@@ -1,7 +1,7 @@
 slug: callguard
 order: 1
 title: CallGuard
-tagline: 120 다산콜센터 통화를 실시간으로 들으며 필요한 문서를 상담원 화면에 띄우고 개인정보는 검색과 저장 전에 마스킹하는 StreamRAG 시스템입니다.
+tagline: 120 다산콜센터 상담 통화를 실시간 자막으로 띄우고, 그 민원에 맞는 규정과 구비서류를 상담원 화면에 찾아 주는 서비스입니다. 개인정보는 검색과 저장 전에 마스킹합니다.
 accent: "#22c55e"
 period: { start: "2026-08-20", end: null }
 team: { size: 4, role: "백엔드와 AI (ai 브랜치 초기와 server 브랜치 담당, 허브-스포크 골격, 청킹, 개인정보 마스킹, 평가 하네스)" }

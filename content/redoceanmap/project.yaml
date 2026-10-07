@@ -1,7 +1,7 @@
 slug: redoceanmap
 order: 0
 title: RedOceanMap
-tagline: 서울 상권 공공데이터와 주식 시세를 대화로 분석하는 서비스입니다. 소형 로컬 LLM의 한계를 아키텍처로 보완했습니다.
+tagline: 서울 상권 공공데이터와 주가, 뉴스를 근거로 질문에 답하는 대화형 서비스입니다. 작은 AI 모델이 틀리기 쉬운 숫자 확인은 코드가 맡도록 나눴습니다.
 accent: "#ef4444"
 period: { start: "2026-05-22", end: null }
 live: true

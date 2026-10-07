@@ -1,7 +1,7 @@
 slug: portfolio
 order: 2
 title: jangminseok.com
-tagline: 지금 보고 계신 포트폴리오 사이트입니다. 프로젝트를 도구로 찾아 근거와 함께 답하는 AI 챗봇과 MCP 서버를 붙이고, 답변 품질은 정답을 정해 둔 평가 문항인 골든셋으로 채점해 공개합니다.
+tagline: 지금 보고 계신 포트폴리오 사이트입니다. 프로젝트를 물으면 문서를 찾아 근거 링크와 함께 답하는 AI 챗봇을 붙였고, 그 답변을 평가 문항으로 채점해 점수를 공개합니다.
 accent: "#8ab4ff"
 period: { start: "2026-09-29", end: null }
 team: { size: 1, role: "1인 개발 (설계, 백엔드, 화면, 평가, 배포)" }
