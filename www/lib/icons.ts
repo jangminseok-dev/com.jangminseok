@@ -78,6 +78,7 @@ const STACK_ICON: Record<string, string> = {
   google: "google",
   docker: "docker",
   k3s: "k3s",
+  ubuntu: "ubuntu",
   cloudflare: "cloudflare",
   vercel: "vercel",
   railway: "railway",
