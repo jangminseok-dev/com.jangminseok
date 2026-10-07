@@ -40,6 +40,8 @@ export const ProjectSchema = z.strictObject({
     site: z.url().optional(),
     repo: z.url().optional(),
   }),
+  // 지금 실제로 운영 중인 서비스 — 메인 카드 날짜 자리에 "YYYY-MM부터 운영 중"을 붙인다(카탈로그에는 넣지 않는다)
+  live: z.boolean().optional(),
 });
 // project.yaml(기본 정보) + page.yaml(소개 페이지) — 로더가 합친다
 export type ProjectMeta = z.infer<typeof ProjectSchema>;

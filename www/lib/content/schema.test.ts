@@ -44,6 +44,12 @@ describe("ProjectSchema", () => {
     const { tags: _tags, ...rest } = validProjectData();
     expect(ProjectSchema.safeParse(rest).success).toBe(false);
   });
+
+  it("운영 중 표시(live)는 선택이고, true나 false만 받는다", () => {
+    expect(ProjectSchema.safeParse(validProjectData()).success).toBe(true);
+    expect(ProjectSchema.safeParse(validProjectData({ live: true })).success).toBe(true);
+    expect(ProjectSchema.safeParse(validProjectData({ live: "yes" })).success).toBe(false);
+  });
 });
 
 describe("ProjectPageSchema", () => {

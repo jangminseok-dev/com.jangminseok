@@ -4,6 +4,7 @@ title: RedOceanMap
 tagline: 서울 상권 공공데이터와 주식 시세를 대화로 분석하는 서비스입니다. 소형 로컬 LLM의 한계를 아키텍처로 보완했습니다
 accent: "#ef4444"
 period: { start: "2026-05-22", end: null }
+live: true
 team: { size: 1, role: "1인 개발 (백엔드, 프론트, 인프라, 평가)" }
 stack: [Python 3.11, FastAPI, SQLAlchemy 2, PostgreSQL + pgvector, Redis, Ollama Gemma 4, Gemini, LangChain, PyTorch, YOLO, Next.js 16, Ubuntu, Docker, k3s, Cloudflare Tunnel, "AWS (EC2 시험 배포, S3)", React 19, TypeScript, Tailwind 4, import-linter, embeddinggemma, Docker Compose, Vercel, GitHub Actions]
 languages: [Python, TypeScript, Dart]
