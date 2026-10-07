@@ -15,30 +15,6 @@
  "n": 30,
  "runs": [
   {
-   "run_at": "2026-10-07T07:29:43+00:00",
-   "metrics": {
-    "tool_selection": 0.933,
-    "arg_accuracy": 0.923,
-    "hit_at_5": 1.0,
-    "number_check": 1.0,
-    "refusal": 0.967,
-    "content": 0.9,
-    "register": 1.0
-   }
-  },
-  {
-   "run_at": "2026-10-07T07:37:26+00:00",
-   "metrics": {
-    "tool_selection": 0.933,
-    "arg_accuracy": 0.923,
-    "hit_at_5": 1.0,
-    "number_check": 1.0,
-    "refusal": 0.967,
-    "content": 0.95,
-    "register": 1.0
-   }
-  },
-  {
    "run_at": "2026-10-07T07:45:05+00:00",
    "metrics": {
     "tool_selection": 0.933,
@@ -49,15 +25,39 @@
     "content": 0.95,
     "register": 1.0
    }
+  },
+  {
+   "run_at": "2026-10-07T17:29:34+00:00",
+   "metrics": {
+    "tool_selection": 0.933,
+    "arg_accuracy": 0.923,
+    "hit_at_5": 1.0,
+    "number_check": 1.0,
+    "refusal": 1.0,
+    "content": 0.9,
+    "register": 1.0
+   }
+  },
+  {
+   "run_at": "2026-10-07T17:40:43+00:00",
+   "metrics": {
+    "tool_selection": 0.9,
+    "arg_accuracy": 0.885,
+    "hit_at_5": 1.0,
+    "number_check": 1.0,
+    "refusal": 1.0,
+    "content": 0.85,
+    "register": 1.0
+   }
   }
  ],
  "metrics": {
-  "tool_selection": 0.933,
-  "arg_accuracy": 0.923,
+  "tool_selection": 0.9,
+  "arg_accuracy": 0.885,
   "hit_at_5": 1.0,
   "number_check": 1.0,
-  "refusal": 0.967,
-  "content": 0.9,
+  "refusal": 1.0,
+  "content": 0.85,
   "register": 1.0
  }
 }
