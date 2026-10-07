@@ -170,7 +170,7 @@
   expected_args: {get_project: {slug: callguard}}
   expected_sources: [callguard#01, callguard#06]
   must_refuse: false
-  must_include: ["1,451"]
+  must_include: ["1,472"]
 - question: REMAKE DAY 한 판을 외부 API로 돌리면 비용이 얼마인가요?
   expected_tools: [get_project]
   expected_args: {get_project: {slug: remakeday}}
