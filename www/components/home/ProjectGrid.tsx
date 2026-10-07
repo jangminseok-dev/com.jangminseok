@@ -37,12 +37,20 @@ function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
           <p className="mt-3 text-sm font-semibold tabular-nums">
             {figure.label} {figure.value}
           </p>
-          <p className="mt-auto flex items-center gap-2 pt-4 text-sm text-white/70">
-            <span className="shrink-0">{p.period.start.slice(0, 7)}</span>
-            <span className="truncate rounded-full bg-(--accent)/15 px-2.5 py-1 font-medium text-white/85" style={{ ["--accent" as string]: p.accent }}>
+          {/* 날짜 줄과 역할 줄을 나눈다 — 팀 프로젝트의 맡은 일이 '…'로 잘리지 않게 */}
+          <div className="mt-auto flex flex-col items-start gap-2 pt-4 text-sm text-white/70">
+            {p.live ? (
+              <span className="inline-flex items-center gap-1.5 font-semibold text-emerald-300 light:text-emerald-700">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                {p.period.start.slice(0, 7)}부터 운영 중
+              </span>
+            ) : (
+              <span>{p.period.start.slice(0, 7)}</span>
+            )}
+            <span className="rounded-xl bg-(--accent)/15 px-2.5 py-1 font-medium text-white/85" style={{ ["--accent" as string]: p.accent }}>
               {p.page.overview.role}
             </span>
-          </p>
+          </div>
         </div>
       </a>
     </li>
