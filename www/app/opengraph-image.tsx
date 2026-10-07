@@ -13,6 +13,8 @@ const FONT_PATH = path.join(process.cwd(), "assets", "fonts", "Pretendard-Bold.o
 // globals.css의 --color-brand, --color-brand-soft와 같은 값
 const BRAND = "#3182f6";
 const BRAND_SOFT = "#8ab4ff";
+// 제목이 "운영까지," 뒤에서 줄바꿈되는 너비 — 넓으면 "AI"와 "백엔드 개발자"가 두 줄로 갈린다
+const HEADLINE_MAX_WIDTH = 700;
 
 export default function Image() {
   const profile = getProfile();
@@ -36,7 +38,7 @@ export default function Image() {
           <div style={{ fontSize: 84 }}>{profile.name}</div>
           <div style={{ fontSize: 34, color: BRAND_SOFT }}>{profile.role}</div>
         </div>
-        <div style={{ marginTop: 28, fontSize: 44, lineHeight: 1.35, wordBreak: "keep-all", color: "rgba(255,255,255,0.85)" }}>
+        <div style={{ marginTop: 28, maxWidth: HEADLINE_MAX_WIDTH, fontSize: 44, lineHeight: 1.35, wordBreak: "keep-all", color: "rgba(255,255,255,0.85)" }}>
           {profile.headline}
         </div>
         <div style={{ marginTop: "auto", fontSize: 28, color: "rgba(255,255,255,0.5)" }}>jangminseok.com</div>
