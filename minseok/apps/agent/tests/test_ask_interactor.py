@@ -125,3 +125,10 @@ async def test_answer_with_every_sentence_removed_is_refused():
     llm = Scripted([ToolCall("get_project", {"slug": "callguard"}), FinalAnswer("정확도는 99%입니다.")])
     r = await make(llm).ask("?")
     assert r.answer == NO_NUMBER_NOTE and r.refused
+
+
+def test_system_prompt_keeps_status_markers_like_not_deployed():
+    # 10/8 점검 세트: 원고의 "(배포 전)"을 빼고 암호화를 끝난 일처럼 답했다 — 상태 표시를 지키라는 규칙이 있어야 한다
+    from agent.app.ask import SYSTEM
+
+    assert "배포 전" in SYSTEM and "측정 전" in SYSTEM

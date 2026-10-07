@@ -2,6 +2,7 @@
 
 python -m agent.eval.run                 # 전체 평가 1회(LLM 포함) → eval.json의 runs에 누적, 지표는 최근 3회 최저값
 python -m agent.eval.run --only 6,9      # 진단: 지정 문항만 돌려 호출한 도구와 답변을 출력(eval.json에 쓰지 않음)
+python -m agent.eval.run --set recruiter # 공고형 점검 세트: 점수와 답변을 출력만 한다(eval.json에 쓰지 않음, --only와 함께 써도 된다)
 """
 import asyncio
 import json
@@ -9,12 +10,11 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-import yaml
-
 from agent.adapter.outbound.gemini_llm import GeminiToolLlm
 from agent.app.ask import AskInteractor, AskResult
 from agent.app.ports import LlmUnavailable
 from agent.app.tool_runner import ToolRunner
+from agent.eval.cases import load_cases, parse_args
 from agent.eval.scoring import score_case, summarize
 from catalog.dependencies.catalog_gateway import get_catalog_gateway
 from core.config import BANNED_TERMS, GEMINI_MODEL, MAX_TOOL_CALLS
@@ -48,16 +48,19 @@ async def _ask_with_retry(ask: AskInteractor, question: str) -> AskResult:
     raise AssertionError("unreachable")
 
 
-async def full_run(cases: list[dict]) -> dict[str, float]:
+async def full_run(cases: list[dict], show_answers: bool = False) -> dict[str, float]:
     catalog = get_catalog_gateway()
     ask = AskInteractor(GeminiToolLlm(), ToolRunner(catalog, get_search_gateway()), catalog, BANNED_TERMS,
                         MAX_TOOL_CALLS)
     scores = []
     for i, c in enumerate(cases, 1):
-        s = score_case(c, await _ask_with_retry(ask, c["question"]))
+        r = await _ask_with_retry(ask, c["question"])
+        s = score_case(c, r)
         scores.append(s)
         print(f"{i:02d} tool={s.tool_ok} args={s.args_ok} hit5={s.hit5} content={s.content_ok} refuse={s.refuse_ok}"
               f"  {c['question']}", flush=True)
+        if show_answers:
+            print(f"   호출 {[(t.name, t.args) for t in r.tool_calls]}\n   답 {r.answer[:400]}", flush=True)
         await asyncio.sleep(PAUSE_SEC)
     return summarize(scores)
 
@@ -76,12 +79,16 @@ async def diagnose(cases: list[dict], numbers: list[int]) -> None:
 
 
 async def main() -> None:
-    cases = yaml.safe_load((HERE / "golden.yaml").read_text(encoding="utf-8"))
+    opts = parse_args(sys.argv[1:])
+    cases = load_cases(opts.set_name)
+    if opts.only:
+        await diagnose(cases, opts.only)
+        return
+    if not opts.publish:
+        print(json.dumps(await full_run(cases, show_answers=True), ensure_ascii=False))
+        return
     data = _load()
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    if "--only" in sys.argv:
-        await diagnose(cases, [int(x) for x in sys.argv[sys.argv.index("--only") + 1].split(",")])
-        return
     runs = (data.get("runs") or []) + [{"run_at": now, "metrics": await full_run(cases)}]
     runs = runs[-KEEP_RUNS:]
     data.update({"model": GEMINI_MODEL, "n": len(cases), "runs": runs,

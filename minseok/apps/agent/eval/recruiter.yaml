@@ -1,0 +1,52 @@
+# 공고형 점검 세트 — 채용 담당자가 공고 낱말로 물을 만한 질문 (2026-10-08)
+# 공개 수치(골든셋 30문항, eval.json)와 따로 돌린다: python -m agent.eval.run --set recruiter
+# 형식은 골든셋과 같다. must_qualify는 답에 왼쪽 낱말이 나오면 오른쪽 표현 중 하나도 함께 나와야 한다는 뜻이다
+# (원고에 "(배포 전)"처럼 붙은 상태 표시를 빼고 끝난 일처럼 단정하지 않는지).
+
+- question: sLLM을 다뤄 본 경험이 있나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [redoceanmap#05]
+  must_refuse: false
+  must_include: [[sLLM, 작은 언어 모델], Gemma]
+# 핵심은 무엇을 학습시켰는가 — 모델 이름(KcELECTRA)이나 종류(분류 모델) 중 하나면 된다. 10/8 첫 실행은 근거를 못 찾아 "확인하지 못했다"고 답함
+- question: 모델을 직접 학습시켜 본 적이 있나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [redoceanmap#05]
+  must_refuse: false
+  must_include: [[KcELECTRA, 분류 모델]]
+# 해 보지 않은 기술 — 해 봤다고 하지 않고 가장 가까운 경험(조건 어휘를 데이터 항목으로 바꿔 정렬)을 찾아 답하는지
+- question: Text-to-SQL을 해 본 적이 있나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [redoceanmap#05, redoceanmap#03]
+  must_refuse: false
+  must_include: [정렬]
+# 스택에는 쿠버네티스가 아니라 k3s로 적혀 있다
+- question: 쿠버네티스를 써 본 경험이 있나요?
+  expected_tools: [find_by_skill]
+  expected_args: {}
+  expected_sources: [redoceanmap#03, callguard#03, callguard#01]
+  must_refuse: false
+  must_include: [k3s]
+# 경험을 묻는 질문이라 search_portfolio만으로 맞게 답할 수 있다(10/8 첫 실행에서 search만 불러 정확히 답함)
+- question: MCP 서버를 만들어 본 적이 있나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [portfolio#02, portfolio#03]
+  must_refuse: false
+  must_include: [[다른 AI 앱, Claude]]
+- question: CallGuard에서 통화 자막을 암호화해서 저장하나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [callguard#03, callguard#02, callguard#01]
+  must_refuse: false
+  must_include: [[배포 전, 아직 배포, 배포를 앞두]]
+# 골든셋 1번과 같은 질문 — 10/8 녹화 중 5번에 2번꼴로 "(배포 전)"을 빼고 암호화를 단정했다
+- question: CallGuard에서 개인정보는 어떻게 보호했나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [callguard#02, callguard#05]
+  must_refuse: false
+  must_qualify: {암호화: [배포 전, 아직 배포, 배포를 앞두]}

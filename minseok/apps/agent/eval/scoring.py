@@ -42,10 +42,14 @@ def score_case(case: dict, result: AskResult) -> CaseScore:
     hit5 = not case["expected_sources"] or any(e in got for e in case["expected_sources"])
     numbers_ok = "확인된 수치가 없습니다" not in result.answer or case.get("must_refuse", False)
     keys = case.get("must_include") or []
+    qualify = case.get("must_qualify") or {}
     answer = result.answer.lower()
     # 안쪽 목록은 같은 사실의 다른 표현 — 그중 하나만 있으면 된다
-    content_ok = all(any(str(a).lower() in answer for a in (k if isinstance(k, list) else [k]))
-                     for k in keys) if keys else None
+    include_ok = all(any(str(a).lower() in answer for a in (k if isinstance(k, list) else [k])) for k in keys)
+    # 왼쪽 낱말이 답에 나오면 오른쪽 표현 중 하나도 함께 나와야 한다 — 원고의 "(배포 전)"을 빼고 단정하지 않는지
+    qualify_ok = all(str(t).lower() not in answer or any(str(q).lower() in answer for q in qs)
+                     for t, qs in qualify.items())
+    content_ok = include_ok and qualify_ok if keys or qualify else None
     return CaseScore(tool_ok, args_ok, hit5, numbers_ok, result.refused == case["must_refuse"], case["must_refuse"],
                      content_ok, is_formal(result.answer))
 

@@ -84,3 +84,19 @@ def test_register_check_flags_plain_style_endings():
     assert is_formal("마스킹을 먼저 두었습니다. 누락은 0건입니다. https://callguard.jangminseok.com#03")
     assert not is_formal("마스킹을 먼저 두었다. 누락은 0건입니다.")
     assert not is_formal("전화번호는 받는 즉시 해시한다.")
+
+
+def test_must_qualify_needs_qualifier_only_when_trigger_appears():
+    case = {"question": "q", "expected_tools": [], "expected_args": {}, "expected_sources": [], "must_refuse": False,
+            "must_qualify": {"암호화": ["배포 전", "아직 배포"]}}
+    assert score_case(case, AskResult("검색과 저장 전에 마스킹했습니다.", [], [], False)).content_ok
+    assert score_case(case, AskResult("저장 자막은 암호화하도록 바꿨고 아직 배포 전입니다.", [], [], False)).content_ok
+    assert not score_case(case, AskResult("저장하는 자막은 한 번 더 암호화했습니다.", [], [], False)).content_ok
+
+
+def test_must_qualify_and_must_include_both_have_to_hold():
+    case = {"question": "q", "expected_tools": [], "expected_args": {}, "expected_sources": [], "must_refuse": False,
+            "must_include": ["마스킹"], "must_qualify": {"암호화": ["배포 전"]}}
+    assert not score_case(case, AskResult("암호화했고 배포 전입니다.", [], [], False)).content_ok
+    assert not score_case(case, AskResult("마스킹한 뒤 암호화했습니다.", [], [], False)).content_ok
+    assert score_case(case, AskResult("마스킹한 뒤 암호화하도록 바꿨고 배포 전입니다.", [], [], False)).content_ok
