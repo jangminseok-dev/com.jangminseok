@@ -15,7 +15,7 @@ const pretendard = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://jangminseok.com"),
   title: "장민석 포트폴리오",
-  description: "평가로 품질을 지키며 LLM 서비스를 운영하는 AI 서비스 개발자 장민석의 포트폴리오",
+  description: "LLM 서비스를 만들고, 만든 뒤에도 품질을 지키는 AI 서비스 개발자 장민석의 포트폴리오",
 };
 
 // 첫 그림 전에 테마를 정해 깜빡임을 막는다 — 기본은 다크, 버튼으로 라이트를 고른 방문자만 저장된 값을 쓴다
