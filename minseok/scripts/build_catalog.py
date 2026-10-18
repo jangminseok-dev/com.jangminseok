@@ -16,7 +16,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT.parent / "content"
 OUT = ROOT / "data" / "catalog.json"
-# 소개 페이지 섹션 번호 — 사이트의 #01~#06 앵커와 같다 (www/lib/content/schema.ts SECTION_ANCHORS)
+# 소개 페이지 섹션 번호 — 사이트의 #01~#06 앵커와 같다 (www/components/project/ProjectReview.tsx SECTIONS)
 OVERVIEW, FEATURES, ARCHITECTURE, ROLE, TROUBLES, RETRO = 1, 2, 3, 4, 5, 6
 
 

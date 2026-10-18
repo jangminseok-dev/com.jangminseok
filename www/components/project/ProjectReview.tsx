@@ -4,8 +4,8 @@ import type { Project, ProjectPage } from "@/lib/content/schema";
 import { stackIconSlug } from "@/lib/icons";
 import { pagePeriod } from "@/lib/period";
 
-// 프로젝트 소개 페이지 v2 — 한눈에, 주요 기능, 아키텍처, 맡은 일, 어려웠던 점, 회고 (서버 컴포넌트)
-// anchor: 챗봇 근거 링크와 요건 카드가 쓰는 섹션 번호 (lib/content/schema.ts SECTION_ANCHORS)
+// 프로젝트 소개 페이지 v2 — 한눈에, 주요 기능, 아키텍처, 맡은 일, 트러블슈팅, 회고 (서버 컴포넌트)
+// anchor: 챗봇 근거 링크와 메인 트러블슈팅 버튼이 쓰는 섹션 번호 (minseok/scripts/build_catalog.py와 같은 번호)
 const SECTIONS = [
   { id: "overview", anchor: "01", label: "한눈에" },
   { id: "features", anchor: "02", label: "주요 기능" },

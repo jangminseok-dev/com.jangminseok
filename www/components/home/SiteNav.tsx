@@ -5,6 +5,7 @@ const SECTIONS = [
   { id: "skills", label: "기술" },
   { id: "projects", label: "프로젝트" },
   { id: "troubleshooting", label: "트러블슈팅" },
+  { id: "approach", label: "일하는 방식" },
   { id: "education", label: "교육" },
   { id: "contact", label: "연락처" },
 ] as const;

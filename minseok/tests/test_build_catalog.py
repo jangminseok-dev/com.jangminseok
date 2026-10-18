@@ -123,7 +123,6 @@ def test_banned_terms_from_env_also_checked_so_ci_catches_notes(tmp_path, monkey
 PROFILE = {
     "name": "장민석", "role": "AI 백엔드", "headline": "한 줄 소개", "intro": "소개 글입니다.",
     "highlights": [{"keyword": "평가", "text": "골든셋부터 만듭니다."}],
-    "requirements": [{"id": "rag", "label": "RAG 설계", "detail": "청크와 임베딩"}],
     "education": [{"org": "아카데미", "course": "AI 과정", "period": "2026.04 ~ 2026.10", "topics": [{"name": "Python"}]}],
     "skills": [{"group": "백엔드", "items": [{"name": "Python"}, {"name": "Java", "learned": True}]},
                {"group": "빅데이터", "items": [{"name": "Hadoop", "learned": True}]}],

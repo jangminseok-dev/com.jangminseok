@@ -1,18 +1,5 @@
 import { z } from "zod";
 
-// 타깃 공고 요건 — 메인 "요건 → 증거" 매트릭스의 행
-export const REQUIREMENT_IDS = [
-  "python-backend",
-  "search-engine",
-  "rag",
-  "hybrid-search",
-  "agent-tools",
-  "linux-docker",
-  "git",
-  "ai-assistant",
-] as const;
-export type RequirementId = (typeof REQUIREMENT_IDS)[number];
-
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const text = z.string().trim().min(1);
 const mediaPath = z
@@ -55,12 +42,6 @@ export const ProfileSchema = z.strictObject({
   intro: text,
   // 첫 화면 소개 아래 핵심 키워드 줄
   highlights: z.array(z.strictObject({ keyword: text, text: text })).min(1).max(6),
-  requirements: z
-    .array(z.strictObject({ id: z.enum(REQUIREMENT_IDS), label: text, detail: text }))
-    .refine(
-      (rs) => rs.length === REQUIREMENT_IDS.length && new Set(rs.map((r) => r.id)).size === rs.length,
-      "requirements는 REQUIREMENT_IDS를 중복 없이 모두 포함해야 합니다",
-    ),
   education: z.array(
     z.strictObject({
       org: text,
@@ -94,10 +75,7 @@ export const ProfileSchema = z.strictObject({
 });
 export type Profile = z.infer<typeof ProfileSchema>;
 
-// 소개 페이지 섹션 번호 — 챗봇 근거 링크(slug.jangminseok.com#05)와 요건 카드가 이 번호로 이동한다
-export const SECTION_ANCHORS = ["01", "02", "03", "04", "05", "06"] as const;
-
-// ── 프로젝트 소개 페이지 v2 (content/<slug>/page.yaml) — 한눈에, 기능, 아키텍처, 맡은 일, 어려웠던 점, 회고 ──
+// ── 프로젝트 소개 페이지 v2 (content/<slug>/page.yaml) — 한눈에, 기능, 아키텍처, 맡은 일, 트러블슈팅, 회고 ──
 const figure = z.strictObject({ value: text, label: text, note: text.optional() });
 
 export const ProjectPageSchema = z.strictObject({
@@ -136,9 +114,5 @@ export const ProjectPageSchema = z.strictObject({
     .min(2)
     .max(5),
   retro: z.strictObject({ metrics: z.array(figure), learned: z.array(text).default([]), regrets: z.array(text) }),
-  // 메인 요건 카드에 이 프로젝트를 근거로 보여 줄 항목 — anchor는 섹션 번호
-  proves: z
-    .array(z.strictObject({ id: z.enum(REQUIREMENT_IDS), label: text.max(30), anchor: z.enum(SECTION_ANCHORS) }))
-    .default([]),
 });
 export type ProjectPage = z.infer<typeof ProjectPageSchema>;

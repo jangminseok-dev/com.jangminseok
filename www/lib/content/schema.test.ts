@@ -57,14 +57,7 @@ describe("ProjectPageSchema", () => {
     expect(ProjectPageSchema.safeParse(validPageData()).success).toBe(true);
   });
 
-  it("요건 근거(proves)는 정의된 요건 id, 30자 이하 한 줄, 섹션 번호 01~06만", () => {
-    const bad = (p: Record<string, unknown>) => ProjectPageSchema.safeParse(validPageData({ proves: [p] })).success;
-    expect(bad({ id: "not-a-requirement", label: "l", anchor: "05" })).toBe(false);
-    expect(bad({ id: "rag", label: "가".repeat(31), anchor: "05" })).toBe(false);
-    expect(bad({ id: "rag", label: "l", anchor: "07" })).toBe(false);
-  });
-
-  it("어려웠던 점은 2~5개다", () => {
+  it("트러블슈팅은 2~5개다", () => {
     const one = validPageData();
     one.troubles = (one.troubles as unknown[]).slice(0, 1);
     expect(ProjectPageSchema.safeParse(one).success).toBe(false);
@@ -77,7 +70,7 @@ describe("ProfileSchema", () => {
     expect(ProfileSchema.safeParse(rest).success).toBe(false);
   });
 
-  it("요건 7개가 모두 있으면 통과한다", () => {
+  it("최소 유효 데이터를 통과시킨다", () => {
     expect(ProfileSchema.safeParse(validProfileData()).success).toBe(true);
   });
 
@@ -102,12 +95,5 @@ describe("ProfileSchema", () => {
     const one = { ...validProfileData(), highlights: [{ keyword: "RAG", text: "근거를 제시합니다." }] };
     expect(ProfileSchema.safeParse(one).success).toBe(true);
     expect(ProfileSchema.safeParse({ ...validProfileData(), highlights: [] }).success).toBe(false);
-  });
-
-  it("요건 id가 중복되거나 빠지면 실패한다", () => {
-    const data = validProfileData();
-    const reqs = data.requirements as { id: string }[];
-    reqs[1].id = "python-backend";
-    expect(ProfileSchema.safeParse(data).success).toBe(false);
   });
 });

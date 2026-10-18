@@ -8,7 +8,8 @@ import { projectHref } from "@/lib/site";
 function ProjectCard({ p, isProd }: { p: Project; isProd: boolean }) {
   const figure = p.page.overview.highlights[0];
   return (
-    <li className="h-full">
+    // 마지막 줄이 덜 차면 가운데로 모은다 — 너비는 2열, 3열 격자와 같게 gap-5(1.25rem)를 빼고 나눈다
+    <li className="w-full sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]">
       <a
         href={projectHref(p.slug, isProd)}
         className="glass group flex h-full flex-row overflow-hidden rounded-3xl sm:flex-col"
@@ -81,11 +82,8 @@ export default function ProjectGrid({ projects, isProd }: { projects: Project[];
       </div>
       {groupProjects(projects).map((g) => (
         <div key={g.title} className="mt-8">
-          <h3 className="flex items-baseline gap-2 text-xl font-semibold text-white/90">
-            {g.title}
-            <span className="text-sm font-normal text-white/70">{g.items.length}개</span>
-          </h3>
-          <ul className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <h3 className="text-xl font-semibold text-white/90">{g.title}</h3>
+          <ul className="mt-4 flex flex-wrap justify-center gap-5">
             {g.items.map((p) => (
               <ProjectCard key={p.slug} p={p} isProd={isProd} />
             ))}

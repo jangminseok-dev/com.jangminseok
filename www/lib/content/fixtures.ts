@@ -27,7 +27,6 @@ export function validPageData(overrides: Record<string, unknown> = {}): Record<s
     role: { summary: "요약", mine: ["한 일"] },
     troubles: [1, 2].map((i) => ({ title: `문제${i}`, problem: "문제", solution: "해결", result: "결과" })),
     retro: { metrics: [], regrets: ["아쉬운 점"] },
-    proves: [{ id: "rag", label: "한 줄 설명", anchor: "05" }],
     ...overrides,
   };
 }
@@ -39,16 +38,6 @@ export function validProfileData(): Record<string, unknown> {
     headline: "헤드라인",
     intro: "소개",
     highlights: [{ keyword: "키워드", text: "설명입니다." }],
-    requirements: [
-      { id: "python-backend", label: "Python 백엔드", detail: "d" },
-      { id: "search-engine", label: "검색엔진", detail: "d" },
-      { id: "rag", label: "RAG", detail: "d" },
-      { id: "hybrid-search", label: "하이브리드 검색", detail: "d" },
-      { id: "agent-tools", label: "에이전트와 도구 호출", detail: "d" },
-      { id: "linux-docker", label: "Linux·Docker", detail: "d" },
-      { id: "git", label: "Git 협업", detail: "d" },
-      { id: "ai-assistant", label: "AI 코딩 어시스턴트", detail: "d" },
-    ],
     education: [],
     skills: [{ group: "백엔드", items: [{ name: "Python", icon: "python" }, { name: "Java", learned: true }] }],
     links: { github: "https://github.com/jangminseok-dev" },

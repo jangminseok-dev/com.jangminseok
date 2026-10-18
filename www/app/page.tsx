@@ -5,6 +5,7 @@ import NightBackdrop from "@/components/home/NightBackdrop";
 import ProjectGrid from "@/components/home/ProjectGrid";
 import SiteFooter from "@/components/home/SiteFooter";
 import TroubleLog from "@/components/home/TroubleLog";
+import WorkStyle from "@/components/home/WorkStyle";
 import { getProfile, getProjects } from "@/lib/content";
 import { isProdSite } from "@/lib/site";
 
@@ -25,6 +26,7 @@ export default function HomePage() {
         />
         <ProjectGrid projects={projects} isProd={isProd} />
         <TroubleLog projects={projects} isProd={isProd} />
+        <WorkStyle projects={projects} isProd={isProd} />
         <EducationList education={profile.education} />
       </main>
       <SiteFooter profile={profile} />

@@ -22,7 +22,7 @@ features:
     body: Claude 앱의 커넥터에 주소 하나(https://api.jangminseok.com/mcp/)를 등록하면, 그 앱의 AI가 같은 도구 3개로 제 포트폴리오를 조회할 수 있습니다.
     image: media/f-mcp.svg
   - title: 프로젝트 소개 페이지
-    body: 프로젝트마다 무엇을 만들었는지, 주요 기능, 전체 구조, 맡은 일, 어려웠던 점을 한 페이지에서 읽을 수 있습니다. 각 프로젝트는 jangminseok.com 아래에 자기 주소를 가집니다.
+    body: 프로젝트마다 무엇을 만들었는지, 주요 기능, 전체 구조, 맡은 일, 트러블슈팅을 한 페이지에서 읽을 수 있습니다. 각 프로젝트는 jangminseok.com 아래에 자기 주소를 가집니다.
     image: media/f-pages.webp
   - title: 기술을 누르면 쓴 프로젝트가 나오는 기술 스택
     body: 첫 화면의 기술 이름을 누르면 그 기술을 쓴 프로젝트 목록이 열리고, 프로젝트 페이지로 바로 이동할 수 있습니다.
@@ -59,7 +59,7 @@ role:
     - 설계 문서, 구현 계획, 작업별 기록을 먼저 남기고 그 순서대로 작업했습니다.
     - 계획과 다르게 정한 것은 이유와 틀렸을 때의 비용을 함께 기록했습니다.
   ai:
-    - Claude Code와 함께 개발했고, AI가 쓴 코드는 세 가지로 검증했습니다. 구조 규칙은 import-linter가, 기능은 백엔드 테스트 96개와 화면 테스트 82개가, 답변 품질은 골든셋 평가가 확인합니다.
+    - Claude Code와 함께 개발했고, AI가 쓴 코드는 세 가지로 검증했습니다. 구조 규칙은 import-linter가, 기능은 2026년 10월 6일 기준 백엔드 테스트 96개와 화면 테스트 82개가, 답변 품질은 골든셋 평가가 확인합니다.
     - 테스트와 구조 규칙 검사는 push할 때마다 CI에서 돌아서, 깨진 코드가 바로 드러납니다.
 
 troubles:
@@ -78,21 +78,19 @@ troubles:
     problem: 골든셋 30문항으로 처음 채점했을 때 도구 선택 정확도가 0.533이었습니다.
     cause: 문항별로 다시 돌려 보니 두 가지였습니다. AI가 프로젝트 이름을 짐작해 없는 값(localhost-daegu 등)을 넣고 있었고, 도구를 3번 부른 뒤에는 모은 근거가 있어도 답하지 않고 거절했습니다.
     solution: 도구 설명에 실제 프로젝트 이름 목록을 넣어 짐작할 필요가 없게 했습니다. 도구 호출 한도에 닿으면 도구 없이 지금까지 모은 근거로만 답하게 했습니다. 채점 기준도 한 가지 바로잡았습니다. 필요한 도구에 하나를 더 불러 맞게 답한 경우까지 틀렸다고 세고 있었습니다.
-    result: 도구 선택 정확도가 0.867, 검색 정확도가 0.962가 되었습니다. 남은 오답도 문항별로 기록해 두었습니다.
+    result: 9월 30일 측정에서 도구 선택 정확도가 0.867, 검색 정확도가 0.962가 되었습니다. 그 뒤 남은 오답을 문항별로 고치고 채점 기준도 다듬었습니다. 10월 7일 3회 평가에서 가장 낮은 값은 0.933이었습니다.
     evidence:
       - { label: 골든셋 30문항 (golden.yaml), url: "https://github.com/jangminseok-dev/com.jangminseok/blob/main/minseok/apps/agent/eval/golden.yaml" }
       - { label: 평가 결과 (eval.json), url: "https://github.com/jangminseok-dev/com.jangminseok/blob/main/minseok/data/eval.json" }
   - title: 키워드 검색 방식을 측정해서 고르기
     problem: 한국어 키워드 검색에는 전문 검색 확장인 PGroonga가 더 좋다고 알려져 있어, 처음 쓴 pg_trgm을 바꿔야 할지 정해야 했습니다.
     solution: 두 방식의 차이는 키워드 검색 부분뿐이라, AI 없이 검색만으로 같은 골든셋 26문항을 돌려 비교했습니다. 미리 "0.03 이상 높을 때만 바꾼다"는 기준을 정해 두었습니다.
-    result: pg_trgm이 0.846, PGroonga가 0.808이라 바꾸지 않았습니다. 이후 프로젝트 소개 페이지를 새로 쓰고 다시 측정하니 두 방식 모두 0.923으로 같아 그대로 두었습니다. 문항 수가 적어 차이 자체를 확신하기는 어렵다는 점도 함께 기록했습니다.
+    result: pg_trgm이 0.846, PGroonga가 0.808이라 바꾸지 않았습니다. 그 뒤 소개 페이지를 새로 쓰고 다시 측정하니 두 방식 모두 0.923으로 같아 그대로 두었습니다. 문항 수가 적어 차이 자체를 확신하기는 어렵다는 점도 함께 기록했습니다.
     evidence:
       - { label: 검색 비교 코드 (run.py), url: "https://github.com/jangminseok-dev/com.jangminseok/blob/a7a4aa73c568d4f35fc867abe34ba0d34d696ea9/minseok/apps/agent/eval/run.py#L80-L88" }
 
 retro:
   metrics:
-    - { value: "0.933", label: 도구 선택 정확도, note: "골든셋 30문항, 10월 7일 3회 평가 중 가장 낮은 값" }
-    - { value: "1.0", label: 검색 정확도(Recall@5), note: "26개 중, 10월 7일 3회 평가 중 가장 낮은 값" }
     - { value: "0.967", label: 거절 정확도, note: "골든셋 30문항, 10월 7일 3회 평가 중 가장 낮은 값" }
     - { value: "0원", label: 월 운영비, note: 도메인 제외 }
   learned:
@@ -103,17 +101,3 @@ retro:
     - 골든셋 문항 30개는 제가 직접 썼습니다. 다음에는 실제 방문자 질문을 모아 문항을 늘리겠습니다.
     - 평가를 3회만 돌려 가장 낮은 값을 공개했습니다. 같은 챗봇도 회차에 따라 도구 선택 정확도는 0.9에서 0.933, 답에 꼭 들어가야 할 내용을 담는 비율은 0.85에서 0.95 사이로 달라져, 횟수를 늘려야 더 믿을 만한 값이 됩니다.
     - 답변 검사는 숫자와 링크를 봅니다. 숫자가 없는 주장까지 근거와 대조하는 것이 다음 과제입니다.
-
-# 메인 "요건 카드"에 이 프로젝트를 근거로 보여 줄 항목 (anchor: 01 한눈에, 02 기능, 03 아키텍처, 04 맡은 일, 05 어려웠던 점, 06 회고)
-proves:
-  - { id: python-backend, label: "도구는 한 번만, 입구는 둘인 설계", anchor: "03" }
-  - { id: rag, label: "근거 링크가 붙는 포트폴리오 챗봇", anchor: "02" }
-  - { id: rag, label: "평가로 찾아 고친 챗봇 결함", anchor: "05" }
-  - { id: search-engine, label: "골든셋 30문항으로 챗봇 채점", anchor: "05" }
-  - { id: hybrid-search, label: "키워드와 벡터를 합친 하이브리드 검색 구축", anchor: "03" }
-  - { id: hybrid-search, label: "키워드 검색 방식 측정 후 선택", anchor: "05" }
-  - { id: agent-tools, label: "도구 3개를 골라 쓰는 챗봇과 MCP 서버", anchor: "02" }
-  - { id: agent-tools, label: "챗봇과 MCP가 같은 도구를 쓰는 구조", anchor: "03" }
-  - { id: agent-tools, label: "도구 선택 정확도 0.533에서 0.933으로", anchor: "05" }
-  - { id: ai-assistant, label: "AI 도구로 개발하고 테스트로 검증", anchor: "04" }
-  - { id: git, label: "push마다 도는 CI", anchor: "04" }

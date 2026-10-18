@@ -36,10 +36,8 @@ architecture:
   points:
     - title: 금액은 코드가, 설명은 AI가
       body: 상담자료의 금액, 표, 점수는 코드가 계산해서 먼저 보냅니다. AI는 그 숫자를 설명하는 문단만 씁니다. 그래서 AI 호출이 실패해도 계산 결과는 그대로 남습니다.
-    - title: 비용을 들이지 않는 배포
-      body: 대회 예산이 없어 GPU 컴퓨터 한 대를 서버로 썼습니다.
     - title: 스트리밍이 프록시에서 막히지 않게
-      body: 상담자료는 문단이 만들어지는 대로 조금씩 보냅니다. 중간에서 요청을 전달하는 프록시가 응답을 모아 두었다가 한꺼번에 넘기지 않도록 서버와 프록시 설정을 함께 맞췄습니다. 운영 주소에서 첫 AI 문단이 1.4초 만에 도착하는 것을 확인했습니다.
+      body: 상담자료는 문단이 만들어지는 대로 조금씩 보냅니다. 중간에서 요청을 전달하는 프록시가 응답을 모아 두었다가 한꺼번에 넘기지 않도록 서버와 프록시 설정을 함께 맞췄습니다.
     - title: 서버 프로세스는 1개로 고정합니다
       body: 진행 중인 분석 요청을 메모리에 담아 두기 때문에, 서버 프로세스(uvicorn 워커)를 여러 개 띄우면 요청을 만든 프로세스와 결과를 내보내는 프로세스가 달라져 요청을 잃어버립니다. 그래서 프로세스를 하나로 고정하는 것을 배포 조건으로 적었습니다. 대신 한꺼번에 많은 사람을 받기는 어렵습니다.
   layers:
@@ -95,7 +93,6 @@ troubles:
   - title: 돈을 들이지 않는 배포에서 스트리밍 지키기
     problem: 대회 예산이 없었고 GPU는 로컬 컴퓨터 한 대뿐이었습니다. 프록시를 거치면 버퍼링 때문에 조금씩 보내는 AI 문단이 한꺼번에 도착할 수도 있었습니다.
     solution: 화면은 Vercel에 두고, 서버는 로컬 GPU 컴퓨터를 Cloudflare Tunnel로 공개하는 구조로 정했습니다. 서버가 프록시 버퍼링을 끄는 헤더를 보내고, 서버 프로세스는 1개로 고정하고, 접속을 허용할 화면 주소(CORS)는 환경변수로 받는 것을 배포 조건으로 문서에 적었습니다. 실제 배포 실행은 팀원이 맡았습니다.
-    detail: 수집이 실패했을 때 오류 메시지에 요청 주소가 통째로 담겨 외부 API 키 하나가 서버 로그에 남은 일이 있었습니다. 로그 파일은 저장소에 올리지 않아 공개되지는 않았습니다. 모든 외부 연동에서 오류 메시지의 키를 지우도록 고쳤고, 해당 키는 재발급했습니다.
     result: 운영 주소에서 첫 응답이 0.2초, 첫 AI 문단이 1.4초 만에 도착하고 이후 순서대로 이어지는 것을 확인했습니다. 다만 컴퓨터 한 대에 기대는 구조라 그 컴퓨터가 꺼지면 서비스도 멈춥니다.
     evidence:
       - { label: 배포 런북 (deploy-runbook.md), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/docs/deploy-runbook.md" }
@@ -110,10 +107,17 @@ troubles:
       - { label: 상대 순위 위험 카드 (risk-card.tsx), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/frontend/src/features/map-explorer/components/risk-card.tsx" }
       - { label: 30일 이내 종료 기준 (short_lived.py), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/backend/apps/metric/domain/short_lived.py" }
       - { label: 결정 기록 (decisions.md), url: "https://github.com/localhostdaegu/053.localhostdaegu.cloud/blob/main/decisions.md" }
+  - title: 외부 API 키가 서버 로그에 남은 일
+    problem: 공공데이터 수집이 실패했을 때 외부 API 키 하나가 서버 로그에 남았습니다. 로그 파일은 저장소에 올리지 않아 공개되지는 않았습니다.
+    cause: 외부 API는 키를 요청 주소에 담아 받습니다. 수집 실패 오류 메시지에 그 주소가 통째로 적혔습니다.
+    solution: 모든 외부 연동에서 오류를 상태 코드와 경로만 남긴 오류로 바꿔 올리게 고쳤습니다. 해당 키는 재발급했습니다. 외부 API 키 관리는 제가 맡았습니다.
+    result: 수집이 실패해도 로그에 키가 담긴 주소가 남지 않습니다. 이 동작은 테스트로 확인합니다.
+    evidence:
+      - { label: 오류에서 키를 지우는 곳 (grid_http_error_translator.py), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/backend/core/matrix/grid_http_error_translator.py" }
+      - { label: 키가 남지 않는지 확인하는 테스트 (test_gateway_key_redaction.py), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/backend/tests/test_gateway_key_redaction.py" }
 
 retro:
   metrics:
-    - { value: "10명 중 10명", label: 가상 고객 완주, note: 운영 주소 기준 }
     - { value: "30.6초", label: 1인 평균 소요, note: 자동 입력 기준 }
     - { value: "11.2초", label: 상담자료 생성 평균 }
     - { value: "603개, 226개", label: 자동 테스트, note: "백엔드와 프론트엔드, 9월 19일 기준" }
@@ -125,11 +129,3 @@ retro:
     - Neo4j와 Redis를 구성만 하고 쓰지 않았습니다. 다음에는 쓸 곳이 정해진 저장소만 구성에 넣겠습니다.
     - 외부 AI에 장애가 나면 사람이 설정을 바꿔 로컬 모델로 넘겨야 합니다. 다음 단계는 장애를 감지해 자동으로 넘기는 것입니다.
     - 카드 소비, 생활인구, 실제 매출 데이터를 구하지 못해 상권 판단은 인허가 기록에 기댑니다. 대구 빅데이터활용센터의 이용 조건을 확인해 소비와 인구 데이터를 더하는 것이 다음 과제입니다.
-
-# 메인 "요건 카드"에 이 프로젝트를 근거로 보여 줄 항목 (anchor: 01 한눈에, 02 기능, 03 아키텍처, 04 맡은 일, 05 어려웠던 점, 06 회고)
-proves:
-  - { id: git, label: "API 계약 우선 팀 개발 방식", anchor: "04" }
-  - { id: rag, label: "금액은 코드가 계산, AI는 해석만", anchor: "05" }
-  - { id: python-backend, label: "DB 확장 (19개에서 29개 테이블로)", anchor: "04" }
-  - { id: linux-docker, label: "배포 구조 설계와 스트리밍 조건 정의", anchor: "05" }
-  - { id: ai-assistant, label: "Claude Code와 Codex 공용 작업 규칙", anchor: "04" }

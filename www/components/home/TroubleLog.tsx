@@ -12,7 +12,7 @@ type Incident = {
 // 프로젝트 페이지의 트러블슈팅 칸 이름(문제, 원인, 해결, 결과)과 맞춘다
 const STEP_LABELS = ["문제", "원인", "해결", "결과"] as const;
 
-const INCIDENTS: Incident[] = [
+export const INCIDENTS: Incident[] = [
   {
     slug: "redoceanmap",
     title: "지표는 정상인데 답은 모두 틀리던 장애를 찾아 고쳤습니다",
@@ -38,12 +38,12 @@ const INCIDENTS: Incident[] = [
   {
     slug: "portfolio",
     title: "평가로 챗봇 결함 두 가지를 찾아 도구 선택 정확도를 0.533에서 0.867로 올렸습니다",
-    figure: { value: "0.533 → 0.867", label: "도구 선택 정확도, 골든셋 30문항" },
+    figure: { value: "0.533 → 0.867", label: "9월 30일 도구 선택 정확도, 골든셋 30문항" },
     steps: [
       "골든셋 30문항으로 처음 채점했을 때, 챗봇이 질문에 맞는 도구를 고른 비율이 0.533이었습니다.",
       "문항별로 다시 돌려 보니, AI가 프로젝트 이름을 짐작해 없는 값을 넣었고, 도구를 3번 부른 뒤에는 모은 근거가 있어도 답하지 않았습니다.",
       "도구 설명에 실제 프로젝트 이름 목록을 넣고, 호출 한도에 닿으면 모은 근거로만 답하게 했습니다. 맞게 답한 경우까지 틀렸다고 세던 채점 기준도 바로잡았습니다.",
-      "도구 선택 정확도가 0.867, 검색 정확도가 0.962가 되었습니다. 남은 오답도 문항별로 기록해 두었습니다.",
+      "9월 30일 측정에서 도구 선택 정확도가 0.867, 검색 정확도가 0.962가 되었습니다. 그 뒤 남은 오답을 문항별로 고치고 채점 기준도 다듬었습니다. 10월 7일 3회 평가에서 가장 낮은 값은 0.933이었습니다.",
     ],
   },
 ];
@@ -54,7 +54,7 @@ export default function TroubleLog({ projects, isProd }: { projects: Project[]; 
     <section id="troubleshooting" className="mx-auto max-w-7xl px-5 py-16">
       <h2 className="display text-3xl md:text-4xl">트러블슈팅</h2>
       <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/80">
-        고장이 난 뒤 원인을 찾아 고치고, 다시 나지 않게 막은 기록입니다. 숫자는 모두 측정한 값입니다.
+        문제가 생긴 뒤 원인을 찾아 고치고, 다시 생기지 않게 막은 기록입니다. 숫자는 모두 측정한 값입니다.
       </p>
       <ol className="mt-10 space-y-8">
         {INCIDENTS.map((it) => {
