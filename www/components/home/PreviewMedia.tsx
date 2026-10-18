@@ -23,7 +23,7 @@ export default function PreviewMedia({ poster, video, alt }: Props) {
   }, []);
 
   if (!video) {
-    return <img src={poster} alt={alt} loading="lazy" className="aspect-video w-full object-cover object-top" />;
+    return <img src={poster} alt={alt} loading="lazy" className="aspect-video w-full object-cover object-top max-sm:aspect-auto max-sm:h-full" />;
   }
   return (
     <video
@@ -35,7 +35,7 @@ export default function PreviewMedia({ poster, video, alt }: Props) {
       playsInline
       preload="none"
       aria-label={alt}
-      className="aspect-video w-full object-cover object-top"
+      className="aspect-video w-full object-cover object-top max-sm:aspect-auto max-sm:h-full"
     />
   );
 }

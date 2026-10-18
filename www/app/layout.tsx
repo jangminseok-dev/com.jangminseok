@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Barlow_Condensed } from "next/font/google";
 import localFont from "next/font/local";
 import ChatDock from "@/components/chat/ChatDock";
 import SiteAnalytics from "@/components/SiteAnalytics";
@@ -12,6 +13,9 @@ const pretendard = localFont({
   display: "swap",
 });
 
+// 실측 숫자와 날짜에만 쓰는 숫자 전용 글꼴 — 제목은 본문과 같은 Pretendard의 가장 굵은 굵기를 쓴다
+const numeral = Barlow_Condensed({ weight: ["600"], subsets: ["latin"], variable: "--font-num-src", display: "swap" });
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://jangminseok.com"),
   title: "장민석 포트폴리오",
@@ -23,7 +27,7 @@ const THEME_SCRIPT = `try{document.documentElement.dataset.theme=localStorage.ge
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" className={pretendard.variable} suppressHydrationWarning>
+    <html lang="ko" className={`${pretendard.variable} ${numeral.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>

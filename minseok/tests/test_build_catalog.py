@@ -136,8 +136,8 @@ def test_profile_becomes_sections_with_main_page_anchors(tmp_path):
     (tmp_path / "profile.yaml").write_text(yaml.safe_dump(PROFILE, allow_unicode=True), encoding="utf-8")
     profile = build(tmp_path)["profile"]
     by_anchor = {s["anchor"]: s for s in profile["sections"]}
-    assert list(by_anchor) == ["about", "skills", "requirements", "education", "contact"]
-    assert [s["number"] for s in profile["sections"]] == [1, 2, 3, 4, 5]
+    assert list(by_anchor) == ["about", "skills", "education", "contact"]
+    assert [s["number"] for s in profile["sections"]] == [1, 2, 3, 4]
     assert "골든셋부터" in by_anchor["about"]["text"]
     # 직접 쓴 기술과 교육에서만 배운 기술을 구분해 적는다 — 챗봇이 배운 기술을 써 본 기술로 말하지 않게
     assert "백엔드: Python (교육에서 학습: Java)" in by_anchor["skills"]["text"]

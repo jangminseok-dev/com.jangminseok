@@ -1,7 +1,28 @@
-import type { Profile } from "@/lib/content/schema";
+import SkillPicker from "@/components/home/SkillPicker";
+import type { PickerEvidence, PickerGroup } from "@/components/home/SkillPicker";
 import TechChip from "@/components/home/TechChip";
+import type { Profile, Project } from "@/lib/content/schema";
+import { projectHref } from "@/lib/site";
+import { skillEvidence } from "@/lib/skills";
 
-export default function SkillBoard({ skills, note }: { skills: Profile["skills"]; note: string }) {
+type SkillBoardProps = {
+  skills: Profile["skills"];
+  education: Profile["education"];
+  projects: Project[];
+  isProd: boolean;
+  note: string;
+};
+
+export default function SkillBoard({ skills, education, projects, isProd, note }: SkillBoardProps) {
+  const groups: PickerGroup[] = skills.map((g) => ({
+    group: g.group,
+    items: g.items.map((s) => {
+      const e = skillEvidence(s, projects, education);
+      const evidence: PickerEvidence =
+        e.kind === "projects" ? { kind: "projects", projects: e.projects.map((p) => ({ ...p, href: projectHref(p.slug, isProd) })) } : e;
+      return { name: s.name, chip: <TechChip name={s.name} icon={s.icon} dashed={s.learned} />, evidence };
+    }),
+  }));
   return (
     <div id="skills" className="glass rounded-3xl p-5 md:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -16,18 +37,7 @@ export default function SkillBoard({ skills, note }: { skills: Profile["skills"]
         </p>
       </div>
       <p className="mt-1 text-sm text-white/70">{note}</p>
-      <dl className="mt-5 space-y-4">
-        {skills.map((g) => (
-          <div key={g.group} className="grid grid-cols-1 gap-2 sm:grid-cols-[5.5rem_1fr]">
-            <dt className="pt-1.5 text-sm font-semibold text-white/70">{g.group}</dt>
-            <dd className="flex flex-wrap gap-2">
-              {g.items.map((s) => (
-                <TechChip key={s.name} name={s.name} icon={s.icon} dashed={s.learned} />
-              ))}
-            </dd>
-          </div>
-        ))}
-      </dl>
+      <SkillPicker groups={groups} />
     </div>
   );
 }

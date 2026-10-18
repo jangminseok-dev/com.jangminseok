@@ -88,7 +88,7 @@ export default function ChatDock() {
           </div>
         ) : null}
         {/* 밤하늘 배경에 묻히지 않도록 그라데이션 테두리와 빛 번짐을 준다. 입력 중에는 빛 번짐이 짙어진다 */}
-        <div className="rounded-full bg-linear-to-r from-brand via-brand-soft to-violet-400 p-[1.5px] shadow-[0_0_36px_rgb(49_130_246/0.45)] focus-within:shadow-[0_0_44px_rgb(49_130_246/0.75)]">
+        <div className="rounded-full bg-linear-to-r from-brand via-brand-soft to-amber-200 p-[1.5px] shadow-[0_0_36px_rgb(225_132_75/0.45)] focus-within:shadow-[0_0_44px_rgb(225_132_75/0.7)]">
           <form onSubmit={onSubmit} className="flex items-center gap-3 rounded-full bg-panel py-2 pl-5 pr-2 text-white backdrop-blur-xl">
             {/* 검색창이 아니라 챗봇임을 알리는 말풍선 */}
             <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-brand-soft" fill="none" stroke="currentColor" strokeWidth="2">
@@ -111,7 +111,7 @@ export default function ChatDock() {
               type="submit"
               disabled={state.busy}
               aria-label="보내기"
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand text-paper hover:opacity-90 disabled:opacity-50"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-soft text-night hover:opacity-90 disabled:opacity-50"
             >
               <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.2">
                 <path d="M5 12h14m-6-6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />

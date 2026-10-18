@@ -1,7 +1,7 @@
 slug: jbconnect
 order: 7
 title: JB Silver Connect
-tagline: 고객이 말이나 글로 AI 금융 도우미와 상담하면 번호표가 나오고, 상담 내용이 창구 직원 화면과 번호 호출 화면까지 이어지는 서비스입니다. JB금융그룹 Fin:AI Challenge에 낸 시연용 서비스입니다.
+tagline: 말이나 글로 AI 금융 도우미와 상담하면, 상담 요약과 번호표가 창구 직원 화면까지 이어집니다.
 accent: "#0ea5e9"
 period: { start: "2026-06-11", end: "2026-06-13" }
 team: { size: 4, role: "아이디어는 팀과 함께, 개발은 혼자 (백엔드와 화면 3개)" }

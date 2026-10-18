@@ -5,12 +5,15 @@
 
 @theme {
   --font-sans: var(--font-pretendard), system-ui, -apple-system, sans-serif;
+  /* 숫자 전용 글꼴 — 실측 숫자와 날짜에만 */
+  --font-num: var(--font-num-src), var(--font-pretendard), sans-serif;
 
   /* 메인 — 야경 배경 위 다크 글래스 */
   --color-night: #0b0d18;
-  --color-brand: #3182f6;
-  --color-brand-soft: #8ab4ff;
-  --color-brand-deep: #1b64da; /* 흰 글자 버튼 — 대비 5.4 (brand는 3.7로 기준 4.5 미달) */
+  /* 야경 사진 불빛에서 뽑은 색 — 사진의 밝고 채도 높은 픽셀 대부분이 주황 계열 */
+  --color-brand: #e1844b; /* 장식만(테두리, 빛 번짐) — 글자에는 쓰지 않는다 */
+  --color-brand-soft: #f7b763; /* 실측 숫자와 강조 글자 — night 위 대비 10.98 */
+  --color-brand-deep: #a14a12; /* 흰 글자를 올리는 면 — 대비 5.99 */
   --color-paper: #ffffff; /* 색 배경 위 글자 — 라이트 테마에서도 흰색 그대로 */
   --color-panel: rgb(14 16 30 / 0.92); /* 챗봇 입력창 */
 }
@@ -20,7 +23,7 @@
   color-scheme: light;
   --color-white: #191f28;
   --color-night: #f4f6fa;
-  --color-brand-soft: #1b64da;
+  --color-brand-soft: #9a5410; /* 밝은 배경 위 대비 5.32 */
   --color-panel: rgb(255 255 255 / 0.94);
 }
 
@@ -170,4 +173,16 @@ body {
   .float {
     animation: none;
   }
+}
+
+/* 제목 — 본문과 같은 Pretendard의 가장 굵은 굵기 */
+.display {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+.num {
+  font-family: var(--font-num);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
 }

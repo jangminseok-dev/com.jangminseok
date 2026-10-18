@@ -4,7 +4,7 @@ import type { Profile } from "@/lib/content/schema";
 export default function EducationList({ education }: { education: Profile["education"] }) {
   return (
     <section id="education" className="mx-auto max-w-7xl px-5 py-16">
-      <h2 className="text-2xl font-bold md:text-3xl">교육</h2>
+      <h2 className="display text-3xl md:text-4xl">교육</h2>
       <ul className="mt-8 space-y-4">
         {education.map((e) => (
           <li key={e.org} className="glass rounded-3xl p-6">

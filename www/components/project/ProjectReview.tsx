@@ -2,6 +2,7 @@ import TechChip from "@/components/home/TechChip";
 import { mediaUrl } from "@/lib/content/media";
 import type { Project, ProjectPage } from "@/lib/content/schema";
 import { stackIconSlug } from "@/lib/icons";
+import { pagePeriod } from "@/lib/period";
 
 // 프로젝트 소개 페이지 v2 — 한눈에, 주요 기능, 아키텍처, 맡은 일, 어려웠던 점, 회고 (서버 컴포넌트)
 // anchor: 챗봇 근거 링크와 요건 카드가 쓰는 섹션 번호 (lib/content/schema.ts SECTION_ANCHORS)
@@ -10,7 +11,7 @@ const SECTIONS = [
   { id: "features", anchor: "02", label: "주요 기능" },
   { id: "architecture", anchor: "03", label: "아키텍처" },
   { id: "role", anchor: "04", label: "맡은 일" },
-  { id: "troubles", anchor: "05", label: "어려웠던 점" },
+  { id: "troubles", anchor: "05", label: "트러블슈팅" },
   { id: "retro", anchor: "06", label: "회고" },
 ] as const;
 
@@ -89,7 +90,7 @@ function Overview({ project, mainHref }: Pick<Props, "project" | "mainHref">) {
           <p className="mt-3 leading-relaxed text-white/75">{page.overview.why}</p>
           <p className="mt-5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/70">
             <span>
-              {period.start} ~ {period.end ?? "진행 중"}
+              {pagePeriod(period, project.live)}
             </span>
             <span>{team.size === 1 ? "개인 프로젝트" : `${team.size}인 팀`}</span>
           </p>
@@ -260,7 +261,7 @@ const TROUBLE_PARTS = [
 
 function Troubles({ page }: { page: ProjectPage }) {
   return (
-    <Section id="troubles" title="어려웠던 점과 해결">
+    <Section id="troubles" title="트러블슈팅">
       <ol className="space-y-5">
         {page.troubles.map((t, i) => (
           <li key={t.title} className="glass rounded-3xl p-6">

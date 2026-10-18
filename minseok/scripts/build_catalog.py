@@ -66,7 +66,6 @@ def _profile(p: dict) -> dict:
                                *(f"{h['keyword']}: {h['text']}" for h in p["highlights"]))),
         ("skills", "기술 스택", _lines("프로젝트에서 직접 쓴 기술입니다. 괄호 안은 교육 과정에서만 배우고 프로젝트에는 쓰지 않은 기술입니다.",
                                    *map(skills, p["skills"]))),
-        ("requirements", "스킬 인벤토리", _lines(*(f"{r['label']}: {r['detail']}" for r in p["requirements"]))),
         ("education", "교육", _lines(*(f"{e['org']}, {e['course']} ({e['period']}). 배운 내용: "
                                        + ", ".join(t["name"] for t in e["topics"]) for e in p["education"]))),
         ("contact", "연락처", _lines(f"이메일: {links['email']}", f"GitHub: {links['github']}")),

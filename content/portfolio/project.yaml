@@ -1,9 +1,10 @@
 slug: portfolio
 order: 2
 title: jangminseok.com
-tagline: 지금 보고 계신 포트폴리오 사이트입니다. 프로젝트를 물으면 문서를 찾아 근거 링크와 함께 답하는 AI 챗봇을 붙였고, 그 답변을 평가 문항으로 채점해 점수를 공개합니다.
+tagline: 지금 보고 계신 사이트입니다. 도구를 골라 근거와 함께 답하는 AI 에이전트 챗봇을 붙였습니다.
 accent: "#8ab4ff"
 period: { start: "2026-09-29", end: null }
+live: true
 team: { size: 1, role: "1인 개발 (설계, 백엔드, 화면, 평가, 배포)" }
 stack: [Python 3.13, FastAPI, SQLAlchemy 2, PostgreSQL + pgvector, Gemini, MCP, Next.js 16, TypeScript, Vercel, Supabase, React 19, Tailwind CSS, import-linter, pg_trgm, GitHub Actions]
 languages: [Python, TypeScript]
