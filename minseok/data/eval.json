@@ -12,20 +12,8 @@
  },
  "model": "gemini-3.5-flash-lite",
  "keyword_backend": "trgm",
- "n": 30,
+ "n": 32,
  "runs": [
-  {
-   "run_at": "2026-10-08T09:44:47+00:00",
-   "metrics": {
-    "tool_selection": 0.9,
-    "arg_accuracy": 0.885,
-    "hit_at_5": 1.0,
-    "number_check": 1.0,
-    "refusal": 1.0,
-    "content": 0.9,
-    "register": 1.0
-   }
-  },
   {
    "run_at": "2026-10-08T10:17:56+00:00",
    "metrics": {
@@ -49,6 +37,18 @@
     "content": 0.9,
     "register": 1.0
    }
+  },
+  {
+   "run_at": "2026-10-19T02:33:31+00:00",
+   "metrics": {
+    "tool_selection": 0.938,
+    "arg_accuracy": 0.929,
+    "hit_at_5": 1.0,
+    "number_check": 1.0,
+    "refusal": 0.969,
+    "content": 0.864,
+    "register": 1.0
+   }
   }
  ],
  "metrics": {
@@ -56,8 +56,8 @@
   "arg_accuracy": 0.885,
   "hit_at_5": 1.0,
   "number_check": 1.0,
-  "refusal": 1.0,
-  "content": 0.9,
+  "refusal": 0.969,
+  "content": 0.864,
   "register": 1.0
  }
 }
