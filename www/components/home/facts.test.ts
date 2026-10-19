@@ -23,7 +23,7 @@ const cases = [
   ...STORIES.map((s) => ({ slug: s.slug, text: [s.title, ...s.rows.map((r) => r.text)].join(" ") })),
 ];
 
-describe("메인 트러블슈팅과 일하는 방식의 숫자", () => {
+describe("메인 트러블슈팅 구역과 학습과 평가 설계 구역의 숫자", () => {
   it.each(cases)("$slug 사례의 숫자는 그 프로젝트 원고에 있다", ({ slug, text }) => {
     const src = source(slug);
     expect(src).not.toBe("\n");

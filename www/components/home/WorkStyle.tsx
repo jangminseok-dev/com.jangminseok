@@ -1,7 +1,7 @@
 import type { Project } from "@/lib/content/schema";
 import { projectHref } from "@/lib/site";
 
-// 메인 "일하는 방식" 구역 — 처음 다룬 문제를 익힌 방법과 직접 설계한 평가 기준을 사례 하나씩으로 보인다
+// 메인 "학습과 평가 설계" 구역 — 처음 다룬 문제를 익힌 방법과 직접 설계한 평가 기준을 사례 하나씩으로 보인다
 // 문장은 각 프로젝트 page.yaml과 notes.md의 사실을 줄인 것. 숫자는 원고에 있는 값만 쓴다(facts.test.ts가 확인)
 type Story = {
   slug: string;
@@ -56,7 +56,7 @@ export default function WorkStyle({ projects, isProd }: { projects: Project[]; i
   const bySlug = new Map(projects.map((p) => [p.slug, p]));
   return (
     <section id="approach" className="mx-auto max-w-7xl px-5 py-16">
-      <h2 className="display text-3xl md:text-4xl">일하는 방식</h2>
+      <h2 className="display text-3xl md:text-4xl">학습과 평가 설계</h2>
       <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/80">
         처음 다룬 문제를 어떻게 익혔는지, 평가 기준을 어떻게 세웠는지 한 가지씩 적었습니다.
       </p>
