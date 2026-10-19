@@ -11,8 +11,8 @@ export const alt = "장민석 포트폴리오";
 // ImageResponse 기본 폰트에는 한글이 없다 — Pretendard(otf)를 직접 넣는다(woff2 미지원)
 const FONT_PATH = path.join(process.cwd(), "assets", "fonts", "Pretendard-Bold.otf");
 // globals.css의 --color-brand, --color-brand-soft와 같은 값
-const BRAND = "#3182f6";
-const BRAND_SOFT = "#8ab4ff";
+const BRAND = "#e1844b";
+const BRAND_SOFT = "#f7b763";
 // 제목이 "뒤에도" 뒤에서 두 줄로 나뉘는 너비(10/14 제목 기준, 렌더로 확인)
 const HEADLINE_MAX_WIDTH = 700;
 
