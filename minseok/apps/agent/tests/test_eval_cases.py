@@ -36,7 +36,7 @@ def test_every_case_file_loads_with_required_keys_and_section_refs():
             assert all(re.fullmatch(r"[a-z]+#0[1-6]", s) for s in c["expected_sources"]), (name, c["question"])
 
 
-def test_golden_set_stays_at_thirty_questions_without_conditional_checks():
-    # 공개 수치(이력서와 사이트가 인용하는 30문항)는 점검 세트를 붙여도 그대로여야 한다
+def test_golden_set_stays_at_thirty_two_questions_without_conditional_checks():
+    # 공개 수치(이력서와 사이트가 인용하는 골든셋)는 점검 세트를 붙여도 그대로여야 한다 — 10/19 30에서 32문항으로(10/7 공개 수치는 30문항 기준)
     golden = load_cases("golden")
-    assert len(golden) == 30 and not any("must_qualify" in c for c in golden)
+    assert len(golden) == 32 and not any("must_qualify" in c for c in golden)

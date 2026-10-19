@@ -1,5 +1,5 @@
 # 공고형 점검 세트 — 채용 담당자가 공고 낱말로 물을 만한 질문 (2026-10-08)
-# 공개 수치(골든셋 30문항, eval.json)와 따로 돌린다: python -m agent.eval.run --set recruiter
+# 공개 수치(골든셋, eval.json)와 따로 돌린다: python -m agent.eval.run --set recruiter
 # 형식은 골든셋과 같다. must_qualify는 답에 왼쪽 낱말이 나오면 오른쪽 표현 중 하나도 함께 나와야 한다는 뜻이다
 # (원고에 "(배포 전)"처럼 붙은 상태 표시를 빼고 끝난 일처럼 단정하지 않는지).
 

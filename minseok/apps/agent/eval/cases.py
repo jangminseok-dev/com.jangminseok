@@ -8,7 +8,7 @@ from pathlib import Path
 import yaml
 
 HERE = Path(__file__).resolve().parent
-PUBLISHED_SET = "golden"  # eval.json에 쌓는 묶음은 이것뿐 — 사이트와 이력서가 이 30문항의 수치를 인용한다
+PUBLISHED_SET = "golden"  # eval.json에 쌓는 묶음은 이것뿐 — 사이트와 이력서가 이 묶음의 수치를 인용한다(10/7 공개 수치는 30문항, 10/19부터 32문항)
 SETS = {"golden": HERE / "golden.yaml", "recruiter": HERE / "recruiter.yaml"}
 
 

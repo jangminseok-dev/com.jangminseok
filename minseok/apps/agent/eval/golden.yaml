@@ -1,5 +1,5 @@
-# 포트폴리오 챗봇 골든셋 — 30문항 (2026-09-30 초안, 사용자 검토 대상)
-# 구성: 단일 도구 15(search 7, get_project 5, find_by_skill 3), 두 도구 8, 거절 4, 수치 3
+# 포트폴리오 챗봇 골든셋 — 32문항 (2026-09-30 초안 30문항, 2026-10-19 끝에 2문항 추가 — 앞 번호는 그대로)
+# 구성: 단일 도구 17(search 9, get_project 5, find_by_skill 3), 두 도구 8, 거절 4, 수치 3
 # expected_sources는 반환 근거 상위 5개 중 하나라도 맞으면 적중. 번호는 소개 페이지 섹션(01 한눈에 ~ 06 회고). must_include는 답변에 반드시 들어가야 할 핵심 사실.
 
 # ── 단일 도구: search_portfolio (7) ──
@@ -183,3 +183,17 @@
   expected_sources: [localhostdaegu#05, localhostdaegu#03]
   must_refuse: false
   must_include: ["29"]
+
+# ── 2026-10-19 추가: 면접에서 나올 만한 질문 (2) ──
+- question: RedOceanMap의 로그인과 토큰 보안은 어떻게 설계했나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [redoceanmap#03, redoceanmap#04]
+  must_refuse: false
+  must_include: [[RS256, 인증 서버], 리프레시]
+- question: jangminseok.com 챗봇은 MCP로 어떻게 공개했고, 답변 품질은 어떻게 평가하나요?
+  expected_tools: [search_portfolio]
+  expected_args: {}
+  expected_sources: [portfolio#02, portfolio#03, portfolio#05, portfolio#01]
+  must_refuse: false
+  must_include: [MCP, 골든셋]
