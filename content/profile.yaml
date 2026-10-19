@@ -77,7 +77,7 @@ skills:
       - { name: Elasticsearch, icon: elasticsearch }
       - { name: Supabase, icon: supabase }
       - { name: Neon, icon: neon }
-      - { name: Neo4j, icon: neo4j, learned: true }
+      - { name: Neo4j, icon: neo4j }
       - { name: Oracle DB, icon: oracle, learned: true }
   - group: AI와 에이전트
     items:

@@ -68,6 +68,7 @@ const STACK_ICON: Record<string, string> = {
   pydantic: "pydantic",
   postgresql: "postgresql",
   redis: "redis",
+  neo4j: "neo4j",
   elasticsearch: "elasticsearch",
   ollama: "ollama",
   gemini: "googlegemini",
