@@ -15,18 +15,6 @@
  "n": 32,
  "runs": [
   {
-   "run_at": "2026-10-08T10:25:34+00:00",
-   "metrics": {
-    "tool_selection": 0.9,
-    "arg_accuracy": 0.885,
-    "hit_at_5": 1.0,
-    "number_check": 1.0,
-    "refusal": 1.0,
-    "content": 0.9,
-    "register": 1.0
-   }
-  },
-  {
    "run_at": "2026-10-19T02:33:31+00:00",
    "metrics": {
     "tool_selection": 0.938,
@@ -49,11 +37,23 @@
     "content": 0.955,
     "register": 1.0
    }
+  },
+  {
+   "run_at": "2026-10-21T01:05:08+00:00",
+   "metrics": {
+    "tool_selection": 0.906,
+    "arg_accuracy": 0.893,
+    "hit_at_5": 1.0,
+    "number_check": 1.0,
+    "refusal": 0.969,
+    "content": 0.909,
+    "register": 1.0
+   }
   }
  ],
  "metrics": {
-  "tool_selection": 0.9,
-  "arg_accuracy": 0.885,
+  "tool_selection": 0.906,
+  "arg_accuracy": 0.893,
   "hit_at_5": 1.0,
   "number_check": 1.0,
   "refusal": 0.969,
