@@ -85,7 +85,8 @@ role:
     - 운영 서버 구성과 CI
 
 troubles:
-  - title: 아직 시작되지 않은 개인정보 마스킹 기능을 넘겨받아 완성하기
+  - title: "멈춰 있던 개인정보 마스킹을 넘겨받아, 놓친 개인정보를 0건으로 줄였습니다"
+    figure: { value: "3건 → 0건", label: "골든셋 마스킹 문항 10건에서 놓친 개인정보" }
     problem: 개인정보 마스킹은 원래 다른 팀원의 담당이었는데 착수 전 상태였습니다. 이 기능이 없으니 백엔드가 자막을 받지 못해 전체 흐름이 멈춰 있었습니다.
     solution: 제가 넘겨받았습니다. 일단 마스킹하지 않고 통과시키는 임시 방법은 보안 요구사항에 어긋나서 쓰지 않았습니다. 음성 인식은 숫자 사이의 하이픈과 띄어쓰기를 자주 무너뜨립니다. 그래서 구분 기호를 먼저 지우고, 한글로 읽은 숫자를 아라비아 숫자로 바꾼 뒤, 유형별 규칙으로 찾는 순서로 만들었습니다.
     detail: 만드는 도중에 "주소이고"의 "이"가 숫자 2로 바뀌어 번호가 뒤 글자까지 번지는 버그가 났습니다. 한글 숫자는 세 글자 이상 이어질 때만 숫자로 보도록 고쳤습니다.
@@ -94,7 +95,8 @@ troubles:
       - { label: 개인정보 탐지 규칙 (pii_detector.py), url: "https://github.com/SeongYuna/call.solidbob.cloud/blob/main/server/apps/masking/domain/services/pii_detector.py" }
       - { label: 한글 숫자 변환 (number_normalizer.py), url: "https://github.com/SeongYuna/call.solidbob.cloud/blob/main/server/apps/masking/domain/services/number_normalizer.py" }
       - { label: 담당을 넘겨받은 결정 기록, url: "https://github.com/SeongYuna/call.solidbob.cloud/blob/main/_project/decisions/019-C-5-%EB%8B%B4%EB%8B%B9-%EC%9D%B4%EA%B4%80.md" }
-  - title: 말하는 도중의 자막에서 번호 앞자리가 새던 문제
+  - title: "말하는 도중의 자막에 번호가 새던 문제를, 그 자막만 넓게 가려 막았습니다"
+    figure: { value: "6건 중 5건", label: "번호 앞자리가 보이던 운영 표본", before: true }
     problem: 운영 표본 6건 중 5건에서, 말하는 도중에 뜨는 자막에 카드번호와 전화번호의 앞자리가 그대로 보였습니다.
     cause: 마스킹 규칙은 완성된 번호만 찾습니다. 아직 말하고 있는 7~8자리 숫자는 어느 규칙에도 맞지 않았습니다.
     solution: 완성본 규칙을 넓히면 금액이나 호수까지 마스킹됩니다. 그래서 말하는 도중의 자막에만 "세 자리 이상 숫자는 모두 가림"을 따로 얹었습니다. 이 자막은 곧 완성본으로 바뀌기 때문에 조금 넓게 마스킹해도 잃는 것이 잠깐뿐입니다.
@@ -102,18 +104,18 @@ troubles:
     evidence:
       - { label: 말하는 도중 자막 숫자 마스킹 (interim_digit_guard.py), url: "https://github.com/SeongYuna/call.solidbob.cloud/blob/main/server/apps/masking/domain/services/interim_digit_guard.py" }
       - { label: 숫자를 전부 마스킹하기로 한 결정 기록, url: "https://github.com/SeongYuna/call.solidbob.cloud/blob/main/_project/decisions/324-C-5-%EC%A4%91%EA%B0%84-%EC%9E%90%EB%A7%89%EC%9D%80-3%EC%9E%90%EB%A6%AC-%EC%9D%B4%EC%83%81-%EC%88%AB%EC%9E%90%EB%A5%BC-%EC%A0%84%EB%B6%80-%EA%B0%80%EB%A6%B0%EB%8B%A4.md" }
-  - title: "\"측정 불가\"만 나오던 평가를 숫자로 바꾸기"
+  - title: "\"측정 불가\"만 나오던 평가를 기능에 연결해, 모든 수치가 기록으로 남게 했습니다"
     problem: 기능은 모두 만들었는데 평가 도구는 "측정 불가"만 보고했고, 결과도 화면에 찍히고 사라졌습니다.
     cause: 평가 스크립트에 실제 기능이 연결되어 있지 않았고, 결과를 저장하는 코드도 없었습니다.
     solution: 개인정보 마스킹과 서류 판정을 평가 도구에 연결했습니다. 이것이 프로젝트의 첫 통합 측정이었습니다. 결과는 DB에 남기되 여러 번 돌리면 가장 낮은 값만 적고, 아직 없는 기능은 0점으로 적지 않는다는 규칙을 정했습니다. 고쳤던 버그를 일부러 되돌려 점수가 떨어지는 것을 보고, 측정 장치가 제대로 도는지도 확인했습니다.
     result: 그 뒤로 모든 수치가 실행 번호, 코드 버전, 표본 수와 함께 남습니다. 검색 정확도 0.971도 팀원이 이 기록 체계로 측정한 값입니다.
     evidence:
       - { label: 실측 기록 (STATE.md), url: "https://github.com/SeongYuna/call.solidbob.cloud/blob/main/_project/STATE.md" }
-  - title: 저장이 실패해도 상담원 화면은 떠야 합니다
+  - title: "저장이 실패해도 상담원 화면은 뜨도록, 경로마다 다르던 동작을 하나로 정했습니다"
     problem: DB 저장이 실패했을 때 경로마다 동작이 달랐습니다. 문서 추천 경로는 오류를 내서, 저장 실패 때문에 상담원 화면의 추천 카드까지 사라졌습니다.
     solution: 규칙 하나로 정리했습니다. 결과가 상담원 화면에 나가는 경로는 저장이 실패해도 결과를 보여 주고 경고 로그만 남깁니다. 통화 기록 저장처럼 저장 자체가 목적인 경로는 오류를 그대로 냅니다. 조용히 성공이라고 답하면 저장된 줄 알고 넘어가기 때문입니다.
     result: 저장 장애가 상담 화면 장애로 번지지 않습니다. 지금은 실패가 경고 로그로 남으므로, 다음 단계는 이 경고를 알림으로 받아 바로 알아채게 하는 것입니다.
-  - title: 운영 서버가 늦어져 화면과 백엔드를 합칠 곳이 없었습니다
+  - title: "운영 서버가 준비되기 전에 임시 주소를 열어, 화면이 실제 백엔드와 연동하게 했습니다"
     problem: 운영 서버 준비가 늦어지면서, 화면을 만드는 팀원이 실제 백엔드 응답을 받아 볼 곳이 없었습니다. 운영 서버에는 검색할 문서도 아직 들어 있지 않았습니다. 이대로면 화면은 가짜 데이터로만 만들어야 했습니다.
     solution: 제 컴퓨터에서 도는 백엔드를 ngrok 터널로 열어 임시 인터넷 주소를 만들었습니다. 열기 전에 직접 호출해 보니 통화를 만드는 주소가 없고, 데이터베이스 주소가 반영되지 않고, 추천 요청이 오류를 내는 세 곳이 막혀 있어 먼저 고쳤습니다. 화면이 브라우저에서 바로 부를 수 있게 접속 허용 주소(CORS)를 열고, 주소와 호출 순서는 인계 문서로 정리해 넘겼습니다.
     detail: 화면은 값을 문자열로 받게 되어 있는데 백엔드는 숫자를 보내 어긋나는 곳이 있었습니다. 팀과 합의한 대로 백엔드 응답을 모두 문자열로 맞추고, 테스트로 고정했습니다.

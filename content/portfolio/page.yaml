@@ -63,18 +63,20 @@ role:
     - 테스트와 구조 규칙 검사는 push할 때마다 CI에서 돌아서, 깨진 코드가 바로 드러납니다.
 
 troubles:
-  - title: 무료 AI 한도가 하루 20번뿐이던 문제
+  - title: "무료 한도가 큰 AI 모델로 바꿔, 하루에 받을 수 있는 질문을 늘렸습니다"
+    figure: { value: "20번 → 500번", label: "하루 무료 AI 호출 한도" }
     problem: 처음 고른 Gemini 모델은 무료로 하루 20번만 부를 수 있었습니다. 질문 하나에 AI를 2~4번 부르기 때문에 하루에 받을 수 있는 질문이 5~10개뿐이었습니다.
     solution: 무료 한도 표를 비교해 하루 500번까지 쓸 수 있는 경량 모델(Gemini 3.5 Flash Lite)로 바꿨습니다. 바꾸기 전에 이 모델도 도구를 제대로 고르는지 먼저 시험했습니다.
     result: 하루에 받을 수 있는 질문이 약 125~250개로 늘었습니다. 질문 하나에 2~4번 부른다고 보고 계산한 값입니다. 경량 모델이라 조회한 사실을 답에서 빠뜨리는 경우가 있어, 평가에서 내용 점수로 따로 추적합니다.
-  - title: 두 번째 도구 호출부터 AI가 오류를 내던 문제
+  - title: "두 번째 도구 호출부터 나던 오류를, 생각 서명을 돌려주게 해 고쳤습니다"
     problem: 로컬에서 챗봇을 처음 돌렸을 때, AI가 도구를 한 번 부른 뒤 다음 요청에서 400 오류가 났습니다.
     cause: Gemini 3 계열은 도구를 부를 때 생각 서명(thought signature)이라는 값을 함께 주고, 다음 요청에서 그 값을 그대로 돌려받아야 합니다.
     solution: 대화 기록에 생각 서명을 담아 다음 요청 때 돌려주도록 고쳤습니다. 이 동작을 확인하는 테스트를 먼저 쓰고 고쳤습니다.
     result: 도구를 여러 번 이어서 부르는 질문도 정상으로 답합니다.
     evidence:
       - { label: Gemini 연결 코드 (gemini_llm.py), url: "https://github.com/jangminseok-dev/com.jangminseok/blob/main/minseok/apps/agent/adapter/outbound/gemini_llm.py" }
-  - title: 평가로 찾아낸 챗봇 결함 두 가지
+  - title: "평가로 찾은 챗봇 결함을 고쳐, 도구 선택 정확도를 0.533에서 0.933으로 올렸습니다"
+    figure: { value: "0.533 → 0.933", label: "골든셋 30문항 첫 채점과 10월 7일 3회 평가 최저값 (9월 30일 0.867)" }
     problem: 골든셋 30문항으로 처음 채점했을 때 도구 선택 정확도가 0.533이었습니다.
     cause: 문항별로 다시 돌려 보니 두 가지였습니다. AI가 프로젝트 이름을 짐작해 없는 값(localhost-daegu 등)을 넣고 있었고, 도구를 3번 부른 뒤에는 모은 근거가 있어도 답하지 않고 거절했습니다.
     solution: 도구 설명에 실제 프로젝트 이름 목록을 넣어 짐작할 필요가 없게 했습니다. 도구 호출 한도에 닿으면 도구 없이 지금까지 모은 근거로만 답하게 했습니다. 채점 기준도 한 가지 바로잡았습니다. 필요한 도구에 하나를 더 불러 맞게 답한 경우까지 틀렸다고 세고 있었습니다.
@@ -82,7 +84,8 @@ troubles:
     evidence:
       - { label: 골든셋 30문항 (golden.yaml), url: "https://github.com/jangminseok-dev/com.jangminseok/blob/main/minseok/apps/agent/eval/golden.yaml" }
       - { label: 평가 결과 (eval.json), url: "https://github.com/jangminseok-dev/com.jangminseok/blob/main/minseok/data/eval.json" }
-  - title: 키워드 검색 방식을 측정해서 고르기
+  - title: "더 좋다고 알려진 PGroonga를 직접 측정해 보고, 바꾸지 않았습니다"
+    figure: { value: "0.846 대 0.808", label: "첫 측정에서 pg_trgm과 PGroonga의 검색 정확도" }
     problem: 한국어 키워드 검색에는 전문 검색 확장인 PGroonga가 더 좋다고 알려져 있어, 처음 쓴 pg_trgm을 바꿔야 할지 정해야 했습니다.
     solution: 두 방식의 차이는 키워드 검색 부분뿐이라, AI 없이 검색만으로 같은 골든셋 26문항을 돌려 비교했습니다. 미리 "0.03 이상 높을 때만 바꾼다"는 기준을 정해 두었습니다.
     result: pg_trgm이 0.846, PGroonga가 0.808이라 바꾸지 않았습니다. 그 뒤 소개 페이지를 새로 쓰고 다시 측정하니 두 방식 모두 0.923으로 같아 그대로 두었습니다. 문항 수가 적어 차이 자체를 확신하기는 어렵다는 점도 함께 기록했습니다.

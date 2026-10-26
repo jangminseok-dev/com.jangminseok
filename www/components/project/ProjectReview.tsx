@@ -1,4 +1,5 @@
 import TechChip from "@/components/home/TechChip";
+import TroubleFigure from "@/components/home/TroubleFigure";
 import { mediaUrl } from "@/lib/content/media";
 import type { Project, ProjectPage } from "@/lib/content/schema";
 import { stackIconSlug } from "@/lib/icons";
@@ -263,25 +264,31 @@ function Troubles({ page }: { page: ProjectPage }) {
   return (
     <Section id="troubles" title="트러블슈팅">
       <ol className="space-y-5">
-        {page.troubles.map((t, i) => (
-          <li key={t.title} className="glass rounded-3xl p-6">
-            <h3 className="text-lg font-bold">
-              <span className="mr-2 text-accent-ink">{i + 1}.</span>
-              {t.title}
-            </h3>
-            <dl className="mt-4 space-y-3">
+        {page.troubles.map((t) => (
+          <li key={t.title} className="glass rounded-3xl p-6 md:p-8">
+            {/* 메인 트러블슈팅과 같은 머리 — 결과를 말하는 제목과 대표 숫자만 훑어도 무엇을 해냈는지 보이게 */}
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-8">
+              <h3 className="max-w-3xl text-xl font-bold leading-snug md:text-2xl">{t.title}</h3>
+              {t.figure ? <TroubleFigure figure={t.figure} tone="text-accent-ink" className="shrink-0 md:max-w-xs md:text-right" /> : null}
+            </div>
+            <dl className="mt-6 space-y-3 border-t border-white/10 pt-6">
               {TROUBLE_PARTS.map(([key, label]) =>
                 t[key] ? (
                   <div key={key} className="grid grid-cols-1 gap-1 sm:grid-cols-[4rem_1fr]">
                     <dt className={`text-sm font-semibold ${key === "result" ? "text-accent-ink" : "text-white/70"}`}>
                       {label}
                     </dt>
-                    <dd className="leading-relaxed text-white/85">{t[key]}</dd>
+                    <dd className={`leading-relaxed ${key === "result" ? "font-medium text-white" : "text-white/85"}`}>{t[key]}</dd>
                   </div>
                 ) : null,
               )}
             </dl>
-            {t.detail ? <p className="mt-4 rounded-xl bg-white/5 p-3 text-sm leading-relaxed text-white/70">{t.detail}</p> : null}
+            {t.detail ? (
+              <div className="mt-5 rounded-2xl bg-white/5 p-4">
+                <p className="text-sm font-semibold text-white/70">더 자세히</p>
+                <p className="mt-1.5 leading-relaxed text-white/80">{t.detail}</p>
+              </div>
+            ) : null}
             {t.evidence.length ? (
               <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
                 <span className="text-white/70">코드로 확인</span>

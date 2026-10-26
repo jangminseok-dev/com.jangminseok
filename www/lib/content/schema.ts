@@ -103,6 +103,8 @@ export const ProjectPageSchema = z.strictObject({
     .array(
       z.strictObject({
         title: text,
+        // 제목 옆에 크게 보이는 대표 숫자 — 이 사례 본문에 있는 값만 쓴다. before: 고치기 전의 실패 숫자(성과 숫자와 구분해 보인다)
+        figure: z.strictObject({ value: text, label: text, before: z.boolean().default(false) }).optional(),
         problem: text,
         cause: text.optional(),
         solution: text,

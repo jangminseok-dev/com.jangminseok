@@ -1,6 +1,7 @@
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { loadProjectPage } from "@/lib/content/load";
+import { PROJECT_SLUGS } from "@/lib/slugs";
 
 const CONTENT = path.resolve(import.meta.dirname, "..", "..", "..", "content");
 
@@ -53,5 +54,18 @@ describe("모든 소개 페이지 원고", () => {
     const slugs = fs.readdirSync(CONTENT).filter((d) => fs.existsSync(path.join(CONTENT, d, "page.yaml")));
     expect(slugs.length).toBeGreaterThan(0);
     for (const slug of slugs) expect(loadProjectPage(CONTENT, slug, readBannedTerms(CONTENT)), slug).not.toBeNull();
+  });
+});
+
+describe("트러블슈팅 제목과 대표 숫자", () => {
+  // 제목과 대표 숫자의 숫자는 그 사례 본문(문제, 원인, 해결, 더 자세히, 결과)에 있는 값이어야 한다 — 실측 기록이 있는 수치만 싣는 규칙
+  const numbers = (s: string) => s.match(/\d[\d,.]*\d|\d/g) ?? [];
+  it.each(PROJECT_SLUGS)("%s", (slug) => {
+    const page = loadProjectPage(CONTENT, slug, []);
+    for (const t of page?.troubles ?? []) {
+      const body = [t.problem, t.cause, t.solution, t.detail, t.result].join(" ");
+      const head = [t.title, t.figure?.value, t.figure?.label].join(" ");
+      expect(numbers(head).filter((n) => !body.includes(n)), t.title).toEqual([]);
+    }
   });
 });

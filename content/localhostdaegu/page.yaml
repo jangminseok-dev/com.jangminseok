@@ -71,7 +71,7 @@ role:
     - AI가 쓴 코드는 자동 테스트로 확인했습니다. 백엔드 603개, 프론트엔드 226개 테스트와 타입 검사를 통과해야 했고, 화면 흐름은 브라우저 자동 테스트로 끝까지 돌려 봤습니다.
 
 troubles:
-  - title: 3명이 5일 안에 부딪히지 않고 나눠 만들기
+  - title: "기능 하나를 한 사람이 끝까지 맡게 나눠, 네 기능을 기한 안에 모두 반영했습니다"
     problem: 3명이 약 5일 안에 기능을 끝내야 했습니다. 화면 담당과 서버 담당으로 나누면 서로를 기다리고, 같은 파일을 동시에 고쳐 충돌이 날 수 있었습니다.
     solution: 구현 전에 API 계약부터 정했습니다. 분석 요청에 연도를 받는 칸, 계산에 쓴 가정, 지표의 분모와 기간을 담을 칸입니다. 그다음 기능 하나를 한 팀원이 서버부터 화면까지 맡게 나눴습니다. 공용 파일은 추가만 허용했고, 같은 분석 API를 건드리는 두 기능은 한 사람에게 맡겼습니다.
     detail: 나누기 전에 백엔드 460개 파일, 약 13,600줄을 세 영역으로 나눠 AI 리뷰어 셋이 동시에 리뷰하게 했습니다. 팀이 함께 한 작업입니다. 세 영역 모두 치명적 결함 없이 고친 뒤 머지하라는 판정이 나왔고, 수정을 반영해 main에 머지한 지점에서 모두가 출발했습니다.
@@ -80,7 +80,8 @@ troubles:
       - { label: 팀 분담과 인수인계 (handoff.md), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/docs/handoff.md" }
       - { label: 최종 리뷰와 역할 분담 기록, url: "https://github.com/localhostdaegu/053.localhostdaegu.cloud/blob/main/_posts/2026-09-18-final-review-team-split.md" }
       - { label: 결정 기록 (decisions.md), url: "https://github.com/localhostdaegu/053.localhostdaegu.cloud/blob/main/decisions.md" }
-  - title: AI가 표 위의 숫자를 두고 "수치가 없다"고 쓰던 문제
+  - title: "표 위의 숫자를 \"없다\"고 쓰던 AI 문단이, 숫자를 프롬프트에 싣자 사라졌습니다"
+    figure: { value: "10명 중 10명", label: "숫자가 없다고 쓴 가상 고객 상담자료", before: true }
     problem: 운영 주소에서 가상 고객 10명을 돌렸더니, 10명 모두의 상담자료 첫 문단이 바로 위 표에 있는 숫자를 두고 수치가 없다고 썼습니다.
     cause: AI에게 보내는 프롬프트에는 "수치는 표에 있다"고만 적고 실제 숫자는 싣지 않았습니다. AI는 보이지 않는 숫자를 없다고 판단했습니다.
     solution: 계획의 숫자를 프롬프트에 그대로 싣고, 숫자를 다시 계산하거나 없다고 쓰지 말라고 명시했습니다. 금액과 표는 코드가 먼저 보내고 AI는 설명 문단만 쓴다는 원칙은 처음 정한 대로 지켰습니다. 가상 고객 테스트와 이 수정은 팀원이 맡았습니다.
@@ -90,14 +91,16 @@ troubles:
       - { label: 상담자료 문장과 프롬프트 (report_text.py), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/backend/apps/analysis/domain/report_text.py" }
       - { label: 재발 방지 테스트 (test_analysis_sections.py), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/backend/tests/test_analysis_sections.py" }
       - { label: 가상 고객 테스트 기록, url: "https://github.com/localhostdaegu/053.localhostdaegu.cloud/blob/main/_posts/2026-09-19-deploy-persona-metrics.md" }
-  - title: 돈을 들이지 않는 배포에서 스트리밍 지키기
+  - title: "배포 조건을 먼저 정해, 돈을 들이지 않는 배포에서도 AI 문단이 끊기지 않고 옵니다"
+    figure: { value: "1.4초", label: "운영 주소에서 첫 AI 문단이 도착한 시간" }
     problem: 대회 예산이 없었고 GPU는 로컬 컴퓨터 한 대뿐이었습니다. 프록시를 거치면 버퍼링 때문에 조금씩 보내는 AI 문단이 한꺼번에 도착할 수도 있었습니다.
     solution: 화면은 Vercel에 두고, 서버는 로컬 GPU 컴퓨터를 Cloudflare Tunnel로 공개하는 구조로 정했습니다. 서버가 프록시 버퍼링을 끄는 헤더를 보내고, 서버 프로세스는 1개로 고정하고, 접속을 허용할 화면 주소(CORS)는 환경변수로 받는 것을 배포 조건으로 문서에 적었습니다. 실제 배포 실행은 팀원이 맡았습니다.
     result: 운영 주소에서 첫 응답이 0.2초, 첫 AI 문단이 1.4초 만에 도착하고 이후 순서대로 이어지는 것을 확인했습니다. 다만 컴퓨터 한 대에 기대는 구조라 그 컴퓨터가 꺼지면 서비스도 멈춥니다.
     evidence:
       - { label: 배포 런북 (deploy-runbook.md), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/docs/deploy-runbook.md" }
       - { label: 운영 구성 문서 (architecture.md), url: "https://github.com/localhostdaegu/053.localhostdaegu.cloud/blob/main/docs/architecture.md" }
-  - title: 위험 점수가 폐업 확률처럼 읽히던 문제
+  - title: "폐업 확률처럼 읽히던 위험 점수를 대구 142개 동 가운데 순위로 바꿨습니다"
+    figure: { value: "182건 중 137건", label: "한 동네의 2025년 카페 폐업 기록 중 개업 30일 안에 끝난 기록" }
     problem: 처음 화면은 동네마다 0점에서 100점 사이의 위험 점수를 보여 줬습니다. 80점은 80% 확률로 망한다는 뜻으로 읽힐 수 있어, 은행 상담자료에 쓰기에는 위험했습니다.
     cause: 이 점수는 폐업률, 점포 수, 점포 증감률이 다른 동에 비해 얼마나 높은지를 4 대 4 대 2로 섞은 값입니다. 점포가 늘어도 점수가 오르기 때문에 실패 확률로 읽을 수 있는 값이 아니었습니다.
     solution: 점수를 대구 142개 동 가운데 몇 번째인지로 보여 주고, 실패 확률이 아니라는 문장을 화면에 붙였습니다. 데이터를 얼마나 단정적으로 표현할지에 대한 원칙은 제가 정했고, 화면 구현은 팀원이 맡았습니다.
@@ -107,7 +110,7 @@ troubles:
       - { label: 상대 순위 위험 카드 (risk-card.tsx), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/frontend/src/features/map-explorer/components/risk-card.tsx" }
       - { label: 30일 이내 종료 기준 (short_lived.py), url: "https://github.com/localhostdaegu/cloud.localhostdaegu/blob/main/backend/apps/metric/domain/short_lived.py" }
       - { label: 결정 기록 (decisions.md), url: "https://github.com/localhostdaegu/053.localhostdaegu.cloud/blob/main/decisions.md" }
-  - title: 외부 API 키가 서버 로그에 남은 일
+  - title: "외부 API 키가 로그에 남던 오류 메시지를 고치고, 키를 재발급했습니다"
     problem: 공공데이터 수집이 실패했을 때 외부 API 키 하나가 서버 로그에 남았습니다. 로그 파일은 저장소에 올리지 않아 공개되지는 않았습니다.
     cause: 외부 API는 키를 요청 주소에 담아 받습니다. 수집 실패 오류 메시지에 그 주소가 통째로 적혔습니다.
     solution: 모든 외부 연동에서 오류를 상태 코드와 경로만 남긴 오류로 바꿔 올리게 고쳤습니다. 해당 키는 재발급했습니다. 외부 API 키 관리는 제가 맡았습니다.

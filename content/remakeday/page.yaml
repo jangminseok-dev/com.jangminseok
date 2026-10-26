@@ -75,7 +75,8 @@ role:
     - 규칙 추천 순위를 확인하는 시험 문장 30개는 AI 에이전트가 초안을 썼습니다. 그대로 믿지 않고 팀원이 검수한 22문장으로 다시 측정해, 결과가 유지되는지 확인했습니다.
 
 troubles:
-  - title: 정답을 맞혀도 점수가 낮던 채점
+  - title: "정답을 맞혀도 낮던 점수의 원인을 채점 러너로 좁혔습니다"
+    figure: { value: "65.3점 → 100점", label: "골든셋 정답형 답안 점수, 실제 플레이에서는 더 낮았습니다" }
     problem: 플레이테스트 8판에서 플레이어가 정답에 닿아도 점수가 21~42%에 머물렀습니다.
     cause: 플레이어의 주장 8개 가운데 유사도 상위 3개만 AI 채점관에게 넘기고 있었습니다. 정답 근거가 4위 아래로 밀리면 채점관은 그 문장을 아예 보지 못했습니다.
     solution: 골든셋의 정답형, 절반형, 오답형 답안을 게임 서버 없이 채점하는 러너를 만들어 원인을 좁혔습니다. 이어서 팀원들이 채점 방식을 고쳤습니다. 주장 8개를 모두 넘기고, 판정 기준을 글로 정하고, 채점 결과가 매번 같도록 무작위성을 없앴습니다(채점 온도 0).
@@ -85,7 +86,8 @@ troubles:
       - { label: 채점 캘리브레이션 러너 (run_scoring_calibration.py), url: "https://github.com/remakeday/com.remakeday/blob/main/backend/scripts/run_scoring_calibration.py" }
       - { label: 규칙 추천 순위 비교 러너 (run_rule_alternatives_eval.py), url: "https://github.com/remakeday/com.remakeday/blob/main/backend/scripts/run_rule_alternatives_eval.py" }
       - { label: 모델 평가 정본 (model_evaluation.md), url: "https://github.com/remakeday/com.remakeday/blob/main/docs/model_evaluation.md" }
-  - title: 이유는 맞게 쓰고 번호만 틀린 채점관
+  - title: "채점 249건을 전수 조사해, 번호를 하나 작게 적는 실수를 찾아 막았습니다"
+    figure: { value: "35% → 0.6%", label: "같은 249건을 다시 채점했을 때의 번호 오류 비율" }
     problem: 한 참가자의 결과 화면에서 그 참가자의 주장이 엉뚱한 문장으로 표시됐습니다. 기록을 보니 채점관은 이유 설명에서 2번 후보를 정확히 인용하고도 번호는 1로 적었습니다. 이 번호로 인정된 문장을 다음 회차에 고정하기 때문에 단순한 표시 오류가 아니었습니다.
     cause: 9월 9일부터 17일까지 저장된 채점 249건을 모두 살폈습니다. 인용이 있는 181건 중 38건이 인용과 다른 번호였고, 38건 모두 인용한 번호보다 하나 작았습니다.
     solution: 다시 시도하게 하는 방법은 쓰지 않았습니다. 채점 결과가 매번 같도록 설정해 두어서 같은 실수가 반복되기 때문입니다. 대신 근거 문장을 번호보다 먼저 옮겨 적게 하고, 그 문장이 정확히 한 후보와 일치하면 그 후보의 번호를 쓰도록 했습니다. 저는 전수 조사와 옛 방식, 새 방식의 재채점 비교를 맡았고, 채점 코드 수정은 팀원이 했습니다.
@@ -93,7 +95,8 @@ troubles:
     result: 같은 249건을 다시 채점한 비교에서 번호 오류는 옛 방식이 162건 중 56건(35%), 새 방식이 163건 중 1건(0.6%)이었습니다.
     evidence:
       - { label: 모델 평가 정본의 인용 보정 기록 (model_evaluation.md), url: "https://github.com/remakeday/com.remakeday/blob/main/docs/model_evaluation.md" }
-  - title: GPU 한 장에 두 모델 함께 올리기
+  - title: "파일 크기 대신 실제로 올려서 재고, 두 모델을 GPU 한 장에 함께 올렸습니다"
+    figure: { value: "12.42 GiB", label: "함께 올린 두 모델의 메모리 합계, 16GB GPU 한 장" }
     problem: 16GB GPU 한 장에 Core 모델과 NPC 모델이 동시에 올라가야 했습니다. 성능이 좋아도 함께 올라가지 못하면 쓸 수 없었습니다.
     cause: 처음에는 모델 파일 크기로 필요한 메모리를 추정했습니다. 그런데 한 후보는 파일이 8.95 GiB인데 실제로는 3.06 GiB만 차지해, 추정이 크게 빗나갔습니다.
     solution: 이후로는 실제로 올려서 측정한 값으로만 판단했습니다. NPC 모델을 먼저 올린 뒤 Core 후보를 올리고, 두 모델에 번갈아 요청을 보내며 요청마다 메모리 상태를 기록했습니다. 한 모델이 밀려나거나 일부가 CPU로 넘어가는지 확인하는 방식입니다. 형식 준수, 정답 누설, 응답 지연, 두 모델이 함께 올라가는지, 한 판 완주를 합격선으로 먼저 정하고 모든 후보를 같은 조건으로 걸렀습니다.
@@ -101,7 +104,8 @@ troubles:
     evidence:
       - { label: Core 선정 러너 (run_core_selection.py), url: "https://github.com/remakeday/com.remakeday/blob/main/backend/scripts/run_core_selection.py" }
       - { label: 실측 기록 (metrics.yml), url: "https://github.com/remakeday/com.remakeday/blob/main/docs/metrics.yml" }
-  - title: 심사 기간을 버티려고 외부 API로 옮기기
+  - title: "LLM 어댑터만 바꿔 끼워, 엔진을 건드리지 않고 외부 API로 옮겼습니다"
+    figure: { value: "0.461달러", label: "기록된 호출 92회로 센 한 판 비용" }
     problem: 로컬 서버는 집 회선, 정전, 재부팅이 곧 서비스 장애였습니다. 심사 기간에는 언제든 접속되는 서비스여야 했습니다.
     solution: 게임 엔진은 그대로 두고 LLM 어댑터만 바꿔 끼우도록 Anthropic 어댑터를 붙였습니다. 설정값 두 개로 로컬과 외부를 오가고, 문제가 생기면 같은 방법으로 되돌립니다.
     detail: 붙이는 과정에서 문제가 셋 나왔습니다. 라이브러리 버전 차이로 한 모델에 설정값을 보내는 인자가 사라져 호출이 실패했고, 다른 경로로 보내도록 고쳤습니다. 외부 API가 목록 최대 개수를 지키지 않아 계획을 다시 만드는 일이 생겼고, 엔진 쪽에서 앞부분만 남기도록 잘라 막았습니다. 응답 지연 합격 여부는 1회 측정과 3회 측정에서 결과가 뒤집혀, 지연은 합격으로 적지 않고 예외로 기록한 채 채택했습니다.
