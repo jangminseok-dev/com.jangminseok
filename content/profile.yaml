@@ -18,7 +18,7 @@ highlights:
     text: 로그인은 JWT(RS256)로 처리하고, 이미 쓴 리프레시 토큰이 다시 들어오면 탈취로 보고 그 사용자의 세션을 모두 끊습니다. 인증이 빠진 API는 테스트가 찾아냅니다. 개인정보는 검색과 저장 전에 먼저 마스킹합니다.
 education:
   - org: IBM x RedHat AI Transformation Academy (대한상공회의소, 하이미디어 강남 AI 캠퍼스)
-    course: AI 트랜스포메이션(AX) 과정 7기, Python부터 AI 서비스 설계, 배포, 운영까지 (2026년 10월 수료)
+    course: AI 트랜스포메이션(AX) 과정 7기, Python부터 AI 서비스 설계, 배포, 운영까지 (2026년 10월 27일 수료)
     period: 2026.04.29 ~ 2026.10.27
     topics:
       - { name: Python, icon: python }
