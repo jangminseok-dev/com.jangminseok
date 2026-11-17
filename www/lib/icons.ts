@@ -112,6 +112,8 @@ const STACK_ICON: Record<string, string> = {
   kanana: "kakao",
   koe5: "huggingface",
   "qwen3-embedding": "qwen",
+  "multilingual-e5-small": "huggingface",
+  onnx: "onnx",
 };
 
 export function stackIconSlug(name: string): string | null {

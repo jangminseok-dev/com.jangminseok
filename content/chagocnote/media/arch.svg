@@ -56,7 +56,7 @@
 
   <rect x="510" y="400" width="350" height="100" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
   <text x="685" y="434" fill="#fff" font-size="18" font-weight="700" text-anchor="middle">② API 서버</text>
-  <text x="685" y="460" fill="#9aa1ad" font-size="14" text-anchor="middle">매장, 고객, 방문 기록, 미디어, 알림장</text>
+  <text x="685" y="460" fill="#9aa1ad" font-size="14" text-anchor="middle">매장, 고객, 방문, 미디어, 알림장, 알림톡, 보호자, 검색, 서류</text>
   <text x="685" y="482" fill="#9aa1ad" font-size="14" text-anchor="middle">모듈끼리 직접 참조 금지 (자동 검사 6종)</text>
   <line x1="685" y1="370" x2="685" y2="396" stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)"/>
 
@@ -75,18 +75,29 @@
     <text x="1040" y="228" fill="#9aa1ad" font-size="14">원본, 표시용, 썸네일</text>
 
     <rect x="920" y="300" width="240" height="75" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
-    <text x="1040" y="332" fill="#fff" font-weight="700">PostgreSQL</text>
-    <text x="1040" y="356" fill="#9aa1ad" font-size="14">여러 매장이 함께 쓰는 DB</text>
+    <text x="1040" y="332" fill="#fff" font-weight="700">PostgreSQL + pgvector</text>
+    <text x="1040" y="356" fill="#9aa1ad" font-size="14">여러 매장이 함께 쓰는 DB, 검색 벡터</text>
 
-    <rect x="920" y="420" width="240" height="75" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
-    <text x="1040" y="452" fill="#fff" font-weight="700">Redis</text>
-    <text x="1040" y="476" fill="#9aa1ad" font-size="14">틀린 링크 횟수 제한</text>
+    <rect x="920" y="400" width="240" height="75" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2"/>
+    <text x="1040" y="432" fill="#fff" font-weight="700">Redis</text>
+    <text x="1040" y="456" fill="#9aa1ad" font-size="14">틀린 링크 횟수 제한</text>
+
+    <rect x="920" y="495" width="240" height="75" rx="14" fill="#0f1115" stroke="#f59e0b" stroke-width="2"/>
+    <text x="1040" y="527" fill="#fff" font-weight="700">임베딩 프로세스</text>
+    <text x="1040" y="551" fill="#9aa1ad" font-size="14">e5-small, ONNX, 외부 호출 없음</text>
   </g>
   <g stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)" fill="none">
     <path d="M860 228 C 890 228, 890 325, 916 325"/>
-    <path d="M860 440 C 890 440, 890 350, 916 350"/>
-    <path d="M860 460 C 890 460, 890 457, 916 457"/>
+    <path d="M860 430 C 890 430, 890 350, 916 350"/>
+    <path d="M860 445 C 890 445, 890 437, 916 437"/>
+    <path d="M860 460 C 890 460, 890 532, 916 532"/>
   </g>
+
+  <!-- 알림톡 -->
+  <rect x="290" y="440" width="160" height="80" rx="14" fill="#0f1115" stroke="#2a2f3a" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="370" y="474" fill="#fff" font-size="18" font-weight="700" text-anchor="middle">알림톡 업체</text>
+  <text x="370" y="498" fill="#9aa1ad" font-size="13" text-anchor="middle">개발에서는 가짜 발송</text>
+  <path d="M510 470 C 480 470, 480 480, 454 480" fill="none" stroke="#9aa1ad" stroke-width="2" marker-end="url(#a)"/>
 
   <text x="600" y="630" fill="#9aa1ad" font-size="16" text-anchor="middle">개발 환경은 Docker Compose로 한 번에 띄웁니다. 운영 배포 전이며 보호자 웹은 Vercel에 둘 예정입니다.</text>
 </svg>

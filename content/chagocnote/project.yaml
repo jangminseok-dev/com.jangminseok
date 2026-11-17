@@ -1,12 +1,12 @@
 slug: chagocnote
 order: 3
 title: 차곡노트
-tagline: 여러 매장이 함께 쓰는 반려동물 미용 관리 앱입니다. 보호자에게는 링크로 알림장을 보냅니다.
+tagline: 여러 매장이 함께 쓰는 반려동물 미용 관리 앱입니다. 보호자에게는 링크로 알림장과 서류를 보냅니다.
 accent: "#f59e0b"
 period: { start: "2026-09-20", end: null }
 team: { size: 1, role: "1인 개발 (설계, 백엔드, Flutter 앱, 웹, 인프라)" }
-stack: [Python 3.13, FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL, Flutter, Next.js 16, MinIO (S3 호환), Caddy, Docker Compose, TypeScript, import-linter, Redis, JWT, HMAC 서명, GitHub Actions]
+stack: [Python 3.13, FastAPI, SQLAlchemy 2 + Alembic, PostgreSQL + pgvector, ONNX Runtime, Flutter, Next.js 16, MinIO (S3 호환), Caddy, Docker Compose, TypeScript, import-linter, Redis, JWT, HMAC 서명, GitHub Actions]
 languages: [Python, Dart, TypeScript]
-tags: [멀티테넌시, Flutter, FastAPI]
+tags: [멀티테넌시, 임베딩 검색, Flutter]
 preview: { poster: media/preview-poster.webp, video: media/preview.mp4 }
 links: {}
