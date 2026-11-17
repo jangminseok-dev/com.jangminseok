@@ -2,7 +2,11 @@
 
 AI 서비스 개발자 장민석의 포트폴리오 사이트 저장소입니다.
 
-사이트: https://jangminseok.com
+사이트: https://jangminseok.com · 상태: 운영 중 · [![ci](https://github.com/jangminseok-dev/com.jangminseok/actions/workflows/ci.yml/badge.svg)](https://github.com/jangminseok-dev/com.jangminseok/actions/workflows/ci.yml)
+
+| 기간 | 인원 | 주요 기술 |
+| --- | --- | --- |
+| 2026.09 ~ 2026.10 | 1인 | Next.js 16, FastAPI, PostgreSQL(pgvector), Gemini |
 
 ## 이 사이트에서 볼 수 있는 것
 
@@ -35,7 +39,7 @@ AI 서비스 개발자 장민석의 포트폴리오 사이트 저장소입니다
 
 ## 답변 품질 평가
 
-직접 만든 골든셋 30문항으로 챗봇을 채점합니다. 알맞은 도구를 골랐는지, 정답 문서를 상위 5개 안에 찾았는지, 답에 핵심 사실이 들어갔는지, 무관한 질문을 거절했는지 봅니다.
+직접 만든 골든셋 32문항으로 챗봇을 채점합니다. 알맞은 도구를 골랐는지, 정답 문서를 상위 5개 안에 찾았는지, 답에 핵심 사실이 들어갔는지, 무관한 질문을 거절했는지 봅니다.
 
 - 골든셋: [`minseok/apps/agent/eval/golden.yaml`](minseok/apps/agent/eval/golden.yaml)
 - 채점 결과: [`minseok/data/eval.json`](minseok/data/eval.json)
